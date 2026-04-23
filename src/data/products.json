@@ -4,7 +4,7 @@
     "name": "Rio Mesh Chair",
     "category": "chair",
     "subCategory": "mesh-chair",
-    "price": 9000.0,
+    "price": 9999.0,
     "currency": "INR",
     "rating": 4.5,
     "description": "High-back mesh chair with advanced ergonomic features. Perfect for long working hours with breathable mesh material and adjustable components.",
@@ -64,7 +64,7 @@
     "name": "Orbit Mesh Chair",
     "category": "chair",
     "subCategory": "mesh-chair",
-    "price": 11000.0,
+    "price": 11999.0,
     "currency": "INR",
     "rating": 4.8,
     "description": "Premium mesh chair with advanced lumbar support and adjustable headrest. Designed for professionals who value comfort and productivity.",
@@ -115,7 +115,7 @@
     "name": "Atlas Mesh Chair",
     "category": "chair",
     "subCategory": "mesh-chair",
-    "price": 13000.0,
+    "price": 12999.0,
     "currency": "INR",
     "rating": 4.8,
     "description": "High-performance Atlas mesh chair with superior ergonomic design and premium build quality. Features enhanced breathability and maximum comfort for demanding work environments.",
@@ -162,11 +162,113 @@
     ]
   },
   {
+  "id": "chair-mesh-004",
+  "name": "Huju Mesh Chair",
+  "category": "chair",
+  "subCategory": "mesh-chair",
+  "price": 13999.0,
+  "currency": "INR",
+  "rating": 4.8,
+  "description": "High-performance Atlas mesh chair with superior ergonomic design and premium build quality. Features enhanced breathability and maximum comfort for demanding work environments.",
+  "features": [
+    "3D adjustable armrests",
+    "Synchro-tilt mechanism",
+    "Adjustable headrest",
+    "Premium mesh fabric",
+    "High-load capacity frame",
+    "Anti-fatigue lumbar curve"
+  ],
+  "images": [
+    "/images/products/chairs/mesh-chair/4 - Huju.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Sameer Malhotra",
+      "rating": 5,
+      "date": "2026-02-15",
+      "title": "Premium mesh chair worth the price!",
+      "comment": "The Atlas lives up to its name - strong and reliable. The mesh quality is superior and the ergonomic features are top-notch. Best investment for my home office!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Nidhi Agarwal",
+      "rating": 5,
+      "date": "2026-01-30",
+      "title": "Excellent for posture correction",
+      "comment": "My back pain has reduced significantly after using this chair. The adjustable headrest and lumbar support are perfectly positioned. Highly recommend!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Kunal Chatterjee",
+      "rating": 4,
+      "date": "2026-01-05",
+      "title": "Great chair, premium feel",
+      "comment": "Very comfortable and well-built. The breathability is excellent. Only minor issue is the assembly took longer than expected.",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-mesh-005",
+  "name": "Hujing Mesh Chair",
+  "category": "chair",
+  "subCategory": "mesh-chair",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.8,
+  "description": "Premium mesh chair with advanced lumbar support and adjustable headrest. Designed for professionals who value comfort and productivity.",
+  "features": [
+    "3D adjustable armrests",
+    "Synchro-tilt mechanism",
+    "Adjustable headrest",
+    "Premium mesh fabric",
+    "Ergonomic lumbar support",
+    "Height adjustable gas lift"
+  ],
+  "images": [
+    "/images/products/chairs/mesh-chair/5 - Hujing.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Vikram Singh",
+      "rating": 5,
+      "date": "2026-01-20",
+      "title": "Premium quality, premium comfort!",
+      "comment": "The 3D adjustable armrests are fantastic. I can position them exactly where I need. The headrest is a great addition for relaxing between tasks.",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Ananya Iyer",
+      "rating": 5,
+      "date": "2025-12-05",
+      "title": "Worth every rupee!",
+      "comment": "As a software developer, I needed a chair that could handle 12-hour days. This chair delivers! The synchro-tilt mechanism is smooth and the build quality is excellent.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Rahul Mehta",
+      "rating": 4,
+      "date": "2025-11-18",
+      "title": "Excellent chair, slight color difference",
+      "comment": "Chair quality is top-notch. Color was slightly different from the picture but still looks good. Very comfortable for long hours.",
+      "verified": true
+    }
+  ]
+},
+  {
     "id": "chair-leather-001",
     "name": "Velora Leather Chair",
     "category": "chair",
     "subCategory": "leather-chair",
-    "price": 24999.0,
+    "price": 10999.0,
     "currency": "INR",
     "rating": 4.7,
     "description": "Premium leather executive chair with superior comfort and style. Features plush cushioning and elegant design for professional environments.",
@@ -217,7 +319,7 @@
     "name": "Rider Leather Chair",
     "category": "chair",
     "subCategory": "leather-chair",
-    "price": 32999.0,
+    "price": 12999.0,
     "currency": "INR",
     "rating": 4.9,
     "description": "Luxurious high-back leather chair with extra padding and sophisticated design. Perfect for executive offices and boardrooms.",
@@ -277,7 +379,7 @@
     "name": "Nexor Leather Chair",
     "category": "chair",
     "subCategory": "leather-chair",
-    "price": 24999.0,
+    "price": 13999.0,
     "currency": "INR",
     "rating": 4.7,
     "description": "Sophisticated Nexor leather executive chair combining modern aesthetics with traditional comfort. Premium leather upholstery with ergonomic support for professional settings.",
@@ -323,6 +425,117 @@
       }
     ]
   },
+  {
+  "id": "chair-leather-004",
+  "name": "Vortex Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 14999.0,
+  "currency": "INR",
+  "rating": 4.9,
+  "description": "Luxurious high-back leather chair with extra padding and sophisticated design. Perfect for executive offices and boardrooms.",
+  "features": [
+    "Genuine leather upholstery",
+    "Extra cushioning",
+    "Tilt tension control",
+    "Polished aluminum base",
+    "Adjustable lumbar support",
+    "Executive high-back design"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/4 - Vortex.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Arjun Malhotra",
+      "rating": 5,
+      "date": "2026-01-28",
+      "title": "Ultimate luxury and comfort!",
+      "comment": "This is THE chair for executives. The extra cushioning is perfect, and the genuine leather smells amazing. Worth every penny!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Meera Krishnan",
+      "rating": 5,
+      "date": "2026-01-10",
+      "title": "Best purchase of 2026!",
+      "comment": "Absolutely love this chair! The tilt tension control is excellent and the polished aluminum base looks stunning. My colleagues are jealous!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Sanjay Verma",
+      "rating": 5,
+      "date": "2025-12-12",
+      "title": "Premium in every way",
+      "comment": "High-quality materials and impeccable craftsmanship. This chair transformed my home office into a professional workspace.",
+      "verified": true
+    },
+    {
+      "id": 4,
+      "author": "Pooja Agarwal",
+      "rating": 4,
+      "date": "2025-11-25",
+      "title": "Excellent, but heavy",
+      "comment": "Amazing chair with top-notch comfort. Only downside is it's quite heavy to move around, but that speaks to its solid construction.",
+      "verified": true
+    }
+  ]
+},
+  {
+  "id": "chair-leather-005",
+  "name": "Valerio Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.7,
+  "description": "Sophisticated Nexor leather executive chair combining modern aesthetics with traditional comfort. Premium leather upholstery with ergonomic support for professional settings.",
+  "features": [
+    "Premium leather upholstery",
+    "360° swivel",
+    "Height adjustment",
+    "Heavy-duty base",
+    "Modern aesthetic design",
+    "Ergonomic seat contour"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/5 - Valerio.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Rajeev Kapoor",
+      "rating": 5,
+      "date": "2026-02-12",
+      "title": "Sophisticated and comfortable!",
+      "comment": "The Nexor chair adds a touch of class to my office. The leather quality is excellent and the modern design fits perfectly with my workspace aesthetic.",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Shweta Bansal",
+      "rating": 4,
+      "date": "2026-01-18",
+      "title": "Good executive chair",
+      "comment": "Very comfortable for long hours. The swivel is smooth and height adjustment is easy. Would prefer slightly more padding on the armrests.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Vivek Rao",
+      "rating": 5,
+      "date": "2025-12-28",
+      "title": "Professional quality",
+      "comment": "Impressed with the build quality and comfort. The leather has a premium feel. Great value for the price!",
+      "verified": true
+    }
+  ]
+},
   {
     "id": "chair-recliner-001",
     "name": "Lumina Recliner Chair",
@@ -630,11 +843,368 @@
     ]
   },
   {
+  "id": "chair-fabric-004",
+  "name": "Pointer fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 13999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Stylish Pointer fabric chair featuring premium upholstery and contemporary design. Offers excellent comfort with durable fabric material and adjustable features.",
+  "features": [
+    "Premium fabric upholstery",
+    "Adjustable height",
+    "Comfortable padding",
+    "Modern design",
+    "Tilt tension control",
+    "Durable nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/4 - Pointer.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Siddharth Mishra",
+      "rating": 5,
+      "date": "2026-02-11",
+      "title": "Stylish and comfortable!",
+      "comment": "The contemporary design looks amazing in my office. The fabric is high-quality and the adjustable height works perfectly. Very satisfied!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Meghna Rao",
+      "rating": 4,
+      "date": "2026-01-25",
+      "title": "Great fabric chair",
+      "comment": "Premium upholstery feels great. Comfortable padding and modern design. Wish it had armrests but overall excellent value.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Aryan Verma",
+      "rating": 5,
+      "date": "2025-12-30",
+      "title": "Excellent quality and comfort",
+      "comment": "Better than expected! The fabric material is durable and the chair is very comfortable for long hours. Highly recommend!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-005",
+  "name": "Niyo fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Stylish Niyo fabric chair featuring premium upholstery and contemporary design. Offers excellent comfort with durable fabric material and adjustable features.",
+  "features": [
+    "Premium fabric upholstery",
+    "Adjustable height",
+    "Comfortable padding",
+    "Modern design",
+    "Tilt tension control",
+    "Durable nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/5 - Niyo.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Siddharth Mishra",
+      "rating": 5,
+      "date": "2026-02-11",
+      "title": "Stylish and comfortable!",
+      "comment": "The contemporary design looks amazing in my office. The fabric is high-quality and the adjustable height works perfectly. Very satisfied!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Meghna Rao",
+      "rating": 4,
+      "date": "2026-01-25",
+      "title": "Great fabric chair",
+      "comment": "Premium upholstery feels great. Comfortable padding and modern design. Wish it had armrests but overall excellent value.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Aryan Verma",
+      "rating": 5,
+      "date": "2025-12-30",
+      "title": "Excellent quality and comfort",
+      "comment": "Better than expected! The fabric material is durable and the chair is very comfortable for long hours. Highly recommend!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-006",
+  "name": "Luxor fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/6 - Luxor.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Priyanka Jain",
+      "rating": 5,
+      "date": "2026-02-10",
+      "title": "Soft and comfortable fabric chair!",
+      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Manish Khanna",
+      "rating": 4,
+      "date": "2026-01-22",
+      "title": "Great value for money",
+      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Anjali Deshmukh",
+      "rating": 5,
+      "date": "2025-12-18",
+      "title": "Perfect for my home office",
+      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-007",
+  "name": "Fabio Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/1 - Fabiolite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Priyanka Jain",
+      "rating": 5,
+      "date": "2026-02-10",
+      "title": "Soft and comfortable fabric chair!",
+      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Manish Khanna",
+      "rating": 4,
+      "date": "2026-01-22",
+      "title": "Great value for money",
+      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Anjali Deshmukh",
+      "rating": 5,
+      "date": "2025-12-18",
+      "title": "Perfect for my home office",
+      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-008",
+  "name": "Nexa Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/2 - Nexalite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Priyanka Jain",
+      "rating": 5,
+      "date": "2026-02-10",
+      "title": "Soft and comfortable fabric chair!",
+      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Manish Khanna",
+      "rating": 4,
+      "date": "2026-01-22",
+      "title": "Great value for money",
+      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Anjali Deshmukh",
+      "rating": 5,
+      "date": "2025-12-18",
+      "title": "Perfect for my home office",
+      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-009",
+  "name": "Casca Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/3 - Cascalite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Priyanka Jain",
+      "rating": 5,
+      "date": "2026-02-10",
+      "title": "Soft and comfortable fabric chair!",
+      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Manish Khanna",
+      "rating": 4,
+      "date": "2026-01-22",
+      "title": "Great value for money",
+      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Anjali Deshmukh",
+      "rating": 5,
+      "date": "2025-12-18",
+      "title": "Perfect for my home office",
+      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "verified": false
+    }
+  ]
+},
+  {
+  "id": "chair-fabric-0010",
+  "name": "Pointer Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/4 - Pointerlite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Priyanka Jain",
+      "rating": 5,
+      "date": "2026-02-10",
+      "title": "Soft and comfortable fabric chair!",
+      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Manish Khanna",
+      "rating": 4,
+      "date": "2026-01-22",
+      "title": "Great value for money",
+      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Anjali Deshmukh",
+      "rating": 5,
+      "date": "2025-12-18",
+      "title": "Perfect for my home office",
+      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "verified": false
+    }
+  ]
+},
+  {
     "id": "chair-gaming-001",
     "name": "Eclips Gaming Chair",
     "category": "chair",
     "subCategory": "gaming-chair",
-    "price": 9999.0,
+    "price": 10999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "High-performance Eclips gaming chair designed for gamers and enthusiasts. Features racing-style design with ergonomic support for extended gaming sessions.",
@@ -685,7 +1255,7 @@
     "name": "Phantom Gaming Chair",
     "category": "chair",
     "subCategory": "gaming-chair",
-    "price": 11999.0,
+    "price": 17999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Phantom gaming chair with advanced ergonomic features and sleek design. Built for comfort during marathon gaming sessions with professional-grade support.",
@@ -728,57 +1298,6 @@
         "title": "Excellent gaming chair",
         "comment": "Very comfortable and well-built. The 4D armrests are fantastic. Only wish it came in more color options.",
         "verified": true
-      }
-    ]
-  },
-  {
-    "id": "chair-gaming-003",
-    "name": "Vortex Gaming Chair",
-    "category": "chair",
-    "subCategory": "gaming-chair",
-    "price": 12999.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Elite Vortex gaming chair offering maximum comfort and style for serious gamers. Features superior padding, full recline capability, and RGB lighting compatibility.",
-    "features": [
-      "RGB lighting ready",
-      "Memory foam padding",
-      "Full recline",
-      "Adjustable neck pillow",
-      "Wide racing-style seat",
-      "Reinforced steel frame"
-    ],
-    "images": [
-      "/images/products/chairs/gaming-chair/3 - Vortex.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Yash Verma",
-        "rating": 5,
-        "date": "2026-02-17",
-        "title": "Elite gaming chair with RGB!",
-        "comment": "The RGB lighting compatibility is sick! Memory foam padding is super comfortable and the full recline is perfect for taking breaks. My setup looks amazing now!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Simran Kaur",
-        "rating": 5,
-        "date": "2026-02-05",
-        "title": "Ultimate comfort for gamers!",
-        "comment": "Best gaming chair for serious gamers. The memory foam makes a huge difference. Adjustable neck pillow is a nice touch. 10/10 would recommend!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Harsh Mehta",
-        "rating": 4,
-        "date": "2026-01-18",
-        "title": "Premium gaming experience",
-        "comment": "Amazing chair with great features. RGB setup was easy. Slightly higher price but the quality and comfort justify it.",
-        "verified": false
       }
     ]
   },
