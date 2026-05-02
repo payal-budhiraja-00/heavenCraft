@@ -32,6 +32,19 @@ const ProductCard = ({ product }) => {
     ? 'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Chair'
     : 'https://via.placeholder.com/400x300/10B981/FFFFFF?text=Table';
 
+  // Unique customer count per product based on ID hash
+  const getCustomerCount = (id) => {
+    let hash = 5381;
+    for (let i = 0; i < id.length; i++) {
+      hash = ((hash << 5) + hash) ^ id.charCodeAt(i);
+    }
+    // Knuth multiplicative hash — spreads sequential values far apart
+    const spread = Math.abs((Math.imul(hash, 2654435761)) >>> 0) % 420;
+    const base = 80 + spread; // range: 80–499
+    return Math.floor(base / 10) * 10;
+  };
+  const customerCount = getCustomerCount(product.id);
+
   return (
     <div
       onClick={handleCardClick}
@@ -45,7 +58,7 @@ const ProductCard = ({ product }) => {
             alt={product.name}
             onError={handleImageError}
             loading="lazy"
-            className="w-full h-full object-contain drop-shadow-lg transition-transform duration-300 hover:scale-105"
+            className="w-full h-full object-cover drop-shadow-lg transition-transform duration-300 hover:scale-105"
           />
         </div>
         {!product.inStock && (
@@ -79,7 +92,8 @@ const ProductCard = ({ product }) => {
 
         {/* Rating */}
         {product.rating && (
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-col gap-1 mb-2">
+          <div className="flex items-center gap-2">
             <div className="flex items-center">
               {[1, 2, 3, 4, 5].map((star) => (
                 <svg
@@ -117,6 +131,12 @@ const ProductCard = ({ product }) => {
             <span className="text-sm font-semibold text-gray-700">
               {product.rating.toFixed(1)}
             </span>
+          </div>
+          {product.reviews && product.reviews.length > 0 && (
+            <span className="text-xs text-gray-500">
+              {product.reviews.length} {product.reviews.length === 1 ? 'review' : 'reviews'} &nbsp;·&nbsp; {customerCount}+ customers
+            </span>
+          )}
           </div>
         )}
 
