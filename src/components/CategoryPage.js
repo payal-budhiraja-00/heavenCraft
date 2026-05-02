@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { getCategoryById } from '../data/categories';
@@ -17,6 +17,11 @@ const CategoryPage = ({ products }) => {
   const category = categoryMap[pathCategory] || pathCategory;
   const [selectedSubcategory, setSelectedSubcategory] = useState('all');
   const [sortBy, setSortBy] = useState('featured');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSelectedSubcategory('all');
+  }, [category]);
 
   const categoryData = getCategoryById(category);
 

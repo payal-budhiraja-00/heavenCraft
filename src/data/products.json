@@ -163,7 +163,7 @@
   },
   {
   "id": "chair-mesh-004",
-  "name": "Huju Mesh Chair",
+  "name": "Neuro Mesh Chair",
   "category": "chair",
   "subCategory": "mesh-chair",
   "price": 13999.0,
@@ -185,29 +185,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Sameer Malhotra",
+      "author": "Deepak Srivastava",
       "rating": 5,
-      "date": "2026-02-15",
-      "title": "Premium mesh chair worth the price!",
-      "comment": "The Atlas lives up to its name - strong and reliable. The mesh quality is superior and the ergonomic features are top-notch. Best investment for my home office!",
+      "date": "2026-02-18",
+      "title": "Neuro chair is a powerhouse!",
+      "comment": "The Neuro mesh chair handles long hours effortlessly. The high-load capacity frame gives me great confidence and the anti-fatigue lumbar curve is a real back-saver!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Nidhi Agarwal",
+      "author": "Pooja Bhattacharya",
       "rating": 5,
-      "date": "2026-01-30",
-      "title": "Excellent for posture correction",
-      "comment": "My back pain has reduced significantly after using this chair. The adjustable headrest and lumbar support are perfectly positioned. Highly recommend!",
+      "date": "2026-02-03",
+      "title": "Best ergonomic chair under 15k!",
+      "comment": "I've tried many chairs at this price range but Neuro stands out. The synchro-tilt mechanism is incredibly smooth and the mesh keeps me cool all day.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Kunal Chatterjee",
+      "author": "Suraj Pillai",
       "rating": 4,
-      "date": "2026-01-05",
-      "title": "Great chair, premium feel",
-      "comment": "Very comfortable and well-built. The breathability is excellent. Only minor issue is the assembly took longer than expected.",
+      "date": "2026-01-14",
+      "title": "Solid build, great for tall users",
+      "comment": "As someone 6 feet tall, the adjustable headrest and 3D armrests finally fit me perfectly. Very comfortable after minor adjustments. Highly satisfied!",
       "verified": false
     }
   ]
@@ -236,33 +236,93 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Vikram Singh",
+      "author": "Manpreet Gill",
       "rating": 5,
-      "date": "2026-01-20",
-      "title": "Premium quality, premium comfort!",
-      "comment": "The 3D adjustable armrests are fantastic. I can position them exactly where I need. The headrest is a great addition for relaxing between tasks.",
+      "date": "2026-02-20",
+      "title": "Hujing - the ultimate mesh chair!",
+      "comment": "This is my third mesh chair and by far the best. The Hujing's lumbar support is exceptionally well-positioned and the premium mesh fabric feels luxurious. No more back aches!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Ananya Iyer",
+      "author": "Sunanda Krishnaswamy",
       "rating": 5,
-      "date": "2025-12-05",
-      "title": "Worth every rupee!",
-      "comment": "As a software developer, I needed a chair that could handle 12-hour days. This chair delivers! The synchro-tilt mechanism is smooth and the build quality is excellent.",
+      "date": "2026-02-07",
+      "title": "Worth every single rupee at this price!",
+      "comment": "As a data analyst working 14-hour shifts, the Hujing chair has been a game changer. The gas lift adjustment is silky smooth and the synchro-tilt is perfect for thinking breaks.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Rahul Mehta",
+      "author": "Farhan Qureshi",
       "rating": 4,
-      "date": "2025-11-18",
-      "title": "Excellent chair, slight color difference",
-      "comment": "Chair quality is top-notch. Color was slightly different from the picture but still looks good. Very comfortable for long hours.",
+      "date": "2025-12-10",
+      "title": "Premium feel, slight assembly learning curve",
+      "comment": "The chair quality is top-tier. 3D armrests are unique and very useful. Assembly took about 45 minutes but the result is incredible. Highly recommend for serious users.",
       "verified": true
     }
   ]
 },
+  {
+    "id": "chair-mesh-006",
+    "name": "Zynx Mesh Chair",
+    "category": "chair",
+    "subCategory": "mesh-chair",
+    "price": 17999.0,
+    "currency": "INR",
+    "rating": 4.9,
+    "description": "Next-generation Zynx mesh chair engineered for maximum comfort and style. Features ultra-breathable dual-layer mesh, full 4D armrest control, and an innovative self-adjusting lumbar system for unmatched all-day support.",
+    "features": [
+      "Dual-layer ultra-breathable mesh",
+      "4D adjustable armrests",
+      "Self-adjusting lumbar system",
+      "Recline lock with tilt tension",
+      "Adjustable headrest with neck cushion",
+      "Heavy-duty aluminium base"
+    ],
+    "images": [
+      "/images/products/chairs/mesh-chair/6 - Zynx.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Aakash Menon",
+        "rating": 5,
+        "date": "2026-04-10",
+        "title": "Zynx is on another level!",
+        "comment": "The dual-layer mesh is unlike anything I've sat on before — incredibly breathable and supportive at the same time. The self-adjusting lumbar just finds the right spot. Best chair I've ever owned!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Neha Kulkarni",
+        "rating": 5,
+        "date": "2026-03-28",
+        "title": "Worth every rupee and more!",
+        "comment": "As someone with chronic lower back issues, the Zynx has been a revelation. The lumbar system adapts as I shift position. 10-hour work days are now completely comfortable. Highly recommend!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Saurabh Tiwari",
+        "rating": 5,
+        "date": "2026-03-15",
+        "title": "Premium build, premium comfort",
+        "comment": "The aluminium base feels rock solid and the 4D armrests are incredibly precise. The mesh quality is clearly a step above other chairs in this range. A true flagship mesh chair!",
+        "verified": true
+      },
+      {
+        "id": 4,
+        "author": "Divya Iyer",
+        "rating": 4,
+        "date": "2026-02-27",
+        "title": "Excellent chair, takes time to set up",
+        "comment": "Assembly took about an hour but the result is worth it. The recline lock is smooth and the neck cushion on the headrest is a thoughtful touch. Very comfortable for long hours!",
+        "verified": true
+      }
+    ]
+  },
   {
     "id": "chair-leather-001",
     "name": "Velora Leather Chair",
@@ -449,38 +509,38 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Arjun Malhotra",
+      "author": "Neeraj Bose",
       "rating": 5,
-      "date": "2026-01-28",
-      "title": "Ultimate luxury and comfort!",
-      "comment": "This is THE chair for executives. The extra cushioning is perfect, and the genuine leather smells amazing. Worth every penny!",
+      "date": "2026-02-17",
+      "title": "Vortex is in a league of its own!",
+      "comment": "The Vortex chair oozes executive class. The polished aluminum base is stunning and the genuine leather quality is far better than other chairs I've owned. A true office statement piece!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Meera Krishnan",
+      "author": "Lata Hegde",
       "rating": 5,
-      "date": "2026-01-10",
-      "title": "Best purchase of 2026!",
-      "comment": "Absolutely love this chair! The tilt tension control is excellent and the polished aluminum base looks stunning. My colleagues are jealous!",
+      "date": "2026-01-31",
+      "title": "Transformed my home office completely",
+      "comment": "After months of searching I found the Vortex. The extra cushioning is divine and the tilt tension control is perfectly calibrated. My productivity has noticeably improved!",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Sanjay Verma",
+      "author": "Pranav Deshmukh",
       "rating": 5,
-      "date": "2025-12-12",
-      "title": "Premium in every way",
-      "comment": "High-quality materials and impeccable craftsmanship. This chair transformed my home office into a professional workspace.",
+      "date": "2025-12-19",
+      "title": "Solid build and exceptional comfort",
+      "comment": "The Vortex is heavy — which is a sign of quality. The lumbar support adjusts exactly where I need it. Slightly pricey but completely worth it for daily use.",
       "verified": true
     },
     {
       "id": 4,
-      "author": "Pooja Agarwal",
+      "author": "Shruti Banerjee",
       "rating": 4,
-      "date": "2025-11-25",
-      "title": "Excellent, but heavy",
-      "comment": "Amazing chair with top-notch comfort. Only downside is it's quite heavy to move around, but that speaks to its solid construction.",
+      "date": "2025-11-28",
+      "title": "Great chair, delivery packaging could improve",
+      "comment": "Chair itself is fantastic — very comfortable leather and great back support. The delivery packaging had a minor dent on the box but the chair was perfect inside. Very happy overall!",
       "verified": true
     }
   ]
@@ -509,33 +569,288 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Rajeev Kapoor",
+      "author": "Girish Nambiar",
       "rating": 5,
-      "date": "2026-02-12",
-      "title": "Sophisticated and comfortable!",
-      "comment": "The Nexor chair adds a touch of class to my office. The leather quality is excellent and the modern design fits perfectly with my workspace aesthetic.",
+      "date": "2026-02-19",
+      "title": "Valerio — pure elegance!",
+      "comment": "The Valerio leather chair is a masterpiece of design. The ergonomic seat contour supports my posture naturally and the premium leather surface ages beautifully. An investment that pays off!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Shweta Bansal",
+      "author": "Anita Chawla",
       "rating": 4,
-      "date": "2026-01-18",
-      "title": "Good executive chair",
-      "comment": "Very comfortable for long hours. The swivel is smooth and height adjustment is easy. Would prefer slightly more padding on the armrests.",
+      "date": "2026-01-30",
+      "title": "Classy look, very comfortable",
+      "comment": "The Valerio stands out in any office setting. 360° swivel is buttery smooth and the height adjustment is effortless. Wish it came in a charcoal color option but love it regardless!",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Vivek Rao",
+      "author": "Mayank Soni",
       "rating": 5,
-      "date": "2025-12-28",
-      "title": "Professional quality",
-      "comment": "Impressed with the build quality and comfort. The leather has a premium feel. Great value for the price!",
+      "date": "2025-12-25",
+      "title": "Best leather chair at this price",
+      "comment": "Bought as a year-end gift to myself and it's perfect! The modern aesthetic pairs well with my minimalist office decor. Quality leather and heavy-duty base — built to last!",
       "verified": true
     }
   ]
 },
+  {
+    "id": "chair-leather-006",
+    "name": "Velora Lite Leather Chair",
+    "category": "chair",
+    "subCategory": "leather-chair",
+    "price": 8999.0,
+    "currency": "INR",
+    "rating": 4.4,
+    "description": "Lightweight entry-level variant of the popular Velora, offering the same premium leather look at a more accessible price. Great for smaller offices and home workspaces.",
+    "features": [
+      "Faux leather upholstery",
+      "360° swivel",
+      "Height adjustment",
+      "Padded armrests",
+      "Compact high-back design",
+      "Lightweight nylon base"
+    ],
+    "images": [
+      "/images/products/chairs/leather-chair/6 - Velora Lite.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Tanmay Joshi",
+        "rating": 5,
+        "date": "2026-04-12",
+        "title": "Velora Lite — great value!",
+        "comment": "Looks premium at a fraction of the cost. The faux leather is soft and easy to clean. Perfect for my small home office. Very pleased!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Roshani Gupta",
+        "rating": 4,
+        "date": "2026-03-29",
+        "title": "Comfortable and lightweight",
+        "comment": "Easy to move around the room thanks to the lightweight frame. Height adjustment is smooth and the swivel is quiet. Good beginner leather chair!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Saurabh Nair",
+        "rating": 4,
+        "date": "2026-03-10",
+        "title": "Solid budget leather chair",
+        "comment": "Doesn't feel cheap at all despite the price. Padded armrests are comfortable. Looks stylish in my study room. Recommended for budget buyers!",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "id": "chair-leather-007",
+    "name": "Rider Lite Leather Chair",
+    "category": "chair",
+    "subCategory": "leather-chair",
+    "price": 9999.0,
+    "currency": "INR",
+    "rating": 4.5,
+    "description": "A leaner, lighter take on the executive Rider chair. The Rider Lite keeps the signature high-back design and cushioning at an everyday-friendly price point.",
+    "features": [
+      "Faux leather upholstery",
+      "High-back support",
+      "Tilt tension control",
+      "Adjustable height",
+      "Padded seat & backrest",
+      "Sturdy nylon base"
+    ],
+    "images": [
+      "/images/products/chairs/leather-chair/7 - Rider Lite.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Kiran Rao",
+        "rating": 5,
+        "date": "2026-04-15",
+        "title": "Rider Lite is perfect for daily use!",
+        "comment": "The high-back support makes all the difference for long work sessions. Tilt tension control lets me find just the right rocking resistance. Excellent for the price!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Meghali Sharma",
+        "rating": 4,
+        "date": "2026-04-01",
+        "title": "Great comfort, executive look",
+        "comment": "Looks just like the premium Rider but lighter and at a better price. Very comfortable padded seat. My back feels great after full work days!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Pratik Desai",
+        "rating": 5,
+        "date": "2026-03-18",
+        "title": "Best under 10k leather chair",
+        "comment": "I compared many chairs in this range and the Rider Lite wins hands down. The height adjustment is precise and the back support is genuinely ergonomic. Very happy!",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "id": "chair-leather-008",
+    "name": "Nexor Lite Leather Chair",
+    "category": "chair",
+    "subCategory": "leather-chair",
+    "price": 10999.0,
+    "currency": "INR",
+    "rating": 4.5,
+    "description": "The Nexor Lite brings the modern aesthetic of the Nexor to everyday use. Sleek faux leather finish with ergonomic seat contour makes it an ideal mix of style and function.",
+    "features": [
+      "Faux leather upholstery",
+      "360° swivel",
+      "Height adjustment",
+      "Ergonomic seat contour",
+      "Modern slim design",
+      "Heavy-duty nylon base"
+    ],
+    "images": [
+      "/images/products/chairs/leather-chair/8 - Nexor Lite.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Aditi Bhatt",
+        "rating": 5,
+        "date": "2026-04-14",
+        "title": "Nexor Lite — slim, stylish, comfortable!",
+        "comment": "The modern slim design stands out in my minimalist workspace. The faux leather finish is neat and the ergonomic seat contour is surprisingly supportive. Love it!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Roshan Pillai",
+        "rating": 4,
+        "date": "2026-03-31",
+        "title": "Good value modern chair",
+        "comment": "Looks sharp and sits comfortably. The swivel is smooth and the height adjustment clicks securely. A great choice if you want style without overspending.",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Supriya Nanda",
+        "rating": 5,
+        "date": "2026-03-14",
+        "title": "Exactly what I was looking for",
+        "comment": "Needed a chair that looks professional for video calls and is comfy for work. Nexor Lite does both perfectly. Very happy with the quality at this price!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "chair-leather-009",
+    "name": "Vortex Lite Leather Chair",
+    "category": "chair",
+    "subCategory": "leather-chair",
+    "price": 11999.0,
+    "currency": "INR",
+    "rating": 4.6,
+    "description": "Inspired by the flagship Vortex, the Vortex Lite delivers a premium seating experience with well-padded cushioning and a polished look at a more accessible price.",
+    "features": [
+      "Faux leather upholstery",
+      "Extra padded seat",
+      "Tilt tension control",
+      "Adjustable height",
+      "Executive high-back design",
+      "Durable nylon base"
+    ],
+    "images": [
+      "/images/products/chairs/leather-chair/9 - Vortex Lite.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Harish Menon",
+        "rating": 5,
+        "date": "2026-04-16",
+        "title": "Vortex Lite punches above its price!",
+        "comment": "The extra padded seat is a standout feature — very comfortable for 8+ hour sessions. Tilt tension is smooth and the high-back design gives great neck support. Excellent buy!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Shalini Verma",
+        "rating": 5,
+        "date": "2026-04-02",
+        "title": "Executive look at a great price",
+        "comment": "Colleagues in video calls keep asking which chair I have! The Vortex Lite looks premium and feels even better. Height adjustment is easy and the padding holds up well.",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Gaurav Trivedi",
+        "rating": 4,
+        "date": "2026-03-20",
+        "title": "Very comfortable, minor assembly challenge",
+        "comment": "Chair comfort is top-notch. Assembly instructions were a bit unclear on one step but managed fine. The end result is a beautiful and comfortable chair worth every rupee!",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "id": "chair-leather-010",
+    "name": "Valerio Lite Leather Chair",
+    "category": "chair",
+    "subCategory": "leather-chair",
+    "price": 12999.0,
+    "currency": "INR",
+    "rating": 4.6,
+    "description": "The Valerio Lite carries forward the elegant aesthetic of the Valerio line in a lighter, everyday format. Combines modern design with practical ergonomic support for home and office use.",
+    "features": [
+      "Faux leather upholstery",
+      "360° swivel",
+      "Height adjustment",
+      "Ergonomic lumbar curve",
+      "Modern aesthetic design",
+      "Reinforced nylon base"
+    ],
+    "images": [
+      "/images/products/chairs/leather-chair/10 - Valerio Lite.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Ritika Pandey",
+        "rating": 5,
+        "date": "2026-04-18",
+        "title": "Valerio Lite — elegance within reach!",
+        "comment": "The faux leather looks and feels close to genuine leather. The ergonomic lumbar curve provides excellent lower back support. This is my second HeavenCraft purchase and I'm thrilled again!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Navin Kulkarni",
+        "rating": 4,
+        "date": "2026-04-05",
+        "title": "Smart choice for a home office",
+        "comment": "The Valerio Lite strikes the right balance between style and price. The 360° swivel is smooth and the reinforced base feels solid. Great for anyone upgrading their workspace!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Pooja Raghunathan",
+        "rating": 5,
+        "date": "2026-03-22",
+        "title": "Premium look without the premium price",
+        "comment": "Honestly surprised by the quality. The lumbar curve fits my back naturally and the swivel is whisper-quiet. Modern design looks fantastic in my home office setup. Highly recommend!",
+        "verified": true
+      }
+    ]
+  },
   {
     "id": "chair-recliner-001",
     "name": "Lumina Recliner Chair",
@@ -866,29 +1181,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Siddharth Mishra",
+      "author": "Chirag Malviya",
       "rating": 5,
-      "date": "2026-02-11",
-      "title": "Stylish and comfortable!",
-      "comment": "The contemporary design looks amazing in my office. The fabric is high-quality and the adjustable height works perfectly. Very satisfied!",
+      "date": "2026-02-19",
+      "title": "Pointer is exactly what I needed!",
+      "comment": "The Pointer fabric chair fits my work-from-home setup perfectly. The tilt tension control lets me adjust resistance to my preference. Modern design looks sharp in my home office!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Meghna Rao",
+      "author": "Tanya Mathur",
       "rating": 4,
-      "date": "2026-01-25",
-      "title": "Great fabric chair",
-      "comment": "Premium upholstery feels great. Comfortable padding and modern design. Wish it had armrests but overall excellent value.",
+      "date": "2026-02-04",
+      "title": "Comfortable and well-designed",
+      "comment": "The padding on the Pointer is just right — not too hard, not too soft. The nylon base is sturdy and the height adjustment clicks precisely into place. Good value!",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Aryan Verma",
+      "author": "Rahul Deshpande",
       "rating": 5,
-      "date": "2025-12-30",
-      "title": "Excellent quality and comfort",
-      "comment": "Better than expected! The fabric material is durable and the chair is very comfortable for long hours. Highly recommend!",
+      "date": "2026-01-08",
+      "title": "Durable fabric that stays fresh",
+      "comment": "After 3 months of daily use the Pointer fabric still looks and feels brand new. No sagging or pilling at all. The contemporary design is a big plus for my modern office.",
       "verified": false
     }
   ]
@@ -917,29 +1232,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Siddharth Mishra",
+      "author": "Devanshi Rawat",
       "rating": 5,
-      "date": "2026-02-11",
-      "title": "Stylish and comfortable!",
-      "comment": "The contemporary design looks amazing in my office. The fabric is high-quality and the adjustable height works perfectly. Very satisfied!",
+      "date": "2026-02-21",
+      "title": "Niyo — premium comfort at its best!",
+      "comment": "The Niyo fabric chair has a very refined feel. The fabric texture is unique and the padding density is ideal for long hours. Worth every rupee at this price point!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Meghna Rao",
+      "author": "Harshit Agrawal",
       "rating": 4,
-      "date": "2026-01-25",
-      "title": "Great fabric chair",
-      "comment": "Premium upholstery feels great. Comfortable padding and modern design. Wish it had armrests but overall excellent value.",
+      "date": "2026-02-02",
+      "title": "Great chair for the price",
+      "comment": "The Niyo feels solid and well-crafted. Height adjustment is smooth and the tilt works well. The fabric is breathable, which is important for summer months. Satisfied customer!",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Aryan Verma",
+      "author": "Bhavana Krishnan",
       "rating": 5,
-      "date": "2025-12-30",
-      "title": "Excellent quality and comfort",
-      "comment": "Better than expected! The fabric material is durable and the chair is very comfortable for long hours. Highly recommend!",
+      "date": "2026-01-15",
+      "title": "Stylish and very practical",
+      "comment": "The Niyo's contemporary design won me over instantly. Sitting in it for 8 hours is comfortable with zero fatigue. The durable nylon base looks and feels premium. Highly recommended!",
       "verified": false
     }
   ]
@@ -968,29 +1283,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Priyanka Jain",
+      "author": "Akanksha Tiwari",
       "rating": 5,
-      "date": "2026-02-10",
-      "title": "Soft and comfortable fabric chair!",
-      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "date": "2026-02-22",
+      "title": "Luxor — luxury in fabric!",
+      "comment": "The Luxor fabric chair lives up to its name. The soft upholstery feels genuinely premium and the 360° swivel is whisper-quiet. Perfect for my executive home office setup!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Manish Khanna",
-      "rating": 4,
-      "date": "2026-01-22",
-      "title": "Great value for money",
-      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "author": "Samrat Chatterjee",
+      "rating": 5,
+      "date": "2026-02-06",
+      "title": "Finally a fabric chair with real quality",
+      "comment": "I was skeptical about fabric chairs but the Luxor changed my mind. The breathable material keeps me cool in summer and the ergonomic design supports my lower back perfectly.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Anjali Deshmukh",
-      "rating": 5,
-      "date": "2025-12-18",
-      "title": "Perfect for my home office",
-      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "author": "Madhuri Patil",
+      "rating": 4,
+      "date": "2026-01-19",
+      "title": "Comfortable, sturdy and elegant",
+      "comment": "The Luxor fabric chair has a sturdier construction compared to other fabric chairs I've used. Height adjustment is easy and the swivel is smooth. Very pleased with the purchase!",
       "verified": false
     }
   ]
@@ -1019,29 +1334,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Priyanka Jain",
+      "author": "Roshni Kulkarni",
       "rating": 5,
-      "date": "2026-02-10",
-      "title": "Soft and comfortable fabric chair!",
-      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "date": "2026-02-17",
+      "title": "Fabio Lite — perfect entry-level choice!",
+      "comment": "The Fabio Lite delivers everything you need without unnecessary extras. The soft fabric is comfortable and breathable, and the 360° swivel is smooth. Great value at this price!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Manish Khanna",
+      "author": "Vijay Naidu",
       "rating": 4,
-      "date": "2026-01-22",
-      "title": "Great value for money",
-      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "date": "2026-01-28",
+      "title": "Lightweight yet sturdy — impressed!",
+      "comment": "As the name suggests, the Fabio Lite feels nimble but sturdy. The height adjustment works perfectly and the fabric quality is surprisingly good for this price range.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Anjali Deshmukh",
-      "rating": 5,
-      "date": "2025-12-18",
-      "title": "Perfect for my home office",
-      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "author": "Preeti Dubey",
+      "rating": 4,
+      "date": "2025-12-12",
+      "title": "Great starter fabric chair",
+      "comment": "Bought this for my study room and it's perfect. The ergonomic design keeps me comfortable during long study sessions. Highly recommended for students!",
       "verified": false
     }
   ]
@@ -1070,29 +1385,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Priyanka Jain",
+      "author": "Ravi Shankar Pillai",
       "rating": 5,
-      "date": "2026-02-10",
-      "title": "Soft and comfortable fabric chair!",
-      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "date": "2026-02-16",
+      "title": "Nexa Lite — smart value pick!",
+      "comment": "The Nexa Lite offers the Nexa design philosophy at a more accessible price. The breathable fabric is great for extended use and the swivel base is rock solid. Smart buy!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Manish Khanna",
+      "author": "Gayatri Saxena",
       "rating": 4,
-      "date": "2026-01-22",
-      "title": "Great value for money",
-      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "date": "2026-01-26",
+      "title": "Compact and comfortable",
+      "comment": "Nexa Lite fits my smaller home office perfectly. The fabric is easy to clean and the height adjustment is precise. Good ergonomics for an affordable chair.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Anjali Deshmukh",
+      "author": "Piyush Shardul",
       "rating": 5,
-      "date": "2025-12-18",
-      "title": "Perfect for my home office",
-      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "date": "2025-12-29",
+      "title": "Impressive quality for the price",
+      "comment": "Couldn't believe the quality I got at this price. The Nexa Lite fabric feels premium, assembly was done in 20 minutes, and the chair is very comfortable. Highly recommend!",
       "verified": false
     }
   ]
@@ -1121,29 +1436,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Priyanka Jain",
+      "author": "Surekha Patnaik",
       "rating": 5,
-      "date": "2026-02-10",
-      "title": "Soft and comfortable fabric chair!",
-      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "date": "2026-02-14",
+      "title": "Casca Lite — light on wallet, heavy on comfort!",
+      "comment": "The Casca Lite is a wonderful chair for everyday use. Soft fabric upholstery feels gentle and the ergonomic design holds my posture in check during 8-hour WFH days. Very impressed!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Manish Khanna",
+      "author": "Anuj Thakur",
       "rating": 4,
-      "date": "2026-01-22",
-      "title": "Great value for money",
-      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "date": "2026-01-30",
+      "title": "Good chair, quick delivery",
+      "comment": "The Casca Lite arrived well-packaged and was easy to assemble. The breathable fabric is comfortable even in humid weather. Good ergonomics and smooth swivel — happy with the purchase!",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Anjali Deshmukh",
-      "rating": 5,
-      "date": "2025-12-18",
-      "title": "Perfect for my home office",
-      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "author": "Ishita Roy",
+      "rating": 4,
+      "date": "2025-12-20",
+      "title": "Solid budget choice",
+      "comment": "Bought the Casca Lite for my teenage kid's study room. The height adjustment suits them well and the fabric hasn't worn down despite heavy daily use. Sturdy and reliable!",
       "verified": false
     }
   ]
@@ -1172,29 +1487,29 @@
   "reviews": [
     {
       "id": 1,
-      "author": "Priyanka Jain",
+      "author": "Aditya Bhargava",
       "rating": 5,
-      "date": "2026-02-10",
-      "title": "Soft and comfortable fabric chair!",
-      "comment": "The fabric upholstery is incredibly soft and breathable. Perfect for long work sessions without feeling too hot. Very happy with this purchase!",
+      "date": "2026-02-13",
+      "title": "Pointer Lite — does the job brilliantly!",
+      "comment": "The Pointer Lite is a no-nonsense fabric chair that delivers where it matters. The ergonomic design supports the right posture and the breathable fabric keeps things comfortable all day long. Excellent!",
       "verified": true
     },
     {
       "id": 2,
-      "author": "Manish Khanna",
+      "author": "Seema Nagpal",
       "rating": 4,
-      "date": "2026-01-22",
-      "title": "Great value for money",
-      "comment": "Sturdy construction and the fabric feels premium. Assembly was straightforward. Would have given 5 stars if it had more color options.",
+      "date": "2026-01-27",
+      "title": "Affordable and practical",
+      "comment": "The Pointer Lite is sturdy, easy to assemble and sits well. The 360° smooth swivel is useful when multitasking. Fabric is durable — no signs of wear after two months of daily use.",
       "verified": true
     },
     {
       "id": 3,
-      "author": "Anjali Deshmukh",
-      "rating": 5,
-      "date": "2025-12-18",
-      "title": "Perfect for my home office",
-      "comment": "Ergonomic design is excellent. The fabric material doesn't trap heat like leather does. Highly recommended for daily use!",
+      "author": "Kunal Sharma",
+      "rating": 4,
+      "date": "2025-12-22",
+      "title": "Great office starter chair",
+      "comment": "First fabric chair purchase and it didn't disappoint. The Pointer Lite has a clean modern look and the height adjustment suits my tall desk perfectly. Good investment!",
       "verified": false
     }
   ]
@@ -1689,6 +2004,57 @@
     ]
   },
   {
+    "id": "table-folding-004",
+    "name": "Exquisite Pro Folding Table",
+    "category": "table",
+    "subCategory": "folding-table",
+    "price": 3999.0,
+    "currency": "INR",
+    "rating": 4.6,
+    "description": "The Exquisite Pro is the ultimate folding table for professionals and families alike. Features a waterproof anti-scratch tabletop, one-click fold mechanism, and carry handle — the easiest fold-and-go table in the range.",
+    "features": [
+      "One-click fold mechanism",
+      "Waterproof & anti-scratch surface",
+      "Carry handle for portability",
+      "Reinforced heavy-duty legs",
+      "Non-slip rubber feet",
+      "Seats up to 8 people"
+    ],
+    "images": [
+      "/images/products/tables/folding-table/4 - Exquisite Pro.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Sunil Mathur",
+        "rating": 5,
+        "date": "2026-04-18",
+        "title": "One-click fold is a revelation!",
+        "comment": "Set up and packed away in seconds. The carry handle makes it easy to move between rooms. Waterproof surface survived a spilled glass of juice with zero damage. Brilliant product!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Ananya Bhat",
+        "rating": 5,
+        "date": "2026-04-05",
+        "title": "Perfect for big family gatherings",
+        "comment": "Easily seats 8 people and the reinforced legs don't flex at all. The anti-scratch surface still looks brand new after several uses. Best folding table we've ever bought!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Rohan Saxena",
+        "rating": 4,
+        "date": "2026-03-22",
+        "title": "Sturdy, portable and practical",
+        "comment": "The non-slip rubber feet keep the table perfectly stable on tiled floors. One-click mechanism is smooth. Great value upgrade over the standard models!",
+        "verified": false
+      }
+    ]
+  },
+  {
     "id": "table-height-adjustable-001",
     "name": " Modulus Height Adjustable Table",
     "category": "table",
@@ -1810,6 +2176,66 @@
         "date": "2026-02-06",
         "title": "Ultimate standing desk!",
         "comment": "Professional-grade quality is evident. Can handle multiple monitors with ease. Smart features are intuitive. Best desk I've ever owned!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "table-height-adjustable-004",
+    "name": "Modulus Ultra Height Adjustable Table",
+    "category": "table",
+    "subCategory": "height-adjustable-table",
+    "price": 22999.0,
+    "currency": "INR",
+    "rating": 4.9,
+    "description": "The flagship Modulus Ultra is the pinnacle of sit-stand desk engineering. Features an AI-powered posture reminder, 6 memory presets, ultra-wide surface for multi-monitor setups, and a built-in wireless charging pad — redefining what a height adjustable desk can be.",
+    "features": [
+      "AI posture reminder system",
+      "6 memory height presets",
+      "Ultra-wide XL surface (160 cm)",
+      "Built-in wireless charging pad",
+      "Dual motor with anti-collision",
+      "Integrated cable spine management"
+    ],
+    "images": [
+      "/images/products/tables/height-adjustable-table/4 - Modulus Ultra.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Aditya Krishnan",
+        "rating": 5,
+        "date": "2026-04-21",
+        "title": "The smartest desk I've ever used!",
+        "comment": "The AI posture reminder actually helped me fix my slouching habit within a week! 6 memory presets mean every family member has their own height saved. The XL surface handles 3 monitors effortlessly. This is the future of desks!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Preethi Nambiar",
+        "rating": 5,
+        "date": "2026-04-09",
+        "title": "Wireless charging + standing desk = perfect",
+        "comment": "I always forget to charge my phone. The built-in wireless pad means it charges just by sitting on the desk. The dual motor is rock solid and whisper-quiet. Absolutely premium product!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Gaurav Kapoor",
+        "rating": 5,
+        "date": "2026-03-28",
+        "title": "Best home office investment ever",
+        "comment": "The cable spine management finally solved my cable chaos. XL surface is huge — there's room for everything. Dual motor provides incredible stability even at full height. Zero regrets!",
+        "verified": true
+      },
+      {
+        "id": 4,
+        "author": "Meena Patel",
+        "rating": 4,
+        "date": "2026-03-14",
+        "title": "Premium in every way",
+        "comment": "The AI reminder feature takes a day or two to calibrate but once set it works brilliantly. The desk itself is stunning — solid, smooth and incredibly functional. Worth every rupee!",
         "verified": true
       }
     ]
@@ -2188,6 +2614,117 @@
         "date": "2026-02-03",
         "title": "Best desk for serious students!",
         "comment": "Daughter preparing for medical entrance loves it! Complete organization system is excellent. Extensive storage handles all her materials. Premium quality!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "table-gaming-desk-001",
+    "name": "Quantum Gaming Desk",
+    "category": "table",
+    "subCategory": "gaming-desk",
+    "price": 19999.0,
+    "currency": "INR",
+    "rating": 4.7,
+    "description": "The Quantum Gaming Desk is engineered for serious gamers who demand performance and style. Features a spacious carbon-fibre texture surface, built-in RGB LED strip, cable management cutouts, and a headphone hook — everything a modern gaming battlestation needs.",
+    "features": [
+      "Large carbon-fibre texture surface",
+      "Built-in RGB LED strip",
+      "Cable management cutouts",
+      "Headphone hook included",
+      "Cup holder slot",
+      "Heavy-duty steel frame"
+    ],
+    "images": [
+      "/images/products/tables/gaming-desk/1 - Quantum.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Arjun Kapoor",
+        "rating": 5,
+        "date": "2026-04-20",
+        "title": "Best gaming desk I've ever used!",
+        "comment": "The RGB strip looks incredible at night and the carbon-fibre texture feels premium. Cable management cutouts are perfectly placed for my dual-monitor setup. This desk is a game changer — literally!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Sneha Pillai",
+        "rating": 5,
+        "date": "2026-04-08",
+        "title": "Huge surface, perfect for everything",
+        "comment": "Fits two 27-inch monitors, keyboard, mouse pad, and still has room to spare. The headphone hook and cup holder are super convenient. Heavy-duty frame feels rock solid!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Vivek Anand",
+        "rating": 4,
+        "date": "2026-03-25",
+        "title": "Great desk, assembly takes time",
+        "comment": "The quality is excellent and the RGB adds great ambiance. Assembly took about 90 minutes but the result is worth every minute. My gaming room looks completely transformed!",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "id": "table-gaming-desk-002",
+    "name": "Quantum Primex Gaming Desk",
+    "category": "table",
+    "subCategory": "gaming-desk",
+    "price": 27999.0,
+    "currency": "INR",
+    "rating": 4.9,
+    "description": "The ultimate gaming battlestation desk. The Quantum Primex elevates every aspect of the Quantum with a motorised height adjustment, dual monitor mount, wireless charging pad, and premium RGB ecosystem — built for professional gamers and streamers who accept nothing but the best.",
+    "features": [
+      "Motorised height adjustment (60–125 cm)",
+      "Dual monitor mount included",
+      "Wireless charging pad built-in",
+      "Full-length RGB ecosystem",
+      "Integrated power strip with USB ports",
+      "XL carbon-fibre texture surface"
+    ],
+    "images": [
+      "/images/products/tables/gaming-desk/2 - Quantum Primex.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Rahul Shetty",
+        "rating": 5,
+        "date": "2026-04-22",
+        "title": "Absolute beast of a gaming desk!",
+        "comment": "The Quantum Primex is on another level. Motorised height adjustment is whisper-quiet, the dual monitor mount holds my 32-inch screens perfectly, and the wireless charging pad means no more hunting for cables. This is THE desk for serious setups!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Priya Goswami",
+        "rating": 5,
+        "date": "2026-04-10",
+        "title": "Worth every single rupee!",
+        "comment": "I stream full-time and this desk handles everything — 3 monitors, capture card, mic arm, and all accessories. The integrated USB power strip is genius. The RGB ecosystem ties the whole battlestation together. Couldn't be happier!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Karan Singhania",
+        "rating": 5,
+        "date": "2026-03-30",
+        "title": "Pro-grade desk for pro-grade gaming",
+        "comment": "The XL surface is massive and the carbon-fibre texture looks stunning. Height adjustment from sit to stand is amazing for marathon sessions. Built like a tank. A true flagship gaming desk!",
+        "verified": true
+      },
+      {
+        "id": 4,
+        "author": "Ishaan Dubey",
+        "rating": 4,
+        "date": "2026-03-15",
+        "title": "Premium desk with premium experience",
+        "comment": "The wireless charger works flawlessly with my phone. Motorised adjustment is very smooth. Dual monitor mount installation was slightly complex but the instruction video helped. 10/10 would recommend!",
         "verified": true
       }
     ]
@@ -2944,6 +3481,150 @@
         "date": "2026-02-03",
         "title": "Best cup holder available!",
         "comment": "Integrated coaster is genius! Premium materials look elegant. Protects my expensive desk perfectly. Highly recommend!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "accessories-desk-hook-001",
+    "name": "Desk Hook Basic",
+    "category": "accessories",
+    "subCategory": "desk-hook",
+    "price": 599.0,
+    "currency": "INR",
+    "rating": 4.4,
+    "description": "Simple yet sturdy Basic desk hook that clamps to your desk edge. Ideal for hanging bags, headphones, or any accessories to keep your workspace clear and organized.",
+    "features": [
+      "Desk edge clamp mount",
+      "Holds up to 5 kg",
+      "Non-scratch rubber pad",
+      "360° rotatable hook",
+      "Universal desk fit",
+      "Compact & minimalist"
+    ],
+    "images": [
+      "/images/products/accessories/desk-hook/1 - Basic.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Nikhil Sharma",
+        "rating": 5,
+        "date": "2026-03-10",
+        "title": "Simple and super useful!",
+        "comment": "Finally a place to hang my headphones! Clamps on tight and the rubber pad doesn't scratch my desk. Very happy with this small but impactful purchase.",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Swati Desai",
+        "rating": 4,
+        "date": "2026-02-24",
+        "title": "Does exactly what it says",
+        "comment": "I hang my bag on it daily. Sturdy enough, no wobbling. The 360° rotation is handy. Good value for such a practical accessory!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "accessories-desk-hook-002",
+    "name": "Desk Hook Plus",
+    "category": "accessories",
+    "subCategory": "desk-hook",
+    "price": 999.0,
+    "currency": "INR",
+    "rating": 4.6,
+    "description": "Enhanced Plus dual desk hook with two hanging points and a wider clamp for thicker desks. Perfect for headphones on one hook and a bag on the other, keeping everything within reach.",
+    "features": [
+      "Dual hook design",
+      "Wide clamp — fits desks up to 6 cm thick",
+      "Holds up to 10 kg total",
+      "Anti-slip silicone grip",
+      "Scratch-free finish",
+      "Easy tool-free install"
+    ],
+    "images": [
+      "/images/products/accessories/desk-hook/2 - Plus.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Rajan Mehta",
+        "rating": 5,
+        "date": "2026-03-15",
+        "title": "Dual hook is a game changer!",
+        "comment": "Headphones on one hook, bag on the other — desk is finally clutter-free! Wide clamp fits my thick standing desk perfectly. Excellent build quality.",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Pooja Venkat",
+        "rating": 4,
+        "date": "2026-03-01",
+        "title": "Very practical upgrade",
+        "comment": "Much better than the basic version. Two hooks means I don't have to choose what to hang. Anti-slip grip is solid. Recommended!",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Aryan Bose",
+        "rating": 5,
+        "date": "2026-02-14",
+        "title": "Sturdy and well-made",
+        "comment": "Holds my heavy laptop bag without any flex. The silicone grip pads protect both my desk and the items hanging. Great quality at this price!",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "id": "accessories-desk-hook-003",
+    "name": "Desk Hook Pro",
+    "category": "accessories",
+    "subCategory": "desk-hook",
+    "price": 1499.0,
+    "currency": "INR",
+    "rating": 4.7,
+    "description": "Premium Pro multi-hook desk organizer with three adjustable hooks and a built-in headphone stand. Features a premium aluminium body and magnetic cable clip for a truly clean workspace.",
+    "features": [
+      "3 adjustable hooks",
+      "Built-in headphone stand",
+      "Premium aluminium body",
+      "Magnetic cable clip",
+      "Adjustable clamp width",
+      "Supports up to 15 kg"
+    ],
+    "images": [
+      "/images/products/accessories/desk-hook/3 - Pro.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Vishal Nair",
+        "rating": 5,
+        "date": "2026-03-20",
+        "title": "Premium desk hook — absolutely love it!",
+        "comment": "The aluminium build feels incredibly premium. Three hooks handle my bag, jacket, and cables. The headphone stand is the cherry on top. Best desk accessory purchase this year!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Kavitha Rao",
+        "rating": 5,
+        "date": "2026-03-05",
+        "title": "Clean desk finally achieved!",
+        "comment": "The magnetic cable clip is genius — no more dangling cables! The headphone stand keeps my Sony WH-1000XM5 perfectly. Premium quality that looks great on any desk.",
+        "verified": true
+      },
+      {
+        "id": 3,
+        "author": "Dev Malhotra",
+        "rating": 4,
+        "date": "2026-02-20",
+        "title": "Worth every rupee",
+        "comment": "Solid aluminium construction, 3 hooks handle all my hanging needs. The adjustable clamp fits my executive desk perfectly. Minor wish: a slightly longer headphone arm.",
         "verified": true
       }
     ]

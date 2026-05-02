@@ -159,7 +159,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
                     setCustomerName(e.target.value);
                     setError('');
                   }}
-                  placeholder=""
+                  placeholder="John Doe"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 />
               </div>
@@ -172,7 +172,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
                   id="customerPhone"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
-                  placeholder=""
+                  placeholder="+1 (555) 123-4567"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 />
               </div>

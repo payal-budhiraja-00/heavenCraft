@@ -10,6 +10,7 @@ const SearchResults = ({ products }) => {
   const [sortBy, setSortBy] = useState('relevance');
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!query.trim()) {
       setFilteredProducts([]);
       return;

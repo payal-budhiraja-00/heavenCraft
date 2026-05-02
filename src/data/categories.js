@@ -73,6 +73,11 @@ export const categories = [
         id: 'study-table',
         name: 'Study Table',
         description: 'Student-friendly study desks'
+      },
+      {
+        id: 'gaming-desk',
+        name: 'Gaming Desk',
+        description: 'Purpose-built desks engineered for immersive gaming setups'
       }
     ]
   },
@@ -111,6 +116,11 @@ export const categories = [
         id: 'storage-box',
         name: 'Storage Box',
         description: 'Under-desk storage boxes and drawers'
+      },
+      {
+        id: 'desk-hook',
+        name: 'Desk Hook',
+        description: 'Versatile hooks for bags, headphones and accessories'
       }
     ]
   }
