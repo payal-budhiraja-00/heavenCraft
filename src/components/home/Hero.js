@@ -9,14 +9,14 @@ const Hero = () => {
       title: "Transform Your Workspace",
       subtitle: "Premium Ergonomic Furniture for Modern Living",
       description: "Experience comfort and productivity with our expertly designed furniture",
-      image:  "/images/products/chairs/mesh-chair/4 - Huju.jpeg",
+      image:  "/images/products/chairs/mesh-chair/4 - Neuro.jpeg",
       category: "Ergonomic Chairs"
     },
     {
       title: "Designed for Comfort",
       subtitle: "Executive Tables for Professionals",
       description: "Enhance your workspace with elegant and functional office tables",
-      image: "/images/products/tables/executive-table/1 - Impulse.jpeg",
+      image: "/images/products/tables/executive-table/1 - Imperium.jpeg",
       category: "Premium Tables"
     },
     {

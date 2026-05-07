@@ -179,7 +179,7 @@
     "Anti-fatigue lumbar curve"
   ],
   "images": [
-    "/images/products/chairs/mesh-chair/4 - Huju.jpeg"
+    "/images/products/chairs/mesh-chair/4 - Neuro.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -214,7 +214,7 @@
 },
   {
   "id": "chair-mesh-005",
-  "name": "Hujing Mesh Chair",
+  "name": "Zynx Mesh Chair",
   "category": "chair",
   "subCategory": "mesh-chair",
   "price": 15999.0,
@@ -230,7 +230,7 @@
     "Height adjustable gas lift"
   ],
   "images": [
-    "/images/products/chairs/mesh-chair/5 - Hujing.jpeg"
+    "/images/products/chairs/mesh-chair/5 - Zynx.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -265,13 +265,13 @@
 },
   {
     "id": "chair-mesh-006",
-    "name": "Zynx Mesh Chair",
+    "name": "Xyron Mesh Chair",
     "category": "chair",
     "subCategory": "mesh-chair",
     "price": 17999.0,
     "currency": "INR",
     "rating": 4.9,
-    "description": "Next-generation Zynx mesh chair engineered for maximum comfort and style. Features ultra-breathable dual-layer mesh, full 4D armrest control, and an innovative self-adjusting lumbar system for unmatched all-day support.",
+    "description": "Next-generation Xyron mesh chair engineered for maximum comfort and style. Features ultra-breathable dual-layer mesh, full 4D armrest control, and an innovative self-adjusting lumbar system for unmatched all-day support.",
     "features": [
       "Dual-layer ultra-breathable mesh",
       "4D adjustable armrests",
@@ -281,7 +281,7 @@
       "Heavy-duty aluminium base"
     ],
     "images": [
-      "/images/products/chairs/mesh-chair/6 - Zynx.jpeg"
+      "/images/products/chairs/mesh-chair/6 - Xyron.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -373,7 +373,57 @@
         "verified": false
       }
     ]
-  },
+  },{
+  "id": "chair-leather-006",
+  "name": "Velora Lite Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 8999.0,
+  "currency": "INR",
+  "rating": 4.4,
+  "description": "Lightweight entry-level variant of the popular Velora, offering the same premium leather look at a more accessible price. Great for smaller offices and home workspaces.",
+  "features": [
+    "Faux leather upholstery",
+    "360° swivel",
+    "Height adjustment",
+    "Padded armrests",
+    "Compact high-back design",
+    "Lightweight nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/1 - Velora lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Tanmay Joshi",
+      "rating": 5,
+      "date": "2026-04-12",
+      "title": "Velora Lite — great value!",
+      "comment": "Looks premium at a fraction of the cost. The faux leather is soft and easy to clean. Perfect for my small home office. Very pleased!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Roshani Gupta",
+      "rating": 4,
+      "date": "2026-03-29",
+      "title": "Comfortable and lightweight",
+      "comment": "Easy to move around the room thanks to the lightweight frame. Height adjustment is smooth and the swivel is quiet. Good beginner leather chair!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Saurabh Nair",
+      "rating": 4,
+      "date": "2026-03-10",
+      "title": "Solid budget leather chair",
+      "comment": "Doesn't feel cheap at all despite the price. Padded armrests are comfortable. Looks stylish in my study room. Recommended for budget buyers!",
+      "verified": false
+    }
+  ]
+},
   {
     "id": "chair-leather-002",
     "name": "Rider Leather Chair",
@@ -433,7 +483,57 @@
         "verified": true
       }
     ]
-  },
+  },{
+  "id": "chair-leather-007",
+  "name": "Rider Lite Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 9999.0,
+  "currency": "INR",
+  "rating": 4.5,
+  "description": "A leaner, lighter take on the executive Rider chair. The Rider Lite keeps the signature high-back design and cushioning at an everyday-friendly price point.",
+  "features": [
+    "Faux leather upholstery",
+    "High-back support",
+    "Tilt tension control",
+    "Adjustable height",
+    "Padded seat & backrest",
+    "Sturdy nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/2 - Rider lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Kiran Rao",
+      "rating": 5,
+      "date": "2026-04-15",
+      "title": "Rider Lite is perfect for daily use!",
+      "comment": "The high-back support makes all the difference for long work sessions. Tilt tension control lets me find just the right rocking resistance. Excellent for the price!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Meghali Sharma",
+      "rating": 4,
+      "date": "2026-04-01",
+      "title": "Great comfort, executive look",
+      "comment": "Looks just like the premium Rider but lighter and at a better price. Very comfortable padded seat. My back feels great after full work days!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Pratik Desai",
+      "rating": 5,
+      "date": "2026-03-18",
+      "title": "Best under 10k leather chair",
+      "comment": "I compared many chairs in this range and the Rider Lite wins hands down. The height adjustment is precise and the back support is genuinely ergonomic. Very happy!",
+      "verified": false
+    }
+  ]
+},
   {
     "id": "chair-leather-003",
     "name": "Nexor Leather Chair",
@@ -484,7 +584,57 @@
         "verified": true
       }
     ]
-  },
+  },{
+  "id": "chair-leather-008",
+  "name": "Nexor Lite Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.5,
+  "description": "The Nexor Lite brings the modern aesthetic of the Nexor to everyday use. Sleek faux leather finish with ergonomic seat contour makes it an ideal mix of style and function.",
+  "features": [
+    "Faux leather upholstery",
+    "360° swivel",
+    "Height adjustment",
+    "Ergonomic seat contour",
+    "Modern slim design",
+    "Heavy-duty nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/3 - Nexor lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Aditi Bhatt",
+      "rating": 5,
+      "date": "2026-04-14",
+      "title": "Nexor Lite — slim, stylish, comfortable!",
+      "comment": "The modern slim design stands out in my minimalist workspace. The faux leather finish is neat and the ergonomic seat contour is surprisingly supportive. Love it!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Roshan Pillai",
+      "rating": 4,
+      "date": "2026-03-31",
+      "title": "Good value modern chair",
+      "comment": "Looks sharp and sits comfortably. The swivel is smooth and the height adjustment clicks securely. A great choice if you want style without overspending.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Supriya Nanda",
+      "rating": 5,
+      "date": "2026-03-14",
+      "title": "Exactly what I was looking for",
+      "comment": "Needed a chair that looks professional for video calls and is comfy for work. Nexor Lite does both perfectly. Very happy with the quality at this price!",
+      "verified": true
+    }
+  ]
+},
   {
   "id": "chair-leather-004",
   "name": "Vortex Leather Chair",
@@ -544,6 +694,56 @@
       "verified": true
     }
   ]
+},{
+  "id": "chair-leather-009",
+  "name": "Vortex Lite Leather Chair",
+  "category": "chair",
+  "subCategory": "leather-chair",
+  "price": 11999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Inspired by the flagship Vortex, the Vortex Lite delivers a premium seating experience with well-padded cushioning and a polished look at a more accessible price.",
+  "features": [
+    "Faux leather upholstery",
+    "Extra padded seat",
+    "Tilt tension control",
+    "Adjustable height",
+    "Executive high-back design",
+    "Durable nylon base"
+  ],
+  "images": [
+    "/images/products/chairs/leather-chair/4 - Vortex lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Harish Menon",
+      "rating": 5,
+      "date": "2026-04-16",
+      "title": "Vortex Lite punches above its price!",
+      "comment": "The extra padded seat is a standout feature — very comfortable for 8+ hour sessions. Tilt tension is smooth and the high-back design gives great neck support. Excellent buy!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Shalini Verma",
+      "rating": 5,
+      "date": "2026-04-02",
+      "title": "Executive look at a great price",
+      "comment": "Colleagues in video calls keep asking which chair I have! The Vortex Lite looks premium and feels even better. Height adjustment is easy and the padding holds up well.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Gaurav Trivedi",
+      "rating": 4,
+      "date": "2026-03-20",
+      "title": "Very comfortable, minor assembly challenge",
+      "comment": "Chair comfort is top-notch. Assembly instructions were a bit unclear on one step but managed fine. The end result is a beautiful and comfortable chair worth every rupee!",
+      "verified": false
+    }
+  ]
 },
   {
   "id": "chair-leather-005",
@@ -597,210 +797,6 @@
   ]
 },
   {
-    "id": "chair-leather-006",
-    "name": "Velora Lite Leather Chair",
-    "category": "chair",
-    "subCategory": "leather-chair",
-    "price": 8999.0,
-    "currency": "INR",
-    "rating": 4.4,
-    "description": "Lightweight entry-level variant of the popular Velora, offering the same premium leather look at a more accessible price. Great for smaller offices and home workspaces.",
-    "features": [
-      "Faux leather upholstery",
-      "360° swivel",
-      "Height adjustment",
-      "Padded armrests",
-      "Compact high-back design",
-      "Lightweight nylon base"
-    ],
-    "images": [
-      "/images/products/chairs/leather-chair/6 - Velora Lite.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Tanmay Joshi",
-        "rating": 5,
-        "date": "2026-04-12",
-        "title": "Velora Lite — great value!",
-        "comment": "Looks premium at a fraction of the cost. The faux leather is soft and easy to clean. Perfect for my small home office. Very pleased!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Roshani Gupta",
-        "rating": 4,
-        "date": "2026-03-29",
-        "title": "Comfortable and lightweight",
-        "comment": "Easy to move around the room thanks to the lightweight frame. Height adjustment is smooth and the swivel is quiet. Good beginner leather chair!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Saurabh Nair",
-        "rating": 4,
-        "date": "2026-03-10",
-        "title": "Solid budget leather chair",
-        "comment": "Doesn't feel cheap at all despite the price. Padded armrests are comfortable. Looks stylish in my study room. Recommended for budget buyers!",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "id": "chair-leather-007",
-    "name": "Rider Lite Leather Chair",
-    "category": "chair",
-    "subCategory": "leather-chair",
-    "price": 9999.0,
-    "currency": "INR",
-    "rating": 4.5,
-    "description": "A leaner, lighter take on the executive Rider chair. The Rider Lite keeps the signature high-back design and cushioning at an everyday-friendly price point.",
-    "features": [
-      "Faux leather upholstery",
-      "High-back support",
-      "Tilt tension control",
-      "Adjustable height",
-      "Padded seat & backrest",
-      "Sturdy nylon base"
-    ],
-    "images": [
-      "/images/products/chairs/leather-chair/7 - Rider Lite.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Kiran Rao",
-        "rating": 5,
-        "date": "2026-04-15",
-        "title": "Rider Lite is perfect for daily use!",
-        "comment": "The high-back support makes all the difference for long work sessions. Tilt tension control lets me find just the right rocking resistance. Excellent for the price!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Meghali Sharma",
-        "rating": 4,
-        "date": "2026-04-01",
-        "title": "Great comfort, executive look",
-        "comment": "Looks just like the premium Rider but lighter and at a better price. Very comfortable padded seat. My back feels great after full work days!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Pratik Desai",
-        "rating": 5,
-        "date": "2026-03-18",
-        "title": "Best under 10k leather chair",
-        "comment": "I compared many chairs in this range and the Rider Lite wins hands down. The height adjustment is precise and the back support is genuinely ergonomic. Very happy!",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "id": "chair-leather-008",
-    "name": "Nexor Lite Leather Chair",
-    "category": "chair",
-    "subCategory": "leather-chair",
-    "price": 10999.0,
-    "currency": "INR",
-    "rating": 4.5,
-    "description": "The Nexor Lite brings the modern aesthetic of the Nexor to everyday use. Sleek faux leather finish with ergonomic seat contour makes it an ideal mix of style and function.",
-    "features": [
-      "Faux leather upholstery",
-      "360° swivel",
-      "Height adjustment",
-      "Ergonomic seat contour",
-      "Modern slim design",
-      "Heavy-duty nylon base"
-    ],
-    "images": [
-      "/images/products/chairs/leather-chair/8 - Nexor Lite.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Aditi Bhatt",
-        "rating": 5,
-        "date": "2026-04-14",
-        "title": "Nexor Lite — slim, stylish, comfortable!",
-        "comment": "The modern slim design stands out in my minimalist workspace. The faux leather finish is neat and the ergonomic seat contour is surprisingly supportive. Love it!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Roshan Pillai",
-        "rating": 4,
-        "date": "2026-03-31",
-        "title": "Good value modern chair",
-        "comment": "Looks sharp and sits comfortably. The swivel is smooth and the height adjustment clicks securely. A great choice if you want style without overspending.",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Supriya Nanda",
-        "rating": 5,
-        "date": "2026-03-14",
-        "title": "Exactly what I was looking for",
-        "comment": "Needed a chair that looks professional for video calls and is comfy for work. Nexor Lite does both perfectly. Very happy with the quality at this price!",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "id": "chair-leather-009",
-    "name": "Vortex Lite Leather Chair",
-    "category": "chair",
-    "subCategory": "leather-chair",
-    "price": 11999.0,
-    "currency": "INR",
-    "rating": 4.6,
-    "description": "Inspired by the flagship Vortex, the Vortex Lite delivers a premium seating experience with well-padded cushioning and a polished look at a more accessible price.",
-    "features": [
-      "Faux leather upholstery",
-      "Extra padded seat",
-      "Tilt tension control",
-      "Adjustable height",
-      "Executive high-back design",
-      "Durable nylon base"
-    ],
-    "images": [
-      "/images/products/chairs/leather-chair/9 - Vortex Lite.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Harish Menon",
-        "rating": 5,
-        "date": "2026-04-16",
-        "title": "Vortex Lite punches above its price!",
-        "comment": "The extra padded seat is a standout feature — very comfortable for 8+ hour sessions. Tilt tension is smooth and the high-back design gives great neck support. Excellent buy!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Shalini Verma",
-        "rating": 5,
-        "date": "2026-04-02",
-        "title": "Executive look at a great price",
-        "comment": "Colleagues in video calls keep asking which chair I have! The Vortex Lite looks premium and feels even better. Height adjustment is easy and the padding holds up well.",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Gaurav Trivedi",
-        "rating": 4,
-        "date": "2026-03-20",
-        "title": "Very comfortable, minor assembly challenge",
-        "comment": "Chair comfort is top-notch. Assembly instructions were a bit unclear on one step but managed fine. The end result is a beautiful and comfortable chair worth every rupee!",
-        "verified": false
-      }
-    ]
-  },
-  {
     "id": "chair-leather-010",
     "name": "Valerio Lite Leather Chair",
     "category": "chair",
@@ -818,7 +814,7 @@
       "Reinforced nylon base"
     ],
     "images": [
-      "/images/products/chairs/leather-chair/10 - Valerio Lite.jpeg"
+      "/images/products/chairs/leather-chair/5 - Valerio lite.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -904,7 +900,7 @@
   },
   {
     "id": "chair-recliner-002",
-    "name": "Luxor Recliner Chair",
+    "name": "Opalyn Recliner Chair",
     "category": "chair",
     "subCategory": "recliner-chair",
     "price": 28999.0,
@@ -920,7 +916,7 @@
       "Adjustable headrest cushion"
     ],
     "images": [
-      "/images/products/chairs/recliner-chair/2 - Luxor.jpeg"
+      "/images/products/chairs/recliner-chair/2 - Opalyn.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -955,7 +951,7 @@
   },
   {
     "id": "chair-recliner-003",
-    "name": "Valerio Recliner Chair",
+    "name": "Aviora Recliner Chair",
     "category": "chair",
     "subCategory": "recliner-chair",
     "price": 29999.0,
@@ -971,7 +967,7 @@
       "Lumbar support cushion"
     ],
     "images": [
-      "/images/products/chairs/recliner-chair/3 - Valerio.jpeg"
+      "/images/products/chairs/recliner-chair/3 - Aviora.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1054,7 +1050,57 @@
         "verified": false
       }
     ]
-  },
+  },{
+  "id": "chair-fabric-007",
+  "name": "Fabio Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/1 - Fabio lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Roshni Kulkarni",
+      "rating": 5,
+      "date": "2026-02-17",
+      "title": "Fabio Lite — perfect entry-level choice!",
+      "comment": "The Fabio Lite delivers everything you need without unnecessary extras. The soft fabric is comfortable and breathable, and the 360° swivel is smooth. Great value at this price!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Vijay Naidu",
+      "rating": 4,
+      "date": "2026-01-28",
+      "title": "Lightweight yet sturdy — impressed!",
+      "comment": "As the name suggests, the Fabio Lite feels nimble but sturdy. The height adjustment works perfectly and the fabric quality is surprisingly good for this price range.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Preeti Dubey",
+      "rating": 4,
+      "date": "2025-12-12",
+      "title": "Great starter fabric chair",
+      "comment": "Bought this for my study room and it's perfect. The ergonomic design keeps me comfortable during long study sessions. Highly recommended for students!",
+      "verified": false
+    }
+  ]
+},
   {
     "id": "chair-fabric-002",
     "name": "Nexa fabric-chair",
@@ -1105,7 +1151,57 @@
         "verified": false
       }
     ]
-  },
+  },{
+  "id": "chair-fabric-008",
+  "name": "Nexa Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/2 - Nexa lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Ravi Shankar Pillai",
+      "rating": 5,
+      "date": "2026-02-16",
+      "title": "Nexa Lite — smart value pick!",
+      "comment": "The Nexa Lite offers the Nexa design philosophy at a more accessible price. The breathable fabric is great for extended use and the swivel base is rock solid. Smart buy!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Gayatri Saxena",
+      "rating": 4,
+      "date": "2026-01-26",
+      "title": "Compact and comfortable",
+      "comment": "Nexa Lite fits my smaller home office perfectly. The fabric is easy to clean and the height adjustment is precise. Good ergonomics for an affordable chair.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Piyush Shardul",
+      "rating": 5,
+      "date": "2025-12-29",
+      "title": "Impressive quality for the price",
+      "comment": "Couldn't believe the quality I got at this price. The Nexa Lite fabric feels premium, assembly was done in 20 minutes, and the chair is very comfortable. Highly recommend!",
+      "verified": false
+    }
+  ]
+},
   {
     "id": "chair-fabric-003",
     "name": "Casca fabric-chair",
@@ -1156,7 +1252,57 @@
         "verified": true
       }
     ]
-  },
+  },{
+  "id": "chair-fabric-009",
+  "name": "Casca Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/3 - Casca lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Surekha Patnaik",
+      "rating": 5,
+      "date": "2026-02-14",
+      "title": "Casca Lite — light on wallet, heavy on comfort!",
+      "comment": "The Casca Lite is a wonderful chair for everyday use. Soft fabric upholstery feels gentle and the ergonomic design holds my posture in check during 8-hour WFH days. Very impressed!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Anuj Thakur",
+      "rating": 4,
+      "date": "2026-01-30",
+      "title": "Good chair, quick delivery",
+      "comment": "The Casca Lite arrived well-packaged and was easy to assemble. The breathable fabric is comfortable even in humid weather. Good ergonomics and smooth swivel — happy with the purchase!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Ishita Roy",
+      "rating": 4,
+      "date": "2025-12-20",
+      "title": "Solid budget choice",
+      "comment": "Bought the Casca Lite for my teenage kid's study room. The height adjustment suits them well and the fabric hasn't worn down despite heavy daily use. Sturdy and reliable!",
+      "verified": false
+    }
+  ]
+},
   {
   "id": "chair-fabric-004",
   "name": "Pointer fabric-chair",
@@ -1204,6 +1350,56 @@
       "date": "2026-01-08",
       "title": "Durable fabric that stays fresh",
       "comment": "After 3 months of daily use the Pointer fabric still looks and feels brand new. No sagging or pilling at all. The contemporary design is a big plus for my modern office.",
+      "verified": false
+    }
+  ]
+},{
+  "id": "chair-fabric-0010",
+  "name": "Pointer Lite fabric-chair",
+  "category": "chair",
+  "subCategory": "fabric-chair",
+  "price": 10999.0,
+  "currency": "INR",
+  "rating": 4.6,
+  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
+  "features": [
+    "Soft fabric upholstery",
+    "Ergonomic design",
+    "Breathable material",
+    "Sturdy construction",
+    "Height adjustable seat",
+    "360° smooth swivel"
+  ],
+  "images": [
+    "/images/products/chairs/fabric-chair/4 - Pointer lite.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Aditya Bhargava",
+      "rating": 5,
+      "date": "2026-02-13",
+      "title": "Pointer Lite — does the job brilliantly!",
+      "comment": "The Pointer Lite is a no-nonsense fabric chair that delivers where it matters. The ergonomic design supports the right posture and the breathable fabric keeps things comfortable all day long. Excellent!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Seema Nagpal",
+      "rating": 4,
+      "date": "2026-01-27",
+      "title": "Affordable and practical",
+      "comment": "The Pointer Lite is sturdy, easy to assemble and sits well. The 360° smooth swivel is useful when multitasking. Fabric is durable — no signs of wear after two months of daily use.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Kunal Sharma",
+      "rating": 4,
+      "date": "2025-12-22",
+      "title": "Great office starter chair",
+      "comment": "First fabric chair purchase and it didn't disappoint. The Pointer Lite has a clean modern look and the height adjustment suits my tall desk perfectly. Good investment!",
       "verified": false
     }
   ]
@@ -1306,210 +1502,6 @@
       "date": "2026-01-19",
       "title": "Comfortable, sturdy and elegant",
       "comment": "The Luxor fabric chair has a sturdier construction compared to other fabric chairs I've used. Height adjustment is easy and the swivel is smooth. Very pleased with the purchase!",
-      "verified": false
-    }
-  ]
-},
-  {
-  "id": "chair-fabric-007",
-  "name": "Fabio Lite fabric-chair",
-  "category": "chair",
-  "subCategory": "fabric-chair",
-  "price": 10999.0,
-  "currency": "INR",
-  "rating": 4.6,
-  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
-  "features": [
-    "Soft fabric upholstery",
-    "Ergonomic design",
-    "Breathable material",
-    "Sturdy construction",
-    "Height adjustable seat",
-    "360° smooth swivel"
-  ],
-  "images": [
-    "/images/products/chairs/fabric-chair/1 - Fabiolite.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Roshni Kulkarni",
-      "rating": 5,
-      "date": "2026-02-17",
-      "title": "Fabio Lite — perfect entry-level choice!",
-      "comment": "The Fabio Lite delivers everything you need without unnecessary extras. The soft fabric is comfortable and breathable, and the 360° swivel is smooth. Great value at this price!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Vijay Naidu",
-      "rating": 4,
-      "date": "2026-01-28",
-      "title": "Lightweight yet sturdy — impressed!",
-      "comment": "As the name suggests, the Fabio Lite feels nimble but sturdy. The height adjustment works perfectly and the fabric quality is surprisingly good for this price range.",
-      "verified": true
-    },
-    {
-      "id": 3,
-      "author": "Preeti Dubey",
-      "rating": 4,
-      "date": "2025-12-12",
-      "title": "Great starter fabric chair",
-      "comment": "Bought this for my study room and it's perfect. The ergonomic design keeps me comfortable during long study sessions. Highly recommended for students!",
-      "verified": false
-    }
-  ]
-},
-  {
-  "id": "chair-fabric-008",
-  "name": "Nexa Lite fabric-chair",
-  "category": "chair",
-  "subCategory": "fabric-chair",
-  "price": 10999.0,
-  "currency": "INR",
-  "rating": 4.6,
-  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
-  "features": [
-    "Soft fabric upholstery",
-    "Ergonomic design",
-    "Breathable material",
-    "Sturdy construction",
-    "Height adjustable seat",
-    "360° smooth swivel"
-  ],
-  "images": [
-    "/images/products/chairs/fabric-chair/2 - Nexalite.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Ravi Shankar Pillai",
-      "rating": 5,
-      "date": "2026-02-16",
-      "title": "Nexa Lite — smart value pick!",
-      "comment": "The Nexa Lite offers the Nexa design philosophy at a more accessible price. The breathable fabric is great for extended use and the swivel base is rock solid. Smart buy!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Gayatri Saxena",
-      "rating": 4,
-      "date": "2026-01-26",
-      "title": "Compact and comfortable",
-      "comment": "Nexa Lite fits my smaller home office perfectly. The fabric is easy to clean and the height adjustment is precise. Good ergonomics for an affordable chair.",
-      "verified": true
-    },
-    {
-      "id": 3,
-      "author": "Piyush Shardul",
-      "rating": 5,
-      "date": "2025-12-29",
-      "title": "Impressive quality for the price",
-      "comment": "Couldn't believe the quality I got at this price. The Nexa Lite fabric feels premium, assembly was done in 20 minutes, and the chair is very comfortable. Highly recommend!",
-      "verified": false
-    }
-  ]
-},
-  {
-  "id": "chair-fabric-009",
-  "name": "Casca Lite fabric-chair",
-  "category": "chair",
-  "subCategory": "fabric-chair",
-  "price": 10999.0,
-  "currency": "INR",
-  "rating": 4.6,
-  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
-  "features": [
-    "Soft fabric upholstery",
-    "Ergonomic design",
-    "Breathable material",
-    "Sturdy construction",
-    "Height adjustable seat",
-    "360° smooth swivel"
-  ],
-  "images": [
-    "/images/products/chairs/fabric-chair/3 - Cascalite.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Surekha Patnaik",
-      "rating": 5,
-      "date": "2026-02-14",
-      "title": "Casca Lite — light on wallet, heavy on comfort!",
-      "comment": "The Casca Lite is a wonderful chair for everyday use. Soft fabric upholstery feels gentle and the ergonomic design holds my posture in check during 8-hour WFH days. Very impressed!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Anuj Thakur",
-      "rating": 4,
-      "date": "2026-01-30",
-      "title": "Good chair, quick delivery",
-      "comment": "The Casca Lite arrived well-packaged and was easy to assemble. The breathable fabric is comfortable even in humid weather. Good ergonomics and smooth swivel — happy with the purchase!",
-      "verified": true
-    },
-    {
-      "id": 3,
-      "author": "Ishita Roy",
-      "rating": 4,
-      "date": "2025-12-20",
-      "title": "Solid budget choice",
-      "comment": "Bought the Casca Lite for my teenage kid's study room. The height adjustment suits them well and the fabric hasn't worn down despite heavy daily use. Sturdy and reliable!",
-      "verified": false
-    }
-  ]
-},
-  {
-  "id": "chair-fabric-0010",
-  "name": "Pointer Lite fabric-chair",
-  "category": "chair",
-  "subCategory": "fabric-chair",
-  "price": 10999.0,
-  "currency": "INR",
-  "rating": 4.6,
-  "description": "Comfortable Fabio fabric chair with soft upholstery and modern design. Breathable fabric material ensures comfort during long working hours with ergonomic support.",
-  "features": [
-    "Soft fabric upholstery",
-    "Ergonomic design",
-    "Breathable material",
-    "Sturdy construction",
-    "Height adjustable seat",
-    "360° smooth swivel"
-  ],
-  "images": [
-    "/images/products/chairs/fabric-chair/4 - Pointerlite.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Aditya Bhargava",
-      "rating": 5,
-      "date": "2026-02-13",
-      "title": "Pointer Lite — does the job brilliantly!",
-      "comment": "The Pointer Lite is a no-nonsense fabric chair that delivers where it matters. The ergonomic design supports the right posture and the breathable fabric keeps things comfortable all day long. Excellent!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Seema Nagpal",
-      "rating": 4,
-      "date": "2026-01-27",
-      "title": "Affordable and practical",
-      "comment": "The Pointer Lite is sturdy, easy to assemble and sits well. The 360° smooth swivel is useful when multitasking. Fabric is durable — no signs of wear after two months of daily use.",
-      "verified": true
-    },
-    {
-      "id": 3,
-      "author": "Kunal Sharma",
-      "rating": 4,
-      "date": "2025-12-22",
-      "title": "Great office starter chair",
-      "comment": "First fabric chair purchase and it didn't disappoint. The Pointer Lite has a clean modern look and the height adjustment suits my tall desk perfectly. Good investment!",
       "verified": false
     }
   ]
@@ -1747,7 +1739,7 @@
     "name": "Flex Bed Table",
     "category": "table",
     "subCategory": "bed-table",
-    "price": 1999.0,
+    "price": 999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Compact bed table perfect for working or eating in bed. Lightweight and easy to move with foldable design.",
@@ -1760,7 +1752,9 @@
       "Smooth MDF surface"
     ],
     "images": [
-      "/images/products/tables/bed-table/1 - Flex Apex.jpeg"
+      "/images/products/tables/bed-table/1 - Flex.jpeg",
+      "/images/products/tables/bed-table/1 - Flex1.jpeg",
+      "/images/products/tables/bed-table/1 - Flex2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1795,7 +1789,7 @@
   },
   {
     "id": "table-bed-002",
-    "name": "Flex Vertex Bed Table",
+    "name": "Flexora Bed Table",
     "category": "table",
     "subCategory": "bed-table",
     "price": 1999.0,
@@ -1811,7 +1805,9 @@
       "Compact fold-flat storage"
     ],
     "images": [
-      "/images/products/tables/bed-table/2 - Flex Vertex.jpeg"
+      "/images/products/tables/bed-table/2 - Flexora.jpeg",
+      "/images/products/tables/bed-table/2 - Flexora1.jpeg",
+      "/images/products/tables/bed-table/2 - Flexora2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1837,7 +1833,7 @@
   },
   {
     "id": "table-bed-003",
-    "name": "Flex Primex Bed Table",
+    "name": "Flexon Bed Table",
     "category": "table",
     "subCategory": "bed-table",
     "price": 2999.0,
@@ -1853,7 +1849,9 @@
       "Built-in cup holder"
     ],
     "images": [
-      "/images/products/tables/bed-table/3 - Flex Primex.jpeg"
+      "/images/products/tables/bed-table/3 - Flexon.jpeg",
+      "/images/products/tables/bed-table/3 - Flexon1.jpeg",
+      "/images/products/tables/bed-table/3 - Flexon2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1882,7 +1880,7 @@
     "name": "Exquisite Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 999.0,
+    "price": 3999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Compact Exquisite folding table ideal for small spaces and outdoor use. Lightweight yet sturdy design that folds flat for easy storage and portability.",
@@ -1921,10 +1919,10 @@
   },
   {
     "id": "table-folding-002",
-    "name": "Exquisite Folding Table",
+    "name": "Exquisite Primex Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 1999.0,
+    "price": 4999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Mid-size Exquisite folding table with reinforced frame and larger surface area. Perfect for dining, work, or events with quick setup and takedown.",
@@ -1937,7 +1935,7 @@
       "Seats up to 6 people"
     ],
     "images": [
-      "/images/products/tables/folding-table/2 - Exquisite Vertex.jpeg"
+      "/images/products/tables/folding-table/2 - Exquisite Primex.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1963,10 +1961,10 @@
   },
   {
     "id": "table-folding-003",
-    "name": "Exquisite Folding Table",
+    "name": "Uniflip Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 2999.0,
+    "price": 6999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Exquisite folding table with heavy-duty construction and elegant finish. Ideal for professional events and home use with superior stability.",
@@ -1979,7 +1977,10 @@
       "Easy fold mechanism"
     ],
     "images": [
-      "/images/products/tables/folding-table/3 - Exquisite Primex.jpeg"
+      "/images/products/tables/folding-table/3 - Uniflip.jpeg",
+      "/images/products/tables/folding-table/3 - Uniflip1.jpeg",
+      "/images/products/tables/folding-table/3 - Uniflip2.jpeg",
+      "/images/products/tables/folding-table/3 - Uniflip3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2005,10 +2006,10 @@
   },
   {
     "id": "table-folding-004",
-    "name": "Exquisite Pro Folding Table",
+    "name": "Nextable Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 3999.0,
+    "price": 9999.0,
     "currency": "INR",
     "rating": 4.6,
     "description": "The Exquisite Pro is the ultimate folding table for professionals and families alike. Features a waterproof anti-scratch tabletop, one-click fold mechanism, and carry handle — the easiest fold-and-go table in the range.",
@@ -2021,7 +2022,10 @@
       "Seats up to 8 people"
     ],
     "images": [
-      "/images/products/tables/folding-table/4 - Exquisite Pro.jpeg"
+      "/images/products/tables/folding-table/4 - Nextable.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable1.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable2.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2056,13 +2060,13 @@
   },
   {
     "id": "table-height-adjustable-001",
-    "name": " Modulus Height Adjustable Table",
+    "name": " Crox Height Adjustable Table",
     "category": "table",
     "subCategory": "height-adjustable-table",
-    "price": 9999.0,
+    "price": 6999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Ergonomic Modulus height adjustable table promoting healthy work habits. Easily switch between sitting and standing positions with smooth electric adjustment mechanism.",
+    "description": "Ergonomic Crox height adjustable table promoting healthy work habits. Easily switch between sitting and standing positions with smooth electric adjustment mechanism.",
     "features": [
       "Electric height adjustment",
       "Memory presets",
@@ -2072,7 +2076,7 @@
       "Quiet motor operation"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/1 - Modulus.jpeg"
+      "/images/products/tables/height-adjustable-table/1 - Crox.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2098,13 +2102,13 @@
   },
   {
     "id": "table-height-adjustable-002",
-    "name": " Modulus Vertex Height Adjustable Table",
+    "name": " Modura Height Adjustable Table",
     "category": "table",
     "subCategory": "height-adjustable-table",
-    "price": 13999.0,
+    "price": 8999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Advanced Modulus Vertex sit-stand desk with dual motor system for enhanced stability. Features programmable height memory and whisper-quiet operation.",
+    "description": "Advanced Modura sit-stand desk with dual motor system for enhanced stability. Features programmable height memory and whisper-quiet operation.",
     "features": [
       "Dual motor system",
       "4 memory presets",
@@ -2114,7 +2118,7 @@
       "Heavy-duty steel frame"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/2 - Modulus Vertex.jpeg"
+      "/images/products/tables/height-adjustable-table/2 - Modura.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2140,13 +2144,13 @@
   },
   {
     "id": "table-height-adjustable-003",
-    "name": " Modulus Primex Height Adjustable Table",
+    "name": " Modura Primex Height Adjustable Table",
     "category": "table",
     "subCategory": "height-adjustable-table",
-    "price": 15999.0,
+    "price": 10999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Premium Modulus Primex standing desk with maximum stability and load capacity. Professional-grade with triple motor system and smart control features.",
+    "description": "Premium Modura Primex standing desk with maximum stability and load capacity. Professional-grade with triple motor system and smart control features.",
     "features": [
       "Triple motor system",
       "Smart controls",
@@ -2156,7 +2160,7 @@
       "USB charging port integrated"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/3 - Modulus Primex.jpeg"
+      "/images/products/tables/height-adjustable-table/3 - Modura primex.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2182,13 +2186,13 @@
   },
   {
     "id": "table-height-adjustable-004",
-    "name": "Modulus Ultra Height Adjustable Table",
+    "name": "Modulus Height Adjustable Table",
     "category": "table",
     "subCategory": "height-adjustable-table",
-    "price": 22999.0,
+    "price": 13999.0,
     "currency": "INR",
     "rating": 4.9,
-    "description": "The flagship Modulus Ultra is the pinnacle of sit-stand desk engineering. Features an AI-powered posture reminder, 6 memory presets, ultra-wide surface for multi-monitor setups, and a built-in wireless charging pad — redefining what a height adjustable desk can be.",
+    "description": "The flagship Modulus is the pinnacle of sit-stand desk engineering. Features an AI-powered posture reminder, 6 memory presets, ultra-wide surface for multi-monitor setups, and a built-in wireless charging pad — redefining what a height adjustable desk can be.",
     "features": [
       "AI posture reminder system",
       "6 memory height presets",
@@ -2198,7 +2202,7 @@
       "Integrated cable spine management"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/4 - Modulus Ultra.jpeg"
+      "/images/products/tables/height-adjustable-table/4 - Modulus.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2241,14 +2245,116 @@
     ]
   },
   {
+  "id": "table-height-adjustable-005",
+  "name": "Modulus Primex Height Adjustable Table",
+  "category": "table",
+  "subCategory": "height-adjustable-table",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.9,
+  "description": "The flagship Modulus Primex is the pinnacle of sit-stand desk engineering. Features an AI-powered posture reminder, 6 memory presets, ultra-wide surface for multi-monitor setups, and a built-in wireless charging pad — redefining what a height adjustable desk can be.",
+  "features": [
+    "AI posture reminder system",
+    "6 memory height presets",
+    "Ultra-wide XL surface (160 cm)",
+    "Built-in wireless charging pad",
+    "Dual motor with anti-collision",
+    "Integrated cable spine management"
+  ],
+  "images": [
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Aditya Krishnan",
+      "rating": 5,
+      "date": "2026-04-21",
+      "title": "The smartest desk I've ever used!",
+      "comment": "The AI posture reminder actually helped me fix my slouching habit within a week! 6 memory presets mean every family member has their own height saved. The XL surface handles 3 monitors effortlessly. This is the future of desks!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Preethi Nambiar",
+      "rating": 5,
+      "date": "2026-04-09",
+      "title": "Wireless charging + standing desk = perfect",
+      "comment": "I always forget to charge my phone. The built-in wireless pad means it charges just by sitting on the desk. The dual motor is rock solid and whisper-quiet. Absolutely premium product!",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "author": "Gaurav Kapoor",
+      "rating": 5,
+      "date": "2026-03-28",
+      "title": "Best home office investment ever",
+      "comment": "The cable spine management finally solved my cable chaos. XL surface is huge — there's room for everything. Dual motor provides incredible stability even at full height. Zero regrets!",
+      "verified": true
+    },
+    {
+      "id": 4,
+      "author": "Meena Patel",
+      "rating": 4,
+      "date": "2026-03-14",
+      "title": "Premium in every way",
+      "comment": "The AI reminder feature takes a day or two to calibrate but once set it works brilliantly. The desk itself is stunning — solid, smooth and incredibly functional. Worth every rupee!",
+      "verified": true
+    }
+  ]
+},
+  {
+  "id": "table-height-adjustable-006",
+  "name": " Movix Height Adjustable Table",
+  "category": "table",
+  "subCategory": "height-adjustable-table",
+  "price": 19999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Modvix standing desk with maximum stability and load capacity. Professional-grade with triple motor system and smart control features.",
+  "features": [
+    "Triple motor system",
+    "Smart controls",
+    "High load capacity",
+    "Premium materials",
+    "Programmable height display",
+    "USB charging port integrated"
+  ],
+  "images": [
+    "/images/products/tables/height-adjustable-table/6 - Movix.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Vikram Mehta",
+      "rating": 5,
+      "date": "2026-02-17",
+      "title": "Triple motor is incredible!",
+      "comment": "The stability and load capacity are unmatched! Smart controls make it so easy to use. Premium materials throughout. Worth the premium price!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Divya Sharma",
+      "rating": 5,
+      "date": "2026-02-06",
+      "title": "Ultimate standing desk!",
+      "comment": "Professional-grade quality is evident. Can handle multiple monitors with ease. Smart features are intuitive. Best desk I've ever owned!",
+      "verified": true
+    }
+  ]
+},
+  {
     "id": "table-training-001",
-    "name": " Nextable Training Table",
+    "name": " Trexen Training Table",
     "category": "table",
     "subCategory": "training-table",
-    "price": 9999.0,
+    "price": 8999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Versatile Nextable training table designed for collaborative learning environments. Features mobile design with locking casters for easy reconfiguration.",
+    "description": "Versatile Trexen training table designed for collaborative learning environments. Features mobile design with locking casters for easy reconfiguration.",
     "features": [
       "Mobile with casters",
       "Flip-top design",
@@ -2258,7 +2364,7 @@
       "Scratch-resistant surface"
     ],
     "images": [
-      "/images/products/tables/training-table/1 - Nextable.jpeg"
+      "/images/products/tables/training-table/1 - Trexen.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2284,13 +2390,13 @@
   },
   {
     "id": "table-training-002",
-    "name": " Nextable Vertex Training Table",
+    "name": " Tranzo Training Table",
     "category": "table",
     "subCategory": "training-table",
-    "price": 129999.0,
+    "price": 10999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Enhanced Nextable Vertex training table with integrated power outlets and cable management. Ideal for technology-enabled training rooms and workshops.",
+    "description": "Enhanced Tranzo training table with integrated power outlets and cable management. Ideal for technology-enabled training rooms and workshops.",
     "features": [
       "Power outlets",
       "Cable management",
@@ -2300,7 +2406,7 @@
       "Modular caster mobility"
     ],
     "images": [
-      "/images/products/tables/training-table/2 - Nextable Vertex.jpeg"
+      "/images/products/tables/training-table/2 - Tranzo.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2326,13 +2432,13 @@
   },
   {
     "id": "table-training-003",
-    "name": " Nextable Primex Training Table",
+    "name": " Tabrix Training Table",
     "category": "table",
     "subCategory": "training-table",
-    "price": 15999.0,
+    "price": 13999.0,
     "currency": "INR",
     "rating": 4.4,
-    "description": "Premium Nextable Primex training table with executive-level features. Includes integrated technology, height adjustment, and collaborative workspace design.",
+    "description": "Premium Tabrix training table with executive-level features. Includes integrated technology, height adjustment, and collaborative workspace design.",
     "features": [
       "Height adjustable",
       "Tech integration",
@@ -2342,7 +2448,7 @@
       "Heavy-duty caster wheels"
     ],
     "images": [
-      "/images/products/tables/training-table/3 - Nextable Primex.jpeg"
+      "/images/products/tables/training-table/3 - Tabrix.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2384,7 +2490,7 @@
       "Anti-scratch laminate top"
     ],
     "images": [
-      "/images/products/tables/executive-table/1 - Impulse.jpeg"
+      "/images/products/tables/executive-table/3 - Impulse.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2410,13 +2516,13 @@
   },
   {
     "id": "table-executive-002",
-    "name": " Impulse Vertex Executive Table",
+    "name": " Wiesner Executive Table",
     "category": "table",
     "subCategory": "executive-table",
-    "price": 12999.0,
+    "price": 11999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Enhanced Impulse Vertex executive desk with L-shaped design for maximum workspace. Includes side cabinet and premium leather desk pad for executive comfort.",
+    "description": "Enhanced Wiesner executive desk with L-shaped design for maximum workspace. Includes side cabinet and premium leather desk pad for executive comfort.",
     "features": [
       "L-shaped design",
       "Side cabinet",
@@ -2426,7 +2532,7 @@
       "Locking pedestal drawer"
     ],
     "images": [
-      "/images/products/tables/executive-table/2 - Impulse vertex.jpeg"
+      "/images/products/tables/executive-table/4 - Wiesner.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2452,13 +2558,13 @@
   },
   {
     "id": "table-executive-003",
-    "name": " Impulse Primex Executive Table",
+    "name": " Imperium Executive Table",
     "category": "table",
     "subCategory": "executive-table",
-    "price": 15999.0,
+    "price": 13999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Luxury Impulse Primex executive desk with expansive surface and premium craftsmanship. Features built-in filing system, integrated lighting, and executive-grade finish.",
+    "description": "Luxury Imperium executive desk with expansive surface and premium craftsmanship. Features built-in filing system, integrated lighting, and executive-grade finish.",
     "features": [
       "Built-in filing",
       "Integrated lighting",
@@ -2468,7 +2574,12 @@
       "Solid wood construction"
     ],
     "images": [
-      "/images/products/tables/executive-table/3 - Impulse primex.jpeg"
+      "/images/products/tables/executive-table/1 - Imperium.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium1.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium2.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium3.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium4.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium5.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2493,14 +2604,56 @@
     ]
   },
   {
+  "id": "table-executive-004",
+  "name": " Curvivo Executive Table",
+  "category": "table",
+  "subCategory": "executive-table",
+  "price": 15999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Luxury Curvivo executive desk with expansive surface and premium craftsmanship. Features built-in filing system, integrated lighting, and executive-grade finish.",
+  "features": [
+    "Built-in filing",
+    "Integrated lighting",
+    "Expansive surface",
+    "Luxury finish",
+    "Executive leather inlay",
+    "Solid wood construction"
+  ],
+  "images": [
+    "/images/products/tables/executive-table/2 - Curvivo.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Rahul Khanna",
+      "rating": 5,
+      "date": "2026-02-17",
+      "title": "Luxury desk worth every penny!",
+      "comment": "Built-in filing system is incredibly convenient! Integrated lighting is perfect for evening work. Expansive surface handles everything. Premium craftsmanship!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Anjali Menon",
+      "rating": 5,
+      "date": "2026-02-06",
+      "title": "Ultimate executive desk!",
+      "comment": "Luxury finish transforms my office! All features work perfectly. Executive-grade quality throughout. Best investment for my home office!",
+      "verified": true
+    }
+  ]
+},
+  {
     "id": "table-study-001",
-    "name": " Zenith Study Table",
+    "name": " Zen Study Table",
     "category": "table",
     "subCategory": "study-table",
-    "price": 9999.0,
+    "price": 5999.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Functional Zenith study table perfect for students and home learning. Compact design with built-in bookshelf and drawer for organized studying.",
+    "description": "Functional Zen study table perfect for students and home learning. Compact design with built-in bookshelf and drawer for organized studying.",
     "features": [
       "Built-in bookshelf",
       "Storage drawer",
@@ -2510,7 +2663,7 @@
       "Sturdy MDF construction"
     ],
     "images": [
-      "/images/products/tables/study-table/1 - Zenith.jpeg"
+      "/images/products/tables/study-table/1 - Zen.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2535,14 +2688,56 @@
     ]
   },
   {
-    "id": "table-study-002",
-    "name": " Zenith Vertex Study Table",
+  "id": "table-study-002",
+  "name": " Zen Primex Study Table",
+  "category": "table",
+  "subCategory": "study-table",
+  "price": 6999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Functional Zen Primex study table perfect for students and home learning. Compact design with built-in bookshelf and drawer for organized studying.",
+  "features": [
+    "Built-in bookshelf",
+    "Storage drawer",
+    "Compact design",
+    "Study lamp mount",
+    "Anti-scratch surface",
+    "Sturdy MDF construction"
+  ],
+  "images": [
+    "/images/products/tables/study-table/2 - Zen primex.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Mrs. Sharma (Parent)",
+      "rating": 5,
+      "date": "2026-02-09",
+      "title": "Perfect for my daughter's studies!",
+      "comment": "Built-in bookshelf keeps textbooks organized! Storage drawer is handy for stationery. Compact design fits small room perfectly. Great value for students!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Rohit Kumar (Student)",
+      "rating": 4,
+      "date": "2026-01-21",
+      "title": "Good study table",
+      "comment": "Study lamp mount is very useful. Compact design doesn't take much space. Good quality for the price. Recommended for students!",
+      "verified": true
+    }
+  ]
+},
+  {
+    "id": "table-study-003",
+    "name": " Zenith Study Table",
     "category": "table",
     "subCategory": "study-table",
-    "price": 12999.0,
+    "price": 7499.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Enhanced Zenith Vertex study desk with multi-level storage and ergonomic design. Features keyboard tray, CPU stand, and adjustable shelving for comprehensive study setup.",
+    "description": "Enhanced Zenith study desk with multi-level storage and ergonomic design. Features keyboard tray, CPU stand, and adjustable shelving for comprehensive study setup.",
     "features": [
       "Multi-level storage",
       "Keyboard tray",
@@ -2552,7 +2747,7 @@
       "Ergonomic monitor riser"
     ],
     "images": [
-      "/images/products/tables/study-table/2 - Zenith Vertex.jpeg"
+      "/images/products/tables/study-table/3 - Zenith.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2577,14 +2772,56 @@
     ]
   },
   {
-    "id": "table-study-003",
-    "name": " Zenith Primex Study Table",
+  "id": "table-study-004",
+  "name": " Zenith Primex Study Table",
+  "category": "table",
+  "subCategory": "study-table",
+  "price": 7999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Enhanced Zenith Primex study desk with multi-level storage and ergonomic design. Features keyboard tray, CPU stand, and adjustable shelving for comprehensive study setup.",
+  "features": [
+    "Multi-level storage",
+    "Keyboard tray",
+    "CPU stand",
+    "Adjustable shelves",
+    "Cable management system",
+    "Ergonomic monitor riser"
+  ],
+  "images": [
+    "/images/products/tables/study-table/4 - Zenith primex.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Akash Verma (College Student)",
+      "rating": 5,
+      "date": "2026-02-12",
+      "title": "Complete study setup!",
+      "comment": "Multi-level storage is amazing! Keyboard tray perfect for my laptop. CPU stand holds my desktop securely. Best study desk for tech students!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Mrs. Gupta",
+      "rating": 5,
+      "date": "2026-01-28",
+      "title": "Excellent for online learning!",
+      "comment": "Son loves the ergonomic design! Adjustable shelves grow with his needs. Comprehensive setup in one desk. Highly recommend!",
+      "verified": true
+    }
+  ]
+},
+  {
+    "id": "table-study-005",
+    "name": " Zenvy Study Table",
     "category": "table",
     "subCategory": "study-table",
-    "price": 15999.0,
+    "price": 8499.0,
     "currency": "INR",
     "rating": 4.3,
-    "description": "Premium Zenith Primex study workstation with complete organization system. Includes hutch with LED lighting, cable management, and extensive storage for serious students.",
+    "description": "Premium Zenvy study workstation with complete organization system. Includes hutch with LED lighting, cable management, and extensive storage for serious students.",
     "features": [
       "LED lighting",
       "Hutch design",
@@ -2594,7 +2831,7 @@
       "Solid engineered wood frame"
     ],
     "images": [
-      "/images/products/tables/study-table/3 - Zenith Primex.jpeg"
+      "/images/products/tables/study-table/5 - Zenvy.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2619,11 +2856,53 @@
     ]
   },
   {
+  "id": "table-study-006",
+  "name": " Zenvy Primex Study Table",
+  "category": "table",
+  "subCategory": "study-table",
+  "price": 8999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Zenvy Primex study workstation with complete organization system. Includes hutch with LED lighting, cable management, and extensive storage for serious students.",
+  "features": [
+    "LED lighting",
+    "Hutch design",
+    "Extensive storage",
+    "Cable management",
+    "Pinboard included",
+    "Solid engineered wood frame"
+  ],
+  "images": [
+    "/images/products/tables/study-table/6 - Zenvy Primex.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Prateek Singh (Engineering Student)",
+      "rating": 5,
+      "date": "2026-02-15",
+      "title": "Premium study workstation!",
+      "comment": "LED lighting is perfect for late-night study sessions! Hutch design provides tons of storage. Cable management keeps everything tidy. Worth the investment!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Dr. Nair",
+      "rating": 5,
+      "date": "2026-02-03",
+      "title": "Best desk for serious students!",
+      "comment": "Daughter preparing for medical entrance loves it! Complete organization system is excellent. Extensive storage handles all her materials. Premium quality!",
+      "verified": true
+    }
+  ]
+},
+  {
     "id": "table-gaming-desk-001",
     "name": "Quantum Gaming Desk",
     "category": "table",
     "subCategory": "gaming-desk",
-    "price": 19999.0,
+    "price": 9999.0,
     "currency": "INR",
     "rating": 4.7,
     "description": "The Quantum Gaming Desk is engineered for serious gamers who demand performance and style. Features a spacious carbon-fibre texture surface, built-in RGB LED strip, cable management cutouts, and a headphone hook — everything a modern gaming battlestation needs.",
@@ -2636,7 +2915,13 @@
       "Heavy-duty steel frame"
     ],
     "images": [
-      "/images/products/tables/gaming-desk/1 - Quantum.jpeg"
+      "/images/products/tables/gaming-desk/1 - Quantum.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum1.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum2.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum3.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum4.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum5.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum6.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2674,7 +2959,7 @@
     "name": "Quantum Primex Gaming Desk",
     "category": "table",
     "subCategory": "gaming-desk",
-    "price": 27999.0,
+    "price": 11999.0,
     "currency": "INR",
     "rating": 4.9,
     "description": "The ultimate gaming battlestation desk. The Quantum Primex elevates every aspect of the Quantum with a motorised height adjustment, dual monitor mount, wireless charging pad, and premium RGB ecosystem — built for professional gamers and streamers who accept nothing but the best.",
@@ -2687,7 +2972,9 @@
       "XL carbon-fibre texture surface"
     ],
     "images": [
-      "/images/products/tables/gaming-desk/2 - Quantum Primex.jpeg"
+      "/images/products/tables/gaming-desk/2 - Quantum Primex.jpeg",
+      "/images/products/tables/gaming-desk/2 - Quantum Primex1.jpeg",
+      "/images/products/tables/gaming-desk/2 - Quantum Primex2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2725,6 +3012,174 @@
         "date": "2026-03-15",
         "title": "Premium desk with premium experience",
         "comment": "The wireless charger works flawlessly with my phone. Motorised adjustment is very smooth. Dual monitor mount installation was slightly complex but the instruction video helped. 10/10 would recommend!",
+        "verified": true
+      }
+    ]
+  },
+  {
+  "id": "accessories-storage-box-001",
+  "name": "Storage Box Basic",
+  "category": "accessories",
+  "subCategory": "storage-box",
+  "price": 4999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Compact Basic storage box for desk organization and stationery. Stackable design with multiple compartments to keep office supplies tidy and accessible.",
+  "features": [
+    "Multiple compartments",
+    "Stackable design",
+    "Compact size",
+    "Durable material",
+    "Easy snap-together assembly",
+    "Ideal for stationery"
+  ],
+  "images": [
+    "/images/products/accessories/storage-box/1 - Basic.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Sunita Rao",
+      "rating": 4,
+      "date": "2026-02-04",
+      "title": "Great desk organizer!",
+      "comment": "Multiple compartments keep stationery organized! Stackable design saves space. Compact size fits on desk. Good value for organization!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Mohan Kumar",
+      "rating": 4,
+      "date": "2026-01-14",
+      "title": "Keeps supplies accessible",
+      "comment": "Durable material. Compartments well-sized. Office supplies now tidy. Recommended!",
+      "verified": true
+    }
+  ]
+},
+  {
+    "id": "accessories-storage-box-002",
+    "name": "Storage Box Plus",
+    "category": "accessories",
+    "subCategory": "storage-box",
+    "price": 5999.0,
+    "currency": "INR",
+    "rating": 4.3,
+    "description": "Versatile Plus storage box with drawer system and label holders. Features modular design for customizable organization of documents and office essentials.",
+    "features": [
+      "Drawer system",
+      "Label holders",
+      "Modular design",
+      "Large capacity",
+      "Document filing slots",
+      "Stackable with Basic"
+    ],
+    "images": [
+      "/images/products/accessories/storage-box/2 - Plus.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Ashok Verma",
+        "rating": 5,
+        "date": "2026-02-07",
+        "title": "Drawer system is excellent!",
+        "comment": "Modular design customizes to my needs! Label holders keep everything identified. Large capacity holds all documents. Great organization!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Deepa Singh",
+        "rating": 4,
+        "date": "2026-01-19",
+        "title": "Versatile storage solution",
+        "comment": "Drawer system very practical. Good for documents and office essentials. Quality is good. Happy with purchase!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "accessories-storage-box-003",
+    "name": "Storage Box Pro",
+    "category": "accessories",
+    "subCategory": "storage-box",
+    "price": 6999.0,
+    "currency": "INR",
+    "rating": 4.3,
+    "description": "Premium Pro storage system with lockable compartments and filing solution. Executive-grade organizer with leather finish and comprehensive storage options.",
+    "features": [
+      "Lockable compartments",
+      "Leather finish",
+      "Filing system",
+      "Executive grade",
+      "Key lock security",
+      "Anti-scratch base"
+    ],
+    "images": [
+      "/images/products/accessories/storage-box/3 - Pro.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Rajesh Malhotra",
+        "rating": 5,
+        "date": "2026-02-10",
+        "title": "Executive-grade organizer!",
+        "comment": "Lockable compartments provide security! Leather finish looks elegant on my desk. Filing system is comprehensive. Premium quality throughout!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Sonal Khanna",
+        "rating": 5,
+        "date": "2026-01-24",
+        "title": "Best storage system!",
+        "comment": "Executive grade quality evident! Comprehensive storage options perfect for my needs. Lockable feature gives peace of mind. Worth the investment!",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "accessories-storage-box-004",
+    "name": "Storage Box Pro Max",
+    "category": "accessories",
+    "subCategory": "storage-box",
+    "price": 7999.0,
+    "currency": "INR",
+    "rating": 4.3,
+    "description": "Premium Pro storage system with lockable compartments and filing solution. Executive-grade organizer with leather finish and comprehensive storage options.",
+    "features": [
+      "Lockable compartments",
+      "Leather finish",
+      "Filing system",
+      "Executive grade",
+      "Key lock security",
+      "Anti-scratch base"
+    ],
+    "images": [
+      "/images/products/accessories/storage-box/4 - Pro max.jpeg"
+    ],
+    "inStock": true,
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Rajesh Malhotra",
+        "rating": 5,
+        "date": "2026-02-10",
+        "title": "Executive-grade organizer!",
+        "comment": "Lockable compartments provide security! Leather finish looks elegant on my desk. Filing system is comprehensive. Premium quality throughout!",
+        "verified": true
+      },
+      {
+        "id": 2,
+        "author": "Sonal Khanna",
+        "rating": 5,
+        "date": "2026-01-24",
+        "title": "Best storage system!",
+        "comment": "Executive grade quality evident! Comprehensive storage options perfect for my needs. Lockable feature gives peace of mind. Worth the investment!",
         "verified": true
       }
     ]
@@ -2776,7 +3231,7 @@
     "name": "Footrest Plus",
     "category": "accessories",
     "subCategory": "footrest",
-    "price": 1999.0,
+    "price": 1499.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Adjustable Plus footrest with height and angle customization. Features massage rollers and textured surface for enhanced comfort and circulation.",
@@ -2818,7 +3273,7 @@
     "name": "Footrest Pro",
     "category": "accessories",
     "subCategory": "footrest",
-    "price": 2999.0,
+    "price": 1999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Pro footrest with electric heating and memory foam cushioning. Advanced ergonomic design with multiple positions for ultimate comfort and wellness.",
@@ -2855,6 +3310,48 @@
       }
     ]
   },
+  {
+  "id": "accessories-footrest-004",
+  "name": "Footrest Pro Max",
+  "category": "accessories",
+  "subCategory": "footrest",
+  "price": 2999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Pro footrest with electric heating and memory foam cushioning. Advanced ergonomic design with multiple positions for ultimate comfort and wellness.",
+  "features": [
+    "Electric heating",
+    "Memory foam",
+    "Multi-position",
+    "Premium materials",
+    "Removable washable cover",
+    "Wireless remote control"
+  ],
+  "images": [
+    "/images/products/accessories/footrest/4 - Pro max.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Deepak Malhotra",
+      "rating": 5,
+      "date": "2026-02-14",
+      "title": "Electric heating is amazing!",
+      "comment": "Memory foam cushioning is so comfortable! Electric heating perfect for cold days. Multi-position adjustment works smoothly. Premium quality throughout!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Shilpa Reddy",
+      "rating": 5,
+      "date": "2026-02-02",
+      "title": "Ultimate comfort and wellness!",
+      "comment": "Advanced ergonomic design really works! Heating function is therapeutic. Premium materials evident. Best footrest available!",
+      "verified": true
+    }
+  ]
+},
   {
     "id": "accessories-cable-tray-001",
     "name": "Cable Tray Basic",
@@ -2902,7 +3399,7 @@
     "name": "Cable Tray Plus",
     "category": "accessories",
     "subCategory": "cable-tray",
-    "price": 1999.0,
+    "price": 1499.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Enhanced Plus cable management tray with multiple compartments. Features adjustable width and cable clips for comprehensive wire organization.",
@@ -2944,7 +3441,7 @@
     "name": "Cable Tray Pro",
     "category": "accessories",
     "subCategory": "cable-tray",
-    "price": 2999.0,
+    "price": 1999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Professional Pro cable management system with modular design. Includes power strip holder, vertical dividers, and premium mesh construction for complex setups.",
@@ -3028,7 +3525,7 @@
     "name": "Cpu Stand Plus",
     "category": "accessories",
     "subCategory": "Cpu-Stand",
-    "price": 1999.0,
+    "price": 1499.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Adjustable Plus CPU stand with width customization and rolling casters. Features locking wheels for mobility and secure positioning of your computer tower.",
@@ -3070,7 +3567,7 @@
     "name": "Cpu Stand Pro",
     "category": "accessories",
     "subCategory": "Cpu-Stand",
-    "price": 2999.0,
+    "price": 1999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Pro CPU stand with advanced cooling ventilation and cable management. Features adjustable height, width, and built-in cable routing system.",
@@ -3107,6 +3604,48 @@
       }
     ]
   },
+  {
+  "id": "accessories-Cpu-Stand-004",
+  "name": "Cpu Stand Pro Max",
+  "category": "accessories",
+  "subCategory": "Cpu-Stand",
+  "price": 3999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Pro CPU stand with advanced cooling ventilation and cable management. Features adjustable height, width, and built-in cable routing system.",
+  "features": [
+    "Cooling ventilation",
+    "Cable management",
+    "Full adjustment",
+    "Premium build",
+    "360° swivel casters",
+    "Height & width adjustable"
+  ],
+  "images": [
+    "/images/products/accessories/Cpu-Stand/4 - Pro max.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Nitin Kapoor",
+      "rating": 5,
+      "date": "2026-02-12",
+      "title": "Cooling ventilation works great!",
+      "comment": "Advanced cooling ventilation keeps my CPU cooler! Cable management is brilliant. Full adjustment fits any tower. Premium build quality!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Aarti Menon",
+      "rating": 5,
+      "date": "2026-01-27",
+      "title": "Premium CPU stand!",
+      "comment": "Cable routing system is genius! Cooling ventilation noticeable. Adjustable for any CPU size. Best CPU stand available!",
+      "verified": true
+    }
+  ]
+},
   {
     "id": "accessories-monitor-stand-001",
     "name": "Monitor Stand Basic",
@@ -3154,7 +3693,7 @@
     "name": "Monitor Stand Plus",
     "category": "accessories",
     "subCategory": "monitor-stand",
-    "price": 1999.0,
+    "price": 1499.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Adjustable Plus monitor stand with height customization and built-in organizer. Features drawer storage and phone/tablet slots for complete desk organization.",
@@ -3196,7 +3735,7 @@
     "name": "Monitor Stand Pro",
     "category": "accessories",
     "subCategory": "monitor-stand",
-    "price": 2999.0,
+    "price": 1999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Pro monitor stand with gas spring arm for full articulation. Features dual monitor support, cable management, and wide range of motion for perfect positioning.",
@@ -3234,131 +3773,47 @@
     ]
   },
   {
-    "id": "accessories-storage-box-001",
-    "name": "Storage Box Basic",
-    "category": "accessories",
-    "subCategory": "storage-box",
-    "price": 999.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Compact Basic storage box for desk organization and stationery. Stackable design with multiple compartments to keep office supplies tidy and accessible.",
-    "features": [
-      "Multiple compartments",
-      "Stackable design",
-      "Compact size",
-      "Durable material",
-      "Easy snap-together assembly",
-      "Ideal for stationery"
-    ],
-    "images": [
-      "/images/products/accessories/storage-box/1 - Basic.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Sunita Rao",
-        "rating": 4,
-        "date": "2026-02-04",
-        "title": "Great desk organizer!",
-        "comment": "Multiple compartments keep stationery organized! Stackable design saves space. Compact size fits on desk. Good value for organization!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Mohan Kumar",
-        "rating": 4,
-        "date": "2026-01-14",
-        "title": "Keeps supplies accessible",
-        "comment": "Durable material. Compartments well-sized. Office supplies now tidy. Recommended!",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "id": "accessories-storage-box-002",
-    "name": "Storage Box Plus",
-    "category": "accessories",
-    "subCategory": "storage-box",
-    "price": 1999.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Versatile Plus storage box with drawer system and label holders. Features modular design for customizable organization of documents and office essentials.",
-    "features": [
-      "Drawer system",
-      "Label holders",
-      "Modular design",
-      "Large capacity",
-      "Document filing slots",
-      "Stackable with Basic"
-    ],
-    "images": [
-      "/images/products/accessories/storage-box/2 - Plus.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Ashok Verma",
-        "rating": 5,
-        "date": "2026-02-07",
-        "title": "Drawer system is excellent!",
-        "comment": "Modular design customizes to my needs! Label holders keep everything identified. Large capacity holds all documents. Great organization!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Deepa Singh",
-        "rating": 4,
-        "date": "2026-01-19",
-        "title": "Versatile storage solution",
-        "comment": "Drawer system very practical. Good for documents and office essentials. Quality is good. Happy with purchase!",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "id": "accessories-storage-box-003",
-    "name": "Storage Box Pro",
-    "category": "accessories",
-    "subCategory": "storage-box",
-    "price": 2999.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Premium Pro storage system with lockable compartments and filing solution. Executive-grade organizer with leather finish and comprehensive storage options.",
-    "features": [
-      "Lockable compartments",
-      "Leather finish",
-      "Filing system",
-      "Executive grade",
-      "Key lock security",
-      "Anti-scratch base"
-    ],
-    "images": [
-      "/images/products/accessories/storage-box/3 - Pro.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Rajesh Malhotra",
-        "rating": 5,
-        "date": "2026-02-10",
-        "title": "Executive-grade organizer!",
-        "comment": "Lockable compartments provide security! Leather finish looks elegant on my desk. Filing system is comprehensive. Premium quality throughout!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Sonal Khanna",
-        "rating": 5,
-        "date": "2026-01-24",
-        "title": "Best storage system!",
-        "comment": "Executive grade quality evident! Comprehensive storage options perfect for my needs. Lockable feature gives peace of mind. Worth the investment!",
-        "verified": true
-      }
-    ]
-  },
+  "id": "accessories-monitor-stand-004",
+  "name": "Monitor Stand Pro Max",
+  "category": "accessories",
+  "subCategory": "monitor-stand",
+  "price": 2999.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Pro monitor stand with gas spring arm for full articulation. Features dual monitor support, cable management, and wide range of motion for perfect positioning.",
+  "features": [
+    "Gas spring arm",
+    "Dual monitor support",
+    "Full articulation",
+    "Cable routing",
+    "VESA mount compatible",
+    "360° tilt & swivel"
+  ],
+  "images": [
+    "/images/products/accessories/monitor-stand/4 - Pro max.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Siddharth Jain",
+      "rating": 5,
+      "date": "2026-02-11",
+      "title": "Gas spring arm is amazing!",
+      "comment": "Full articulation gives perfect positioning! Dual monitor support works flawlessly. Cable routing keeps desk clean. Premium quality stand!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Meghna Patel",
+      "rating": 5,
+      "date": "2026-01-26",
+      "title": "Professional monitor solution!",
+      "comment": "Wide range of motion perfect for my workflow! Dual monitors easy to adjust. Best monitor stand investment!",
+      "verified": true
+    }
+  ]
+},
   {
     "id": "accessories-cup-holder-001",
     "name": "Cup Holder Basic",
@@ -3406,7 +3861,7 @@
     "name": "Cup Holder Plus",
     "category": "accessories",
     "subCategory": "cup-holder",
-    "price": 1999.0,
+    "price": 1499.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Enhanced Plus cup holder with adjustable clamp and dual holder design. Holds two beverages securely with rubber grip protection.",
@@ -3448,7 +3903,7 @@
     "name": "Cup Holder Pro",
     "category": "accessories",
     "subCategory": "cup-holder",
-    "price": 2999.0,
+    "price": 1999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Premium Pro cup holder with rotating mechanism and integrated coaster. Features temperature-insulated design to protect desk from hot/cold beverages.",
@@ -3486,6 +3941,48 @@
     ]
   },
   {
+  "id": "accessories-cup-holder-004",
+  "name": "Cup Holder Pro Max",
+  "category": "accessories",
+  "subCategory": "cup-holder",
+  "price": 2499.0,
+  "currency": "INR",
+  "rating": 4.3,
+  "description": "Premium Pro Max cup holder with rotating mechanism and integrated coaster. Features temperature-insulated design to protect desk from hot/cold beverages.",
+  "features": [
+    "360° rotation",
+    "Insulated design",
+    "Integrated coaster",
+    "Premium materials",
+    "Heat & cold resistant",
+    "Fits all desk thicknesses"
+  ],
+  "images": [
+    "/images/products/accessories/cup-holder/4 - Pro max.jpeg"
+  ],
+  "inStock": true,
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Karthik Reddy",
+      "rating": 5,
+      "date": "2026-02-15",
+      "title": "Premium quality cup holder!",
+      "comment": "The 360° rotation is so convenient! Insulated design really works - no condensation rings on my desk. Worth the premium price!",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "author": "Shreya Patel",
+      "rating": 5,
+      "date": "2026-02-03",
+      "title": "Best cup holder available!",
+      "comment": "Integrated coaster is genius! Premium materials look elegant. Protects my expensive desk perfectly. Highly recommend!",
+      "verified": true
+    }
+  ]
+},
+  {
     "id": "accessories-desk-hook-001",
     "name": "Desk Hook Basic",
     "category": "accessories",
@@ -3503,7 +4000,8 @@
       "Compact & minimalist"
     ],
     "images": [
-      "/images/products/accessories/desk-hook/1 - Basic.jpeg"
+      "/images/products/accessories/Desk-hook/1 - Basic.jpeg",
+      "/images/products/accessories/Desk-hook/1 - Basic..jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -3534,57 +4032,6 @@
     "subCategory": "desk-hook",
     "price": 999.0,
     "currency": "INR",
-    "rating": 4.6,
-    "description": "Enhanced Plus dual desk hook with two hanging points and a wider clamp for thicker desks. Perfect for headphones on one hook and a bag on the other, keeping everything within reach.",
-    "features": [
-      "Dual hook design",
-      "Wide clamp — fits desks up to 6 cm thick",
-      "Holds up to 10 kg total",
-      "Anti-slip silicone grip",
-      "Scratch-free finish",
-      "Easy tool-free install"
-    ],
-    "images": [
-      "/images/products/accessories/desk-hook/2 - Plus.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Rajan Mehta",
-        "rating": 5,
-        "date": "2026-03-15",
-        "title": "Dual hook is a game changer!",
-        "comment": "Headphones on one hook, bag on the other — desk is finally clutter-free! Wide clamp fits my thick standing desk perfectly. Excellent build quality.",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Pooja Venkat",
-        "rating": 4,
-        "date": "2026-03-01",
-        "title": "Very practical upgrade",
-        "comment": "Much better than the basic version. Two hooks means I don't have to choose what to hang. Anti-slip grip is solid. Recommended!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Aryan Bose",
-        "rating": 5,
-        "date": "2026-02-14",
-        "title": "Sturdy and well-made",
-        "comment": "Holds my heavy laptop bag without any flex. The silicone grip pads protect both my desk and the items hanging. Great quality at this price!",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "id": "accessories-desk-hook-003",
-    "name": "Desk Hook Pro",
-    "category": "accessories",
-    "subCategory": "desk-hook",
-    "price": 1499.0,
-    "currency": "INR",
     "rating": 4.7,
     "description": "Premium Pro multi-hook desk organizer with three adjustable hooks and a built-in headphone stand. Features a premium aluminium body and magnetic cable clip for a truly clean workspace.",
     "features": [
@@ -3596,7 +4043,8 @@
       "Supports up to 15 kg"
     ],
     "images": [
-      "/images/products/accessories/desk-hook/3 - Pro.jpeg"
+      "/images/products/accessories/Desk-hook/2 - Plus.jpeg",
+      "/images/products/accessories/Desk-hook/2 - Plus..jpeg"
     ],
     "inStock": true,
     "reviews": [
