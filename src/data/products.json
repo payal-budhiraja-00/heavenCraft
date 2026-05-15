@@ -1880,7 +1880,7 @@
     "name": "Exquisite Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 3999.0,
+    "price": 4999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Compact Exquisite folding table ideal for small spaces and outdoor use. Lightweight yet sturdy design that folds flat for easy storage and portability.",
@@ -1893,7 +1893,10 @@
       "Anti-scratch tabletop"
     ],
     "images": [
-      "/images/products/tables/folding-table/1 - Exquisite.jpeg"
+      "/images/products/tables/folding-table/1 - Exquisite.jpeg",
+      "/images/products/tables/folding-table/1 - Exquisite1.jpeg",
+      "/images/products/tables/folding-table/1 - Exquisite2.jpeg",
+      "/images/products/tables/folding-table/1 - Exquisite3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -1922,7 +1925,7 @@
     "name": "Exquisite Primex Folding Table",
     "category": "table",
     "subCategory": "folding-table",
-    "price": 4999.0,
+    "price": 5999.0,
     "currency": "INR",
     "rating": 4.3,
     "description": "Mid-size Exquisite folding table with reinforced frame and larger surface area. Perfect for dining, work, or events with quick setup and takedown.",
@@ -1935,7 +1938,12 @@
       "Seats up to 6 people"
     ],
     "images": [
-      "/images/products/tables/folding-table/2 - Exquisite Primex.jpeg"
+      "/images/products/tables/folding-table/2 - Exquisite Primex.jpeg",
+      "/images/products/tables/folding-table/2 - Exquisite Primex1.jpeg",
+      "/images/products/tables/folding-table/2 - Exquisite Primex2.jpeg",
+      "/images/products/tables/folding-table/2 - Exquisite Primex3.jpeg",
+      "/images/products/tables/folding-table/2 - Exquisite Primex4.jpeg",
+      "/images/products/tables/folding-table/2 - Exquisite Primex5.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2025,7 +2033,12 @@
       "/images/products/tables/folding-table/4 - Nextable.jpeg",
       "/images/products/tables/folding-table/4 - Nextable1.jpeg",
       "/images/products/tables/folding-table/4 - Nextable2.jpeg",
-      "/images/products/tables/folding-table/4 - Nextable3.jpeg"
+      "/images/products/tables/folding-table/4 - Nextable3.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable4.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable5.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable6.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable7.jpeg",
+      "/images/products/tables/folding-table/4 - Nextable8.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2076,7 +2089,10 @@
       "Quiet motor operation"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/1 - Crox.jpeg"
+      "/images/products/tables/height-adjustable-table/1 - Crox.jpeg",
+      "/images/products/tables/height-adjustable-table/1 - Crox1.jpeg",
+      "/images/products/tables/height-adjustable-table/1 - Crox2.jpeg",
+      "/images/products/tables/height-adjustable-table/1 - Crox3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2118,7 +2134,9 @@
       "Heavy-duty steel frame"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/2 - Modura.jpeg"
+      "/images/products/tables/height-adjustable-table/2 - Modura.jpeg",
+      "/images/products/tables/height-adjustable-table/2 - Modura1.jpeg",
+      "/images/products/tables/height-adjustable-table/2 - Modura2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2160,7 +2178,10 @@
       "USB charging port integrated"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/3 - Modura primex.jpeg"
+      "/images/products/tables/height-adjustable-table/3 - Modura primex.jpeg",
+      "/images/products/tables/height-adjustable-table/3 - Modura primex1.jpeg",
+      "/images/products/tables/height-adjustable-table/3 - Modura primex2.jpeg",
+      "/images/products/tables/height-adjustable-table/3 - Modura primex3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2202,7 +2223,9 @@
       "Integrated cable spine management"
     ],
     "images": [
-      "/images/products/tables/height-adjustable-table/4 - Modulus.jpeg"
+      "/images/products/tables/height-adjustable-table/4 - Modulus.jpeg",
+      "/images/products/tables/height-adjustable-table/4 - Modulus1.jpeg",
+      "/images/products/tables/height-adjustable-table/4 - Modulus2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2262,7 +2285,11 @@
     "Integrated cable spine management"
   ],
   "images": [
-    "/images/products/tables/height-adjustable-table/5 - Modulus primex.jpeg"
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex.jpeg",
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex1.jpeg",
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex2.jpeg",
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex3.jpeg",
+    "/images/products/tables/height-adjustable-table/5 - Modulus primex4.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2322,7 +2349,13 @@
     "USB charging port integrated"
   ],
   "images": [
-    "/images/products/tables/height-adjustable-table/6 - Movix.jpeg"
+    "/images/products/tables/height-adjustable-table/6 - Movix.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix1.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix2.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix3.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix4.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix5.jpeg",
+    "/images/products/tables/height-adjustable-table/6 - Movix6.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2490,7 +2523,12 @@
       "Anti-scratch laminate top"
     ],
     "images": [
-      "/images/products/tables/executive-table/3 - Impulse.jpeg"
+      "/images/products/tables/executive-table/3 - Impulse.jpeg",
+      "/images/products/tables/executive-table/3 - Impulse1.jpeg",
+      "/images/products/tables/executive-table/3 - Impulse2.jpeg",
+      "/images/products/tables/executive-table/3 - Impulse3.jpeg",
+      "/images/products/tables/executive-table/3 - Impulse4.jpeg",
+      "/images/products/tables/executive-table/3 - Impulse5.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2532,7 +2570,12 @@
       "Locking pedestal drawer"
     ],
     "images": [
-      "/images/products/tables/executive-table/4 - wiesner.jpeg"
+      "/images/products/tables/executive-table/4 - wiesner.jpeg",
+      "/images/products/tables/executive-table/4 - wiesner1.jpeg",
+      "/images/products/tables/executive-table/4 - wiesner2.jpeg",
+      "/images/products/tables/executive-table/4 - wiesner3.jpeg",
+      "/images/products/tables/executive-table/4 - wiesner4.jpeg",
+      "/images/products/tables/executive-table/4 - wiesner5.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2579,7 +2622,8 @@
       "/images/products/tables/executive-table/1 - Imperium2.jpeg",
       "/images/products/tables/executive-table/1 - Imperium3.jpeg",
       "/images/products/tables/executive-table/1 - Imperium4.jpeg",
-      "/images/products/tables/executive-table/1 - Imperium5.jpeg"
+      "/images/products/tables/executive-table/1 - Imperium5.jpeg",
+      "/images/products/tables/executive-table/1 - Imperium6.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2621,7 +2665,12 @@
     "Solid wood construction"
   ],
   "images": [
-    "/images/products/tables/executive-table/2 - Curvivo.jpeg"
+    "/images/products/tables/executive-table/2 - Curvivo.jpeg",
+    "/images/products/tables/executive-table/2 - Curvivo1.jpeg",
+    "/images/products/tables/executive-table/2 - Curvivo2.jpeg",
+    "/images/products/tables/executive-table/2 - Curvivo3.jpeg",
+    "/images/products/tables/executive-table/2 - Curvivo4.jpeg",
+    "/images/products/tables/executive-table/2 - Curvivo5.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2663,7 +2712,10 @@
       "Sturdy MDF construction"
     ],
     "images": [
-      "/images/products/tables/study-table/1 - zen.jpeg"
+      "/images/products/tables/study-table/1 - zen.jpeg",
+      "/images/products/tables/study-table/1 - zen1.jpeg",
+      "/images/products/tables/study-table/1 - zen2.jpeg",
+      "/images/products/tables/study-table/1 - zen3.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2705,7 +2757,11 @@
     "Sturdy MDF construction"
   ],
   "images": [
-    "/images/products/tables/study-table/2 - Zen primex.jpeg"
+    "/images/products/tables/study-table/2 - Zen primex.jpeg",
+    "/images/products/tables/study-table/2 - Zen primex1.jpeg",
+    "/images/products/tables/study-table/2 - Zen primex2.jpeg",
+    "/images/products/tables/study-table/2 - Zen primex3.jpeg",
+    "/images/products/tables/study-table/2 - Zen primex4.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2747,7 +2803,11 @@
       "Ergonomic monitor riser"
     ],
     "images": [
-      "/images/products/tables/study-table/3 - Zenith.jpeg"
+      "/images/products/tables/study-table/3 - Zenith.jpeg",
+      "/images/products/tables/study-table/3 - Zenith1.jpeg",
+      "/images/products/tables/study-table/3 - Zenith2.jpeg",
+      "/images/products/tables/study-table/3 - Zenith3.jpeg",
+      "/images/products/tables/study-table/3 - Zenith4.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2789,7 +2849,11 @@
     "Ergonomic monitor riser"
   ],
   "images": [
-    "/images/products/tables/study-table/4 - Zenith primex.jpeg"
+    "/images/products/tables/study-table/4 - Zenith primex.jpeg",
+    "/images/products/tables/study-table/4 - Zenith primex1.jpeg",
+    "/images/products/tables/study-table/4 - Zenith primex2.jpeg",
+    "/images/products/tables/study-table/4 - Zenith primex3.jpeg",
+    "/images/products/tables/study-table/4 - Zenith primex4.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2831,7 +2895,9 @@
       "Solid engineered wood frame"
     ],
     "images": [
-      "/images/products/tables/study-table/5 - Zenvy.jpeg"
+      "/images/products/tables/study-table/5 - Zenvy.jpeg",
+      "/images/products/tables/study-table/5 - Zenvy1.jpeg",
+      "/images/products/tables/study-table/5 - Zenvy2.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2873,7 +2939,9 @@
     "Solid engineered wood frame"
   ],
   "images": [
-    "/images/products/tables/study-table/6 - Zenvy primex.jpeg"
+    "/images/products/tables/study-table/6 - Zenvy primex.jpeg",
+    "/images/products/tables/study-table/6 - Zenvy primex1.jpeg",
+    "/images/products/tables/study-table/6 - Zenvy primex2.jpeg"
   ],
   "inStock": true,
   "reviews": [
@@ -2921,7 +2989,8 @@
       "/images/products/tables/gaming-desk/1 - Quantum3.jpeg",
       "/images/products/tables/gaming-desk/1 - Quantum4.jpeg",
       "/images/products/tables/gaming-desk/1 - Quantum5.jpeg",
-      "/images/products/tables/gaming-desk/1 - Quantum6.jpeg"
+      "/images/products/tables/gaming-desk/1 - Quantum6.jpeg",
+      "/images/products/tables/gaming-desk/1 - Quantum7.jpeg"
     ],
     "inStock": true,
     "reviews": [
@@ -2974,7 +3043,10 @@
     "images": [
       "/images/products/tables/gaming-desk/2 - Quantum primex.jpeg",
       "/images/products/tables/gaming-desk/2 - Quantum primex1.jpeg",
-      "/images/products/tables/gaming-desk/2 - Quantum primex2.jpeg"
+      "/images/products/tables/gaming-desk/2 - Quantum primex2.jpeg",
+      "/images/products/tables/gaming-desk/2 - Quantum primex3.jpeg",
+      "/images/products/tables/gaming-desk/2 - Quantum primex4.jpeg",
+      "/images/products/tables/gaming-desk/2 - Quantum primex5.jpeg"
     ],
     "inStock": true,
     "reviews": [
