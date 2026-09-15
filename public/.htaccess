@@ -1,0 +1,16 @@
+# Serve index.html for any request that isn't a real file or folder,
+# so React Router can handle client-side routes (e.g. /chairs, /product/:id)
+# without the server returning a 404 on refresh/direct link/mobile reload.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the request is for an actual existing file or directory, serve it as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise, fall back to index.html and let React Router take over
+  RewriteRule ^ /index.html [L]
+</IfModule>
