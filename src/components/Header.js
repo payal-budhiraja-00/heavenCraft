@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -7,6 +7,15 @@ const Header = ({ onCartOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isActive = (path) => {
     if (path === '/') {
@@ -32,35 +41,57 @@ const Header = ({ onCartOpen }) => {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Top Promotional Bar */}
-      <div className="bg-[#DFA947] txt-black py-2 px-4">
+      {/* Top Promotional Bar - collapses on scroll to save space */}
+      <div
+        className="bg-[#DFA947] txt-black px-4 overflow-hidden transition-all duration-300 ease-in-out"
+        style={{
+          maxHeight: isScrolled ? '0px' : '40px',
+          paddingTop: isScrolled ? '0px' : '0.5rem',
+          paddingBottom: isScrolled ? '0px' : '0.5rem',
+          opacity: isScrolled ? 0 : 1,
+        }}
+      >
         <div className="container mx-auto">
-          <div className="flex items-center justify-center text-center text-sm md:text-base font-semibold">
+          <div className="flex items-center justify-center text-center text-sm md:text-base font-semibold whitespace-nowrap">
             <span>✨ Premium Ergonomic Furniture • Free Shipping on Orders Above ₹20,000 ✨</span>
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
+      {/* Main Header - shrinks on scroll instead of staying full-size */}
       <div className="bg-black shadow-md">
-        <div className="container mx-auto px-4 py-4">
+        <div
+          className={`container mx-auto px-4 transition-all duration-300 ease-in-out ${
+            isScrolled ? 'py-2' : 'py-4'
+          }`}
+        >
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img
               src="/images/logo/heavencraft-logo.jpg"
               alt="HeavenCraft Logo"
-              className="h-16 w-auto"
+              className={`w-auto transition-all duration-300 ease-in-out ${
+                isScrolled ? 'h-10' : 'h-16'
+              }`}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.style.display = 'none';
               }}
             />
             <div className="flex flex-col">
-              <div className="text-3xl font-bold text-[#DFA947]">
+              <div
+                className={`font-bold text-[#DFA947] transition-all duration-300 ease-in-out ${
+                  isScrolled ? 'text-xl' : 'text-3xl'
+                }`}
+              >
                 HeavenCraft
               </div>
-              <div className="text-sm font-medium text-[#DFA947] ml-20">
+              <div
+                className={`font-medium text-[#DFA947] ml-20 transition-all duration-300 ease-in-out ${
+                  isScrolled ? 'text-xs opacity-0 h-0' : 'text-sm opacity-100'
+                }`}
+              >
                 A unit of Jiwan
               </div>
             </div>
@@ -198,4 +229,3 @@ const Header = ({ onCartOpen }) => {
 };
 
 export default Header;
-
