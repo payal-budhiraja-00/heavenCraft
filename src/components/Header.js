@@ -11,20 +11,25 @@ const Header = ({ onCartOpen }) => {
   const [promoHeight, setPromoHeight] = useState(0);
   const promoRef = useRef(null);
 
-    useEffect(() => {
-      let ticking = false;
-      const handleScroll = () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            setIsScrolled(window.scrollY > 40);
-            ticking = false;
-          });
-          ticking = true;
-        }
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+      useEffect(() => {
+        let ticking = false;
+        const handleScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const y = window.scrollY;
+              setIsScrolled((prev) => {
+                if (!prev && y > 80) return true;   // shrink once clearly scrolled
+                if (prev && y < 30) return false;   // expand only once clearly back near top
+                return prev;                         // stay as-is in the buffer zone (no flicker)
+              });
+              ticking = false;
+            });
+            ticking = true;
+          }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
 
   // Measure the promo bar's real height (accounts for text wrapping to
   // 2 lines on narrow phones) so the collapse animation never clips it.
