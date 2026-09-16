@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -8,13 +8,35 @@ const Header = ({ onCartOpen }) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [promoHeight, setPromoHeight] = useState(0);
+  const promoRef = useRef(null);
 
+    useEffect(() => {
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            setIsScrolled(window.scrollY > 40);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+  // Measure the promo bar's real height (accounts for text wrapping to
+  // 2 lines on narrow phones) so the collapse animation never clips it.
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+    const measure = () => {
+      if (promoRef.current) {
+        setPromoHeight(promoRef.current.scrollHeight);
+      }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   const isActive = (path) => {
@@ -43,16 +65,17 @@ const Header = ({ onCartOpen }) => {
     <header className="sticky top-0 z-50">
       {/* Top Promotional Bar - collapses on scroll to save space */}
       <div
+        ref={promoRef}
         className="bg-[#DFA947] txt-black px-4 overflow-hidden transition-all duration-300 ease-in-out"
         style={{
-          maxHeight: isScrolled ? '0px' : '40px',
+          maxHeight: isScrolled ? '0px' : `${promoHeight}px`,
           paddingTop: isScrolled ? '0px' : '0.5rem',
           paddingBottom: isScrolled ? '0px' : '0.5rem',
           opacity: isScrolled ? 0 : 1,
         }}
       >
         <div className="container mx-auto">
-          <div className="flex items-center justify-center text-center text-sm md:text-base font-semibold whitespace-nowrap">
+          <div className="flex items-center justify-center text-center text-xs sm:text-sm md:text-base font-semibold leading-snug">
             <span>✨ Premium Ergonomic Furniture • Free Shipping on Orders Above ₹20,000 ✨</span>
           </div>
         </div>
