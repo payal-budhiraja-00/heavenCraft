@@ -22,20 +22,6 @@ export const categories = [
         description: 'Premium leather chairs for executive offices'
       },
       {
-        id: 'gaming-chair',
-        name: 'Gaming Chair',
-        description: 'Gaming-style chairs for work and play'
-      },
-      {
-        id: 'training-chair',
-        name: 'Training Chair',
-        description: 'Space-efficient stackable chairs ideal for training and meeting rooms'
-      },
-      {
-        id: 'recliner-chair',
-        name: 'Recliner Chair',
-        description: 'Reclining chairs for ultimate relaxation'
-      }
     ]
   },
   {
@@ -58,11 +44,6 @@ export const categories = [
         id: 'height-adjustable-table',
         name: 'Height Adjustable Table',
         description: 'Electric standing desks with memory presets'
-      },
-      {
-        id: 'training-table',
-        name: 'Training Table',
-        description: 'Modular tables for training rooms'
       },
       {
         id: 'executive-table',

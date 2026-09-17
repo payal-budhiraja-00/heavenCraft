@@ -967,52 +967,6 @@
   ]
 },
   {
-  "id": "table-study-002",
-  "name": " Zen Primex Study Table",
-  "category": "table",
-  "subCategory": "study-table",
-  "price": 7999.0,
-  "currency": "INR",
-  "rating": 4.3,
-  "description": "Functional Zen Primex study table perfect for students and home learning. Compact design with built-in bookshelf and drawer for organized studying.",
-  "features": [
-    "Built-in bookshelf",
-    "Storage drawer",
-    "Compact design",
-    "Study lamp mount",
-    "Anti-scratch surface",
-    "Sturdy MDF construction"
-  ],
-  "images": [
-    "/images/products/tables/study-table/2 - Zen primex.jpeg",
-    "/images/products/tables/study-table/2 - Zen primex1.jpeg",
-    "/images/products/tables/study-table/2 - Zen primex2.jpeg",
-    "/images/products/tables/study-table/2 - Zen primex3.jpeg",
-    "/images/products/tables/study-table/2 - Zen primex4.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Mrs. Sharma (Parent)",
-      "rating": 5,
-      "date": "2026-02-09",
-      "title": "Perfect for my daughter's studies!",
-      "comment": "Built-in bookshelf keeps textbooks organized! Storage drawer is handy for stationery. Compact design fits small room perfectly. Great value for students!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Rohit Kumar (Student)",
-      "rating": 4,
-      "date": "2026-01-21",
-      "title": "Good study table",
-      "comment": "Study lamp mount is very useful. Compact design doesn't take much space. Good quality for the price. Recommended for students!",
-      "verified": true
-    }
-  ]
-},
-  {
     "id": "table-study-003",
     "name": " Zenith Study Table",
     "category": "table",
@@ -1058,52 +1012,6 @@
       }
     ]
   },
-  {
-  "id": "table-study-004",
-  "name": " Zenith Primex Study Table",
-  "category": "table",
-  "subCategory": "study-table",
-  "price": 8999.0,
-  "currency": "INR",
-  "rating": 4.3,
-  "description": "Enhanced Zenith Primex study desk with multi-level storage and ergonomic design. Features keyboard tray, CPU stand, and adjustable shelving for comprehensive study setup.",
-  "features": [
-    "Multi-level storage",
-    "Keyboard tray",
-    "CPU stand",
-    "Adjustable shelves",
-    "Cable management system",
-    "Ergonomic monitor riser"
-  ],
-  "images": [
-    "/images/products/tables/study-table/4 - Zenith primex.jpeg",
-    "/images/products/tables/study-table/4 - Zenith primex1.jpeg",
-    "/images/products/tables/study-table/4 - Zenith primex2.jpeg",
-    "/images/products/tables/study-table/4 - Zenith primex3.jpeg",
-    "/images/products/tables/study-table/4 - Zenith primex4.jpeg"
-  ],
-  "inStock": true,
-  "reviews": [
-    {
-      "id": 1,
-      "author": "Akash Verma (College Student)",
-      "rating": 5,
-      "date": "2026-02-12",
-      "title": "Complete study setup!",
-      "comment": "Multi-level storage is amazing! Keyboard tray perfect for my laptop. CPU stand holds my desktop securely. Best study desk for tech students!",
-      "verified": true
-    },
-    {
-      "id": 2,
-      "author": "Mrs. Gupta",
-      "rating": 5,
-      "date": "2026-01-28",
-      "title": "Excellent for online learning!",
-      "comment": "Son loves the ergonomic design! Adjustable shelves grow with his needs. Comprehensive setup in one desk. Highly recommend!",
-      "verified": true
-    }
-  ]
-},
   {
   "id": "table-study-006",
   "name": " Zenvy Primex Study Table",
