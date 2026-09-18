@@ -94,15 +94,20 @@ export const categories = [
         description: 'Protective desk mats and pads'
       },
       {
-        id: 'storage-box',
-        name: 'Storage Box',
+        id: 'peg-board',
+        name: 'Peg Board',
         description: 'Under-desk storage boxes and drawers'
       },
       {
-        id: 'desk-hook',
-        name: 'Desk Hook',
+        id: 'keyboard-tray',
+        name: 'Keyboard Tray',
         description: 'Versatile hooks for bags, headphones and accessories'
       }
+      {
+              id: 'desk-organiser',
+              name: 'Desk Organiser',
+              description: 'Desk cup holders and organizers'
+      },
     ]
   }
 ];

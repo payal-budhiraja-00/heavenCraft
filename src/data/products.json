@@ -477,50 +477,6 @@
   ]
 },
   {
-    "id": "table-bed-002",
-    "name": "Flexora Bed Table",
-    "category": "table",
-    "subCategory": "bed-table",
-    "price": 1999.0,
-    "currency": "INR",
-    "rating": 4,
-    "description": "Enhanced Flex Vertex bed table with adjustable height and angle. Perfect for versatile use in bed with improved stability and larger surface area.",
-    "features": [
-      "Height adjustable",
-      "Angle adjustment",
-      "Non-slip surface",
-      "Sturdy legs",
-      "360° rotatable top",
-      "Compact fold-flat storage"
-    ],
-    "images": [
-      "/images/products/tables/bed-table/2 - Flexora.jpeg",
-      "/images/products/tables/bed-table/2 - Flexora1.jpeg",
-      "/images/products/tables/bed-table/2 - Flexora2.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Sonal Mehta",
-        "rating": 5,
-        "date": "2026-02-11",
-        "title": "Adjustable features are great!",
-        "comment": "The height and angle adjustment make this so versatile! Use it for laptop work and meals. Much better than basic bed tables. Love it!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Abhishek Jain",
-        "rating": 4,
-        "date": "2026-01-22",
-        "title": "Good upgrade from basic model",
-        "comment": "Sturdy legs and the adjustability is very useful. Non-slip surface works well. Great for WFH days when I want to work from bed.",
-        "verified": true
-      }
-    ]
-  },
-  {
     "id": "table-bed-003",
     "name": "Flexon Bed Table",
     "category": "table",
@@ -1390,48 +1346,6 @@
     ]
   },
   {
-    "id": "accessories-cable-tray-002",
-    "name": "Cable Tray Plus",
-    "category": "accessories",
-    "subCategory": "cable-tray",
-    "price": 1499.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Enhanced Plus cable management tray with multiple compartments. Features adjustable width and cable clips for comprehensive wire organization.",
-    "features": [
-      "Adjustable width",
-      "Multiple compartments",
-      "Cable clips",
-      "Heavy-duty construction",
-      "No-drill installation",
-      "Powder-coated steel finish"
-    ],
-    "images": [
-      "/images/products/accessories/cable-tray/2 - Plus.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Vishal Chopra",
-        "rating": 5,
-        "date": "2026-02-10",
-        "title": "Multiple compartments perfect!",
-        "comment": "Adjustable width fits my desk perfectly! Cable clips keep everything secure. Heavy-duty construction. Comprehensive wire organization!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Nandini Rao",
-        "rating": 4,
-        "date": "2026-01-23",
-        "title": "Enhanced cable management",
-        "comment": "Multiple compartments very useful for separating cables. Good quality. Worth the upgrade!",
-        "verified": true
-      }
-    ]
-  },
-  {
     "id": "accessories-Cpu-Stand-002",
     "name": "Cpu Stand Plus",
     "category": "accessories",
@@ -1637,48 +1551,6 @@
         "date": "2026-01-18",
         "title": "Handy desk accessory",
         "comment": "Works well for cups and bottles. Installation is super easy. Useful addition to my workspace!",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "id": "accessories-cup-holder-002",
-    "name": "Cup Holder Plus",
-    "category": "accessories",
-    "subCategory": "cup-holder",
-    "price": 1499.0,
-    "currency": "INR",
-    "rating": 4.3,
-    "description": "Enhanced Plus cup holder with adjustable clamp and dual holder design. Holds two beverages securely with rubber grip protection.",
-    "features": [
-      "Dual cup design",
-      "Adjustable clamp",
-      "Rubber grip",
-      "Universal fit",
-      "Holds bottles & mugs",
-      "Removable for easy cleaning"
-    ],
-    "images": [
-      "/images/products/accessories/cup-holder/2 - Plus.jpeg"
-    ],
-    "inStock": true,
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Arun Kapoor",
-        "rating": 5,
-        "date": "2026-02-12",
-        "title": "Dual holder is great!",
-        "comment": "Love that it holds two drinks! Adjustable clamp fits my thick desk perfectly. Rubber grip protects both desk and cups. Excellent!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Neha Singh",
-        "rating": 4,
-        "date": "2026-01-30",
-        "title": "Very practical accessory",
-        "comment": "Universal fit works on different desk types. Good quality and sturdy. Worth the upgrade from basic model!",
         "verified": true
       }
     ]
