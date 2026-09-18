@@ -98,6 +98,11 @@ export const categories = [
        name: 'Desk Organiser',
        description: 'Desk cup holders and organizers'
       },
+      {
+       id: 'cup-holder',
+       name: 'Cup Holder',
+       description: 'Desk cup holders and organizers'
+       },
     ]
   }
 ];
