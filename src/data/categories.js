@@ -79,16 +79,6 @@ export const categories = [
         description: 'Cable management solutions'
       },
       {
-        id: 'monitor-stand',
-        name: 'Monitor Stand',
-        description: 'Monitor stands and arms'
-      },
-      {
-        id: 'cup-holder',
-        name: 'Cup Holder',
-        description: 'Desk cup holders and organizers'
-      },
-      {
         id: 'Cpu-Stand',
         name: 'Cpu Stand',
         description: 'Protective desk mats and pads'
@@ -104,9 +94,9 @@ export const categories = [
         description: 'Versatile hooks for bags, headphones and accessories'
       }
       {
-              id: 'desk-organiser',
-              name: 'Desk Organiser',
-              description: 'Desk cup holders and organizers'
+       id: 'desk-organiser',
+       name: 'Desk Organiser',
+       description: 'Desk cup holders and organizers'
       },
     ]
   }
