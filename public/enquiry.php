@@ -37,7 +37,10 @@ const MAX_MESSAGE = 5000;
 function config(): array
 {
     $defaults = [
-        'to' => 'heavencraft09@gmail.com',
+        // Where leads are delivered. Deliberately NOT the address published on
+        // the site (SITE.email) -- that one stays heavencraft09@ for display
+        // and for the mailto fallback. Keep the two independent.
+        'to' => 'heavencraftorders@gmail.com',
         // Envelope sender. Must be at this domain for SPF/DMARC to line up.
         'from' => 'noreply@theheavencraft.in',
         'from_name' => 'HeavenCraft website',
