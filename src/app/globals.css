@@ -75,6 +75,9 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
+    /* The mobile sheet locks body scroll. Without a reserved gutter the
+       scrollbar disappears with it and the whole page jumps sideways. */
+    scrollbar-gutter: stable;
   }
 
   @media (prefers-reduced-motion: reduce) {

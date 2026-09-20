@@ -18,6 +18,19 @@ export type NavGroup = {
   subCategories: { slug: string; name: string; href: string; count: number }[];
 };
 
+/**
+ * Colour alone was carrying the "you are here" signal, which says nothing to a
+ * screen reader. Exact matches are the current page; an ancestor section that
+ * merely contains it is "true", not "page".
+ */
+function ariaCurrent(
+  pathname: string | null,
+  href: string,
+): "page" | "true" | undefined {
+  if (pathname === href) return "page";
+  return pathname?.startsWith(href) ? "true" : undefined;
+}
+
 export function SiteHeader({ groups }: { groups: NavGroup[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -77,6 +90,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                 <div key={group.slug} className="group relative">
                   <Link
                     href={group.href}
+                    aria-current={ariaCurrent(pathname, group.href)}
                     className={`flex items-center gap-1.5 rounded-plate px-4 py-2 text-sm font-medium transition-colors ${
                       active
                         ? "text-gold"
@@ -99,6 +113,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                           <li key={sub.slug}>
                             <Link
                               href={sub.href}
+                              aria-current={ariaCurrent(pathname, sub.href)}
                               className="flex items-baseline justify-between gap-3 rounded-plate px-3 py-2.5 text-sm text-cream-muted transition-colors hover:bg-gold-wash hover:text-gold"
                             >
                               <span>{sub.name}</span>
@@ -123,6 +138,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
 
             <Link
               href="/about/"
+              aria-current={ariaCurrent(pathname, "/about/")}
               className={`rounded-plate px-4 py-2 text-sm font-medium transition-colors ${
                 pathname?.startsWith("/about")
                   ? "text-gold"
@@ -166,6 +182,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                 <li key={group.slug}>
                   <Link
                     href={group.href}
+                    aria-current={ariaCurrent(pathname, group.href)}
                     className="type-wide text-lg font-bold text-cream"
                   >
                     {group.name}
@@ -175,6 +192,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                       <li key={sub.slug}>
                         <Link
                           href={sub.href}
+                          aria-current={ariaCurrent(pathname, sub.href)}
                           className="flex items-baseline justify-between gap-3 py-2 text-sm text-cream-muted"
                         >
                           <span>{sub.name}</span>
@@ -189,13 +207,35 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
               ))}
             </ul>
 
-            <div className="mt-8 flex flex-col gap-2 border-t border-edge pt-6">
-              <Link href="/about/" className="py-2 text-sm text-cream-muted">
-                About
+            {/*
+              The quote button in the bar is hidden below 640px, so on a phone
+              this sheet is the only route to it. A plain text link buried
+              under About made the one conversion action the least visible
+              thing in the menu.
+            */}
+            <div className="mt-8 border-t border-edge pt-6">
+              <Link
+                href="/contact/"
+                className="flex w-full items-center justify-center rounded-plate bg-gold px-6 py-3 text-sm font-semibold text-base transition-colors hover:bg-gold-bright"
+              >
+                Get a quote
               </Link>
-              <Link href="/contact/" className="py-2 text-sm text-cream-muted">
-                Contact
-              </Link>
+              <div className="mt-4 flex flex-col gap-2">
+                <Link
+                  href="/about/"
+                  aria-current={ariaCurrent(pathname, "/about/")}
+                  className="py-2 text-sm text-cream-muted"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact/"
+                  aria-current={ariaCurrent(pathname, "/contact/")}
+                  className="py-2 text-sm text-cream-muted"
+                >
+                  Contact
+                </Link>
+              </div>
             </div>
           </Container>
         </div>
