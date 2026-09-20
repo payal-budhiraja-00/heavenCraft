@@ -63,6 +63,31 @@ echo json_encode([
         'gmail:587' => port_open('smtp.gmail.com', 587),
         'brevo:587' => port_open('smtp-relay.brevo.com', 587),
     ],
+    /*
+     * Every SMTP port is firewalled, so the fallback is an email provider's
+     * HTTPS API instead of SMTP. That only works if outbound 443 is allowed,
+     * which is a separate question from outbound 25/465/587.
+     */
+    'outbound_https' => [
+        'api.brevo.com:443' => port_open('api.brevo.com', 443),
+        'api.resend.com:443' => port_open('api.resend.com', 443),
+    ],
+    'https_fetch' => (function () {
+        if (!function_exists('curl_init')) {
+            return ['ok' => false, 'error' => 'no curl'];
+        }
+        $ch = curl_init('https://api.resend.com/');
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 6,
+            CURLOPT_NOBODY => true,
+        ]);
+        $ok = curl_exec($ch) !== false;
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $err = curl_error($ch);
+        curl_close($ch);
+        return ['ok' => $ok, 'http_code' => $code, 'error' => $err ?: null];
+    })(),
     'server' => [
         'software' => $_SERVER['SERVER_SOFTWARE'] ?? '(unknown)',
         'name' => $_SERVER['SERVER_NAME'] ?? '(unknown)',
