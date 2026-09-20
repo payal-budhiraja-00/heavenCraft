@@ -37,6 +37,7 @@
 
 import { features } from "./features";
 import type { Product } from "./catalog-types";
+import { SITE } from "./site";
 
 /** Shopify `ProductVariant` GID. Minted by Shopify; cannot be derived. */
 export type VariantId = string & { readonly __brand: "VariantId" };
@@ -108,7 +109,7 @@ export function enquiryHref(product: Product, origin: string): string {
     ``,
   ].join("\n");
 
-  return `mailto:heavencraft09@gmail.com?subject=${encodeURIComponent(
+  return `mailto:${SITE.email}?subject=${encodeURIComponent(
     subject,
   )}&body=${encodeURIComponent(body)}`;
 }
