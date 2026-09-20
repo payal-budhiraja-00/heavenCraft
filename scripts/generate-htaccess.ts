@@ -83,6 +83,18 @@ DirectorySlash On
 Options -Indexes
 
 # ---------------------------------------------------------------------------
+# Credentials
+# ---------------------------------------------------------------------------
+# The enquiry endpoint needs no secrets -- the local mail relay takes no
+# authentication -- but if delivery ever moves to a provider's HTTPS API, the
+# key belongs in a heavencraft-config.php created by hand in cPanel and never
+# committed. Deny it outright so that a future misconfiguration which stopped
+# PHP from executing could not serve that file as plain text.
+<FilesMatch "^heavencraft-config\\.php$">
+  Require all denied
+</FilesMatch>
+
+# ---------------------------------------------------------------------------
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
 <IfModule mod_alias.c>
