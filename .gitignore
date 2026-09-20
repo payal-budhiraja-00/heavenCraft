@@ -1,6 +1,26 @@
 node_modules
-build
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+.turbo
+
+# Env
 .env
+.env*.local
+
+# Tooling artefacts
+.impeccable/
+.vercel
+
+# OS / editor
 .DS_Store
-npm-debug.log*
 */DS_Store
+npm-debug.log*
+yarn-error.log*
+*.iml
+.idea/
+*.tsbuildinfo
