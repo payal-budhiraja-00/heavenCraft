@@ -45,7 +45,7 @@ export default function HomePage() {
                 <Label>Ergonomic workspace furniture</Label>
 
                 <h1 className="type-wide mt-5 text-display-1 font-bold text-cream">
-                  Built for the
+                  Built for the{" "}
                   <br />
                   <span className="text-gold">eight-hour</span> day.
                 </h1>
