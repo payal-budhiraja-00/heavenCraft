@@ -435,6 +435,27 @@ SANs    : theheavencraft.in, www, mail, cpanel, webmail,
   application manager, running a framework server behind Passenger on shared hosting is fragile,
   memory-capped and unsupported by GoDaddy when it breaks. We should not plan around it.</p>
 
+  <div class="box box--bad">
+    <div class="box__t">Now confirmed against primary sources — SSR is not merely unwise here, it is unavailable</div>
+    <ul style="margin-bottom:0">
+      <li><strong>The feature is provider-gated, not user-gated.</strong> cPanel's Application Manager
+        runs Node under Phusion Passenger, and cPanel's own docs tell end users: <em>“If you need this
+        feature, contact your hosting provider.”</em> The familiar “Setup Node.js App” icon is
+        CloudLinux's Node.js Selector, installed by root.</li>
+      <li><strong>This account has no route to enabling it.</strong> WHM ports 2086/2087 are closed —
+        no root, no Feature Manager. The only lever is a GoDaddy support ticket.</li>
+      <li><strong>Even if enabled, it is hostile to modern Next.js.</strong> CloudLinux documents that
+        <em>“Phusion Passenger cannot load ECMAScript modules and can only load CommonJS modules”</em>
+        — and Next.js is ESM-first. Memory ceilings are fixable only in WHM, and there is no port
+        binding and no process manager.</li>
+      <li><strong>GoDaddy documents Node.js only for VPS and dedicated servers.</strong> The archived
+        shared-hosting plan page lists Economy through Maximum with zero Node.js mentions.</li>
+    </ul>
+  </div>
+  <p>This is a good outcome rather than a constraint to mourn: it forces the static export, and the
+  static export is <em>faster, cheaper and more reliable</em> than SSR would have been for a 34-product
+  catalog that changes rarely.</p>
+
   <h3>3.2 &nbsp;But we do not need a server</h3>
   <p>Next.js has a build mode — <code>output: 'export'</code> — that emits <strong>one plain HTML file
   per route</strong> plus static CSS and JS, and nothing else. Quoting the Next.js 16 documentation
@@ -483,7 +504,9 @@ const nextConfig = {
     doing this for.</p>
     <p style="margin-bottom:0">The replacement serves real files, falls back to a real
     <code>404.html</code>, and adds long-lived cache headers for fingerprinted
-    <code>/_next/static</code> assets.</p>
+    <code>/_next/static</code> assets. Research turned up a real Next.js issue report where leaving a
+    CRA-style catch-all in place against a static export produced <strong>HTTP 500s</strong>, not just
+    wrong content — so this is a hard blocker, not a tidy-up.</p>
   </div>
 
   <pre><code># public/.htaccess — static export. REPLACES the CRA catch-all.
@@ -615,6 +638,15 @@ HTTP/1.1 200 OK        ← exit code 0: certificate chain validated</code></pre>
     <code>.htaccess</code>.</p>
   </div>
 
+  <div class="box box--warn">
+    <div class="box__t">Test the <code>.htaccess</code> on a staging subfolder first</div>
+    <p style="margin-bottom:0">Next.js publishes no official Apache configuration — only an nginx
+    example — so the block in §3.2 is a construction, not a vendor-blessed file. On a restrictive
+    <code>AllowOverride</code> policy some directives can return a 500 rather than being ignored.
+    Deploy it to a staging path and confirm before it touches the live document root. This is Phase 1
+    work in §10, deliberately sequenced before anything customer-facing.</p>
+  </div>
+
   <h4>What this changes elsewhere in the plan</h4>
   <ul>
     <li><strong>Shopify product-image import is unblocked</strong> once the certificate issues —
@@ -699,10 +731,66 @@ HTTP/1.1 200 OK        ← exit code 0: certificate chain validated</code></pre>
     Pages, Blogs, and Articles · <strong>Cart (read/write)</strong>.”</em></p>
   </div>
   <p><strong>Products, collections, search and full cart read/write — the entire surface this
-  storefront needs — with no token and no backend.</strong> Should we later want product tags or
-  metafields, a <em>public</em> access token covers it, and Shopify describes that token as one
-  <em>“used to query the API from a browser or mobile app, where the token is visible to buyers.”</em>
-  It is designed to be published.</p>
+  storefront needs — with no token and no backend.</strong></p>
+
+  <h4>The auth model, in full</h4>
+  <p>The useful framing is that for this architecture <strong>the authentication problem does not get
+  solved, it disappears.</strong> There is no secret anywhere in the runtime path, so there is nothing
+  to leak from static files.</p>
+  <table>
+    <thead><tr><th>What the site needs to do</th><th>Auth</th><th>Runs where</th></tr></thead>
+    <tbody>
+      <tr><td>Read products, variants, live prices</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Read collections</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Search</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Create cart, add / update / remove lines</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Get <code>cart.checkoutUrl</code></td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td><strong>Take payment</strong></td><td><strong>Not ours</strong></td><td><strong>Shopify's hosted checkout</strong></td></tr>
+      <tr><td>Metafields, product tags, menus, customer accounts</td><td><span class="pill pill--warn">Public token</span> designed to be published</td><td>Browser</td></tr>
+      <tr><td>Create products, CSV import, draft orders</td><td><span class="pill pill--bad">Admin secret</span></td><td><strong>Never the browser</strong> — Shopify admin UI, or GitHub Actions with the secret in GitHub Secrets</td></tr>
+    </tbody>
+  </table>
+  <p>Only the last row involves a real secret, and nothing in that row happens at runtime. Catalog
+  changes are an admin activity, not a customer activity — so the secret never needs to exist in
+  anything we deploy.</p>
+
+  <h4>If we ever do need a token</h4>
+  <p>Should we later want product tags or metafields, a <strong>public</strong> access token covers it.
+  Shopify's own description is unambiguous — it is
+  <em>“used to query the API from a browser or mobile app, <strong>where the token is visible to
+  buyers</strong>”</em>, sent in the <code>X-Shopify-Storefront-Access-Token</code> header. It is
+  designed to be published. Its counterpart, the <em>private</em> token, is the one Shopify says
+  <em>“should be treated as secret and not used on the client-side”</em> — we simply never create one.</p>
+
+  <div class="box box--good">
+    <div class="box__t">CORS — verified empirically, not just read in a doc</div>
+    <p>The remaining practical question is whether a browser on our own domain is actually
+    <em>allowed</em> to call Shopify. A live preflight was sent from our exact origin:</p>
+    <pre style="margin:.6rem 0"><code>OPTIONS https://{shop}.myshopify.com/api/2026-07/graphql.json
+Origin: https://theheavencraft.in
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-shopify-storefront-access-token
+
+→ access-control-allow-origin: *
+→ access-control-allow-methods: POST
+→ access-control-allow-headers: … X-Shopify-Storefront-Access-Token …
+
+follow-up POST → HTTP 200 with GraphQL data</code></pre>
+    <p style="margin-bottom:0">Browser <code>fetch()</code> from an arbitrary static origin works with
+    <strong>no proxy and no server</strong>. This was tested against a live Shopify storefront rather
+    than inferred from documentation.</p>
+  </div>
+
+  <h4>Rate limiting — the thing that replaces auth</h4>
+  <p>Because there is no token, Shopify meters tokenless and public access <strong>by the buyer's IP
+  address</strong>, and caps tokenless queries at <strong>1,000 complexity points</strong>. Two
+  practical consequences:</p>
+  <ul>
+    <li>Capacity scales with real buyers, which is exactly the shape of our traffic. One visitor cannot
+      consume another's budget.</li>
+    <li>Queries must stay lean — request only the fields actually rendered. A greedy nested query can
+      breach 1,000 points on its own and fail in production while passing in testing.</li>
+  </ul>
 
   <h4>The checkout handoff</h4>
   <pre><code>cartCreate            → returns a cart id
