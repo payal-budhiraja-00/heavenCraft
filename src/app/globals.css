@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/*
+ * HEAVENCRAFT
+ *
+ * Gold on black, taken from the logo. One chroma only: every coloured thing on
+ * this site is the same gold the badge is painted in, so the brand is carried
+ * by the palette rather than by a mark in the corner.
+ *
+ * The ground is near-black because of the use scene, not the category: an
+ * Indian buyer on a phone in the evening, comparing this against four
+ * marketplace tabs that are all white. Warmth is held in the grounds -- they
+ * are tinted toward the gold, never neutral grey -- so the black reads as
+ * lacquer rather than as a switched-off screen.
+ */
+
+@theme {
+  /* ---- Grounds. Warm-tinted blacks, never neutral. -------------------- */
+  --color-base: #070706;
+  --color-surface: #0f0e0c;
+  --color-raised: #17150f;
+  --color-edge: #2a261c;
+  --color-edge-strong: #453d2c;
+
+  /* ---- Gold. The only chroma in the system. --------------------------- */
+  --color-gold: #dea846;
+  --color-gold-bright: #e9bd69;
+  --color-gold-deep: #8a6a2f;
+  --color-gold-wash: #1c1710;
+
+  /* ---- Ink ------------------------------------------------------------- */
+  --color-cream: #f4ede0;
+  --color-cream-muted: #a8a093;
+  --color-cream-faint: #8c8578;
+
+  /* ---- State. Kept close to the gold so nothing shouts. ---------------- */
+  --color-good: #7fae6a;
+  --color-poor: #c1553c;
+
+  /* ---- Type ------------------------------------------------------------ */
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-1: clamp(2.5rem, 1.2rem + 5.4vw, 5.75rem);
+  --text-display-1--line-height: 0.95;
+  --text-display-1--letter-spacing: -0.035em;
+
+  --text-display-2: clamp(2rem, 1.3rem + 3vw, 3.5rem);
+  --text-display-2--line-height: 1;
+  --text-display-2--letter-spacing: -0.03em;
+
+  --text-display-3: clamp(1.5rem, 1.2rem + 1.3vw, 2.125rem);
+  --text-display-3--line-height: 1.1;
+  --text-display-3--letter-spacing: -0.02em;
+
+  --text-reading: 1.0625rem;
+  --text-reading--line-height: 1.7;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.1em;
+
+  --radius-plate: 4px;
+  --radius-panel: 10px;
+
+  /* Real depth: an offset and a soft blur, never a zero-offset halo. */
+  --shadow-lift: 0 18px 40px -24px rgb(0 0 0 / 0.9);
+  --shadow-panel: 0 28px 70px -40px rgb(0 0 0 / 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Prices and figures align in columns without setting them in a costume. */
+  .tnum,
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-base);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * Archivo carries a real width axis, so display type is the same family
+   * stretched rather than a second typeface brought in to shout.
+   */
+  .type-wide {
+    font-stretch: 112%;
+  }
+
+  .label {
+    font-size: var(--text-label);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /*
+   * The scrim under hero photography. Angled so the type side stays dark
+   * while the product keeps its own light, and carrying a warm tint so the
+   * photograph sits in the same room as the palette.
+   */
+  .scrim-left {
+    background: linear-gradient(
+      100deg,
+      rgb(7 7 6 / 0.96) 0%,
+      rgb(7 7 6 / 0.88) 34%,
+      rgb(7 7 6 / 0.45) 62%,
+      rgb(7 7 6 / 0.25) 100%
+    );
+  }
+
+  .scrim-bottom {
+    background: linear-gradient(
+      to top,
+      rgb(7 7 6 / 0.97) 0%,
+      rgb(7 7 6 / 0.75) 32%,
+      rgb(7 7 6 / 0.15) 72%,
+      rgb(7 7 6 / 0) 100%
+    );
+  }
+
+  /* A hairline in gold, used instead of a box to separate structure. */
+  .rule-gold {
+    display: block;
+    height: 1px;
+    width: 4.5rem;
+    background: linear-gradient(
+      90deg,
+      var(--color-gold) 0%,
+      color-mix(in srgb, var(--color-gold) 8%, transparent) 100%
+    );
+  }
+
+  /*
+   * The one authored motion moment on the site: the hero settles into place
+   * as if a light came up on it. Everything else is a hover or a page change.
+   */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .rise {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise {
+      animation: none;
+    }
+  }
+}

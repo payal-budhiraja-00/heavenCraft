@@ -1,35 +1,65 @@
-name: Deploy React App
+name: Deploy
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+# A second deploy starting while the first is mid-upload would interleave two
+# sets of files over FTP and leave the document root in a mixed state.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
+          cache: npm
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build React App
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      # `next build` writes the static export to out/. If this step fails the
+      # deploy never runs, which is the behaviour that was missing before: a
+      # syntax error in the catalog used to fail the build and the workflow
+      # would still be marked as having run.
+      - name: Build static export
         run: npm run build
 
-      - name: Deploy to GoDaddy FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      # A successful build can still produce a broken site: dropped social
+      # cards, duplicate canonicals, redirects pointing at pages that no
+      # longer exist. The verifier inspects out/ and fails the deploy.
+      - name: Verify export
+        run: npm run verify
+
+      - name: Deploy to GoDaddy over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: build/
+          local-dir: out/
           server-dir: /
+          # dangerous-clean-slate is deliberately not used: it wipes the
+          # document root before uploading, which takes the site offline for
+          # the length of the transfer.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**

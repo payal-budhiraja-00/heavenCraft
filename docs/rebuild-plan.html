@@ -1,0 +1,1573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeavenCraft — Rebuild &amp; Shopify Commerce Plan</title>
+<meta name="description" content="Plan to replace the GoDaddy-hosted Create React App storefront with a modern, SEO-capable, Shopify-connected site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#070706; --surface:#0f0e0c; --raised:#17150f;
+  --edge:#2a261c; --edge-strong:#453d2c;
+  --gold:#dea846; --gold-bright:#e9bd69; --gold-deep:#8a6a2f; --gold-wash:#1c1710;
+  --cream:#f4ede0; --cream-muted:#a8a093; --cream-faint:#8c8578;
+  --good:#7fae6a; --poor:#c1553c; --warn:#d99a3c;
+  --sans:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+body{
+  margin:0;background:var(--base);color:var(--cream);font-family:var(--sans);
+  font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--base)}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(222,168,70,.3)}
+a:hover{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
+.tnum,table{font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:0;max-width:1440px;margin:0 auto}
+.toc{
+  position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  border-right:1px solid var(--edge);padding:2.2rem 1.4rem 3rem;background:var(--surface);
+}
+.toc__brand{display:flex;align-items:center;gap:.6rem;margin-bottom:1.6rem}
+.toc__badge{
+  width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold);
+  display:grid;place-items:center;font-weight:700;font-size:.78rem;color:var(--gold);
+  letter-spacing:.02em;flex:none;
+}
+.toc__name{font-weight:700;font-size:.84rem;letter-spacing:.02em;line-height:1.2}
+.toc__sub{font-size:.66rem;color:var(--cream-faint);letter-spacing:.08em;text-transform:uppercase}
+.toc a{display:block;padding:.34rem 0;font-size:.82rem;color:var(--cream-muted);border:0;line-height:1.35}
+.toc a:hover{color:var(--gold)}
+.toc a .n{color:var(--gold-deep);display:inline-block;width:1.7rem;font-variant-numeric:tabular-nums}
+.toc hr{border:0;border-top:1px solid var(--edge);margin:1rem 0}
+main{padding:3rem 3.2rem 6rem;min-width:0;max-width:1060px}
+
+/* ---------- type ---------- */
+h1{font-size:clamp(2rem,1.2rem+2.6vw,3.1rem);line-height:1.02;letter-spacing:-.035em;font-weight:700;font-stretch:112%;margin:0 0 .6rem;text-wrap:balance}
+h2{font-size:clamp(1.45rem,1.1rem+1.1vw,2rem);line-height:1.12;letter-spacing:-.025em;font-weight:700;font-stretch:110%;margin:0 0 .5rem;text-wrap:balance}
+h3{font-size:1.12rem;line-height:1.3;letter-spacing:-.012em;font-weight:650;margin:2rem 0 .6rem;color:var(--cream)}
+h4{font-size:.95rem;font-weight:650;margin:1.4rem 0 .4rem;color:var(--gold-bright)}
+p{margin:0 0 1rem;color:var(--cream-muted);max-width:74ch}
+strong{color:var(--cream);font-weight:650}
+em{color:var(--cream);font-style:italic}
+code{font-family:var(--sans);font-weight:600;font-size:.87em;background:var(--gold-wash);color:var(--gold-bright);padding:.1em .38em;border-radius:3px;border:1px solid rgba(222,168,70,.16);white-space:nowrap}
+pre{background:var(--surface);border:1px solid var(--edge);border-radius:6px;padding:1rem 1.1rem;overflow-x:auto;margin:0 0 1.2rem;font-size:.82rem;line-height:1.6}
+pre code{background:0;border:0;padding:0;color:var(--cream-muted);font-weight:400;white-space:pre}
+ul,ol{color:var(--cream-muted);max-width:74ch;padding-left:1.3rem;margin:0 0 1.1rem}
+li{margin-bottom:.42rem}
+li::marker{color:var(--gold-deep)}
+.lede{font-size:1.06rem;color:var(--cream-muted);max-width:68ch}
+
+/* ---------- section chrome ---------- */
+section{padding:2.6rem 0;border-top:1px solid var(--edge)}
+section:first-of-type{border-top:0;padding-top:1rem}
+.sec-n{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold-deep);display:block;margin-bottom:.5rem}
+.rule{display:block;height:1px;width:4.5rem;background:linear-gradient(90deg,var(--gold),transparent);margin:1rem 0 1.4rem}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;margin:0 0 1.3rem;font-size:.84rem}
+th,td{text-align:left;padding:.62rem .7rem;border-bottom:1px solid var(--edge);vertical-align:top}
+th{
+  font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  color:var(--gold);border-bottom:1px solid var(--edge-strong);white-space:nowrap;
+}
+tbody tr:hover{background:rgba(222,168,70,.03)}
+td strong{color:var(--cream)}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- callouts ---------- */
+.box{border:1px solid var(--edge);border-radius:8px;padding:1.1rem 1.25rem;margin:0 0 1.3rem;background:var(--surface)}
+.box>:last-child{margin-bottom:0}
+.box__t{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.box--bad{border-color:rgba(193,85,60,.4);background:rgba(193,85,60,.06)}
+.box--bad .box__t{color:var(--poor)}
+.box--warn{border-color:rgba(217,154,60,.4);background:rgba(217,154,60,.06)}
+.box--warn .box__t{color:var(--warn)}
+.box--good{border-color:rgba(127,174,106,.4);background:rgba(127,174,106,.06)}
+.box--good .box__t{color:var(--good)}
+.box--gold{border-color:var(--gold-deep);background:var(--gold-wash)}
+.box--gold .box__t{color:var(--gold)}
+
+/* ---------- pills ---------- */
+.pill{display:inline-block;font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;padding:.2rem .5rem;border-radius:99px;border:1px solid currentColor;white-space:nowrap;line-height:1.5}
+.pill--bad{color:var(--poor)}
+.pill--warn{color:var(--warn)}
+.pill--good{color:var(--good)}
+.pill--gold{color:var(--gold)}
+.pill--mute{color:var(--cream-faint)}
+
+/* ---------- misc ---------- */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:1rem;margin-bottom:1.3rem}
+.card{border:1px solid var(--edge);border-radius:8px;padding:1.1rem 1.2rem;background:var(--surface)}
+.card h4{margin-top:0}
+.card>:last-child{margin-bottom:0}
+.card p{font-size:.86rem}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.1rem;font-size:.84rem;margin-bottom:1.2rem}
+.kv dt{color:var(--gold);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding-top:.22rem;white-space:nowrap}
+.kv dd{margin:0;color:var(--cream-muted)}
+.cover{border:1px solid var(--edge-strong);border-radius:10px;padding:2rem 2.1rem;background:linear-gradient(145deg,var(--raised),var(--surface));margin-bottom:.5rem}
+.cover p{margin-bottom:0}
+.meta{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);font-weight:600}
+.tag{font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--gold-deep)}
+.pending{border:1px dashed var(--edge-strong);border-radius:8px;padding:1rem 1.2rem;color:var(--cream-faint);font-size:.85rem;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(222,168,70,.02) 10px,rgba(222,168,70,.02) 20px)}
+
+@media (max-width:980px){
+  .wrap{grid-template-columns:1fr}
+  .toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--edge);padding:1.5rem}
+  .toc__list{columns:2;column-gap:1.5rem}
+  main{padding:2rem 1.3rem 4rem}
+}
+@media print{
+  .toc{display:none}
+  body{background:#fff;color:#111;font-size:10.5pt}
+  .wrap{grid-template-columns:1fr}
+  main{padding:0;max-width:none}
+  p,ul,ol,li,td{color:#222}
+  h1,h2,h3,strong,td strong{color:#000}
+  .box,.card,.cover,pre,.pending{background:#fafafa;border-color:#ddd}
+  a{color:#000}
+  section{page-break-inside:auto;border-top:1px solid #ccc}
+  h2{page-break-after:avoid}
+  table{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="toc">
+  <div class="toc__brand">
+    <div class="toc__badge">HC</div>
+    <div>
+      <div class="toc__name">HeavenCraft</div>
+      <div class="toc__sub">Rebuild plan</div>
+    </div>
+  </div>
+  <div class="toc__list">
+    <a href="#s0"><span class="n">00</span>Summary</a>
+    <a href="#s1"><span class="n">01</span>Where we are today</a>
+    <a href="#s2"><span class="n">02</span>What we are copying</a>
+    <a href="#s3"><span class="n">03</span>Hosting &amp; the cPanel question</a>
+    <a href="#s4"><span class="n">04</span>Shopify: what it is for</a>
+    <a href="#s5"><span class="n">05</span>Architecture</a>
+    <a href="#s6"><span class="n">06</span>Cost</a>
+    <a href="#s7"><span class="n">07</span>Catalog &amp; data</a>
+    <a href="#s8"><span class="n">08</span>Design system</a>
+    <a href="#s9"><span class="n">09</span>Pages &amp; URLs</a>
+    <a href="#s10"><span class="n">10</span>Roadmap</a>
+    <a href="#s11"><span class="n">11</span>Launch runbook</a>
+    <a href="#s12"><span class="n">12</span>Risks</a>
+    <a href="#s13"><span class="n">13</span>Decisions needed</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- =========================================================
+     COVER
+========================================================= -->
+<header style="margin-bottom:2rem">
+  <div class="meta" style="margin-bottom:1rem">Prepared 20 September 2026 &nbsp;·&nbsp; theheavencraft.in</div>
+  <h1>Rebuilding the HeavenCraft storefront</h1>
+  <p class="lede">Replace a client-rendered Create React App site that search engines cannot read and
+  customers cannot buy from, with a modern storefront that prerenders every product, takes real
+  payments through Shopify, and serves over a certificate browsers actually trust.</p>
+</header>
+
+<!-- =========================================================
+     00 — SUMMARY
+========================================================= -->
+<section id="s0">
+  <span class="sec-n">00 — Summary</span>
+  <h2>The short version</h2>
+  <span class="rule"></span>
+
+  <div class="box box--bad">
+    <div class="box__t">Found while surveying — fix regardless of what else we do</div>
+    <p style="color:var(--cream)"><strong>theheavencraft.in is serving a self-signed TLS certificate.</strong>
+    Port 443 is open, but the certificate's issuer and subject are both <code>CN=theheavencraft.in</code> —
+    the stock cPanel placeholder. Every visitor who reaches the site over <code>https://</code> gets a
+    full-page browser interstitial reading <em>“Your connection is not private”</em> before they see a
+    single product.</p>
+    <p style="margin-bottom:0">This also hard-blocks the commerce plan: no payment provider will
+    integrate against it, and a Shopify Buy Button or Storefront call from an untrusted-origin page
+    is a dead end. Detail and evidence in <a href="#s1">§01</a>, fix options in <a href="#s3">§03</a>.</p>
+    <p style="margin:1rem 0 0;padding-top:.9rem;border-top:1px solid var(--edge)">
+      <strong style="color:var(--gold)">Update — fixed.</strong> The domain's nameservers have since
+      been moved to Cloudflare and both records are proxied. Cloudflare now terminates TLS at the edge
+      with its own free, auto-renewing certificate — <strong>verified live and browser-trusted as of
+      20 Sep 2026</strong>. This cost nothing and GoDaddy stays the origin host. Three settings remain
+      to make it correct end-to-end; see <a href="#s3">§3.3</a>.</p>
+  </div>
+
+  <h3>What we are proposing</h3>
+  <ol>
+    <li><strong>Keep the brand, the photography and the catalog.</strong> 34 products, 197 image files
+      and the gold-on-black identity all carry over. Nothing is re-shot and nothing is re-typed.</li>
+    <li><strong>Rebuild the front end</strong> on the stack already proven in the
+      <code>ergonomic-furniture-website</code> prototype, but <strong>compiled to plain static HTML</strong>
+      so it can be hosted anywhere — including the existing GoDaddy cPanel account.</li>
+    <li><strong>Hand commerce to Shopify.</strong> Cart, checkout, payment, PCI scope, order
+      management and refunds become Shopify's problem rather than code we own and maintain.</li>
+    <li><strong>Fix HTTPS</strong> before anything else ships.</li>
+  </ol>
+
+  <div class="box box--warn">
+    <div class="box__t">One correction to flag early</div>
+    <p style="margin-bottom:0">Shopify's free SSL covers <em>a domain pointed at Shopify's own
+    storefront</em>. It does not issue a certificate for a site hosted somewhere else, so it will not
+    fix the certificate on the GoDaddy box. That turned out not to matter — <strong>Cloudflare now
+    provides the storefront certificate free</strong>, and Shopify's free SSL still covers the
+    <code>shop.</code> checkout subdomain. Both are ₹0. Worked through in <a href="#s3">§03</a>.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     01 — TODAY
+========================================================= -->
+<section id="s1">
+  <span class="sec-n">01 — Baseline</span>
+  <h2>Where the site is today</h2>
+  <span class="rule"></span>
+  <p class="lede">Everything below was verified directly against the live host and the repository on
+  20 September 2026, rather than taken from earlier notes. Two previously documented facts turned out
+  to be out of date and are corrected here.</p>
+
+  <h3>1.1 &nbsp;Infrastructure</h3>
+  <dl class="kv">
+    <dt>Host</dt><dd>GoDaddy shared Linux hosting — reverse DNS <code>98.182.139.118.host.secureserver.net</code>, <code>Server: Apache</code></dd>
+    <dt>Control panel</dt><dd>cPanel. Ports 2082/2083 open; WHM ports 2086/2087 closed — so this is a shared plan, not a VPS</dd>
+    <dt>Nameservers</dt><dd><code>ns35.domaincontrol.com</code>, <code>ns36.domaincontrol.com</code> — GoDaddy DNS</dd>
+    <dt>A record</dt><dd><code>theheavencraft.in → 118.139.182.98</code></dd>
+    <dt>www</dt><dd><code>CNAME → theheavencraft.in</code></dd>
+    <dt>MX records</dt><dd><strong>None.</strong> No mail is served on this domain</dd>
+    <dt>TXT records</dt><dd><strong>None.</strong> No SPF, no DMARC</dd>
+    <dt>Deployment</dt><dd>GitHub Actions → <code>SamKirkland/FTP-Deploy-Action</code> over plain FTP → <code>server-dir: /</code></dd>
+  </dl>
+
+  <div class="box box--good">
+    <div class="box__t">Good news buried in that table</div>
+    <p style="margin-bottom:0">Because <strong>there are no MX records</strong>, no mailbox depends on
+    this hosting plan. The usual worst-case of a hosting migration — silently breaking the business's
+    email — cannot happen here. Contact already runs through
+    <code>heavencraft09@gmail.com</code>. That removes the single biggest risk from a cutover and means
+    the GoDaddy hosting plan can eventually be cancelled without collateral damage.</p>
+  </div>
+
+  <h4>The certificate, precisely</h4>
+  <pre><code>Subject : CN=theheavencraft.in
+Issuer  : CN=theheavencraft.in        ← self-signed: issuer == subject
+Valid   : 2026-03-14 → 2027-03-14
+SANs    : theheavencraft.in, www, mail, cpanel, webmail,
+          webdisk, cpcontacts, cpcalendars, autodiscover</code></pre>
+  <p>That SAN list is the signature of cPanel's automatically generated placeholder certificate. It is
+  what a cPanel account serves when AutoSSL has never successfully run. Browsers reject it with
+  <code>NET::ERR_CERT_AUTHORITY_INVALID</code>.</p>
+
+  <div class="box box--warn">
+    <div class="box__t">Correction to the existing project notes</div>
+    <p style="margin-bottom:0">The prototype's <code>PRODUCT.md</code> records that “port 443 is closed,
+    not merely expired”. That is no longer true: <strong>443 is open and answering</strong>. The problem
+    is the certificate served on it, which is a different and considerably cheaper fix.</p>
+  </div>
+
+  <h3>1.2 &nbsp;Application</h3>
+  <table>
+    <thead><tr><th>Layer</th><th>Today</th><th>Consequence</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Framework</strong></td><td>Create React App 5.0.1 (<code>react-scripts</code>)</td><td>Deprecated and unmaintained upstream; no prerendering</td></tr>
+      <tr><td><strong>React</strong></td><td>19.2.3</td><td>Current — carries over</td></tr>
+      <tr><td><strong>Styling</strong></td><td>Tailwind CSS 3.3.2</td><td>One major version behind</td></tr>
+      <tr><td><strong>Routing</strong></td><td><code>react-router-dom</code> 7, client-side only</td><td>Needs the <code>.htaccess</code> catch-all to survive a refresh</td></tr>
+      <tr><td><strong>Rendering</strong></td><td>Client-only SPA</td><td><span class="pill pill--bad">SEO blocker</span> see below</td></tr>
+      <tr><td><strong>Catalog</strong></td><td>34 products hardcoded in <code>src/data/products.json</code></td><td>Every price change is a code change and a redeploy</td></tr>
+      <tr><td><strong>Checkout</strong></td><td><code>mailto:</code> quote request via <code>emailCheckout.js</code></td><td><span class="pill pill--bad">No revenue path</span></td></tr>
+      <tr><td><strong>Cart</strong></td><td>React Context + <code>localStorage</code></td><td>Works, but ends at an email</td></tr>
+    </tbody>
+  </table>
+
+  <h4>The SEO problem, measured</h4>
+  <p>A request to the homepage returns <strong>1,126 bytes</strong> of HTML. That is the empty CRA
+  shell — a <code>&lt;div id="root"&gt;</code> and a script tag. Every product name, price and
+  description is assembled in the browser afterwards. There is no server-rendered content for a
+  crawler to index, no per-product <code>&lt;title&gt;</code> or meta description, no
+  <code>sitemap.xml</code>, and no <code>Product</code> structured data — so no rich results, no price
+  in search listings, and nothing to rank on for “ergonomic chair Jaipur” or any product name.</p>
+
+  <h3>1.3 &nbsp;Catalog</h3>
+  <table>
+    <thead><tr><th>Group</th><th class="num">Products</th><th class="num">Lowest</th><th class="num">Highest</th><th>Sub-categories</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Chairs</strong></td><td class="num">9</td><td class="num">₹10,999</td><td class="num">₹17,999</td><td>mesh (3), leather (3), fabric (3)</td></tr>
+      <tr><td><strong>Tables</strong></td><td class="num">13</td><td class="num">₹2,999</td><td class="num">₹19,999</td><td>height-adjustable (4), gaming (2), executive (2), folding (2), study (2), bed (1)</td></tr>
+      <tr><td><strong>Accessories</strong></td><td class="num">12</td><td class="num">₹599</td><td class="num">₹7,999</td><td>CPU stand (2), monitor stand (2), footrest (2), desk hook (2), storage box (2), cable tray (1), cup holder (1)</td></tr>
+      <tr><td colspan="5" style="border-bottom:0;padding-top:.8rem"><strong>34 products total</strong>, ₹599 – ₹19,999, all INR and GST-inclusive</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.4 &nbsp;Photography</h3>
+  <p><strong>197 image files, 24.3 MB</strong>, organised as
+  <code>public/images/products/&lt;group&gt;/&lt;sub-category&gt;/</code>. I verified every one of the
+  <strong>95 image paths</strong> referenced by <code>products.json</code> resolves on a case-sensitive
+  filesystem — none are broken. That leaves <strong>99 files on disk that nothing references</strong>,
+  roughly half the library, which is spare inventory for the per-product galleries the current site
+  has no way to show.</p>
+
+  <h3>1.5 &nbsp;Data hygiene defects found</h3>
+  <table>
+    <thead><tr><th>Defect</th><th>Where</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Leading space in product names</strong></td>
+        <td>7 products, all tables — <code>" Modura…"</code>, <code>" Imperium…"</code>, <code>" Zenith…"</code>, <code>" Movix…"</code>, <code>" Signature…"</code>, <code>" Modura Primex…"</code>, <code>" Zenvy Primex…"</code></td>
+        <td>Corrupts generated URL slugs, breaks alphabetical sorting, and would import into Shopify with the space intact</td>
+      </tr>
+      <tr>
+        <td><strong>Inconsistent sub-category casing</strong></td>
+        <td><code>Cpu-Stand</code>, <code>Desk-hook</code> against <code>cable-tray</code>, <code>cup-holder</code></td>
+        <td>Produces mixed-case URLs; a live hazard on case-sensitive Linux hosting</td>
+      </tr>
+      <tr>
+        <td><strong>Spaces in image filenames</strong></td>
+        <td>Throughout — e.g. <code>4 - Neuro.jpeg</code></td>
+        <td>Forces percent-encoding in every URL and complicates CDN cache keys</td>
+      </tr>
+      <tr>
+        <td><strong>Unoptimised JPEGs</strong></td>
+        <td>24.3 MB across 197 files, no WebP/AVIF, no responsive sizes</td>
+        <td>Slow on the mobile connections most customers arrive on</td>
+      </tr>
+      <tr>
+        <td><strong>The favicon is the React logo</strong> <span class="pill pill--bad">Live now</span></td>
+        <td><code>/favicon.ico</code>, <code>/logo192.png</code>, <code>/logo512.png</code> — all untouched Create React App defaults</td>
+        <td>The browser tab, the bookmark and <strong>the icon Google shows beside the site in search results</strong> are all a React atom in cyan. It reads as an unfinished developer project, on the one surface seen by every visitor and every searcher</td>
+      </tr>
+      <tr>
+        <td><strong>The web manifest still says “Create React App Sample”</strong> <span class="pill pill--bad">Live now</span></td>
+        <td><code>/manifest.json</code> — verified being served publicly today</td>
+        <td>Anyone adding the site to an Android home screen gets an app called <strong>“React App”</strong>. <code>theme_color</code> is <code>#000000</code> and <code>background_color</code> is white, neither of which is the brand</td>
+      </tr>
+      <tr>
+        <td><strong>No Open Graph or Twitter card tags at all</strong></td>
+        <td><code>public/index.html</code> — no <code>og:title</code>, <code>og:image</code> or <code>og:description</code></td>
+        <td>A link shared on WhatsApp renders as a bare grey URL with no image. For an Indian D2C brand where WhatsApp is the primary sharing channel, this is lost reach on every share</td>
+      </tr>
+      <tr>
+        <td><strong>Unverified reviews</strong></td>
+        <td>Named reviews with <code>"verified": true</code> in <code>products.json</code></td>
+        <td><span class="pill pill--bad">Do not publish</span> — see below</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box--bad">
+    <div class="box__t">The reviews cannot ship as they stand</div>
+    <p>The catalog carries named, dated, five-star reviews flagged <code>"verified": true</code>. The
+    project's own <code>PRODUCT.md</code> records these as placeholder content of unverified
+    provenance. Publishing them is two separate problems, and the second is the serious one:</p>
+    <ul style="margin-bottom:0">
+      <li>Showing invented testimonials attributed to named people is a consumer-protection exposure.</li>
+      <li>Emitting them as <code>aggregateRating</code> structured data is a search-policy breach that
+        gets a storefront penalised — and it is exactly the kind of thing that surfaces long after launch.</li>
+    </ul>
+  </div>
+  <p>The prototype already solves this correctly with two separate flags — one that renders the
+  section as plainly-labelled sample content, and one that only a genuine review set unlocks. We carry
+  that behaviour across unchanged. Same rule for the <em>“10K+ Happy Customers”</em> and
+  <em>“4.8★ Average Rating”</em> figures: the real catalog is 34 products, and those numbers were
+  confirmed aspirational.</p>
+</section>
+
+<!-- =========================================================
+     02 — REFERENCE
+========================================================= -->
+<section id="s2">
+  <span class="sec-n">02 — Target</span>
+  <h2>What we are copying, and what we are changing</h2>
+  <span class="rule"></span>
+  <p>The reference build at
+  <a href="https://ergonomic-furniture-website.vercel.app/">ergonomic-furniture-website.vercel.app</a>
+  is already a long way ahead of the live site, and its design system, copy voice and page structure
+  are worth taking wholesale. Its <em>infrastructure</em> is the part that has to change, because it
+  assumes a Node server and a PostgreSQL database — neither of which the GoDaddy account can provide.</p>
+
+  <table>
+    <thead><tr><th>Piece</th><th>Prototype</th><th>Decision</th></tr></thead>
+    <tbody>
+      <tr><td>Design system</td><td>Gold <code>#DEA846</code> on warm near-black, Archivo, gold hairlines</td><td><span class="pill pill--good">Take as-is</span></td></tr>
+      <tr><td>Page structure</td><td>Hero → categories → stories → featured → assurances</td><td><span class="pill pill--good">Take as-is</span></td></tr>
+      <tr><td>Copy voice</td><td>Speaks as the brand; never narrates the business model</td><td><span class="pill pill--good">Take as-is</span></td></tr>
+      <tr><td>Framework</td><td>Next.js 16 App Router, React 19, TypeScript, Tailwind v4</td><td><span class="pill pill--good">Take</span> — but exported as static HTML</td></tr>
+      <tr><td>Catalog store</td><td>PostgreSQL via Prisma 7</td><td><span class="pill pill--warn">Replace</span> — needs a live DB at build <em>and</em> runtime</td></tr>
+      <tr><td>Admin portal</td><td>Planned, unbuilt, gates launch</td><td><span class="pill pill--gold">Delete from scope</span> — Shopify admin replaces it</td></tr>
+      <tr><td>Payments</td><td>Razorpay adapter behind <code>COMMERCE_ENABLED</code></td><td><span class="pill pill--warn">Replace</span> with Shopify</td></tr>
+      <tr><td>Enquiry funnel</td><td>Server actions + SMTP + Turnstile + rate limiting</td><td><span class="pill pill--warn">Rework</span> — server actions cannot run on static hosting</td></tr>
+      <tr><td>Hosting</td><td>Vercel</td><td><span class="pill pill--gold">Open decision</span> — <a href="#s3">§03</a></td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box--gold">
+    <div class="box__t">The biggest single scope saving in this plan</div>
+    <p style="margin-bottom:0">The prototype's roadmap puts a bespoke admin portal — product CRUD,
+    stock, image upload, enquiry inbox — in front of launch, on the principle that the owner must never
+    need a developer to sell something. <strong>Shopify's admin already is that portal</strong>, built,
+    maintained, and with a mobile app. Adopting Shopify does not just add payments; it deletes an
+    entire build phase and the long tail of maintaining it.</p>
+  </div>
+
+  <h4>What the Razorpay scaffolding is worth to us</h4>
+  <p>Honestly: very little. <code>src/lib/payments/types.ts</code> models a gateway that creates an
+  order server-side and verifies a signature on the way back. Shopify's model is the opposite — the
+  browser builds a cart and is redirected to Shopify's own hosted checkout, and we never handle a
+  payment credential at all. That interface does not adapt; it gets removed. The
+  <em>feature-flag discipline</em> around it is worth keeping.</p>
+</section>
+
+<!-- =========================================================
+     03 — HOSTING
+========================================================= -->
+<section id="s3">
+  <span class="sec-n">03 — Hosting</span>
+  <h2>Can GoDaddy cPanel run this?</h2>
+  <span class="rule"></span>
+
+  <div class="box box--gold">
+    <div class="box__t">Decision taken</div>
+    <p style="margin-bottom:0"><strong>Hosting stays on GoDaddy. Commerce runs on Shopify's APIs.</strong>
+    Everything below is written to that decision. Where it costs us something, that is stated plainly
+    rather than smoothed over.</p>
+  </div>
+
+  <h3>3.1 &nbsp;The concern is correct</h3>
+  <p>A GoDaddy <em>shared</em> cPanel plan is not a place to run Next.js in its normal server mode.
+  Server-side rendering needs a long-lived Node process, and even where cPanel exposes a Node.js
+  application manager, running a framework server behind Passenger on shared hosting is fragile,
+  memory-capped and unsupported by GoDaddy when it breaks. We should not plan around it.</p>
+
+  <div class="box box--bad">
+    <div class="box__t">Now confirmed against primary sources — SSR is not merely unwise here, it is unavailable</div>
+    <ul style="margin-bottom:0">
+      <li><strong>The feature is provider-gated, not user-gated.</strong> cPanel's Application Manager
+        runs Node under Phusion Passenger, and cPanel's own docs tell end users: <em>“If you need this
+        feature, contact your hosting provider.”</em> The familiar “Setup Node.js App” icon is
+        CloudLinux's Node.js Selector, installed by root.</li>
+      <li><strong>This account has no route to enabling it.</strong> WHM ports 2086/2087 are closed —
+        no root, no Feature Manager. The only lever is a GoDaddy support ticket.</li>
+      <li><strong>Even if enabled, it is hostile to modern Next.js.</strong> CloudLinux documents that
+        <em>“Phusion Passenger cannot load ECMAScript modules and can only load CommonJS modules”</em>
+        — and Next.js is ESM-first. Memory ceilings are fixable only in WHM, and there is no port
+        binding and no process manager.</li>
+      <li><strong>GoDaddy documents Node.js only for VPS and dedicated servers.</strong> The archived
+        shared-hosting plan page lists Economy through Maximum with zero Node.js mentions.</li>
+    </ul>
+  </div>
+  <p>This is a good outcome rather than a constraint to mourn: it forces the static export, and the
+  static export is <em>faster, cheaper and more reliable</em> than SSR would have been for a 34-product
+  catalog that changes rarely.</p>
+
+  <h3>3.2 &nbsp;But we do not need a server</h3>
+  <p>Next.js has a build mode — <code>output: 'export'</code> — that emits <strong>one plain HTML file
+  per route</strong> plus static CSS and JS, and nothing else. Quoting the Next.js 16 documentation
+  directly:</p>
+  <pre><code>// next.config.ts
+const nextConfig = {
+  output: 'export',        // emit static HTML/CSS/JS -- no Node server
+  trailingSlash: true,     // /chairs/ -> /chairs/index.html, which Apache serves natively
+  images: { unoptimized: true },
+}</code></pre>
+  <p><em>“Since Next.js supports this static export, it can be deployed and hosted on any web server
+  that can serve HTML/CSS/JS static assets.”</em> Apache on cPanel is exactly that. Server Components
+  still run — they execute <strong>at build time</strong>, on our machine or in GitHub Actions — so the
+  34 product pages are rendered into real HTML with real content, then uploaded.</p>
+
+  <div class="box box--good">
+    <div class="box__t">What this buys us, on the hosting we already pay for</div>
+    <ul style="margin-bottom:0">
+      <li><strong>The SEO problem is solved.</strong> Every product page ships as complete HTML with its
+        own title, description and structured data — versus today's 1,126-byte empty shell.</li>
+      <li><strong>The deployment pipeline does not change.</strong> The existing GitHub Actions workflow
+        keeps working; only <code>local-dir</code> changes from <code>build/</code> to <code>out/</code>.</li>
+      <li><strong>No new hosting bill</strong>, no server to patch, no database to run or back up.</li>
+      <li><strong>Nothing can go down at 2am.</strong> Static files on Apache have no runtime to crash.</li>
+    </ul>
+  </div>
+
+  <h4>What we give up by having no server</h4>
+  <table>
+    <thead><tr><th>Capability</th><th>Status</th><th>How we cope</th></tr></thead>
+    <tbody>
+      <tr><td>Server Actions / API routes</td><td><span class="pill pill--bad">Gone</span></td><td>Enquiry form posts to a third-party form service or Shopify; no server needed</td></tr>
+      <tr><td>ISR / <code>revalidate</code></td><td><span class="pill pill--bad">Gone</span></td><td>A price change means a rebuild — see §3.4, this is the real cost</td></tr>
+      <tr><td>Middleware, rewrites, <code>cookies()</code>/<code>headers()</code></td><td><span class="pill pill--bad">Gone</span></td><td>Not needed by this site</td></tr>
+      <tr><td><code>next/image</code> optimisation</td><td><span class="pill pill--warn">Manual</span></td><td>Pre-generate WebP + responsive sizes at build; ship <code>&lt;picture&gt;</code></td></tr>
+      <tr><td>Per-product pages</td><td><span class="pill pill--good">Kept</span></td><td><code>generateStaticParams()</code> prerenders all 34</td></tr>
+      <tr><td>Cart &amp; checkout</td><td><span class="pill pill--good">Kept</span></td><td>Runs in the browser against Shopify — §04</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box--warn">
+    <div class="box__t">The <code>.htaccess</code> must change — this will break the site if missed</div>
+    <p>The current rule rewrites <em>every</em> request to <code>/index.html</code>, because a CRA SPA
+    has only one HTML file. A static export has <strong>real files at real paths</strong>. Keeping the
+    catch-all would serve the homepage at every URL and silently destroy the entire SEO gain we are
+    doing this for.</p>
+    <p style="margin-bottom:0">The replacement serves real files, falls back to a real
+    <code>404.html</code>, and adds long-lived cache headers for fingerprinted
+    <code>/_next/static</code> assets. Research turned up a real Next.js issue report where leaving a
+    CRA-style catch-all in place against a static export produced <strong>HTTP 500s</strong>, not just
+    wrong content — so this is a hard blocker, not a tidy-up.</p>
+  </div>
+
+  <pre><code># public/.htaccess — static export. REPLACES the CRA catch-all.
+
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteEngine On
+  RewriteBase /
+
+  # --- Canonical host. Enable the HTTPS rule ONLY after §3.3 is done. ---
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^theheavencraft\.in$ [NC]
+  RewriteRule ^ https://www.theheavencraft.in%{REQUEST_URI} [L,R=301]
+
+  # Real file or real directory → serve it, untouched.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # /chairs → /chairs/index.html   (matches trailingSlash: true)
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ /$1/index.html [L]
+
+  # /chairs → /chairs.html         (belt and braces)
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.*)$ /$1.html [L]
+&lt;/IfModule&gt;
+
+# A real 404 — not the homepage wearing a 200.
+ErrorDocument 404 /404.html
+
+&lt;IfModule mod_headers.c&gt;
+  # /_next/static/** is content-hashed by the build: safe to cache forever.
+  SetEnvIf Request_URI "^/_next/static/" IMMUTABLE_ASSET
+  Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE_ASSET
+
+  # HTML must revalidate, or a rebuild stays invisible for a week.
+  &lt;FilesMatch "\.html$"&gt;
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  &lt;/FilesMatch&gt;
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+&lt;/IfModule&gt;
+
+&lt;IfModule mod_deflate.c&gt;
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript \
+                                application/json image/svg+xml
+&lt;/IfModule&gt;</code></pre>
+
+  <div class="box box--good" style="margin-top:1.4rem">
+    <div class="box__t">As built — three changes from the draft above</div>
+    <ol>
+      <li><strong>The file is generated, not hand-maintained.</strong>
+      <code>scripts/generate-htaccess.ts</code> writes <code>public/.htaccess</code> from the
+      catalog on every build, so the 34 legacy <code>/product/&lt;id&gt;</code> redirects cannot
+      drift out of step with the products they point at. A redirect whose target no longer exists
+      fails the build.</li>
+
+      <li><strong>The apex is canonical, not <code>www</code></strong> — the redirect above runs the
+      other way. Both hosts were answering <code>200</code> with identical content and no redirect,
+      which splits the ranking signal and, as §9.5 notes, makes Google treat them as two sites with
+      two favicons. The apex was chosen because it is shorter, it is what is printed on invoices,
+      and it is already the primary A record. Reversing it is one constant in
+      <code>src/lib/site.ts</code> plus one rewrite block.</li>
+
+      <li><strong>The HTTPS redirect is omitted entirely</strong>, not merely commented out.
+      TLS now terminates at Cloudflare, which talks to GoDaddy over plain HTTP, so
+      <code>%{HTTPS}</code> is <code>off</code> at the origin <em>even for visitors who arrived over
+      HTTPS</em>. The rule would redirect them to a URL that arrives back at the origin looking
+      identical — a loop that only ends when the browser gives up. HTTPS is instead forced at
+      Cloudflare, where it already is. The verifier fails the build if that rule ever reappears.</li>
+    </ol>
+    <p style="margin-bottom:0">This also means Cloudflare's encryption mode <strong>must stay on
+    <code>Full</code></strong>. <code>Flexible</code> recreates the same loop from the other side;
+    <code>Full (strict)</code> returns <code>526</code> while the origin certificate is
+    self-signed.</p>
+  </div>
+
+  <div class="box box--warn" style="margin-top:1.4rem">
+    <div class="box__t">Sequencing trap: do not force HTTPS before the certificate is valid</div>
+    <p style="margin-bottom:0">The <code>RewriteCond %{HTTPS} !=on</code> redirect is deliberately
+    commented out above. Switching it on while the certificate is still self-signed would push
+    <em>every</em> visitor into the browser interstitial with no working HTTP fallback — turning a bad
+    first impression into a completely unreachable site. It gets uncommented in §3.3, as the last step,
+    once a valid certificate is confirmed live.</p>
+  </div>
+
+  <h3>3.3 &nbsp;Fixing HTTPS — solved, at ₹0, by Cloudflare</h3>
+  <div class="box box--good">
+    <div class="box__t">Status change — verified live, 20 Sep 2026</div>
+    <p>The domain's nameservers have been moved to Cloudflare
+    (<code>salvador.ns.cloudflare.com</code>, <code>maeve.ns.cloudflare.com</code>) and both
+    <code>@</code> and <code>www</code> are <strong>proxied</strong> through Cloudflare's edge. This
+    removes the certificate problem entirely and costs nothing.</p>
+    <pre style="margin:.8rem 0 0"><code>$ curl -I --resolve www.theheavencraft.in:80:104.21.56.194 http://www.theheavencraft.in/
+HTTP/1.1 200 OK
+Server: cloudflare            ← proxy active, origin reachable
+CF-RAY: a3e1ee4c1c7068e2-DEL  ← served from Cloudflare's Delhi edge
+alt-svc: h3=":443"            ← HTTP/3 available for free</code></pre>
+  </div>
+  <p>GoDaddy remains the origin host — nothing about the hosting plan changes. Cloudflare terminates
+  TLS at the edge with its own free, auto-renewing certificate, so the visitor never sees GoDaddy's
+  self-signed one. As a side effect the site also gains a global CDN, Brotli compression and HTTP/3,
+  none of which were on the table before.</p>
+
+  <div class="box box--good">
+    <div class="box__t">Universal SSL confirmed live — 20 Sep 2026, 15:42 UTC</div>
+    <p style="margin-bottom:0">HTTPS at the Cloudflare edge now completes the handshake and serves the
+    site over a <strong>browser-trusted certificate</strong>. Verified with certificate validation
+    enabled, not bypassed:</p>
+    <pre style="margin:.8rem 0 0"><code>$ curl -I --resolve www.theheavencraft.in:443:104.21.56.194 \
+       https://www.theheavencraft.in/
+HTTP/1.1 200 OK        ← exit code 0: certificate chain validated</code></pre>
+  </div>
+
+  <h4>The three settings that matter, in order</h4>
+  <table>
+    <thead><tr><th>#</th><th>Setting</th><th>Value</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">1</td>
+        <td>SSL/TLS → Overview → encryption mode</td>
+        <td><strong>Full</strong></td>
+        <td><span class="pill pill--bad">Not Flexible</span> sends traffic to GoDaddy unencrypted and
+          causes redirect loops. <span class="pill pill--bad">Not Full (strict)</span> — it validates
+          the origin certificate, and GoDaddy's is self-signed, so the site would break with error 526.
+          <strong>Full</strong> encrypts to the origin without validating it: correct for today.</td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td>SSL/TLS → Origin Server → <strong>Create Certificate</strong></td>
+        <td><strong>Install into cPanel</strong></td>
+        <td>A free Cloudflare Origin CA certificate, valid 15 years. Paste it into cPanel →
+          SSL/TLS → Install an SSL Website. This replaces GoDaddy's self-signed cert on the origin and
+          means <strong>AutoSSL is never needed</strong> — which sidesteps the whole question of what
+          the GoDaddy plan does or doesn't include.</td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td>Encryption mode, after step 2</td>
+        <td><strong>Full (strict)</strong></td>
+        <td>Once the origin holds a real certificate, tighten it. This closes the gap where anyone
+          between Cloudflare and GoDaddy could impersonate the origin. The proper end state.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box--warn">
+    <div class="box__t">Redirect-loop trap — pick one place to force HTTPS, not two</div>
+    <p style="margin-bottom:0">Turn on <em>Cloudflare → SSL/TLS → Edge Certificates → Always Use
+    HTTPS</em>, and <strong>leave the <code>RewriteCond %{HTTPS} !=on</code> block in
+    <code>.htaccess</code> commented out</strong>. If Cloudflare is in Flexible mode and Apache also
+    forces HTTPS, the two bounce the request back and forth until the browser gives up with
+    <code>ERR_TOO_MANY_REDIRECTS</code>. Cloudflare owns this redirect now. The same applies to the
+    apex→<code>www</code> rule, which is better expressed as a Cloudflare Redirect Rule than in
+    <code>.htaccess</code>.</p>
+  </div>
+
+  <div class="box box--warn">
+    <div class="box__t">Test the <code>.htaccess</code> on a staging subfolder first</div>
+    <p style="margin-bottom:0">Next.js publishes no official Apache configuration — only an nginx
+    example — so the block in §3.2 is a construction, not a vendor-blessed file. On a restrictive
+    <code>AllowOverride</code> policy some directives can return a 500 rather than being ignored.
+    Deploy it to a staging path and confirm before it touches the live document root. This is Phase 1
+    work in §10, deliberately sequenced before anything customer-facing.</p>
+  </div>
+
+  <h4>What this changes elsewhere in the plan</h4>
+  <ul>
+    <li><strong>Shopify product-image import is unblocked</strong> once the certificate issues —
+      Shopify fetches images over HTTPS from publicly reachable URLs, which was previously impossible.</li>
+    <li><strong>Caching moves to the edge.</strong> The <code>Cache-Control</code> headers in §3.2 are
+      still the source of truth; Cloudflare honours them, so fingerprinted <code>/_next/static</code>
+      assets get cached globally rather than just in the visitor's browser.</li>
+    <li><strong>Purge on deploy.</strong> Add a Cloudflare cache-purge step to the GitHub Actions
+      workflow after the FTP upload, so a rebuild is visible immediately instead of waiting out the
+      edge TTL.</li>
+    <li><strong>GoDaddy's origin IP is now hidden</strong> behind Cloudflare, which is a genuine
+      security improvement on shared hosting.</li>
+  </ul>
+
+  <p>There is also a neat consequence of the Shopify integration worth planning around:</p>
+  <table>
+    <thead><tr><th>Hostname</th><th>Serves</th><th>Certificate from</th></tr></thead>
+    <tbody>
+      <tr><td><code>theheavencraft.in</code></td><td>The storefront — static files. <code>www</code> 301s here.</td><td><strong>Cloudflare, free &amp; automatic</strong> <span class="pill pill--good">live</span></td></tr>
+      <tr><td><code>shop.theheavencraft.in</code></td><td>Shopify checkout <span class="pill pill--gold">optional</span></td><td><strong>Shopify, free &amp; automatic</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Adding <code>shop</code> as a CNAME to Shopify and setting it as the Online Store's primary domain
+  means checkout renders at <code>shop.theheavencraft.in</code> rather than
+  <code>heavencraft.myshopify.com</code> — branded, and with a Shopify-issued certificate at no cost.
+  Customers stay visibly inside the brand at the moment they hand over money, which is exactly where
+  a strange domain costs conversions.</p>
+  <p style="margin-bottom:0">One DNS note now that Cloudflare runs the zone: the <code>shop</code>
+  CNAME pointing at <code>shops.myshopify.com.</code> must be set to <strong>DNS only</strong>
+  (grey cloud, not proxied). Proxying a Shopify-hosted hostname through Cloudflare breaks Shopify's
+  own certificate issuance for it.</p>
+
+  <h3>3.4 &nbsp;The honest cost of no server: publishing</h3>
+  <p>With no database and no ISR, <strong>the catalog is baked in at build time</strong>. Changing a
+  price means a rebuild and redeploy — roughly two to three minutes, triggered by a commit. That is
+  acceptable precisely because, as you noted, inventory changes here are rare.</p>
+  <p>It stops being acceptable the moment the owner wants to change a price from his phone on a Sunday.
+  Two ways to buy that back when it matters, neither needed at launch:</p>
+  <ul>
+    <li><strong>Fetch prices in the browser at page load</strong> from Shopify's tokenless Storefront
+      API, so the static HTML carries a build-time price for crawlers and the live Shopify price
+      refreshes on view. Removes the rebuild for price changes entirely.</li>
+    <li><strong>Trigger the build from Shopify.</strong> A Shopify webhook on product update calls a
+      GitHub Actions <code>repository_dispatch</code>, which rebuilds and re-uploads. Fully automatic,
+      about half a day's work.</li>
+  </ul>
+</section>
+
+<!-- =========================================================
+     04 — SHOPIFY
+========================================================= -->
+<section id="s4">
+  <span class="sec-n">04 — Commerce</span>
+  <h2>What Shopify is actually for</h2>
+  <span class="rule"></span>
+  <p class="lede">Shopify is not being adopted as a website. It is being adopted as the part of an
+  e-commerce business that is genuinely hard to build and dangerous to get wrong: taking money,
+  holding card data, and keeping a record of what was sold.</p>
+
+  <h3>4.1 &nbsp;The division of labour</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Our static site owns</h4>
+      <p>Design, photography, copy, navigation, category and product pages, SEO and structured data,
+      the cart UI, performance.</p>
+    </div>
+    <div class="card">
+      <h4>Shopify owns</h4>
+      <p>Prices of record, cart state, checkout, payment, PCI compliance, orders, refunds, customer
+      records, tax configuration, and the admin the owner logs into.</p>
+    </div>
+  </div>
+
+  <h3>4.2 &nbsp;This works without a server — confirmed</h3>
+  <p>This was the load-bearing question for the whole plan, so it was verified against Shopify's own
+  documentation rather than assumed. As of API version <code>2026-07</code>, the Storefront API
+  supports <strong>tokenless access</strong>:</p>
+  <div class="box box--good">
+    <div class="box__t">Shopify, docs for Storefront API 2026-07</div>
+    <p style="margin-bottom:0"><em>“Tokenless access allows API queries without an access token
+    providing access to essential features such as: Products and Collections · Selling Plans · Search ·
+    Pages, Blogs, and Articles · <strong>Cart (read/write)</strong>.”</em></p>
+  </div>
+  <p><strong>Products, collections, search and full cart read/write — the entire surface this
+  storefront needs — with no token and no backend.</strong></p>
+
+  <h4>The auth model, in full</h4>
+  <p>The useful framing is that for this architecture <strong>the authentication problem does not get
+  solved, it disappears.</strong> There is no secret anywhere in the runtime path, so there is nothing
+  to leak from static files.</p>
+  <table>
+    <thead><tr><th>What the site needs to do</th><th>Auth</th><th>Runs where</th></tr></thead>
+    <tbody>
+      <tr><td>Read products, variants, live prices</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Read collections</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Search</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Create cart, add / update / remove lines</td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td>Get <code>cart.checkoutUrl</code></td><td><span class="pill pill--good">None</span> tokenless</td><td>Browser</td></tr>
+      <tr><td><strong>Take payment</strong></td><td><strong>Not ours</strong></td><td><strong>Shopify's hosted checkout</strong></td></tr>
+      <tr><td>Metafields, product tags, menus, customer accounts</td><td><span class="pill pill--warn">Public token</span> designed to be published</td><td>Browser</td></tr>
+      <tr><td>Create products, CSV import, draft orders</td><td><span class="pill pill--bad">Admin secret</span></td><td><strong>Never the browser</strong> — Shopify admin UI, or GitHub Actions with the secret in GitHub Secrets</td></tr>
+    </tbody>
+  </table>
+  <p>Only the last row involves a real secret, and nothing in that row happens at runtime. Catalog
+  changes are an admin activity, not a customer activity — so the secret never needs to exist in
+  anything we deploy.</p>
+
+  <h4>If we ever do need a token</h4>
+  <p>Should we later want product tags or metafields, a <strong>public</strong> access token covers it.
+  Shopify's own description is unambiguous — it is
+  <em>“used to query the API from a browser or mobile app, <strong>where the token is visible to
+  buyers</strong>”</em>, sent in the <code>X-Shopify-Storefront-Access-Token</code> header. It is
+  designed to be published. Its counterpart, the <em>private</em> token, is the one Shopify says
+  <em>“should be treated as secret and not used on the client-side”</em> — we simply never create one.</p>
+
+  <div class="box box--good">
+    <div class="box__t">CORS — verified empirically, not just read in a doc</div>
+    <p>The remaining practical question is whether a browser on our own domain is actually
+    <em>allowed</em> to call Shopify. A live preflight was sent from our exact origin:</p>
+    <pre style="margin:.6rem 0"><code>OPTIONS https://{shop}.myshopify.com/api/2026-07/graphql.json
+Origin: https://theheavencraft.in
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-shopify-storefront-access-token
+
+→ access-control-allow-origin: *
+→ access-control-allow-methods: POST
+→ access-control-allow-headers: … X-Shopify-Storefront-Access-Token …
+
+follow-up POST → HTTP 200 with GraphQL data</code></pre>
+    <p style="margin-bottom:0">Browser <code>fetch()</code> from an arbitrary static origin works with
+    <strong>no proxy and no server</strong>. This was tested against a live Shopify storefront rather
+    than inferred from documentation.</p>
+  </div>
+
+  <h4>Rate limiting — the thing that replaces auth</h4>
+  <p>Because there is no token, Shopify meters tokenless and public access <strong>by the buyer's IP
+  address</strong>, and caps tokenless queries at <strong>1,000 complexity points</strong>. Two
+  practical consequences:</p>
+  <ul>
+    <li>Capacity scales with real buyers, which is exactly the shape of our traffic. One visitor cannot
+      consume another's budget.</li>
+    <li>Queries must stay lean — request only the fields actually rendered. A greedy nested query can
+      breach 1,000 points on its own and fail in production while passing in testing.</li>
+  </ul>
+
+  <h4>The checkout handoff</h4>
+  <pre><code>cartCreate            → returns a cart id
+cartLinesAdd          → add { merchandiseId: variantId, quantity }
+query cart.checkoutUrl
+window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
+  <p>From that redirect onward, Shopify runs everything. <strong>We never touch a card number</strong>,
+  which is what keeps PCI scope off this project entirely.</p>
+
+  <div class="box box--bad">
+    <div class="box__t">Three implementation rules that are easy to get wrong</div>
+    <ul style="margin-bottom:0">
+      <li><strong>The cart ID contains a secret.</strong> It has the form
+        <code>&lt;token&gt;?key=&lt;secret&gt;</code>, and Shopify's guidance is explicit:
+        <em>“Never expose the secret part of the ID. Treat it like a password — don't include it in
+        shareable links, public pages, or any client-side code.”</em> Storing it in the buyer's own
+        <code>localStorage</code> is fine; putting it in a URL, a share link or server-rendered markup
+        is not. <strong>This rules out “share your cart” links.</strong></li>
+      <li><strong>Shopify's price is the price of record.</strong> <code>CartCost</code> is documented as
+        <em>“estimated … subject to change”</em>, with checkout final. Cart and checkout totals must be
+        rendered from <code>cart.cost</code>, never recomputed from our JSON — otherwise we will one day
+        display one number and charge another.</li>
+      <li><strong>The API is versioned four times a year.</strong> Pin <code>2026-07</code> explicitly
+        and diarise a review, or the storefront breaks on a schedule nobody is watching.</li>
+    </ul>
+  </div>
+
+  <h3>4.3 &nbsp;Payments in India — the part that costs real money</h3>
+  <div class="box box--warn">
+    <div class="box__t">Shopify Payments is not available in India</div>
+    <p style="margin-bottom:0">India is absent from Shopify's supported-countries list, so an Indian
+    merchant must use a third-party gateway — <strong>and Shopify charges its own transaction fee on
+    top of the gateway's</strong>. Every Shopify fee waiver is conditioned on using Shopify Payments,
+    so none of them apply here.</p>
+  </div>
+  <table>
+    <thead><tr><th>Component</th><th class="num">Basic plan</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Razorpay MDR</td><td class="num">2.00%</td><td>Cards, netbanking, wallets, UPI alike</td></tr>
+      <tr><td>GST on that fee</td><td class="num">0.36%</td><td>18% on the 2%</td></tr>
+      <tr><td>Shopify third-party fee</td><td class="num">2.00%</td><td>1.0% on Grow, 0.6% on Advanced</td></tr>
+      <tr><td><strong>All-in, prepaid order</strong></td><td class="num"><strong>≈ 4.36%</strong></td><td>≈ ₹785 on a ₹17,999 chair</td></tr>
+    </tbody>
+  </table>
+  <p>Upgrading Basic → Grow trades ₹4,100/month for 1% of turnover, so it only pays back above roughly
+  <strong>₹4.1 lakh/month</strong> in prepaid volume. Stay on Basic.</p>
+  <p><strong>UPI is not free</strong>, which is a common and expensive assumption. RBI mandates zero MDR
+  on UPI, but Razorpay applies its 2% as a platform fee regardless. Note too that in Shopify's India
+  checkout only <em>card</em> payments are truly on-site; UPI, netbanking and wallets redirect to the
+  gateway and back.</p>
+
+  <div class="box box--bad">
+    <div class="box__t">Get this in writing before committing — it is the biggest single unknown</div>
+    <p>Shopify's own help pages <strong>contradict each other</strong> on whether Cash on Delivery
+    orders attract the 2% third-party fee when Shopify Payments is unavailable. One page waives the fee
+    for manual payment methods, but only in a sentence conditioned on <em>using Shopify Payments</em>.
+    Another states the fee applies to <em>“all orders that go through Shopify's checkout system.”</em></p>
+    <p style="margin-bottom:0">For a furniture business where COD is likely to be a large share of
+    orders, this is the dominant variable cost — roughly <strong>₹360 of fees on a ₹17,999 COD table
+    with no gateway involved</strong>. Ask Shopify India support verbatim: <em>“My store is in India and
+    Shopify Payments is unavailable to me. Do I pay the third-party transaction fee on orders placed
+    using the manual Cash on Delivery payment method?”</em></p>
+  </div>
+
+  <h3>4.4 &nbsp;Two things Shopify will not do for you</h3>
+  <ul>
+    <li><strong>GST-compliant invoices.</strong> Shopify's answer is unusually blunt —
+      <em>“Does Shopify provide a GST-compliant bill? No.”</em> It also cannot split CGST/SGST into
+      separate invoice lines. A GST invoicing app (~₹450/month) is <strong>mandatory, not
+      optional</strong>, and belongs in the budget from day one. India tax defaults also ship
+      hard-coded to <strong>Karnataka</strong> as the home state and must be reconfigured.</li>
+    <li><strong>Sane furniture freight.</strong> Indian couriers bill on volumetric weight
+      (L×W×H ÷ 5000) and charge the greater of actual and volumetric — an assembled chair can bill as
+      <strong>~68 kg</strong>. The existing ₹20,000 free-shipping threshold was inherited from the old
+      site and <strong>has never been tested against real rates</strong>. Price actual SKUs in
+      Shiprocket's calculator before that promise goes back on the page.</li>
+  </ul>
+</section>
+
+<!-- =========================================================
+     05 — ARCHITECTURE
+========================================================= -->
+<section id="s5">
+  <span class="sec-n">05 — Architecture</span>
+  <h2>The shape of the thing</h2>
+  <span class="rule"></span>
+
+  <pre><code>  AUTHORING                 BUILD (GitHub Actions)            RUNTIME (the customer)
+  ─────────                 ──────────────────────            ──────────────────────
+  products.json  ─────┐
+  (names, copy,       ├──►  next build --output export
+   features, images)  │     · 34 product pages → real HTML        theheavencraft.in
+  Shopify admin  ─────┘     · 16 sub-category pages             (GoDaddy · Apache)
+  (price, stock,            · sitemap, redirects, WebP                  │
+   variant IDs)             · Shopify variant IDs inlined               │ browser JS
+                                        │                               ▼
+                                        │  FTP              Storefront API (tokenless)
+                                        └──────────────►    cartCreate / cartLinesAdd
+                                                                        │
+                                                                        ▼
+                                                            cart.checkoutUrl → redirect
+                                                            shop.theheavencraft.in
+                                                            (Shopify · checkout · payment)</code></pre>
+
+  <h3>5.1 &nbsp;Where each field lives</h3>
+  <table>
+    <thead><tr><th>Field</th><th>Source of truth</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Name, description, features</td><td><code>products.json</code></td><td>Editorial content; changes with the site's copy, and version control is a feature here</td></tr>
+      <tr><td>Photography</td><td>Repo → served by Apache</td><td>Already ours, already on the host, no egress cost</td></tr>
+      <tr><td><strong>Price</strong></td><td><strong>Shopify</strong></td><td>Shopify charges its own price regardless — a second copy is a bug waiting to happen</td></tr>
+      <tr><td><strong>Stock</strong></td><td><strong>Shopify</strong></td><td>Owner-editable without a developer</td></tr>
+      <tr><td>Variant ID</td><td>Shopify → inlined at build</td><td>The join key; the cart API is variant-bound</td></tr>
+      <tr><td>Orders, customers</td><td>Shopify</td><td>Never ours to hold</td></tr>
+    </tbody>
+  </table>
+  <p>The two catalogs are joined on a stable key — the legacy product ID written into a Shopify
+  metafield or SKU — so the build can fail loudly if a product exists on one side and not the other.
+  <strong>A silent mismatch here is how a storefront ends up with an “Add to cart” button that does
+  nothing</strong>, so the build should refuse to produce output rather than ship a broken tile.</p>
+
+  <h3>5.2 &nbsp;The alternative we are consciously not taking</h3>
+  <div class="box box--warn">
+    <div class="box__t">Recorded so the trade-off is deliberate, not accidental</div>
+    <p>Independent research on this stack came back recommending the opposite: put the whole site on a
+    <strong>Shopify theme</strong>, retire GoDaddy hosting, and skip the custom front end. The argument
+    is worth stating fairly:</p>
+    <ul>
+      <li><s>It fixes HTTPS by itself, with no certificate work at all.</s> <span class="pill pill--good">Moot</span>
+        Cloudflare has since fixed HTTPS for free — see §3.3. This argument no longer carries weight.</li>
+      <li>The owner could change <em>layout, banners and content</em> himself, not just product fields.
+        With a custom front end, every visual change is a developer task.</li>
+      <li>At 34 products, a modern Shopify theme's performance and SEO are unlikely to be the
+        bottleneck, and platform guardrails come free.</li>
+      <li>It is cheaper: no build-and-deploy pipeline to maintain.</li>
+    </ul>
+    <p style="margin-bottom:0"><strong>Against that</strong>, a theme cannot reproduce the gold-on-black
+    design in §08 without significant theme development, the brand ends up looking like other Shopify
+    stores, and the existing React codebase and photography pipeline are discarded. You have chosen the
+    custom front end on GoDaddy, and this plan executes that — but the honest summary is that we are
+    <strong>buying design control and paying for it in owner self-service</strong>. If the owner later
+    wants to restyle pages himself, that decision gets revisited, and the Shopify catalog built in
+    Phase 2 means nothing is wasted if it does.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     06 — COST
+========================================================= -->
+<section id="s6">
+  <span class="sec-n">06 — Cost</span>
+  <h2>What this costs to run</h2>
+  <span class="rule"></span>
+  <table>
+    <thead><tr><th>Item</th><th class="num">Cost</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Shopify Basic</strong></td><td class="num">₹17,988 / yr</td><td>₹1,499/mo billed annually; ₹1,994/mo if monthly. No setup fee</td></tr>
+      <tr><td>GoDaddy hosting</td><td class="num">unchanged</td><td>Already paid — this is the saving from staying</td></tr>
+      <tr><td>Domain</td><td class="num">unchanged</td><td>Stays registered and DNS-managed at GoDaddy</td></tr>
+      <tr><td>Storefront TLS certificate</td><td class="num">₹0</td><td>Cloudflare Universal SSL — free, auto-renewing</td></tr>
+      <tr><td>Checkout TLS (<code>shop.</code>)</td><td class="num">₹0</td><td>Issued free by Shopify</td></tr>
+      <tr><td><strong>GST invoicing app</strong></td><td class="num">≈ ₹5,400 / yr</td><td><span class="pill pill--warn">Mandatory</span> Shopify cannot issue a compliant bill</td></tr>
+      <tr><td>Shiprocket</td><td class="num">₹0 – ₹9,600 / yr</td><td>Free tier viable at launch volume</td></tr>
+      <tr><td>Build &amp; deploy</td><td class="num">₹0</td><td>GitHub Actions free tier</td></tr>
+      <tr><td colspan="3" style="border-bottom:0;padding-top:.9rem"><strong>Fixed: roughly ₹23,000–33,000 / year</strong>, plus <strong>≈4.36% per prepaid order</strong></td></tr>
+    </tbody>
+  </table>
+  <p>For comparison, the Vercel-hosted variant of this plan would have added about ₹23,000/year once
+  past the hobby tier. <strong>Staying on GoDaddy is genuinely the cheaper option</strong> — provided
+  the certificate can be fixed without a recurring charge, which §3.3 resolves.</p>
+</section>
+
+<!-- =========================================================
+     07 — CATALOG & DATA
+========================================================= -->
+<section id="s7">
+  <span class="sec-n">07 — Data</span>
+  <h2>Catalog &amp; data</h2>
+  <span class="rule"></span>
+
+  <h3>7.1 &nbsp;Getting 34 products into Shopify</h3>
+  <p>A real <strong>Product and ProductVariant must exist in Shopify for every purchasable item</strong>
+  — the cart API is variant-bound and will not accept an arbitrary line item. There is no way around
+  this, and at 34 SKUs it is about an hour of work via native CSV import.</p>
+  <ul>
+    <li><strong>Export a CSV from the store first</strong> and match its exact header row. Shopify's own
+      docs disagree on whether the image column is <code>Image Src</code> or <code>Product image URL</code>.</li>
+    <li>Images must be at <strong>publicly reachable URLs</strong> for Shopify to pull and re-host them.
+      Convenient here: they are already live on the current site — but that site's certificate is
+      untrusted, so <strong>fix TLS first or the import may fail</strong>. A neat forcing function.</li>
+    <li>Additional images are extra rows carrying only the handle and image URL.</li>
+    <li><strong>Leave inventory untracked.</strong> Tracking causes checkout to block at zero stock,
+      which is wrong for a reseller ordering in on demand.</li>
+    <li>Put 6-digit <strong>HSN codes</strong> in the HS tariff field during import — backfilling later
+      across the catalog is far more expensive than entering it once.</li>
+    <li><strong>Trim the 7 leading-space product names before export</strong>, or they import with the
+      space and corrupt every generated handle.</li>
+  </ul>
+
+  <h3>7.2 &nbsp;Draft orders as a side channel, not the main road</h3>
+  <p>Custom line items that do not exist in the catalog are possible — via Admin API draft orders — but
+  that needs a server-side secret and would destroy the tokenless, serverless architecture this plan
+  depends on. It stays in the back pocket for genuine one-offs: custom-dimension tables and bulk office
+  quotes, agreed by email and invoiced through Shopify. That is what draft orders are designed for.</p>
+
+  <h3>7.3 &nbsp;Cleanups to do during migration</h3>
+  <table>
+    <thead><tr><th>Task</th><th>Effort</th><th>Why now</th></tr></thead>
+    <tbody>
+      <tr><td>Trim 7 leading-space names</td><td>Minutes</td><td>Blocks correct slugs and a clean Shopify import</td></tr>
+      <tr><td>Normalise <code>Cpu-Stand</code>, <code>Desk-hook</code> casing</td><td>Minutes</td><td>URLs are permanent; fixing after launch costs redirects</td></tr>
+      <tr><td>Rename image files without spaces</td><td>~1 hour</td><td>Cleaner URLs and CDN cache keys</td></tr>
+      <tr><td>Generate WebP + responsive sizes</td><td>~half a day</td><td>Replaces the <code>next/image</code> optimisation a static export gives up</td></tr>
+      <tr><td>Review the 99 unreferenced images</td><td>~2 hours</td><td>Free galleries for products currently showing one photo</td></tr>
+      <tr><td>Add HSN codes and box dimensions</td><td>Owner input</td><td><span class="pill pill--warn">Blocked on you</span> Needed for GST invoices and freight rates</td></tr>
+      <tr><td>Quarantine unverified reviews</td><td>Minutes</td><td>See §1.5 — must not ship as verified</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================================================
+     08 — DESIGN SYSTEM
+========================================================= -->
+<section id="s8">
+  <span class="sec-n">08 — Design</span>
+  <h2>The design system</h2>
+  <span class="rule"></span>
+  <p class="lede">Carried over from the prototype without reopening it. The palette was sampled from
+  the HeavenCraft badge, so the brand is already consistent — only its execution on the live site is weak.</p>
+
+  <h3>8.1 &nbsp;Colour</h3>
+  <p>One chroma only. Every coloured element on the site is the same gold the logo is painted in, so
+  the brand is carried by the palette rather than by a mark in the corner. The grounds are warm-tinted
+  near-blacks, never neutral grey, so the black reads as lacquer rather than a switched-off screen.</p>
+  <table>
+    <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>base</code></td><td><code>#070706</code></td><td>Page ground</td></tr>
+      <tr><td><code>surface</code></td><td><code>#0F0E0C</code></td><td>Cards, alternating sections</td></tr>
+      <tr><td><code>raised</code></td><td><code>#17150F</code></td><td>Image wells, secondary buttons</td></tr>
+      <tr><td><code>edge</code> / <code>edge-strong</code></td><td><code>#2A261C</code> / <code>#453D2C</code></td><td>Hairlines and borders</td></tr>
+      <tr><td><code>gold</code></td><td><code>#DEA846</code></td><td>The only chroma — sampled from the badge</td></tr>
+      <tr><td><code>gold-bright</code> / <code>gold-deep</code></td><td><code>#E9BD69</code> / <code>#8A6A2F</code></td><td>Hover state / recessed detail</td></tr>
+      <tr><td><code>cream</code> → <code>cream-faint</code></td><td><code>#F4EDE0</code> → <code>#8C8578</code></td><td>Three-step text hierarchy</td></tr>
+    </tbody>
+  </table>
+  <p>The incumbent site's gold is <code>#DFA947</code> — within a hair of the sampled
+  <code>#DEA846</code>. The brand has been consistent all along. The warm creams
+  <code>#FAF8F3</code>/<code>#F5F2E9</code> currently used as page grounds are retired; cream survives
+  only as text on black.</p>
+
+  <h3>8.2 &nbsp;Type</h3>
+  <p><strong>Archivo alone</strong>, varied by its real width axis rather than by bringing in a second
+  typeface to shout. Display sizes are fluid <code>clamp()</code> ramps so there is no phone-sized
+  breakpoint where the headline collapses. No monospace anywhere — prices use
+  <code>font-variant-numeric: tabular-nums</code> so figures align in columns without being set in a
+  costume.</p>
+
+  <h3>8.3 &nbsp;Rules the build holds to</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>One gold action per view</h4>
+      <p>Gold is the primary action and appears once. Everything else is an outline that warms to gold
+      on hover, so the page never has two things competing to be pressed.</p>
+    </div>
+    <div class="card">
+      <h4>Hairlines, not boxes</h4>
+      <p>Structure is separated by a 1px gold gradient rule that fades to transparent, rather than by
+      stacking bordered panels.</p>
+    </div>
+    <div class="card">
+      <h4>Real depth only</h4>
+      <p>Shadows carry an offset and a soft blur. Never a zero-offset halo, which reads as a glow
+      rather than as light.</p>
+    </div>
+    <div class="card">
+      <h4>One authored motion moment</h4>
+      <p>The hero settles into place as if a light came up on it. Everything else is a hover or a page
+      change, and all of it collapses under <code>prefers-reduced-motion</code>.</p>
+    </div>
+    <div class="card">
+      <h4>Photography under an angled scrim</h4>
+      <p>Raked from the left on desktop so the product keeps its own light; lifted from the bottom on a
+      phone, where there is no room beside it.</p>
+    </div>
+    <div class="card">
+      <h4>Never invent proof</h4>
+      <p>An empty testimonial section beats a fabricated one. Counts and prices are read from the
+      catalog, never written into copy, so a range the owner empties disappears instead of lying.</p>
+    </div>
+  </div>
+
+  <div class="box box--bad">
+    <div class="box__t">Two photographs are legally unusable at hero size</div>
+    <p>The prototype's audit found supplier imagery with text and third-party branding baked into the
+    pixels. This carries into our build as a hard denylist:</p>
+    <ul>
+      <li><code>tables/gaming-desk/1 - Quantum.jpeg</code> — carries the supplier's own brand name,
+        <strong>“Eureka Ergonomic”</strong>, burned into the desk leg. Selling that under the
+        HeavenCraft name with a supplier's mark visible is a trademark exposure, not a taste question.</li>
+      <li><code>tables/height-adjustable-table/6 - Movix6.jpeg</code> — marketing overlay text
+        (“BUILT FOR FOCUS…”, “WEIGHT CAPACITY”, “FRONT VIEW”) baked in.</li>
+    </ul>
+    <p style="margin-bottom:0">Both stay available on their own product pages, where they plainly read
+    as supplier shots. Neither is ever used full-bleed. <strong>Gaming desks need re-shot or
+    supplier-cleared photography before they can be merchandised prominently</strong> — worth starting
+    now, since it is the one item on this plan with a lead time we do not control.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     09 — PAGES & URLS
+========================================================= -->
+<section id="s9">
+  <span class="sec-n">09 — Structure</span>
+  <h2>Pages &amp; URLs</h2>
+  <span class="rule"></span>
+
+  <h3>9.1 &nbsp;The URL change, and why it is worth making</h3>
+  <p>Today every product lives at <code>/product/&lt;id&gt;</code> — for example
+  <code>/product/chair-mesh-004</code>. That URL tells a customer nothing and a search engine less.
+  Since the current site is effectively unindexed anyway, this is the cheapest moment this decision
+  will ever be made.</p>
+
+  <table>
+    <thead><tr><th>Page</th><th>Today</th><th>Proposed</th></tr></thead>
+    <tbody>
+      <tr><td>Home</td><td><code>/</code></td><td><code>/</code></td></tr>
+      <tr><td>Group</td><td><code>/chairs</code></td><td><code>/chairs</code> <span class="pill pill--good">same</span></td></tr>
+      <tr><td>Sub-category</td><td>— none —</td><td><code>/tables/height-adjustable-table/</code> <span class="pill pill--gold">new</span></td></tr>
+      <tr><td>Product</td><td><code>/product/chair-mesh-004</code></td><td><code>/chairs/neuro-mesh-chair/</code></td></tr>
+      <tr><td>Search</td><td><code>/search?q=</code></td><td><code>/search?q=</code></td></tr>
+      <tr><td>About / Contact</td><td><code>/about</code>, <code>/contact</code></td><td>unchanged</td></tr>
+      <tr><td>Cart</td><td>drawer only</td><td>drawer + <code>/cart</code> page</td></tr>
+      <tr><td>Checkout</td><td>— none —</td><td>Shopify-hosted</td></tr>
+      <tr><td>Policies</td><td>— none —</td><td><code>/policies/shipping/</code>, <code>/policies/returns/</code>, <code>/policies/warranty/</code>, <code>/policies/privacy/</code>, <code>/policies/terms/</code> <span class="pill pill--warn">required</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box--good">
+    <div class="box__t">As built — three deviations from the table above</div>
+    <ol style="margin-bottom:0">
+      <li><strong>Sub-category URLs keep the full slug.</strong> The plan proposed
+      <code>/tables/height-adjustable/</code>. The build uses
+      <code>/tables/height-adjustable-table/</code>. Shortening it would have produced
+      <code>/tables/gaming/</code> and <code>/tables/bed/</code>, which read as adjectives rather
+      than products, and would have dropped the noun people actually search for. The trade is a
+      longer URL against a clearer one; the keyword was judged worth more than the brevity.</li>
+
+      <li><strong>Policies are nested under <code>/policies/</code></strong> rather than sitting at
+      the root, so the root namespace stays available for categories and the five documents group
+      together in the sitemap.</li>
+
+      <li><strong>Every URL carries a trailing slash</strong> and the apex is canonical — see the
+      note on canonical host below. Both are enforced in <code>next.config.ts</code> and in the
+      generated <code>.htaccess</code>, and are checked on every build by
+      <code>scripts/verify-export.ts</code>.</li>
+    </ol>
+  </div>
+
+  <div class="box box--warn">
+    <div class="box__t">Policy pages are not optional once you take money</div>
+    <p style="margin-bottom:0">Indian payment gateways require published shipping, returns/refund,
+    privacy and terms pages as a condition of activation, and the merchant review will check they
+    exist and are reachable. These need writing — they are content, not code, and they are on the
+    critical path to accepting a first payment. Worth drafting early.</p>
+  </div>
+
+  <h3>9.2 &nbsp;Sub-category pages are the main SEO opportunity</h3>
+  <p>The catalog already carries a clean two-level taxonomy that the current site renders as nothing
+  more than a filter chip. Promoting sub-categories to real, indexable URLs turns 3 thin category
+  pages into <strong>16 targeted landing pages</strong> — <em>“height adjustable table”</em>,
+  <em>“mesh chair”</em>, <em>“executive table”</em> — which is what people actually search for. That
+  costs almost nothing to build once the data is normalised, and it is where organic traffic will come
+  from.</p>
+
+  <h3>9.3 &nbsp;Redirect map</h3>
+  <p>All 34 legacy product URLs get a permanent redirect to their new slug, plus the group routes. Even
+  with little index presence, anything shared over WhatsApp or linked from a marketplace listing keeps
+  working.</p>
+  <pre><code>/product/chair-mesh-004          → /chairs/neuro-mesh-chair
+/product/table-executive-003     → /tables/imperium-executive-table
+/product/accessories-footrest-002 → /accessories/footrest-plus
+… 34 rules generated from products.json, not hand-written</code></pre>
+  <p>The map is generated from <code>products.json</code> at build time so it cannot drift, and it is
+  emitted in whichever form the final host needs — Apache <code>.htaccess</code> rules or a platform
+  redirects file. The <strong>7 leading-space product names must be trimmed before slugs are
+  generated</strong>, or those seven URLs start life malformed.</p>
+
+  <h3>9.4 &nbsp;Per-page SEO, which the site has none of today</h3>
+  <ul>
+    <li>Unique <code>&lt;title&gt;</code> and meta description per product and per category, generated from the catalog</li>
+    <li><code>Product</code> structured data with <code>offers</code>, price, INR and availability — <strong>without</strong> <code>aggregateRating</code> until reviews are genuine</li>
+    <li><code>BreadcrumbList</code> structured data, and <code>Organization</code> on the homepage</li>
+    <li><code>sitemap.xml</code> and <code>robots.txt</code> generated at build</li>
+    <li>Canonical URLs, Open Graph and Twitter cards so WhatsApp shares render a product image</li>
+    <li>Indexing gated on the real domain, so test deploys can never be indexed and go live automatically at cutover</li>
+  </ul>
+
+  <h3>9.5 &nbsp;Brand identity in the browser chrome — currently the React logo</h3>
+  <div class="box box--bad">
+    <div class="box__t">Verified live today, not inherited from the audit</div>
+    <p>The site is serving Create React App's stock branding, untouched:</p>
+    <pre style="margin:.7rem 0"><code>GET /favicon.ico    → 200  image/x-icon   3,870 b   ← React atom
+GET /logo192.png    → 200  image/png      5,347 b   ← React atom
+GET /manifest.json  → 200  application/json 492 b
+
+  { "short_name": "React App",
+    "name": "Create React App Sample",
+    "theme_color": "#000000",
+    "background_color": "#ffffff" }</code></pre>
+    <p style="margin-bottom:0">Three surfaces are affected: the <strong>browser tab</strong>, the
+    <strong>Google search result</strong>, and the <strong>Android home-screen install</strong>, which
+    currently creates an app called “React App”.</p>
+  </div>
+
+  <h4>Google's rules, and the three that actually bite</h4>
+  <p>Google supports <code>rel="icon"</code>, <code>apple-touch-icon</code> and
+  <code>apple-touch-icon-precomposed</code>, requires a square image of at least 8×8 and
+  <em>recommends larger than 48×48</em>, and needs Googlebot-Image to be able to crawl it. Our
+  <code>robots.txt</code> is fully permissive, so nothing is blocked. The subtle constraints:</p>
+  <ul>
+    <li><strong>One favicon per hostname.</strong> Google treats
+      <code>theheavencraft.in</code> and <code>www.theheavencraft.in</code> as
+      <em>different sites</em>. This is another reason the canonical host must be settled and
+      redirected — see §3.2.</li>
+    <li><strong>The URL must be stable.</strong> Do not let the build fingerprint the favicon path.
+      Keep it at a fixed <code>/favicon.ico</code> in <code>public/</code> with an explicit
+      <code>&lt;link&gt;</code>, rather than relying on a framework convention that may append a
+      content hash.</li>
+    <li><strong>Recrawl takes days to weeks.</strong> Google's words. So this ships
+      <strong>in Phase 0, not at launch</strong> — the sooner the clock starts, the sooner search
+      results stop showing a React logo. Follow it with a URL Inspection → Request Indexing on the
+      home page.</li>
+  </ul>
+
+  <h4>A design constraint worth catching early</h4>
+  <p>The existing logo — a gold <strong>HC</strong> monogram inside a gold ring, with “HeavenCraft”
+  arced around the top — is already square and works beautifully as a mark. But <strong>the arced
+  wordmark becomes an illegible smudge below about 64 px.</strong> The favicon should therefore be the
+  <strong>monogram and ring only</strong>, with the wordmark dropped. Same identity, drawn for the
+  size it will actually be seen at.</p>
+
+  <h4>The set to produce</h4>
+  <table>
+    <thead><tr><th>File</th><th>Size</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>/favicon.ico</code></td><td>16 · 32 · 48 multi-res</td><td>Browser tabs and <strong>Google search results</strong>. Stable path, never hashed</td></tr>
+      <tr><td><code>/icon.svg</code></td><td>vector</td><td>Crisp at any size; modern browsers prefer it</td></tr>
+      <tr><td><code>/apple-touch-icon.png</code></td><td>180 × 180</td><td>iOS home screen. Needs an opaque background — iOS does not honour transparency</td></tr>
+      <tr><td><code>/icon-192.png</code>, <code>/icon-512.png</code></td><td>192, 512</td><td>Android / PWA install</td></tr>
+      <tr><td><code>/icon-512-maskable.png</code></td><td>512</td><td>Android adaptive icons. Needs the mark inset inside the safe zone or the ring gets cropped</td></tr>
+      <tr><td><code>/og-image.jpg</code></td><td>1200 × 630</td><td>WhatsApp, Facebook and LinkedIn preview cards — currently absent entirely</td></tr>
+    </tbody>
+  </table>
+  <p>Alongside these, the manifest gets real values — <code>name: "HeavenCraft"</code>,
+  <code>short_name: "HeavenCraft"</code>, <code>theme_color: "#DEA846"</code>,
+  <code>background_color: "#070706"</code> — so the splash screen and Android task-switcher chrome
+  match the brand rather than fighting it.</p>
+
+  <div class="box box--good">
+    <div class="box__t">This one is independent of the rebuild</div>
+    <p style="margin-bottom:0">Like the certificate, the icons and manifest can be fixed on the
+    <em>current</em> CRA site this week — they are static files in <code>public/</code>. There is no
+    reason to make this wait on the Next.js work, and given Google's multi-week recrawl window, there
+    is a real reason not to.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     10 — ROADMAP
+========================================================= -->
+<section id="s10">
+  <span class="sec-n">10 — Roadmap</span>
+  <h2>Phases</h2>
+  <span class="rule"></span>
+  <p class="lede">Ordered so that <strong>every phase leaves the site launchable</strong>, and so the
+  highest-value, lowest-risk fix ships first. Estimates assume one developer.</p>
+
+  <div class="box box--good">
+    <div class="box__t">Where the build has actually reached</div>
+    <p>Phases <strong>0, 0b, 1 and 2 are complete and committed.</strong> HTTPS is live through
+    Cloudflare; the React branding is gone and replaced with a generated icon set; the Next.js
+    static export builds 64 pages plus <code>sitemap.xml</code> and <code>robots.txt</code>, every
+    one of them real HTML rather than the 1,126-byte shell the old site served; and the full catalog
+    — 34 products, 16 sub-categories, 3 groups — renders with structured data, canonical URLs and
+    social cards, verified on every build by <code>scripts/verify-export.ts</code>.</p>
+    <p style="margin-bottom:0"><strong>Work stopped at the start of Phase 3</strong>, which is where
+    the first hard Shopify dependency sits. Everything up to that line is done. The one outstanding
+    item from Phase 2 is the image pipeline — WebP conversion and responsive sizes — which is a
+    performance improvement, not a blocker, and is deliberately left until the Shopify CSV import
+    settles the final filenames.</p>
+  </div>
+
+  <table>
+    <thead><tr><th>Phase</th><th>Scope</th><th>Ships</th><th class="num">Est.</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>0</strong><br><span class="tag">Now</span></td>
+        <td><strong>Finish HTTPS.</strong> Confirm Cloudflare Universal SSL has issued, set encryption mode to <strong>Full</strong>, install a Cloudflare Origin CA cert in cPanel, move to <strong>Full (strict)</strong>, enable Always Use HTTPS, verify in a real browser</td>
+        <td>A site that no longer warns customers away</td>
+        <td class="num">½ day</td>
+      </tr>
+      <tr>
+        <td><strong>0b</strong><br><span class="tag">Now</span></td>
+        <td><strong>Replace the React branding.</strong> Ship the real favicon set, apple-touch-icon, PWA icons, a corrected <code>manifest.json</code> and an <code>og-image</code> — onto the <em>current</em> site, no rebuild needed. Then request re-indexing of the home page</td>
+        <td>Brand appears in tabs, on shares and — after Google recrawls — in search results</td>
+        <td class="num">½ day</td>
+      </tr>
+      <tr>
+        <td><strong>1</strong></td>
+        <td>Next.js static-export scaffold, design system from §08, new <code>.htaccess</code>, GitHub Actions pointed at <code>out/</code>, deploy to a staging subfolder</td>
+        <td>Modern stack proven end-to-end on the real host</td>
+        <td class="num">2–3 days</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td>Catalog build: data cleanup (§7.3), 34 product pages, 3 group + 16 sub-category pages, image pipeline, SEO, sitemap, redirect map</td>
+        <td>The whole catalog as real, indexable HTML</td>
+        <td class="num">4–6 days</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td>Shopify store setup, CSV import of 34 SKUs, tax config (fix the Karnataka default), GST invoicing app, Razorpay onboarding, policy pages</td>
+        <td>A store that can legally take money</td>
+        <td class="num">2–3 days<br><span class="tag">+ KYC wait</span></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td>Cart against the Storefront API, <code>shop.</code> subdomain to Shopify, checkout handoff, end-to-end test with a real ₹1 order</td>
+        <td><strong>Working checkout</strong></td>
+        <td class="num">3–4 days</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong><br><span class="tag">Launch</span></td>
+        <td>Cutover (§11), 301s live, analytics, Search Console, sitemap submitted</td>
+        <td>🚀 The new site is the site</td>
+        <td class="num">1 day</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td>Shiprocket, real freight rates, revisit the ₹20,000 free-shipping threshold</td>
+        <td>Fulfilment that does not lose money</td>
+        <td class="num">2 days</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong><br><span class="tag">Later</span></td>
+        <td>Shopify webhook → auto-rebuild; live price fetch; genuine review collection</td>
+        <td>Owner independence for pricing</td>
+        <td class="num">2–3 days</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box--gold">
+    <div class="box__t">Phase 0 is separable — do it this week</div>
+    <p style="margin-bottom:0">Fixing the certificate needs none of the rebuild. It is the single
+    highest-return action available: it stops turning away every customer who arrives over
+    <code>https://</code>, and it is a prerequisite for the Shopify CSV image import in Phase 3
+    anyway. <strong>Do not wait for the rebuild to ship this.</strong></p>
+  </div>
+</section>
+
+<!-- =========================================================
+     11 — LAUNCH RUNBOOK
+========================================================= -->
+<section id="s11">
+  <span class="sec-n">11 — Cutover</span>
+  <h2>Launch runbook</h2>
+  <span class="rule"></span>
+  <p>This cutover is unusually low-risk, for one reason established in §1.1: <strong>there are no MX
+  records</strong>, so no mailbox can break. We are also not moving hosts or nameservers — only
+  replacing files in the same document root, and adding one subdomain.</p>
+
+  <h4>A day before</h4>
+  <ul>
+    <li>Lower DNS TTL on the <code>shop</code> record to 600s so a rollback takes ten minutes</li>
+    <li>Take a full FTP backup of the current document root — this is the rollback</li>
+    <li>Confirm the staging build renders correctly on the real host, not just locally</li>
+  </ul>
+
+  <h4>Cutover</h4>
+  <ol>
+    <li>Add <code>shop</code> CNAME → <code>shops.myshopify.com.</code> (trailing dot) in GoDaddy DNS</li>
+    <li>Connect <code>shop.theheavencraft.in</code> in Shopify admin; wait for its certificate — up to 48h, so <strong>do this step days early</strong></li>
+    <li>Deploy the static export over the existing root; verify the new <code>.htaccess</code> landed</li>
+    <li>Spot-check: homepage, one product per group, a sub-category page, a deliberate 404</li>
+    <li>Verify 301s: request 5 old <code>/product/&lt;id&gt;</code> URLs, confirm they land correctly</li>
+    <li><strong>Place one real end-to-end order</strong> — add to cart, checkout, pay, confirm it appears in Shopify admin and the GST invoice generates</li>
+    <li>Confirm HTTPS is valid and HTTP redirects to it</li>
+    <li>Submit <code>sitemap.xml</code> in Google Search Console</li>
+  </ol>
+
+  <h4>After</h4>
+  <ul>
+    <li>Watch Search Console coverage for a fortnight — the index will churn as URLs change</li>
+    <li>Restore TTLs</li>
+    <li>Keep the old build in the backup for a month before deleting</li>
+  </ul>
+  <div class="box box--good">
+    <div class="box__t">Rollback</div>
+    <p style="margin-bottom:0">Re-upload the backed-up <code>build/</code> and the old
+    <code>.htaccess</code>. Because DNS does not change for the storefront, rollback is an FTP restore
+    measured in minutes, with no propagation wait.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     12 — RISKS
+========================================================= -->
+<section id="s12">
+  <span class="sec-n">12 — Risks</span>
+  <h2>Risks &amp; unknowns</h2>
+  <span class="rule"></span>
+  <table>
+    <thead><tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>COD may attract Shopify's 2% fee.</strong> Shopify's docs contradict each other</td>
+        <td><span class="pill pill--bad">High</span></td>
+        <td>Get it in writing from Shopify India <em>before</em> paying for a plan. Dominant variable cost</td>
+      </tr>
+      <tr>
+        <td><s>Certificate cannot be fixed free on this GoDaddy plan</s></td>
+        <td><span class="pill pill--good">Closed</span></td>
+        <td>Cloudflare provides it free. Residual risk is only the wrong encryption mode — Flexible causes redirect loops, Full (strict) causes error 526 until an Origin CA cert is installed. §3.3</td>
+      </tr>
+      <tr>
+        <td><strong>Furniture freight economics.</strong> A chair can bill at ~68 kg volumetric</td>
+        <td><span class="pill pill--bad">High</span></td>
+        <td>Price real SKUs before re-promising free shipping over ₹20,000. Ask Shiprocket about Cargo dispatch</td>
+      </tr>
+      <tr>
+        <td><strong>Owner cannot change layout without a developer</strong></td>
+        <td><span class="pill pill--warn">Medium</span></td>
+        <td>Accepted trade-off, recorded in §5.2. Product fields remain owner-editable in Shopify</td>
+      </tr>
+      <tr>
+        <td><strong>Price drift</strong> between <code>products.json</code> and Shopify</td>
+        <td><span class="pill pill--warn">Medium</span></td>
+        <td>Shopify is sole source of truth for price; build fails loudly on mismatch; totals rendered from <code>cart.cost</code></td>
+      </tr>
+      <tr>
+        <td><strong>Storefront API version retires</strong> — 4 releases a year</td>
+        <td><span class="pill pill--warn">Medium</span></td>
+        <td>Pin the version; calendar a review each quarter</td>
+      </tr>
+      <tr>
+        <td><strong>Razorpay KYC delays activation</strong></td>
+        <td><span class="pill pill--warn">Medium</span></td>
+        <td>Start in Phase 3, well before checkout is needed. Site is launchable without it</td>
+      </tr>
+      <tr>
+        <td><strong>Gaming-desk photography carries a supplier's brand</strong></td>
+        <td><span class="pill pill--warn">Medium</span></td>
+        <td>Denylisted from hero use. Needs re-shoot — longest external lead time on this plan</td>
+      </tr>
+      <tr>
+        <td>Plain-FTP deploy credentials</td>
+        <td><span class="pill pill--mute">Low</span></td>
+        <td>Switch to FTPS if cPanel offers it; rotate the password at cutover</td>
+      </tr>
+      <tr>
+        <td>Basic plan's “Limited data access”</td>
+        <td><span class="pill pill--mute">Low</span></td>
+        <td>Undefined by Shopify. Verify on a trial; unlikely to affect tokenless Storefront use</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================================================
+     13 — DECISIONS
+========================================================= -->
+<section id="s13">
+  <span class="sec-n">13 — Over to you</span>
+  <h2>Decisions needed to start</h2>
+  <span class="rule"></span>
+
+  <h3>Blocking — needed before Phase 1</h3>
+  <table>
+    <thead><tr><th>#</th><th>Decision</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Cloudflare <strong>SSL/TLS encryption mode</strong> — has it been set?</td><td><strong>Full</strong> today; <strong>Full (strict)</strong> after installing a free Cloudflare Origin CA certificate in cPanel. Not Flexible. §3.3 step-by-step</td></tr>
+      <tr><td>2</td><td>Shopify Basic, annual or monthly?</td><td><strong>Annual</strong> — ₹17,988/yr vs ₹23,928. Only after the COD fee answer</td></tr>
+      <tr><td>3</td><td>Branded checkout at <code>shop.theheavencraft.in</code>?</td><td><strong>Yes.</strong> Free, and customers stay in-brand while paying</td></tr>
+      <tr><td>4</td><td>Product URLs change to <code>/chairs/neuro-mesh-chair</code>?</td><td><strong>Yes.</strong> The site is effectively unindexed, so this is the cheapest it will ever be</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Needed before taking money</h3>
+  <ul>
+    <li><strong>Written confirmation from Shopify India on the COD transaction fee.</strong> I can draft the message; someone with the account must send it</li>
+    <li><strong>HSN codes</strong> for all 34 products — from your CA or supplier invoices</li>
+    <li><strong>Box weights and dimensions</strong> — needed for freight rates and the shipping threshold</li>
+    <li><strong>Policy page content</strong>: shipping, returns, warranty, privacy, terms. Gateway activation depends on these existing</li>
+    <li><strong>State of business</strong> for GST configuration — Shopify defaults to Karnataka</li>
+  </ul>
+
+  <h3>Worth starting now, long lead time</h3>
+  <ul>
+    <li><strong>Re-shoot or clear the gaming-desk photography.</strong> Two images carry a supplier's brand
+      in the pixels; until replaced, gaming desks cannot be merchandised prominently</li>
+    <li><strong>Start collecting genuine reviews</strong> from past customers. The current ones cannot ship,
+      and real social proof takes months to accumulate</li>
+  </ul>
+
+  <div class="box box--gold">
+    <div class="box__t">What I would do first</div>
+    <p style="margin-bottom:0">Two things this week, in parallel, before any rebuild work:
+    <strong>(1) finish HTTPS</strong> — Cloudflare has done the hard part, this is now three settings
+    and an origin certificate, and it stops active harm today;
+    <strong>(2) ask Shopify the COD question</strong> — the answer could shift the running cost of the
+    business by several percent of turnover, and it is free to ask.</p>
+    <p style="margin:.9rem 0 0;padding-top:.8rem;border-top:1px solid var(--edge)">A third, smaller
+    than both and worth doing the same afternoon: <strong>replace the React logo</strong> in the
+    favicon, icons and manifest (§9.5). Google can take weeks to recrawl an icon, so every day it
+    waits is a day the brand shows up in search results as somebody's unfinished side project.</p>
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--edge);padding-top:1.6rem;margin-top:2.6rem">
+  <p style="font-size:.8rem;color:var(--cream-faint);margin-bottom:.3rem">
+    HeavenCraft &nbsp;·&nbsp; A unit of Jiwan &nbsp;·&nbsp; heavencraft09@gmail.com
+  </p>
+  <p style="font-size:.74rem;color:var(--cream-faint);margin-bottom:0">
+    Infrastructure findings verified directly against the live host and repository on 20 September 2026.
+    Shopify pricing, API behaviour and India payment facts cited from Shopify's own documentation;
+    items that could not be verified are flagged as such in §12 and §13 rather than assumed.
+  </p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

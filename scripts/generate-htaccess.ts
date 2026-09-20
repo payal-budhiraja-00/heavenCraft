@@ -1,4 +1,31 @@
-# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
+/**
+ * Writes `public/.htaccess`, which Next copies into `out/` on export.
+ *
+ * The product redirects are generated from the catalog rather than typed by
+ * hand, because the old site addressed products as `/product/<id>` and the new
+ * one addresses them as `/<group>/<slug>/`. Every one of those old URLs may be
+ * in someone's bookmarks or in Google's index, and a redirect map that drifts
+ * out of sync with the catalog is worse than none: it 404s silently.
+ *
+ * Run automatically before `next build`.
+ */
+
+import { writeFile } from "node:fs/promises";
+import path from "node:path";
+import { allProducts } from "../src/lib/catalog";
+
+const OUT = path.join(process.cwd(), "public/.htaccess");
+
+function redirects(): string {
+  const lines = allProducts.map((product) => {
+    const from = `/product/${product.id}`;
+    return `  Redirect 301 ${from} ${product.href}`;
+  });
+
+  return lines.join("\n");
+}
+
+const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
 #
 # Apache configuration for a Next.js static export on cPanel shared hosting.
 #
@@ -32,7 +59,7 @@
 # canonical: it is shorter, it is what gets printed on an invoice, and it is
 # already the primary A record.
 <IfModule mod_rewrite.c>
-  RewriteCond %{HTTP_HOST} ^www\.theheavencraft\.in$ [NC]
+  RewriteCond %{HTTP_HOST} ^www\\.theheavencraft\\.in$ [NC]
   RewriteRule ^(.*)$ https://theheavencraft.in/$1 [R=301,L]
 </IfModule>
 
@@ -51,40 +78,7 @@ ErrorDocument 404 /404.html
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
 <IfModule mod_alias.c>
-  Redirect 301 /product/chair-mesh-004 /chairs/neuro-mesh-chair/
-  Redirect 301 /product/chair-mesh-005 /chairs/zynx-mesh-chair/
-  Redirect 301 /product/chair-mesh-006 /chairs/xyron-mesh-chair/
-  Redirect 301 /product/chair-leather-002 /chairs/rider-leather-chair/
-  Redirect 301 /product/chair-leather-003 /chairs/nexor-leather-chair/
-  Redirect 301 /product/chair-leather-005 /chairs/valerio-leather-chair/
-  Redirect 301 /product/chair-fabric-001 /chairs/fabio-fabric-chair/
-  Redirect 301 /product/chair-fabric-003 /chairs/casca-fabric-chair/
-  Redirect 301 /product/chair-fabric-005 /chairs/niyo-fabric-chair/
-  Redirect 301 /product/table-bed-003 /tables/flexon-bed-table/
-  Redirect 301 /product/table-folding-002 /tables/exquisite-primex-folding-table/
-  Redirect 301 /product/table-folding-004 /tables/nextable-folding-table/
-  Redirect 301 /product/table-height-adjustable-002 /tables/modura-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-003 /tables/modura-primex-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-005 /tables/modulus-primex-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-006 /tables/movix-height-adjustable-table/
-  Redirect 301 /product/table-executive-003 /tables/imperium-executive-table/
-  Redirect 301 /product/table-executive-004 /tables/signature-executive-table/
-  Redirect 301 /product/table-study-003 /tables/zenith-study-table/
-  Redirect 301 /product/table-study-006 /tables/zenvy-primex-study-table/
-  Redirect 301 /product/table-gaming-desk-001 /tables/quantum-gaming-desk/
-  Redirect 301 /product/table-gaming-desk-002 /tables/quantum-primex-gaming-desk/
-  Redirect 301 /product/accessories-storage-box-002 /accessories/storage-box-plus/
-  Redirect 301 /product/accessories-storage-box-004 /accessories/storage-box-pro-max/
-  Redirect 301 /product/accessories-footrest-001 /accessories/footrest-basic/
-  Redirect 301 /product/accessories-footrest-002 /accessories/footrest-plus/
-  Redirect 301 /product/accessories-cable-tray-001 /accessories/cable-tray-basic/
-  Redirect 301 /product/accessories-Cpu-Stand-002 /accessories/cpu-stand-plus/
-  Redirect 301 /product/accessories-Cpu-Stand-003 /accessories/cpu-stand-pro/
-  Redirect 301 /product/accessories-monitor-stand-001 /accessories/monitor-stand-basic/
-  Redirect 301 /product/accessories-monitor-stand-004 /accessories/monitor-stand-pro-max/
-  Redirect 301 /product/accessories-cup-holder-001 /accessories/cup-holder-basic/
-  Redirect 301 /product/accessories-desk-hook-001 /accessories/desk-hook-basic/
-  Redirect 301 /product/accessories-desk-hook-002 /accessories/desk-hook-plus/
+${redirects()}
 
   # Search was a client-side route with no server-rendered equivalent.
   Redirect 301 /search /
@@ -119,16 +113,16 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html)$">
+  <FilesMatch "\\.(html)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
-  <FilesMatch "^(favicon\.ico|site\.webmanifest)$">
+  <FilesMatch "^(favicon\\.ico|site\\.webmanifest)$">
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
 
   # Fingerprinted by the build, so the URL changes whenever the bytes do.
-  <FilesMatch "\.(js|css|woff2)$">
+  <FilesMatch "\\.(js|css|woff2)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
@@ -147,3 +141,16 @@ ErrorDocument 404 /404.html
   AddType image/webp .webp
   AddType font/woff2 .woff2
 </IfModule>
+`;
+
+async function main() {
+  await writeFile(OUT, body, "utf8");
+  console.log(
+    `wrote public/.htaccess with ${allProducts.length} product redirects`,
+  );
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

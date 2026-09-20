@@ -1,0 +1,53 @@
+name: CI
+
+# Deploy only runs on main, which meant a broken commit was discovered by the
+# deploy failing — or, worse, not discovered at all. This runs the same gates
+# on every branch and pull request, without touching the live site.
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Verify export
+        run: npm run verify
+
+      # Makes the built site downloadable from the run, so a change can be
+      # inspected before it is merged and deployed.
+      - name: Upload export
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-export
+          path: out/
+          retention-days: 7
