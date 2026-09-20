@@ -59,7 +59,11 @@ export function ProductCard({
           <span className="tnum text-lg font-bold text-cream">
             {formatPaise(product.pricePaise)}
           </span>
-          <span className="label text-gold opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          {/*
+            There is no hover on a touch screen, so this would never appear on
+            the devices most of these visitors use. Show it outright there.
+          */}
+          <span className="label text-gold opacity-0 transition-opacity duration-200 group-hover:opacity-100 [@media(hover:none)]:opacity-100">
             View →
           </span>
         </div>

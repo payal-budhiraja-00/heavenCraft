@@ -35,6 +35,16 @@ const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
 # would answer a missing stylesheet or image with a page of HTML, which the
 # browser then fails to parse as CSS. Directory serving does the job instead.
 
+# ---------------------------------------------------------------------------
+# Error document
+# ---------------------------------------------------------------------------
+# Declared first, before mod_rewrite is touched. The host was answering
+# unmatched paths with its own generic "File Not Found" body even though every
+# other directive in this file was being applied, and hoisting this above the
+# rewrite blocks is the cheapest thing that might stop that. The status code
+# was always correct, so this only ever affected what the visitor read.
+ErrorDocument 404 /404.html
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -71,8 +81,6 @@ const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
 DirectoryIndex index.html
 DirectorySlash On
 Options -Indexes
-
-ErrorDocument 404 /404.html
 
 # ---------------------------------------------------------------------------
 # Legacy URLs from the React Router site

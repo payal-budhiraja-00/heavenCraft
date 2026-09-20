@@ -208,14 +208,27 @@ function SubCategoryView({ group, sub }: { group: Group; sub: SubCategory }) {
 /* -------------------------------------------------------------------------- */
 
 function ProductView({ group, product }: { group: Group; product: Product }) {
-  const related = group.products
-    .filter((p) => p.subSlug === product.subSlug && p.id !== product.id)
-    .slice(0, 4);
+  const subHref = `/${group.slug}/${product.subSlug}/`;
+
+  /*
+   * Same sub-category first -- those are the real alternatives to compare. A
+   * sub-category holding a single product returns nothing from that filter,
+   * though, and the page would then end with no way onward but the browser
+   * back button, so widen to the rest of the group rather than show nothing.
+   */
+  const sameSub = group.products.filter(
+    (p) => p.subSlug === product.subSlug && p.id !== product.id,
+  );
+  const wider = group.products.filter(
+    (p) => p.subSlug !== product.subSlug && p.id !== product.id,
+  );
+  const relatedAreSiblings = sameSub.length > 0;
+  const related = (relatedAreSiblings ? sameSub : wider).slice(0, 4);
 
   const trail: Crumb[] = [
     { label: "Home", href: "/" },
     { label: group.name, href: group.href },
-    { label: product.subName, href: `/${group.slug}/${product.subSlug}/` },
+    { label: product.subName, href: subHref },
     { label: product.name },
   ];
 
@@ -370,11 +383,28 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
         <Container className="border-t border-edge py-16">
           <SectionHeading
             eyebrow="Compare"
-            title={`Other ${product.subName.toLowerCase()}`}
+            title={
+              relatedAreSiblings
+                ? `Other ${product.subName.toLowerCase()}`
+                : `More from ${group.name.toLowerCase()}`
+            }
           />
           <div className="mt-10">
             <ProductGrid products={related} />
           </div>
+          {/*
+            Four is a full row and rarely the whole range. Without this the
+            only route to the rest of the category is the back button.
+          */}
+          <Link
+            href={relatedAreSiblings ? subHref : group.href}
+            className="label mt-10 inline-flex items-center gap-2 text-gold transition-colors hover:text-gold-bright"
+          >
+            {relatedAreSiblings
+              ? `All ${product.subName.toLowerCase()}`
+              : `All ${group.name.toLowerCase()}`}
+            <span aria-hidden="true">→</span>
+          </Link>
         </Container>
       ) : null}
 
@@ -407,11 +437,21 @@ function BuyBox({ product }: { product: Product }) {
         href={enquiryHref(product, SITE.origin)}
         className="w-full sm:w-auto"
       >
-        Enquire about this product
+        Get a price by email
       </ButtonLink>
       <p className="mt-3 text-xs leading-relaxed text-cream-faint">
-        Online payment is being set up. Until then we confirm stock, delivery
-        and the final price by email — usually the same working day.
+        Opens your email app with this model and its details already filled in.
+        We reply with stock, delivery time and the final price — usually the
+        same working day.
+      </p>
+      {/*
+        A mailto: link does nothing at all on a desktop with no mail client
+        configured, and the visitor has no way to tell the click failed. Print
+        the address so it can always be copied.
+      */}
+      <p className="mt-2 text-xs leading-relaxed text-cream-faint">
+        No email app? Write to{" "}
+        <span className="select-all text-cream-muted">{SITE.email}</span>.
       </p>
     </div>
   );
