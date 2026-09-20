@@ -573,6 +573,35 @@ ErrorDocument 404 /404.html
                                 application/json image/svg+xml
 &lt;/IfModule&gt;</code></pre>
 
+  <div class="box box--good" style="margin-top:1.4rem">
+    <div class="box__t">As built — three changes from the draft above</div>
+    <ol>
+      <li><strong>The file is generated, not hand-maintained.</strong>
+      <code>scripts/generate-htaccess.ts</code> writes <code>public/.htaccess</code> from the
+      catalog on every build, so the 34 legacy <code>/product/&lt;id&gt;</code> redirects cannot
+      drift out of step with the products they point at. A redirect whose target no longer exists
+      fails the build.</li>
+
+      <li><strong>The apex is canonical, not <code>www</code></strong> — the redirect above runs the
+      other way. Both hosts were answering <code>200</code> with identical content and no redirect,
+      which splits the ranking signal and, as §9.5 notes, makes Google treat them as two sites with
+      two favicons. The apex was chosen because it is shorter, it is what is printed on invoices,
+      and it is already the primary A record. Reversing it is one constant in
+      <code>src/lib/site.ts</code> plus one rewrite block.</li>
+
+      <li><strong>The HTTPS redirect is omitted entirely</strong>, not merely commented out.
+      TLS now terminates at Cloudflare, which talks to GoDaddy over plain HTTP, so
+      <code>%{HTTPS}</code> is <code>off</code> at the origin <em>even for visitors who arrived over
+      HTTPS</em>. The rule would redirect them to a URL that arrives back at the origin looking
+      identical — a loop that only ends when the browser gives up. HTTPS is instead forced at
+      Cloudflare, where it already is. The verifier fails the build if that rule ever reappears.</li>
+    </ol>
+    <p style="margin-bottom:0">This also means Cloudflare's encryption mode <strong>must stay on
+    <code>Full</code></strong>. <code>Flexible</code> recreates the same loop from the other side;
+    <code>Full (strict)</code> returns <code>526</code> while the origin certificate is
+    self-signed.</p>
+  </div>
+
   <div class="box box--warn" style="margin-top:1.4rem">
     <div class="box__t">Sequencing trap: do not force HTTPS before the certificate is valid</div>
     <p style="margin-bottom:0">The <code>RewriteCond %{HTTPS} !=on</code> redirect is deliberately
@@ -680,7 +709,7 @@ HTTP/1.1 200 OK        ← exit code 0: certificate chain validated</code></pre>
   <table>
     <thead><tr><th>Hostname</th><th>Serves</th><th>Certificate from</th></tr></thead>
     <tbody>
-      <tr><td><code>www.theheavencraft.in</code></td><td>The storefront — static files</td><td><strong>Cloudflare, free &amp; automatic</strong> <span class="pill pill--good">live</span></td></tr>
+      <tr><td><code>theheavencraft.in</code></td><td>The storefront — static files. <code>www</code> 301s here.</td><td><strong>Cloudflare, free &amp; automatic</strong> <span class="pill pill--good">live</span></td></tr>
       <tr><td><code>shop.theheavencraft.in</code></td><td>Shopify checkout <span class="pill pill--gold">optional</span></td><td><strong>Shopify, free &amp; automatic</strong></td></tr>
     </tbody>
   </table>
@@ -897,7 +926,7 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
   ─────────                 ──────────────────────            ──────────────────────
   products.json  ─────┐
   (names, copy,       ├──►  next build --output export
-   features, images)  │     · 34 product pages → real HTML      www.theheavencraft.in
+   features, images)  │     · 34 product pages → real HTML        theheavencraft.in
   Shopify admin  ─────┘     · 16 sub-category pages             (GoDaddy · Apache)
   (price, stock,            · sitemap, redirects, WebP                  │
    variant IDs)             · Shopify variant IDs inlined               │ browser JS
@@ -1135,15 +1164,36 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
     <tbody>
       <tr><td>Home</td><td><code>/</code></td><td><code>/</code></td></tr>
       <tr><td>Group</td><td><code>/chairs</code></td><td><code>/chairs</code> <span class="pill pill--good">same</span></td></tr>
-      <tr><td>Sub-category</td><td>— none —</td><td><code>/tables/height-adjustable</code> <span class="pill pill--gold">new</span></td></tr>
-      <tr><td>Product</td><td><code>/product/chair-mesh-004</code></td><td><code>/chairs/neuro-mesh-chair</code></td></tr>
+      <tr><td>Sub-category</td><td>— none —</td><td><code>/tables/height-adjustable-table/</code> <span class="pill pill--gold">new</span></td></tr>
+      <tr><td>Product</td><td><code>/product/chair-mesh-004</code></td><td><code>/chairs/neuro-mesh-chair/</code></td></tr>
       <tr><td>Search</td><td><code>/search?q=</code></td><td><code>/search?q=</code></td></tr>
       <tr><td>About / Contact</td><td><code>/about</code>, <code>/contact</code></td><td>unchanged</td></tr>
       <tr><td>Cart</td><td>drawer only</td><td>drawer + <code>/cart</code> page</td></tr>
       <tr><td>Checkout</td><td>— none —</td><td>Shopify-hosted</td></tr>
-      <tr><td>Policies</td><td>— none —</td><td><code>/shipping</code>, <code>/returns</code>, <code>/warranty</code>, <code>/privacy</code>, <code>/terms</code> <span class="pill pill--warn">required</span></td></tr>
+      <tr><td>Policies</td><td>— none —</td><td><code>/policies/shipping/</code>, <code>/policies/returns/</code>, <code>/policies/warranty/</code>, <code>/policies/privacy/</code>, <code>/policies/terms/</code> <span class="pill pill--warn">required</span></td></tr>
     </tbody>
   </table>
+
+  <div class="box box--good">
+    <div class="box__t">As built — three deviations from the table above</div>
+    <ol style="margin-bottom:0">
+      <li><strong>Sub-category URLs keep the full slug.</strong> The plan proposed
+      <code>/tables/height-adjustable/</code>. The build uses
+      <code>/tables/height-adjustable-table/</code>. Shortening it would have produced
+      <code>/tables/gaming/</code> and <code>/tables/bed/</code>, which read as adjectives rather
+      than products, and would have dropped the noun people actually search for. The trade is a
+      longer URL against a clearer one; the keyword was judged worth more than the brevity.</li>
+
+      <li><strong>Policies are nested under <code>/policies/</code></strong> rather than sitting at
+      the root, so the root namespace stays available for categories and the five documents group
+      together in the sitemap.</li>
+
+      <li><strong>Every URL carries a trailing slash</strong> and the apex is canonical — see the
+      note on canonical host below. Both are enforced in <code>next.config.ts</code> and in the
+      generated <code>.htaccess</code>, and are checked on every build by
+      <code>scripts/verify-export.ts</code>.</li>
+    </ol>
+  </div>
 
   <div class="box box--warn">
     <div class="box__t">Policy pages are not optional once you take money</div>
@@ -1263,6 +1313,21 @@ GET /manifest.json  → 200  application/json 492 b
   <span class="rule"></span>
   <p class="lede">Ordered so that <strong>every phase leaves the site launchable</strong>, and so the
   highest-value, lowest-risk fix ships first. Estimates assume one developer.</p>
+
+  <div class="box box--good">
+    <div class="box__t">Where the build has actually reached</div>
+    <p>Phases <strong>0, 0b, 1 and 2 are complete and committed.</strong> HTTPS is live through
+    Cloudflare; the React branding is gone and replaced with a generated icon set; the Next.js
+    static export builds 64 pages plus <code>sitemap.xml</code> and <code>robots.txt</code>, every
+    one of them real HTML rather than the 1,126-byte shell the old site served; and the full catalog
+    — 34 products, 16 sub-categories, 3 groups — renders with structured data, canonical URLs and
+    social cards, verified on every build by <code>scripts/verify-export.ts</code>.</p>
+    <p style="margin-bottom:0"><strong>Work stopped at the start of Phase 3</strong>, which is where
+    the first hard Shopify dependency sits. Everything up to that line is done. The one outstanding
+    item from Phase 2 is the image pipeline — WebP conversion and responsive sizes — which is a
+    performance improvement, not a blocker, and is deliberately left until the Shopify CSV import
+    settles the final filenames.</p>
+  </div>
 
   <table>
     <thead><tr><th>Phase</th><th>Scope</th><th>Ships</th><th class="num">Est.</th></tr></thead>
