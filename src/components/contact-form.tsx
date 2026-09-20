@@ -4,39 +4,101 @@ import { useState } from "react";
 import { Button } from "./ui";
 import { SITE } from "@/lib/site";
 
+type State = "idle" | "sending" | "sent" | "error";
+
 /**
  * The enquiry form.
  *
- * There is no server here -- this is a static export on Apache -- so the form
- * composes a mailto: rather than posting anywhere. That is a deliberate
- * trade: it keeps the enquiry working with no third-party form service, no
- * account, and no customer data passing through anyone else's system. The
- * direct address is shown next to it for anyone whose device handles mailto
- * badly.
+ * This is a static export, but the host runs PHP, so the form posts to a small
+ * endpoint that hands the message to the server's local mail queue. That
+ * endpoint holds no credentials -- every outbound SMTP port here is firewalled
+ * and the local relay needs no authentication -- so there is nothing to leak.
+ *
+ * If the request fails for any reason the mailto: the form used to rely on is
+ * offered instead, so a visitor never reaches a dead end.
  */
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [state, setState] = useState<State>("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [fallback, setFallback] = useState<string | null>(null);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    const subject = String(data.get("subject") || "Website enquiry");
+  function composeMailto(data: FormData) {
     const body = [
       `Name: ${data.get("name") || ""}`,
       `Email: ${data.get("email") || ""}`,
       `Phone: ${data.get("phone") || ""}`,
       `Delivery pincode: ${data.get("pincode") || ""}`,
-      ``,
+      "",
       String(data.get("message") || ""),
-      ``,
+      "",
     ].join("\n");
 
-    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(
+    const subject = String(data.get("subject") || "Website enquiry");
+    return `mailto:${SITE.email}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
+  }
 
-    setSent(true);
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    setState("sending");
+    setError(null);
+    setFallback(null);
+
+    try {
+      const res = await fetch("/enquiry.php", { method: "POST", body: data });
+      const payload = (await res.json().catch(() => null)) as
+        | { ok?: boolean; error?: string }
+        | null;
+
+      if (res.ok && payload?.ok) {
+        setState("sent");
+        form.reset();
+        return;
+      }
+
+      setState("error");
+      setError(payload?.error ?? "The message could not be sent.");
+      setFallback(composeMailto(data));
+    } catch {
+      setState("error");
+      setError("The message could not be sent.");
+      setFallback(composeMailto(data));
+    }
+  }
+
+  if (state === "sent") {
+    return (
+      <div
+        role="status"
+        className="rounded-panel border border-edge bg-surface p-6"
+      >
+        <p className="text-base font-semibold text-cream">
+          Thanks — that reached us.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-cream-muted">
+          We reply to enquiries the same working day, usually within a few
+          hours. If you need us sooner, write to{" "}
+          <a
+            href={`mailto:${SITE.email}`}
+            className="text-gold transition-colors hover:text-gold-bright"
+          >
+            {SITE.email}
+          </a>
+          .
+        </p>
+        <button
+          type="button"
+          onClick={() => setState("idle")}
+          className="mt-5 text-sm text-gold transition-colors hover:text-gold-bright"
+        >
+          Send another
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -62,10 +124,7 @@ export function ContactForm() {
       <Field label="Subject" name="subject" required />
 
       <div>
-        <label
-          htmlFor="message"
-          className="label block text-cream-faint"
-        >
+        <label htmlFor="message" className="label block text-cream-faint">
           Message
         </label>
         <textarea
@@ -78,11 +137,32 @@ export function ContactForm() {
         />
       </div>
 
+      {/*
+        Bots complete every field they can find. This one is removed from the
+        layout, hidden from assistive tech and skipped in the tab order, so no
+        real visitor ever fills it in.
+      */}
+      <div aria-hidden="true" className="hidden">
+        <label htmlFor="company">Company</label>
+        <input id="company" name="company" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit">Send enquiry</Button>
-        {sent ? (
-          <p role="status" className="text-sm text-good">
-            Opening your email app. If nothing happened, write to us directly.
+        <Button type="submit" disabled={state === "sending"}>
+          {state === "sending" ? "Sending…" : "Send enquiry"}
+        </Button>
+
+        {state === "error" ? (
+          <p role="alert" className="text-sm text-cream-muted">
+            {error}{" "}
+            {fallback ? (
+              <a
+                href={fallback}
+                className="text-gold transition-colors hover:text-gold-bright"
+              >
+                Send it by email instead
+              </a>
+            ) : null}
           </p>
         ) : null}
       </div>
