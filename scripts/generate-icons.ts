@@ -107,6 +107,55 @@ async function icon(size: number, glyph: Buffer, inset = 0.74): Promise<Buffer> 
 }
 
 /**
+ * The header mark: the monogram inside a ring, on transparency.
+ *
+ * The ring is redrawn rather than cropped out of the source. The original is a
+ * JPEG, so its ring carries compression artefacts and a colour gradient that
+ * both show badly at 32px, and the arced "HeavenCraft" set inside the top of
+ * it is an illegible smudge at that size -- as well as being redundant next to
+ * the typed wordmark it sits beside. A clean circle keeps the badge identity
+ * and drops the part that does not survive the size.
+ */
+async function badge(size = 256): Promise<Buffer> {
+  const glyph = await monogram();
+
+  const stroke = Math.round(size * 0.031); // matches the source ring's weight
+  const radius = size / 2 - stroke / 2 - 1;
+
+  const ring = Buffer.from(
+    `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${size / 2}" cy="${size / 2}" r="${radius}"
+              fill="none" stroke="${GOLD}" stroke-width="${stroke}"/>
+    </svg>`,
+  );
+
+  // In the source the monogram fills most of the ring. Kept generous, because
+  // at 32px the ring is barely a pixel and the glyph is what has to read.
+  const inner = Math.round(size * 0.62);
+  const scaled = await sharp(glyph)
+    .resize(inner, inner, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .toBuffer();
+
+  return sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 4,
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    },
+  })
+    .composite([
+      { input: ring },
+      { input: scaled, gravity: "centre" },
+    ])
+    .png({ compressionLevel: 9 })
+    .toBuffer();
+}
+
+/**
  * ICO container holding PNG payloads.
  *
  * Every browser that matters has read PNG-in-ICO since Vista, and it keeps the
@@ -246,6 +295,11 @@ async function main() {
   const og = await openGraph(glyph);
   await writeFile(path.join(OG_DIR, "default.png"), og);
   console.log(`  public/og/default.png (${og.length} bytes)`);
+
+  // Rendered at 256 and displayed around 32, so it stays sharp on 3x screens.
+  const mark = await badge(256);
+  await writeFile(path.join(ICON_DIR, "monogram.png"), mark);
+  console.log(`  public/icons/monogram.png (${mark.length} bytes)`);
 }
 
 main().catch((error) => {

@@ -61,10 +61,10 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
         <div className="flex h-18 items-center justify-between gap-6">
           <Link
             href="/"
-            className="shrink-0 transition-opacity hover:opacity-80"
+            className="flex shrink-0 items-center transition-opacity hover:opacity-80"
             aria-label="HeavenCraft — home"
           >
-            <Wordmark size="lg" />
+            <Wordmark size="lg" priority />
           </Link>
 
           <nav
