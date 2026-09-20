@@ -344,6 +344,21 @@ SANs    : theheavencraft.in, www, mail, cpanel, webmail,
         <td>Slow on the mobile connections most customers arrive on</td>
       </tr>
       <tr>
+        <td><strong>The favicon is the React logo</strong> <span class="pill pill--bad">Live now</span></td>
+        <td><code>/favicon.ico</code>, <code>/logo192.png</code>, <code>/logo512.png</code> — all untouched Create React App defaults</td>
+        <td>The browser tab, the bookmark and <strong>the icon Google shows beside the site in search results</strong> are all a React atom in cyan. It reads as an unfinished developer project, on the one surface seen by every visitor and every searcher</td>
+      </tr>
+      <tr>
+        <td><strong>The web manifest still says “Create React App Sample”</strong> <span class="pill pill--bad">Live now</span></td>
+        <td><code>/manifest.json</code> — verified being served publicly today</td>
+        <td>Anyone adding the site to an Android home screen gets an app called <strong>“React App”</strong>. <code>theme_color</code> is <code>#000000</code> and <code>background_color</code> is white, neither of which is the brand</td>
+      </tr>
+      <tr>
+        <td><strong>No Open Graph or Twitter card tags at all</strong></td>
+        <td><code>public/index.html</code> — no <code>og:title</code>, <code>og:image</code> or <code>og:description</code></td>
+        <td>A link shared on WhatsApp renders as a bare grey URL with no image. For an Indian D2C brand where WhatsApp is the primary sharing channel, this is lost reach on every share</td>
+      </tr>
+      <tr>
         <td><strong>Unverified reviews</strong></td>
         <td>Named reviews with <code>"verified": true</code> in <code>products.json</code></td>
         <td><span class="pill pill--bad">Do not publish</span> — see below</td>
@@ -1168,6 +1183,75 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
     <li>Canonical URLs, Open Graph and Twitter cards so WhatsApp shares render a product image</li>
     <li>Indexing gated on the real domain, so test deploys can never be indexed and go live automatically at cutover</li>
   </ul>
+
+  <h3>9.5 &nbsp;Brand identity in the browser chrome — currently the React logo</h3>
+  <div class="box box--bad">
+    <div class="box__t">Verified live today, not inherited from the audit</div>
+    <p>The site is serving Create React App's stock branding, untouched:</p>
+    <pre style="margin:.7rem 0"><code>GET /favicon.ico    → 200  image/x-icon   3,870 b   ← React atom
+GET /logo192.png    → 200  image/png      5,347 b   ← React atom
+GET /manifest.json  → 200  application/json 492 b
+
+  { "short_name": "React App",
+    "name": "Create React App Sample",
+    "theme_color": "#000000",
+    "background_color": "#ffffff" }</code></pre>
+    <p style="margin-bottom:0">Three surfaces are affected: the <strong>browser tab</strong>, the
+    <strong>Google search result</strong>, and the <strong>Android home-screen install</strong>, which
+    currently creates an app called “React App”.</p>
+  </div>
+
+  <h4>Google's rules, and the three that actually bite</h4>
+  <p>Google supports <code>rel="icon"</code>, <code>apple-touch-icon</code> and
+  <code>apple-touch-icon-precomposed</code>, requires a square image of at least 8×8 and
+  <em>recommends larger than 48×48</em>, and needs Googlebot-Image to be able to crawl it. Our
+  <code>robots.txt</code> is fully permissive, so nothing is blocked. The subtle constraints:</p>
+  <ul>
+    <li><strong>One favicon per hostname.</strong> Google treats
+      <code>theheavencraft.in</code> and <code>www.theheavencraft.in</code> as
+      <em>different sites</em>. This is another reason the canonical host must be settled and
+      redirected — see §3.2.</li>
+    <li><strong>The URL must be stable.</strong> Do not let the build fingerprint the favicon path.
+      Keep it at a fixed <code>/favicon.ico</code> in <code>public/</code> with an explicit
+      <code>&lt;link&gt;</code>, rather than relying on a framework convention that may append a
+      content hash.</li>
+    <li><strong>Recrawl takes days to weeks.</strong> Google's words. So this ships
+      <strong>in Phase 0, not at launch</strong> — the sooner the clock starts, the sooner search
+      results stop showing a React logo. Follow it with a URL Inspection → Request Indexing on the
+      home page.</li>
+  </ul>
+
+  <h4>A design constraint worth catching early</h4>
+  <p>The existing logo — a gold <strong>HC</strong> monogram inside a gold ring, with “HeavenCraft”
+  arced around the top — is already square and works beautifully as a mark. But <strong>the arced
+  wordmark becomes an illegible smudge below about 64 px.</strong> The favicon should therefore be the
+  <strong>monogram and ring only</strong>, with the wordmark dropped. Same identity, drawn for the
+  size it will actually be seen at.</p>
+
+  <h4>The set to produce</h4>
+  <table>
+    <thead><tr><th>File</th><th>Size</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>/favicon.ico</code></td><td>16 · 32 · 48 multi-res</td><td>Browser tabs and <strong>Google search results</strong>. Stable path, never hashed</td></tr>
+      <tr><td><code>/icon.svg</code></td><td>vector</td><td>Crisp at any size; modern browsers prefer it</td></tr>
+      <tr><td><code>/apple-touch-icon.png</code></td><td>180 × 180</td><td>iOS home screen. Needs an opaque background — iOS does not honour transparency</td></tr>
+      <tr><td><code>/icon-192.png</code>, <code>/icon-512.png</code></td><td>192, 512</td><td>Android / PWA install</td></tr>
+      <tr><td><code>/icon-512-maskable.png</code></td><td>512</td><td>Android adaptive icons. Needs the mark inset inside the safe zone or the ring gets cropped</td></tr>
+      <tr><td><code>/og-image.jpg</code></td><td>1200 × 630</td><td>WhatsApp, Facebook and LinkedIn preview cards — currently absent entirely</td></tr>
+    </tbody>
+  </table>
+  <p>Alongside these, the manifest gets real values — <code>name: "HeavenCraft"</code>,
+  <code>short_name: "HeavenCraft"</code>, <code>theme_color: "#DEA846"</code>,
+  <code>background_color: "#070706"</code> — so the splash screen and Android task-switcher chrome
+  match the brand rather than fighting it.</p>
+
+  <div class="box box--good">
+    <div class="box__t">This one is independent of the rebuild</div>
+    <p style="margin-bottom:0">Like the certificate, the icons and manifest can be fixed on the
+    <em>current</em> CRA site this week — they are static files in <code>public/</code>. There is no
+    reason to make this wait on the Next.js work, and given Google's multi-week recrawl window, there
+    is a real reason not to.</p>
+  </div>
 </section>
 
 <!-- =========================================================
@@ -1187,6 +1271,12 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
         <td><strong>0</strong><br><span class="tag">Now</span></td>
         <td><strong>Finish HTTPS.</strong> Confirm Cloudflare Universal SSL has issued, set encryption mode to <strong>Full</strong>, install a Cloudflare Origin CA cert in cPanel, move to <strong>Full (strict)</strong>, enable Always Use HTTPS, verify in a real browser</td>
         <td>A site that no longer warns customers away</td>
+        <td class="num">½ day</td>
+      </tr>
+      <tr>
+        <td><strong>0b</strong><br><span class="tag">Now</span></td>
+        <td><strong>Replace the React branding.</strong> Ship the real favicon set, apple-touch-icon, PWA icons, a corrected <code>manifest.json</code> and an <code>og-image</code> — onto the <em>current</em> site, no rebuild needed. Then request re-indexing of the home page</td>
+        <td>Brand appears in tabs, on shares and — after Google recrawls — in search results</td>
         <td class="num">½ day</td>
       </tr>
       <tr>
@@ -1394,6 +1484,10 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
     and an origin certificate, and it stops active harm today;
     <strong>(2) ask Shopify the COD question</strong> — the answer could shift the running cost of the
     business by several percent of turnover, and it is free to ask.</p>
+    <p style="margin:.9rem 0 0;padding-top:.8rem;border-top:1px solid var(--edge)">A third, smaller
+    than both and worth doing the same afternoon: <strong>replace the React logo</strong> in the
+    favicon, icons and manifest (§9.5). Google can take weeks to recrawl an icon, so every day it
+    waits is a day the brand shows up in search results as somebody's unfinished side project.</p>
   </div>
 </section>
 
