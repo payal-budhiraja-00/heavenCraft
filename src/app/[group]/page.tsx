@@ -8,6 +8,7 @@ import { getGroup, groups } from "@/lib/catalog";
 import { priceRange } from "@/lib/catalog-types";
 import { encodeImagePath, featureImage, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
+import { pageMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
 type Params = { group: string };
@@ -28,18 +29,15 @@ export async function generateMetadata({
   const range = priceRange(group.products);
   const title = `Ergonomic ${group.name} Online`;
   const description = `${group.description} ${group.products.length} products from ${formatPaise(range.minPaise)}.`;
+  const lead = group.products.find((p) => featureImage(p));
 
-  return {
+  return pageMetadata({
     title,
     description,
-    alternates: { canonical: group.href },
-    openGraph: {
-      title: `${title} | HeavenCraft`,
-      description,
-      url: absoluteUrl(group.href),
-      type: "website",
-    },
-  };
+    path: group.href,
+    image: lead ? encodeImagePath(featureImage(lead)!) : undefined,
+    imageAlt: lead ? imageAlt(lead) : undefined,
+  });
 }
 
 export default async function GroupPage({

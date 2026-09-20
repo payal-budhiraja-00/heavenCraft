@@ -1,23 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs, Container, SectionHeading } from "@/components/ui";
 import { allProducts, groups } from "@/lib/catalog";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 const description =
   "HeavenCraft supplies ergonomic chairs, height-adjustable desks and workspace accessories across India.";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description,
-  alternates: { canonical: "/about/" },
-  openGraph: {
-    title: `About | ${SITE.name}`,
-    description,
-    url: absoluteUrl("/about/"),
-    type: "website",
-  },
-};
+  path: "/about/",
+});
 
 export default function AboutPage() {
   const subCount = groups.reduce((n, g) => n + g.subCategories.length, 0);

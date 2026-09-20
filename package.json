@@ -10,7 +10,8 @@
     "icons": "tsx scripts/generate-icons.ts",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run lint"
+    "check": "npm run typecheck && npm run lint",
+    "verify": "tsx scripts/verify-export.ts"
   },
   "dependencies": {
     "next": "16.3.5",

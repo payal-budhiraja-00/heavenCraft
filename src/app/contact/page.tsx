@@ -1,22 +1,16 @@
-import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { Breadcrumbs, Container } from "@/components/ui";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 const description =
   "Get in touch about a product, a bulk order, or fitting out an office. We reply within one working day.";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
   description,
-  alternates: { canonical: "/contact/" },
-  openGraph: {
-    title: `Contact | ${SITE.name}`,
-    description,
-    url: absoluteUrl("/contact/"),
-    type: "website",
-  },
-};
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   return (

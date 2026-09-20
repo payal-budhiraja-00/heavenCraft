@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs, Container } from "@/components/ui";
 import { POLICIES, getPolicy } from "@/lib/policies";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 type Params = { policy: string };
 
@@ -19,17 +20,11 @@ export async function generateMetadata({
   const policy = getPolicy(slug);
   if (!policy) return {};
 
-  return {
+  return pageMetadata({
     title: policy.title,
     description: policy.summary,
-    alternates: { canonical: `/policies/${policy.slug}/` },
-    openGraph: {
-      title: `${policy.title} | ${SITE.name}`,
-      description: policy.summary,
-      url: absoluteUrl(`/policies/${policy.slug}/`),
-      type: "website",
-    },
-  };
+    path: `/policies/${policy.slug}/`,
+  });
 }
 
 export default async function PolicyPage({

@@ -1,6 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Container } from "@/components/ui";
 import { groups } from "@/lib/catalog";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  alternates: { canonical: null },
+  robots: { index: false, follow: true },
+};
 
 /**
  * Exported as `out/404.html` and wired up by `ErrorDocument 404` in .htaccess.

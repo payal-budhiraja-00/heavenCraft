@@ -42,16 +42,11 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      # A successful build that produced no pages is still a broken deploy.
+      # A successful build can still produce a broken site: dropped social
+      # cards, duplicate canonicals, redirects pointing at pages that no
+      # longer exist. The verifier inspects out/ and fails the deploy.
       - name: Verify export
-        run: |
-          test -f out/index.html || { echo "::error::out/index.html missing"; exit 1; }
-          test -f out/404.html || { echo "::error::out/404.html missing"; exit 1; }
-          test -f out/.htaccess || { echo "::error::out/.htaccess missing"; exit 1; }
-          test -f out/sitemap.xml || { echo "::error::out/sitemap.xml missing"; exit 1; }
-          pages=$(find out -name 'index.html' | wc -l)
-          echo "exported $pages pages"
-          [ "$pages" -ge 50 ] || { echo "::error::only $pages pages exported, expected 50+"; exit 1; }
+        run: npm run verify
 
       - name: Deploy to GoDaddy over FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

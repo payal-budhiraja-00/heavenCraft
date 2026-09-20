@@ -18,6 +18,7 @@ import { priceRange } from "@/lib/catalog-types";
 import { features } from "@/lib/features";
 import { enquiryHref, isPurchasable } from "@/lib/commerce";
 import { encodeImagePath, imageAlt } from "@/lib/images";
+import { pageMetadata } from "@/lib/seo";
 import { formatPaise, paiseToPriceString } from "@/lib/money";
 import { SITE, absoluteUrl } from "@/lib/site";
 
@@ -69,18 +70,15 @@ export async function generateMetadata({
     const { sub } = found;
     const range = priceRange(sub.products);
     const description = `${sub.description} ${sub.products.length} ${sub.name.toLowerCase()} from ${formatPaise(range.minPaise)}.`;
+    const lead = sub.products.find((p) => p.images.length > 0);
 
-    return {
+    return pageMetadata({
       title: sub.name,
       description,
-      alternates: { canonical: sub.href },
-      openGraph: {
-        title: `${sub.name} | ${SITE.name}`,
-        description,
-        url: absoluteUrl(sub.href),
-        type: "website",
-      },
-    };
+      path: sub.href,
+      image: lead ? encodeImagePath(lead.images[0]!) : undefined,
+      imageAlt: lead ? imageAlt(lead) : undefined,
+    });
   }
 
   const { product } = found;
@@ -90,20 +88,13 @@ export async function generateMetadata({
       : product.description;
   const image = product.images[0];
 
-  return {
+  return pageMetadata({
     title: product.name,
     description,
-    alternates: { canonical: product.href },
-    openGraph: {
-      title: `${product.name} | ${SITE.name}`,
-      description,
-      url: absoluteUrl(product.href),
-      type: "website",
-      images: image
-        ? [{ url: absoluteUrl(encodeImagePath(image)), alt: imageAlt(product) }]
-        : undefined,
-    },
-  };
+    path: product.href,
+    image: image ? encodeImagePath(image) : undefined,
+    imageAlt: image ? imageAlt(product) : undefined,
+  });
 }
 
 export default async function GroupSlugPage({
