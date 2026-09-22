@@ -21,8 +21,9 @@ import { resolve } from "node:path";
 
 /* Shopify ships a new API version quarterly and supports each for a year.
  * Pinning matters: an unpinned client changes behaviour underneath you.
- * `preflight` checks this against what the store actually supports. */
-const DEFAULT_API_VERSION = "2025-01";
+ * `preflight` checks this against what the store actually supports and names
+ * the newest one when this has aged out, which it will. */
+const DEFAULT_API_VERSION = "2026-07";
 
 type Auth =
   | { kind: "client_credentials"; clientId: string; clientSecret: string }

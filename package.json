@@ -14,7 +14,8 @@
     "verify": "tsx scripts/verify-export.ts",
     "shopify:csv": "tsx scripts/shopify/export-csv.ts",
     "shopify:preflight": "tsx scripts/shopify/preflight.ts",
-    "shopify:sync": "tsx scripts/shopify/sync.ts"
+    "shopify:sync": "tsx scripts/shopify/sync.ts",
+    "shopify:audit": "tsx scripts/shopify/audit.ts"
   },
   "dependencies": {
     "next": "16.3.5",

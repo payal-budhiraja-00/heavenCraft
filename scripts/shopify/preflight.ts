@@ -64,7 +64,15 @@ async function checkScopes(env: ShopifyEnv): Promise<void> {
     granted = data.currentAppInstallation.accessScopes.map((s) => s.handle);
   }
 
-  const missing = REQUIRED_SCOPES.filter((scope) => !granted.includes(scope));
+  /* Shopify's write scopes subsume their read counterpart -- a store granting
+   * `write_products` never separately lists `read_products`, and demanding both
+   * would report a healthy app as broken. */
+  const covered = (needed: string): boolean =>
+    granted.includes(needed) ||
+    (needed.startsWith("read_") &&
+      granted.includes(`write_${needed.slice("read_".length)}`));
+
+  const missing = REQUIRED_SCOPES.filter((scope) => !covered(scope));
 
   record(
     missing.length === 0,
@@ -91,30 +99,16 @@ async function checkScopes(env: ShopifyEnv): Promise<void> {
 }
 
 /**
- * `api_versions.json` is the one Admin endpoint that needs no version in its
- * path, which makes it the only safe thing to call when the pinned version is
- * itself the thing under suspicion.
+ * Asked over GraphQL rather than the REST `api_versions.json` endpoint, which
+ * is retired on stores created today and answers 404.
  */
 async function checkApiVersion(env: ShopifyEnv): Promise<void> {
-  const response = await fetch(
-    `https://${env.domain}/admin/api/api_versions.json`,
-    { headers: { "X-Shopify-Access-Token": await getAccessToken(env) } },
-  );
+  const data = await shopifyGraphql<{
+    publicApiVersions: { handle: string; supported: boolean }[];
+  }>(env, `{ publicApiVersions { handle supported } }`);
 
-  if (!response.ok) {
-    record(
-      false,
-      "API version",
-      `could not list supported versions (HTTP ${response.status})`,
-    );
-    return;
-  }
-
-  const body = (await response.json()) as {
-    api_versions: { handle: string; supported: boolean }[];
-  };
-  const supported = body.api_versions
-    .filter((v) => v.supported)
+  const supported = data.publicApiVersions
+    .filter((v) => v.supported && /^\d{4}-\d{2}$/.test(v.handle))
     .map((v) => v.handle)
     .sort();
   const newest = supported[supported.length - 1] ?? "unknown";
@@ -135,10 +129,17 @@ async function checkShop(env: ShopifyEnv): Promise<void> {
   }>(env, `{ shop { name myshopifyDomain currencyCode } }`);
 
   const shop = data.shop;
+  /* The permanent myshopifyDomain often differs from the vanity domain used to
+   * log in, which makes a correct connection look like the wrong store. */
+  const alias =
+    shop.myshopifyDomain.toLowerCase() === env.domain.toLowerCase()
+      ? ""
+      : ` -- reached via ${env.domain}, which is an alias for the same shop`;
+
   record(
     true,
     "Connectivity",
-    `connected to "${shop.name}" (${shop.myshopifyDomain})`,
+    `connected to "${shop.name}" (${shop.myshopifyDomain})${alias}`,
   );
 
   /* The most expensive thing to get wrong. Our prices are bare rupee numbers
