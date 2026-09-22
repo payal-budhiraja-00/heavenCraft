@@ -26,6 +26,7 @@ import { buildCatalog, type ShopifyProduct } from "./payload";
 const args = new Set(process.argv.slice(2));
 const LIVE = args.has("--live");
 const PUBLISH = args.has("--publish");
+const RETRY_MEDIA = args.has("--retry-media");
 
 const limitArg = process.argv.find((a) => a.startsWith("--limit"));
 const LIMIT = limitArg
@@ -225,8 +226,205 @@ async function setVariant(
   );
 }
 
+/**
+ * Shopify keeps "not archived" and "on sale" as separate states. `status:
+ * ACTIVE` only means a product isn't draft or archived -- it stays invisible
+ * to shoppers, and absent from the Storefront API the cart will run on, until
+ * it is also published to the Online Store channel.
+ */
+async function onlineStorePublicationId(env: ShopifyEnv): Promise<string> {
+  let data: { publications: { nodes: { id: string; name: string }[] } };
+  try {
+    data = await shopifyGraphql(
+      env,
+      `{ publications(first: 20) { nodes { id name } } }`,
+    );
+  } catch (error) {
+    if (/access scope|access denied/i.test((error as Error).message)) {
+      throw new Error(
+        "Publishing needs the `write_publications` scope, which this app does not have.\n" +
+          "In the Shopify dev dashboard open your app -> Configuration -> Access scopes,\n" +
+          "add `write_publications`, release a new version, then run this again.",
+      );
+    }
+    throw error;
+  }
+
+  const online = data.publications.nodes.find((node) =>
+    node.name.toLowerCase().includes("online store"),
+  );
+  if (!online) {
+    const found = data.publications.nodes.map((n) => n.name).join(", ");
+    throw new Error(
+      `This store has no Online Store channel. Channels found: ${found || "none"}`,
+    );
+  }
+  return online.id;
+}
+
+async function publishToOnlineStore(
+  env: ShopifyEnv,
+  productId: string,
+  publicationId: string,
+): Promise<void> {
+  const data = await shopifyGraphql<{
+    publishablePublish: {
+      userErrors: { field?: string[] | null; message: string }[];
+    };
+  }>(
+    env,
+    `mutation Publish($id: ID!, $input: [PublicationInput!]!) {
+       publishablePublish(id: $id, input: $input) {
+         userErrors { field message }
+       }
+     }`,
+    { id: productId, input: [{ publicationId }] },
+  );
+  assertNoUserErrors(
+    "publishablePublish",
+    data.publishablePublish.userErrors,
+  );
+}
+
+/**
+ * Re-attaches images Shopify failed to download.
+ *
+ * Our origin is shared hosting, and Shopify's fetcher gives up on slow
+ * responses -- the observed failures were "timeout reached" plus one truncated
+ * file reported as corrupt, on images that all decode cleanly locally and
+ * serve 200 on request. So these are transient and worth retrying.
+ *
+ * The whole gallery is replaced rather than just the broken entry, because
+ * deleting one image and appending a replacement would reorder the rest, and
+ * position 1 is the product's face: the collection thumbnail, the checkout
+ * line-item image and the social card.
+ */
+async function retryFailedMedia(
+  env: ShopifyEnv,
+  catalog: ShopifyProduct[],
+): Promise<void> {
+  const byHandle = new Map(catalog.map((p) => [p.handle, p]));
+
+  const data = await shopifyGraphql<{
+    products: {
+      nodes: {
+        id: string;
+        handle: string;
+        media: { nodes: { id: string; status: string }[] };
+      }[];
+    };
+  }>(
+    env,
+    `{
+       products(first: 250) {
+         nodes {
+           id
+           handle
+           media(first: 50) { nodes { id status } }
+         }
+       }
+     }`,
+  );
+
+  const damaged = data.products.nodes.filter(
+    (p) =>
+      byHandle.has(p.handle) &&
+      p.media.nodes.some((m) => m.status === "FAILED"),
+  );
+
+  if (damaged.length === 0) {
+    console.log("No failed media to retry.");
+    return;
+  }
+
+  console.log(`Rebuilding galleries for ${damaged.length} product(s).\n`);
+
+  let repaired = 0;
+  const failures: string[] = [];
+
+  for (const [index, product] of damaged.entries()) {
+    const local = byHandle.get(product.handle)!;
+    const position = `[${index + 1}/${damaged.length}]`;
+
+    try {
+      const mediaIds = product.media.nodes.map((m) => m.id);
+      if (mediaIds.length) {
+        const deleted = await shopifyGraphql<{
+          productDeleteMedia: {
+            mediaUserErrors: { field?: string[] | null; message: string }[];
+          };
+        }>(
+          env,
+          `mutation Wipe($productId: ID!, $mediaIds: [ID!]!) {
+             productDeleteMedia(productId: $productId, mediaIds: $mediaIds) {
+               mediaUserErrors { field message }
+             }
+           }`,
+          { productId: product.id, mediaIds },
+        );
+        assertNoUserErrors(
+          `productDeleteMedia(${product.handle})`,
+          deleted.productDeleteMedia.mediaUserErrors,
+        );
+      }
+
+      const added = await shopifyGraphql<{
+        productCreateMedia: {
+          mediaUserErrors: { field?: string[] | null; message: string }[];
+        };
+      }>(
+        env,
+        `mutation AddMedia($productId: ID!, $media: [CreateMediaInput!]!) {
+           productCreateMedia(productId: $productId, media: $media) {
+             mediaUserErrors { field message }
+           }
+         }`,
+        { productId: product.id, media: mediaInput(local) },
+      );
+      assertNoUserErrors(
+        `productCreateMedia(${product.handle})`,
+        added.productCreateMedia.mediaUserErrors,
+      );
+
+      repaired += 1;
+      console.log(
+        `${position} rebuilt  ${product.handle} (${local.images.length} image(s))`,
+      );
+    } catch (error) {
+      failures.push(`${product.handle}: ${(error as Error).message}`);
+      console.log(`${position} FAILED   ${product.handle}`);
+    }
+
+    /* Deliberately unhurried. The failures are our origin being slow, so
+     * firing the next batch immediately would make that worse. */
+    await new Promise((done) => setTimeout(done, 1500));
+  }
+
+  console.log(`\nrebuilt ${repaired}, failed ${failures.length}`);
+  if (failures.length) {
+    console.log(`\n  ${failures.join("\n  ")}`);
+    process.exitCode = 1;
+  } else {
+    console.log(
+      "Shopify downloads images asynchronously -- check with `npm run shopify:audit`\n" +
+        "in a minute or two, and run this again if any are still FAILED.",
+    );
+  }
+}
+
 async function main(): Promise<void> {
   const catalog = buildCatalog().slice(0, LIMIT);
+
+  if (RETRY_MEDIA) {
+    if (!LIVE) {
+      console.log("--retry-media rewrites product galleries. Add --live to apply.");
+      return;
+    }
+    const env = loadEnv();
+    console.log(`Retrying failed media on ${env.domain}\n`);
+    await retryFailedMedia(env, buildCatalog());
+    return;
+  }
 
   if (!LIVE) {
     console.log("DRY RUN -- nothing will be written. Add --live to apply.\n");
@@ -254,6 +452,8 @@ async function main(): Promise<void> {
       `${catalog.length} product(s), created as ${PUBLISH ? "ACTIVE" : "DRAFT"}.\n`,
   );
 
+  const publicationId = PUBLISH ? await onlineStorePublicationId(env) : null;
+
   let created = 0;
   let updated = 0;
   const failures: string[] = [];
@@ -280,6 +480,10 @@ async function main(): Promise<void> {
       } else {
         failures.push(`${product.handle}: no default variant, price not set`);
       }
+
+      if (publicationId) {
+        await publishToOnlineStore(env, target.id, publicationId);
+      }
     } catch (error) {
       /* One bad product must not abandon the other 33. The run is idempotent,
        * so the fix is to correct the cause and run it again. */
@@ -297,7 +501,7 @@ async function main(): Promise<void> {
   }
   console.log(
     PUBLISH
-      ? "\nProducts are ACTIVE. Check them in Shopify admin -> Products."
+      ? "\nProducts are ACTIVE and published to the Online Store.\nVerify with `npm run shopify:audit`."
       : "\nProducts are DRAFT. Review them in Shopify admin, then re-run with --publish.",
   );
 }

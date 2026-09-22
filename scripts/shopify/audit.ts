@@ -18,6 +18,7 @@ type RemoteProduct = {
   handle: string;
   title: string;
   status: string;
+  onlineStoreUrl: string | null;
   descriptionHtml: string;
   seo: { title: string | null; description: string | null };
   media: { nodes: { status: string; alt: string | null }[] };
@@ -48,6 +49,7 @@ async function fetchAll(env: ShopifyEnv): Promise<Map<string, RemoteProduct>> {
              handle
              title
              status
+             onlineStoreUrl
              descriptionHtml
              seo { title description }
              media(first: 50) { nodes { ... on MediaImage { status alt } } }
@@ -96,6 +98,13 @@ function compare(
     if (variant.inventoryItem.tracked) {
       problems.push("inventory is TRACKED -- checkout will block at zero stock");
     }
+  }
+
+  /* ACTIVE only means "not draft or archived". Without an Online Store
+   * publication the product is still invisible to shoppers and missing from
+   * the Storefront API, while admin shows it as live. */
+  if (remote.status === "ACTIVE" && !remote.onlineStoreUrl) {
+    problems.push("ACTIVE but not on the Online Store -- shoppers cannot see it");
   }
 
   const ready = remote.media.nodes.filter((m) => m.status === "READY").length;

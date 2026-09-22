@@ -127,19 +127,32 @@ function rowsFor(product: ShopifyProduct): Row[] {
   return [first, ...extra];
 }
 
+/**
+ * The sheet only the owner can fill.
+ *
+ * Ordered deliberately: reference columns first so a row is identifiable, then
+ * the fields that block shipping and invoicing, then the ones that only make
+ * the listing better. Rows are grouped by category because HSN, GST, warranty
+ * and origin are in practice identical across a category -- fill the first row
+ * of each group and drag down rather than typing 34 times.
+ */
 const OWNER_COLUMNS = [
   "Handle",
+  "Category",
   "Title",
   "Variant SKU",
   "Price (INR)",
-  "HSN code (6-digit)",
+  "HSN code",
   "GST rate %",
-  "Net weight (kg)",
+  "Country of origin",
   "Boxed weight (kg)",
   "Box length (cm)",
   "Box width (cm)",
   "Box height (cm)",
-  "Country of origin",
+  "Net weight (kg)",
+  "Warranty (months)",
+  "Max user weight (kg)",
+  "Assembly required (Yes/No)",
 ] as const;
 
 async function main() {
@@ -148,22 +161,30 @@ async function main() {
   const importRows = products.flatMap(rowsFor) as Record<string, string>[];
   await writeFile(IMPORT_CSV, toCsv(COLUMNS, importRows), "utf8");
 
-  const ownerRows = products.map((p) => ({
-    Handle: p.handle,
-    Title: p.title,
-    "Variant SKU": p.sku,
-    "Price (INR)": p.price,
-    /* Deliberately blank. Most ergonomic seating sold in India is imported,
-     * and a wrong country of origin on a customs declaration is the owner's
-     * legal exposure, not a value to guess at. */
-    "Country of origin": "",
-  })) as Record<string, string>[];
+  const ownerRows = [...products]
+    .sort(
+      (a, b) =>
+        a.productType.localeCompare(b.productType) ||
+        a.title.localeCompare(b.title),
+    )
+    .map((p) => ({
+      Handle: p.handle,
+      Category: p.productType,
+      Title: p.title,
+      "Variant SKU": p.sku,
+      "Price (INR)": p.price,
+      /* Every fillable column is left blank on purpose. Country of origin in
+       * particular is a customs declaration -- most ergonomic seating sold in
+       * India is imported, and a wrong value is the owner's legal exposure,
+       * not something to guess at helpfully. */
+      "Country of origin": "",
+    })) as Record<string, string>[];
   await writeFile(OWNER_CSV, toCsv(OWNER_COLUMNS, ownerRows), "utf8");
 
   const images = products.reduce((n, p) => n + p.images.length, 0);
   console.log(`shopify csv: ${products.length} products, ${images} images, ${importRows.length} rows`);
   console.log(`  -> ${path.relative(process.cwd(), IMPORT_CSV)}`);
-  console.log(`  -> ${path.relative(process.cwd(), OWNER_CSV)}  (HSN, weights, box sizes)`);
+  console.log(`  -> ${path.relative(process.cwd(), OWNER_CSV)}  (see owner-input.md)`);
 }
 
 main().catch((error) => {

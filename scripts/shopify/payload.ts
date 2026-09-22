@@ -86,13 +86,25 @@ function orderedImages(product: Product): ShopifyImage[] {
   }));
 }
 
+/**
+ * The site groups products in the plural ("Storage Boxes") while Shopify's
+ * convention for product type is singular. Just dropping a trailing "s" gives
+ * "Storage Boxe", so handle the -es and -ies endings as well.
+ */
+function singular(label: string): string {
+  if (/(ch|sh|s|x|z)es$/i.test(label)) return label.slice(0, -2);
+  if (/[^aeiou]ies$/i.test(label)) return `${label.slice(0, -3)}y`;
+  if (/ss$/i.test(label)) return label;
+  return label.replace(/s$/i, "");
+}
+
 export function toShopifyProduct(product: Product): ShopifyProduct {
   return {
     handle: product.slug,
     title: product.name,
     bodyHtml: bodyHtml(product),
     vendor: SITE.name,
-    productType: product.subName.replace(/s$/, ""),
+    productType: singular(product.subName),
     tags: [product.groupName, product.subName, "Ergonomic", SITE.city],
     sku: product.id,
     price: paiseToPriceString(product.pricePaise),

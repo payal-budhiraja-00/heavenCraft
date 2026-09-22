@@ -348,4 +348,10 @@ export function assertNoUserErrors(
 }
 
 /** The scopes this project needs, and nothing more. */
-export const REQUIRED_SCOPES = ["read_products", "write_products"] as const;
+export const REQUIRED_SCOPES = [
+  "read_products",
+  "write_products",
+  /* Products stay invisible to shoppers until they are published to the
+   * Online Store channel, which is a separate permission from editing them. */
+  "write_publications",
+] as const;
