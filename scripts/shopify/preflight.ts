@@ -223,16 +223,49 @@ async function checkImages(): Promise<void> {
   );
 }
 
+const SHOPIFY_EDGE_IP = /^23\.227\.38\./;
+const SHOPIFY_CNAME = /(^|\.)shops\.myshopify\.com\.?$/i;
+
+type OriginVerdict = "shopify" | "other" | "unresolved";
+
+/**
+ * Asks a public resolver over HTTPS, bypassing the local one entirely.
+ *
+ * A record added minutes ago is often invisible to the machine running this
+ * while being perfectly visible to the internet, and reporting that as a
+ * broken store would send someone to re-fix something already correct.
+ */
+async function dnsVerdict(host: string): Promise<OriginVerdict> {
+  try {
+    const response = await fetch(
+      `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(host)}&type=A`,
+      { headers: { accept: "application/dns-json" } },
+    );
+    const body = (await response.json()) as { Answer?: { data: string }[] };
+    const answers = body.Answer ?? [];
+    if (answers.length === 0) return "unresolved";
+    return answers.some(
+      (a) => SHOPIFY_CNAME.test(a.data) || SHOPIFY_EDGE_IP.test(a.data),
+    )
+      ? "shopify"
+      : "other";
+  } catch {
+    return "unresolved";
+  }
+}
+
 /**
  * Shopify sits behind Cloudflare, so `server: cloudflare` says nothing about
  * who serves a host. `powered-by: Shopify` is the honest signal.
  */
-async function servedByShopify(host: string): Promise<boolean> {
+async function whoServes(host: string): Promise<OriginVerdict> {
   try {
     const response = await fetch(`https://${host}/`, { redirect: "manual" });
-    return /shopify/i.test(response.headers.get("powered-by") ?? "");
+    return /shopify/i.test(response.headers.get("powered-by") ?? "")
+      ? "shopify"
+      : "other";
   } catch {
-    return false;
+    return dnsVerdict(host);
   }
 }
 
@@ -261,12 +294,20 @@ async function checkCheckoutDomain(env: ShopifyEnv): Promise<void> {
     return;
   }
 
-  const ok = await servedByShopify(host);
+  const verdict = await whoServes(host);
+
+  if (verdict === "shopify") {
+    record(true, "Checkout domain", `${host} is served by Shopify -- checkout will resolve`);
+    return;
+  }
+
   record(
-    ok,
+    false,
     "Checkout domain",
-    ok
-      ? `${host} is served by Shopify -- checkout will resolve`
+    verdict === "unresolved"
+      ? `${host} is the primary domain but does not resolve publicly, so\n` +
+          "         checkout is unreachable. Check the DNS record exists and has\n" +
+          "         had time to propagate."
       : `${host} is the primary domain, so cart.checkoutUrl points there, but it\n` +
           "         is not served by Shopify and checkout would 404.\n" +
           "         Add a subdomain as CNAME -> shops.myshopify.com (DNS-only, NOT\n" +
