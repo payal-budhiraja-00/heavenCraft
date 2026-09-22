@@ -37,8 +37,13 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Matches deploy.yml, so CI builds the same bundle that ships. Without
+      # this the cart would be compiled out here and every commerce change
+      # would pass CI untested.
       - name: Build static export
         run: npm run build
+        env:
+          NEXT_PUBLIC_COMMERCE_ENABLED: "true"
 
       - name: Verify export
         run: npm run verify

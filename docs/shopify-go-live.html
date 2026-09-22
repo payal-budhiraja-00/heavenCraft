@@ -160,6 +160,7 @@ td strong{color:var(--cream)}
     <a href="#s4"><span class="n">S4</span>Test order</a>
     <hr>
     <a href="#need"><span class="n">04</span>What I need from you</a>
+    <a href="#preview"><span class="n">05</span>Previewing the cart</a>
     <a href="#verify"><span class="n">02</span>How to re-check</a>
     <a href="#notmine"><span class="n">03</span>Not blockers</a>
   </div>
@@ -591,6 +592,65 @@ FI  FR  GB  HK  IE  IL  IT  JP  KR  …</code></pre>
     <p>If you only answer three things today, make them <strong>legal entity name</strong>,
     <strong>GSTIN</strong> and <strong>whether you want Cash on Delivery</strong>. Those three
     start the Razorpay clock, and the KYC wait is the longest pole in this entire list.</p>
+  </div>
+</section>
+
+<section id="preview">
+  <span class="sec-n">05 — Previewing the cart</span>
+  <h2>The basket is built, and hidden</h2>
+  <span class="rule"></span>
+
+  <p>Cart and checkout are finished and deployed, behind a switch. An ordinary
+  visitor sees exactly the site they saw yesterday — the same product pages,
+  the same “Get a price by email” button, no basket anywhere. You can turn the
+  basket on for your own browser and use it against the real store.</p>
+
+  <table>
+    <thead><tr><th>To do this</th><th>Open this</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Turn the basket on</strong></td><td><code>theheavencraft.in/?cart=on</code></td></tr>
+      <tr><td>Turn it off again</td><td><code>theheavencraft.in/?cart=off</code></td></tr>
+      <tr><td>Straight to a product</td><td><code>theheavencraft.in/chairs/neuro-mesh-chair/?cart=on</code></td></tr>
+    </tbody>
+  </table>
+
+  <p>It sticks. Once switched on, the basket stays on as you browse — you only
+  need the <code>?cart=on</code> once per browser. It is per-browser, so turning
+  it on at your desk does not turn it on for anyone else, and your phone needs
+  its own <code>?cart=on</code>.</p>
+
+  <div class="box box--warn">
+    <div class="box__t">What will happen when you press Checkout</div>
+    <p>You will land on Shopify's real checkout on
+    <code>shop.theheavencraft.in</code> — and then it will bounce you back to
+    the shop homepage, because there is still no payment provider connected.
+    That is <a href="#b1">B1</a>, and it is the expected behaviour today rather
+    than a bug in the cart. Everything up to that point — adding, changing
+    quantities, removing, the running total — is live and real.</p>
+  </div>
+
+  <h3>What to look at while it is on</h3>
+  <table>
+    <thead><tr><th>Check</th><th>What should happen</th></tr></thead>
+    <tbody>
+      <tr><td>Add a chair</td><td>Basket opens, shows the photo, name and price</td></tr>
+      <tr><td>Set quantity to 3</td><td>Total triples. Verified: ₹13,999 → ₹41,997</td></tr>
+      <tr><td>Browse to another page</td><td>Basket count survives in the header</td></tr>
+      <tr><td>Close the tab, come back</td><td>Basket is still there</td></tr>
+      <tr><td>Open on your phone</td><td>Panel is full-width and scrolls</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box--gold">
+    <div class="box__t">Why a query parameter and not a password</div>
+    <p>The site is a bundle of static files on GoDaddy behind Cloudflare —
+    there is no server running our code that could check a password, which is
+    the same constraint that made Shopify necessary for checkout in the first
+    place. So the switch runs in your browser.</p>
+    <p>That means it keeps ordinary visitors out, not determined ones. Nobody
+    lands on a half-finished checkout by accident, and the worst case for
+    someone who deliberately goes looking is that they reach the same
+    payment-less checkout you do. Worth knowing, not worth solving.</p>
   </div>
 </section>
 

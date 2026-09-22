@@ -31,6 +31,25 @@ export function paiseToRupees(paise: number): number {
   return paise / PAISE_PER_RUPEE;
 }
 
+/**
+ * "13999.00" -> 1399900.
+ *
+ * Shopify quotes every amount as a decimal string. This is the single place
+ * those strings become integers, so a float never escapes into cart
+ * arithmetic -- `0.1 + 0.2` problems are invisible at ₹13,999 and appear as a
+ * one-paise mismatch between the cart total and the checkout total, which is
+ * precisely the kind of discrepancy that loses an order.
+ */
+export function priceStringToPaise(amount: string): number {
+  const rupees = Number(amount);
+
+  if (!Number.isFinite(rupees)) {
+    throw new TypeError(`Not a money amount: ${amount}`);
+  }
+
+  return Math.round(rupees * PAISE_PER_RUPEE);
+}
+
 const INR_FORMATTER = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",

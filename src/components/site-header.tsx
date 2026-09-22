@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CartButton } from "./cart-drawer";
 import { Wordmark } from "./wordmark";
 import { Container } from "./ui";
 
@@ -156,6 +157,9 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
             >
               Get a quote
             </Link>
+
+            {/* Renders nothing unless the commerce preview gate is open. */}
+            <CartButton />
 
             <button
               type="button"

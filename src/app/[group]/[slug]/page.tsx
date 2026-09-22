@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BuyBox } from "@/components/buy-box";
 import { ProductGallery } from "@/components/product-gallery";
 import { ProductGrid } from "@/components/product-card";
 import {
   Breadcrumbs,
-  ButtonLink,
   Container,
   Label,
   SectionHeading,
@@ -16,7 +16,7 @@ import { getGroup, getProduct, getSubCategory, groups } from "@/lib/catalog";
 import type { Group, Product, SubCategory } from "@/lib/catalog-types";
 import { priceRange } from "@/lib/catalog-types";
 import { features } from "@/lib/features";
-import { enquiryHref, isPurchasable } from "@/lib/commerce";
+import { enquiryHref, isPurchasable, variantIdFor } from "@/lib/commerce";
 import { encodeImagePath, imageAlt } from "@/lib/images";
 import { pageMetadata } from "@/lib/seo";
 import { formatPaise, paiseToPriceString } from "@/lib/money";
@@ -312,7 +312,13 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               {product.description}
             </p>
 
-            <BuyBox product={product} />
+            <BuyBox
+              variantId={isPurchasable(product) ? (variantIdFor(product) ?? null) : null}
+              productName={product.name}
+              enquiryHref={enquiryHref(product, SITE.origin)}
+              email={SITE.email}
+              inStock={product.inStock}
+            />
 
             {product.features.length ? (
               <div className="mt-10 border-t border-edge pt-8">
@@ -417,42 +423,5 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
     </>
-  );
-}
-
-/**
- * Add-to-cart when Shopify is wired up and this product has a real variant ID;
- * an enquiry otherwise. Both paths are always present in the codebase so the
- * switch is a flag flip, not a rewrite.
- */
-function BuyBox({ product }: { product: Product }) {
-  if (isPurchasable(product)) {
-    // Replaced by the Shopify cart client once VARIANT_IDS is populated.
-    return null;
-  }
-
-  return (
-    <div className="mt-8">
-      <ButtonLink
-        href={enquiryHref(product, SITE.origin)}
-        className="w-full sm:w-auto"
-      >
-        Get a price by email
-      </ButtonLink>
-      <p className="mt-3 text-xs leading-relaxed text-cream-faint">
-        Opens your email app with this model and its details already filled in.
-        We reply with stock, delivery time and the final price — usually the
-        same working day.
-      </p>
-      {/*
-        A mailto: link does nothing at all on a desktop with no mail client
-        configured, and the visitor has no way to tell the click failed. Print
-        the address so it can always be copied.
-      */}
-      <p className="mt-2 text-xs leading-relaxed text-cream-faint">
-        No email app? Write to{" "}
-        <span className="select-all text-cream-muted">{SITE.email}</span>.
-      </p>
-    </div>
   );
 }

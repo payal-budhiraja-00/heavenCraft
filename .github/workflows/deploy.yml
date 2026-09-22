@@ -39,8 +39,16 @@ jobs:
       # deploy never runs, which is the behaviour that was missing before: a
       # syntax error in the catalog used to fail the build and the workflow
       # would still be marked as having run.
+      #
+      # Commerce is on at build time so the cart code ships, but that alone
+      # shows nothing: the preview gate in commerce-preview.ts decides who can
+      # see it, and it is closed for every visitor until they pass ?cart=on.
+      # There is no runtime here to branch on -- the export is byte-identical
+      # for everyone -- so this is a two-switch arrangement by necessity.
       - name: Build static export
         run: npm run build
+        env:
+          NEXT_PUBLIC_COMMERCE_ENABLED: "true"
 
       # A successful build can still produce a broken site: dropped social
       # cards, duplicate canonicals, redirects pointing at pages that no

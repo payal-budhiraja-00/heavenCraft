@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
+import { CartProvider } from "@/components/cart-provider";
+import { CartDrawer } from "@/components/cart-drawer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { footerGroups, navGroups } from "@/lib/nav";
@@ -128,9 +130,18 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <SiteHeader groups={navGroups()} />
-        <main id="main">{children}</main>
-        <SiteFooter groups={footerGroups()} />
+        {/*
+          The provider wraps header and page together because the basket count
+          lives in one and the add-to-basket button in the other. While the
+          preview gate is closed it renders its children and does nothing else
+          -- no storage, no Shopify calls.
+        */}
+        <CartProvider>
+          <SiteHeader groups={navGroups()} />
+          <main id="main">{children}</main>
+          <SiteFooter groups={footerGroups()} />
+          <CartDrawer />
+        </CartProvider>
 
         <script
           type="application/ld+json"
