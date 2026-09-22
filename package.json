@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/generate-htaccess.ts",
+    "prebuild": "tsx scripts/generate-htaccess.ts && tsx scripts/generate-images.ts",
     "build": "next build",
     "start": "next start",
     "icons": "tsx scripts/generate-icons.ts",

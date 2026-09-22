@@ -505,7 +505,7 @@ const nextConfig = {
       <tr><td>Server Actions / API routes</td><td><span class="pill pill--bad">Gone</span></td><td>Enquiry form posts to a third-party form service or Shopify; no server needed</td></tr>
       <tr><td>ISR / <code>revalidate</code></td><td><span class="pill pill--bad">Gone</span></td><td>A price change means a rebuild — see §3.4, this is the real cost</td></tr>
       <tr><td>Middleware, rewrites, <code>cookies()</code>/<code>headers()</code></td><td><span class="pill pill--bad">Gone</span></td><td>Not needed by this site</td></tr>
-      <tr><td><code>next/image</code> optimisation</td><td><span class="pill pill--warn">Manual</span></td><td>Pre-generate WebP + responsive sizes at build; ship <code>&lt;picture&gt;</code></td></tr>
+      <tr><td><code>next/image</code> optimisation</td><td><span class="pill pill--good">Solved</span></td><td>Custom loader + WebP rendered at five widths in <code>prebuild</code> — see §10.2</td></tr>
       <tr><td>Per-product pages</td><td><span class="pill pill--good">Kept</span></td><td><code>generateStaticParams()</code> prerenders all 34</td></tr>
       <tr><td>Cart &amp; checkout</td><td><span class="pill pill--good">Kept</span></td><td>Runs in the browser against Shopify — §04</td></tr>
     </tbody>
@@ -1316,85 +1316,210 @@ GET /manifest.json  → 200  application/json 492 b
 
   <div class="box box--good">
     <div class="box__t">Where the build has actually reached</div>
-    <p>Phases <strong>0, 0b, 1 and 2 are complete and committed.</strong> HTTPS is live through
-    Cloudflare; the React branding is gone and replaced with a generated icon set; the Next.js
-    static export builds 64 pages plus <code>sitemap.xml</code> and <code>robots.txt</code>, every
-    one of them real HTML rather than the 1,126-byte shell the old site served; and the full catalog
-    — 34 products, 16 sub-categories, 3 groups — renders with structured data, canonical URLs and
-    social cards, verified on every build by <code>scripts/verify-export.ts</code>.</p>
-    <p style="margin-bottom:0"><strong>Work stopped at the start of Phase 3</strong>, which is where
-    the first hard Shopify dependency sits. Everything up to that line is done. The one outstanding
-    item from Phase 2 is the image pipeline — WebP conversion and responsive sizes — which is a
-    performance improvement, not a blocker, and is deliberately left until the Shopify CSV import
-    settles the final filenames.</p>
+    <p>Phases <strong>0, 0b and 1 are complete and live.</strong> HTTPS is served through Cloudflare
+    at <strong>Full (strict)</strong>; the React branding is gone, replaced by a generated icon set
+    and a wordmark that now carries the monogram; the Next.js static export builds 64 pages plus
+    <code>sitemap.xml</code> and <code>robots.txt</code>, every one of them real HTML rather than
+    the 1,126-byte shell the old site served; and the full catalog — 34 products, 16 sub-categories,
+    3 groups — renders with structured data, canonical URLs and social cards, verified on every
+    build by <code>scripts/verify-export.ts</code>. <strong>The new site is the live site.</strong></p>
+    <p><strong>Phase 2 is complete.</strong> The image pipeline was the last item: 188 source
+    photographs are now rendered to WebP at five widths during <code>prebuild</code>, and
+    <code>next/image</code> is pointed at them through a custom loader, so a product card on a phone
+    pulls <strong>14 KB instead of 132 KB</strong> — a twelve-card grid fell from 1.6 MB to 0.2 MB.
+    The same pass removed a 6.5 MB <code>products.zip</code> that had been sitting publicly
+    downloadable in the image folder.</p>
+    <p style="margin-bottom:0"><strong>Phase 3 is the wall.</strong> Every remaining phase needs a
+    Shopify store to exist with the 34 products in it, because a cart line requires a real
+    <code>ProductVariant</code> ID that cannot be derived, guessed or stubbed. Phase 5 has partly
+    happened out of order — the cutover and the 301s are live — leaving analytics and Search
+    Console as the unblocked remainder. SEO copy and policy wording are deliberately parked in
+    Phase 8, at the owner's direction.</p>
   </div>
 
   <table>
-    <thead><tr><th>Phase</th><th>Scope</th><th>Ships</th><th class="num">Est.</th></tr></thead>
+    <thead><tr><th>Phase</th><th>Status</th><th>Scope</th><th>Ships</th><th class="num">Est.</th></tr></thead>
     <tbody>
       <tr>
-        <td><strong>0</strong><br><span class="tag">Now</span></td>
+        <td><strong>0</strong></td>
+        <td><span class="pill pill--good">Done</span><br><span class="tag">Full (strict)</span></td>
         <td><strong>Finish HTTPS.</strong> Confirm Cloudflare Universal SSL has issued, set encryption mode to <strong>Full</strong>, install a Cloudflare Origin CA cert in cPanel, move to <strong>Full (strict)</strong>, enable Always Use HTTPS, verify in a real browser</td>
         <td>A site that no longer warns customers away</td>
         <td class="num">½ day</td>
       </tr>
       <tr>
-        <td><strong>0b</strong><br><span class="tag">Now</span></td>
+        <td><strong>0b</strong></td>
+        <td><span class="pill pill--good">Done</span><br><span class="tag">+ header logo</span></td>
         <td><strong>Replace the React branding.</strong> Ship the real favicon set, apple-touch-icon, PWA icons, a corrected <code>manifest.json</code> and an <code>og-image</code> — onto the <em>current</em> site, no rebuild needed. Then request re-indexing of the home page</td>
         <td>Brand appears in tabs, on shares and — after Google recrawls — in search results</td>
         <td class="num">½ day</td>
       </tr>
       <tr>
         <td><strong>1</strong></td>
+        <td><span class="pill pill--good">Done</span><br><span class="tag">live, not staging</span></td>
         <td>Next.js static-export scaffold, design system from §08, new <code>.htaccess</code>, GitHub Actions pointed at <code>out/</code>, deploy to a staging subfolder</td>
         <td>Modern stack proven end-to-end on the real host</td>
         <td class="num">2–3 days</td>
       </tr>
       <tr>
         <td><strong>2</strong></td>
-        <td>Catalog build: data cleanup (§7.3), 34 product pages, 3 group + 16 sub-category pages, image pipeline, SEO, sitemap, redirect map</td>
+        <td><span class="pill pill--good">Done</span><br><span class="tag">SEO → Phase 8</span></td>
+        <td>Catalog build: data cleanup (§7.3), 34 product pages, 3 group + 16 sub-category pages, image pipeline, sitemap, redirect map</td>
         <td>The whole catalog as real, indexable HTML</td>
         <td class="num">4–6 days</td>
       </tr>
       <tr>
         <td><strong>3</strong></td>
-        <td>Shopify store setup, CSV import of 34 SKUs, tax config (fix the Karnataka default), GST invoicing app, Razorpay onboarding, policy pages</td>
+        <td><span class="pill pill--bad">Blocked</span><br><span class="tag">policy copy → Phase 8</span></td>
+        <td>Shopify store setup, CSV import of 34 SKUs, tax config (fix the Karnataka default), GST invoicing app, Razorpay onboarding</td>
         <td>A store that can legally take money</td>
         <td class="num">2–3 days<br><span class="tag">+ KYC wait</span></td>
       </tr>
       <tr>
         <td><strong>4</strong></td>
+        <td><span class="pill pill--bad">Blocked</span><br><span class="tag">seam ready</span></td>
         <td>Cart against the Storefront API, <code>shop.</code> subdomain to Shopify, checkout handoff, end-to-end test with a real ₹1 order</td>
         <td><strong>Working checkout</strong></td>
         <td class="num">3–4 days</td>
       </tr>
       <tr>
         <td><strong>5</strong><br><span class="tag">Launch</span></td>
+        <td><span class="pill pill--warn">Partial</span><br><span class="tag">cutover done</span></td>
         <td>Cutover (§11), 301s live, analytics, Search Console, sitemap submitted</td>
         <td>🚀 The new site is the site</td>
         <td class="num">1 day</td>
       </tr>
       <tr>
         <td><strong>6</strong></td>
+        <td><span class="pill pill--mute">Not started</span><br><span class="tag">needs decisions</span></td>
         <td>Shiprocket, real freight rates, revisit the ₹20,000 free-shipping threshold</td>
         <td>Fulfilment that does not lose money</td>
         <td class="num">2 days</td>
       </tr>
       <tr>
         <td><strong>7</strong><br><span class="tag">Later</span></td>
+        <td><span class="pill pill--mute">Not started</span></td>
         <td>Shopify webhook → auto-rebuild; live price fetch; genuine review collection</td>
         <td>Owner independence for pricing</td>
+        <td class="num">2–3 days</td>
+      </tr>
+      <tr>
+        <td><strong>8</strong><br><span class="tag">Last</span></td>
+        <td><span class="pill pill--mute">Deferred</span><br><span class="tag">owner's call</span></td>
+        <td><strong>Content, policy and SEO polish.</strong> Work the 79-question SEO brief into
+        titles, descriptions and category copy; Google Business Profile, and <code>LocalBusiness</code>
+        schema once a street address and phone number exist; re-read the five policy pages against the
+        terms Shopify and Razorpay actually settle on</td>
+        <td>Rankings and legal copy that match the finished shop</td>
         <td class="num">2–3 days</td>
       </tr>
     </tbody>
   </table>
 
+  <div class="box">
+    <div class="box__t">Why SEO and policy copy now sit at the end</div>
+    <p style="margin-bottom:0">Both were moved deliberately, and both are safe to move for the same
+    reason: <strong>the version that ships first is not the version that survives Phase 3.</strong>
+    The five policy pages are already written and live, which is all Razorpay and Shopify onboarding
+    require — but their <em>content</em> describes shipping windows, returns and warranty terms that
+    Shopify's settings and the freight rates in Phase 6 will overwrite. Editing that copy now means
+    editing it twice. SEO is the same bet: titles and descriptions written against a catalog with no
+    live prices and no cart would be rewritten the moment either appears. What could not wait —
+    indexability, canonical URLs, structured data, the sitemap, and the Delhi signal — has already
+    shipped in Phases 1, 2 and 5.</p>
+  </div>
+
+  <h3>10.1 &nbsp;Work done outside the original plan</h3>
+  <p>None of this was in the phase table. It was found once the rebuilt site was live and real
+  behaviour could be measured rather than predicted.</p>
+
+  <table>
+    <thead><tr><th>Work</th><th>Status</th><th>What it was</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Server-side enquiry endpoint</strong></td>
+        <td><span class="pill pill--good">Done</span></td>
+        <td>The form was a <code>mailto:</code>, which fails silently for anyone without a desktop
+        mail client. Now posts to <code>enquiry.php</code>. Outbound SMTP is firewalled at this host
+        — Gmail, GoDaddy's own relay and Brevo all time out on 465 and 587 — so delivery goes
+        through the local Exim relay, which takes <strong>no credentials at all</strong>. Nothing to
+        leak, store or rotate. <code>mailto:</code> is kept as the failure path.</td>
+      </tr>
+      <tr>
+        <td><strong>SPF record</strong></td>
+        <td><span class="pill pill--good">Done</span></td>
+        <td>The domain published no SPF while DMARC was set to <code>p=quarantine</code>, so every
+        message the site sent was instructed straight into spam. Added and verified.</td>
+      </tr>
+      <tr>
+        <td><strong>Navigation &amp; UX audit</strong></td>
+        <td><span class="pill pill--good">Done</span></td>
+        <td>Three sub-categories holding a single product ended with no onward link at all. Also
+        fixed: the quote CTA was unreachable below 640px, <code>aria-current</code> was missing
+        throughout, and “View →” was hover-only so it never appeared on touch.</td>
+      </tr>
+      <tr>
+        <td><strong>Local SEO groundwork</strong></td>
+        <td><span class="pill pill--good">Done</span></td>
+        <td>The site carried no geographic signal anywhere. Delhi now appears in the homepage title,
+        the meta description, the footer of every page, the contact page, the About copy and a
+        locality-level <code>PostalAddress</code> in the <code>Organization</code> schema.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>10.2 &nbsp;Open defects</h3>
+
+  <table>
+    <thead><tr><th>Defect</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>404 serves the host's generic page</strong></td>
+        <td><span class="pill pill--bad">Open</span></td>
+        <td>The status code is correctly 404, but the body is GoDaddy's 1,699-byte “File Not Found”
+        rather than the branded 50 KB page the build produces. <code>ErrorDocument</code> is ignored
+        by this host even though every other directive in the same file is honoured. PHP is
+        confirmed available, so the fix is a catch-all rewrite to a <code>404.php</code>. <strong>The
+        trap:</strong> mod_rewrite runs before mod_alias, so a naive catch-all would intercept all 35
+        legacy <code>Redirect 301</code> rules and silently break every legacy URL — a far worse
+        regression than the bug. They must be converted to rewrites first.</td>
+      </tr>
+      <tr>
+        <td><strong>Images are unoptimised</strong></td>
+        <td><span class="pill pill--good">Fixed</span></td>
+        <td>Static export disables Next's image optimiser, and <code>unoptimized: true</code> also
+        suppresses <code>srcset</code> entirely — so a card displayed at 400px was fetching the full
+        1288px source. Now a custom loader resolves each width to a pre-rendered WebP.
+        <strong>−90% on a product grid.</strong> The <code>&lt;picture&gt;</code> approach in §05 was
+        dropped: a loader keeps <code>next/image</code>'s lazy-loading and aspect-ratio handling,
+        which hand-written markup would have given up on every surface.</td>
+      </tr>
+      <tr>
+        <td><strong>A 6.5 MB zip was publicly downloadable</strong></td>
+        <td><span class="pill pill--good">Fixed</span></td>
+        <td><code>public/</code> is copied verbatim into the export, so
+        <code>public/images/products.zip</code> was live at a guessable URL — along with six
+        <code>.DS_Store</code> files and two READMEs addressed to whoever was uploading photographs.
+        Nothing linked to any of it, so no link check could ever have caught it.
+        <code>verify-export.ts</code> now fails the build on published junk.
+        <strong>Note:</strong> the FTP deploy does not delete removed files, so the zip must also be
+        deleted by hand in cPanel.</td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="box box--gold">
-    <div class="box__t">Phase 0 is separable — do it this week</div>
-    <p style="margin-bottom:0">Fixing the certificate needs none of the rebuild. It is the single
-    highest-return action available: it stops turning away every customer who arrives over
-    <code>https://</code>, and it is a prerequisite for the Shopify CSV image import in Phase 3
-    anyway. <strong>Do not wait for the rebuild to ship this.</strong></p>
+    <div class="box__t">What unblocks what</div>
+    <p>Two things gate everything remaining, and neither is code:</p>
+    <p><strong>1. A Shopify store containing the 34 products.</strong> Phases 3, 4, 6 and 7 all
+    depend on it. <code>src/lib/commerce.ts</code> is already written as the seam, with an empty
+    <code>VARIANT_IDS</code> map and an <code>isPurchasable()</code> check that requires both a
+    feature flag and a real variant ID — so products can go live one at a time as their IDs land,
+    rather than needing a big-bang switch.</p>
+    <p style="margin-bottom:0"><strong>2. A street address and a phone number.</strong> These gate
+    <code>LocalBusiness</code> schema, a Google Business Profile and the map pack. For a furniture
+    business selling locally, the Business Profile outranks almost anything that can be changed on
+    the site itself — and it is free.</p>
   </div>
 </section>
 
