@@ -11,7 +11,10 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run lint",
-    "verify": "tsx scripts/verify-export.ts"
+    "verify": "tsx scripts/verify-export.ts",
+    "shopify:csv": "tsx scripts/shopify/export-csv.ts",
+    "shopify:preflight": "tsx scripts/shopify/preflight.ts",
+    "shopify:sync": "tsx scripts/shopify/sync.ts"
   },
   "dependencies": {
     "next": "16.3.5",

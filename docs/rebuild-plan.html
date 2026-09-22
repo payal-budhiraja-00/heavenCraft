@@ -1023,16 +1023,53 @@ window.location = checkoutUrl   → Shopify's hosted checkout</code></pre>
     <li><strong>Export a CSV from the store first</strong> and match its exact header row. Shopify's own
       docs disagree on whether the image column is <code>Image Src</code> or <code>Product image URL</code>.</li>
     <li>Images must be at <strong>publicly reachable URLs</strong> for Shopify to pull and re-host them.
-      Convenient here: they are already live on the current site — but that site's certificate is
-      untrusted, so <strong>fix TLS first or the import may fail</strong>. A neat forcing function.</li>
+      Convenient here: they are already live on the current site.
+      <span class="pill pill--ok">Resolved</span> TLS was fixed in Phase 0b, and all 95 image URLs
+      were re-verified returning 200 before the payload was built.</li>
     <li>Additional images are extra rows carrying only the handle and image URL.</li>
     <li><strong>Leave inventory untracked.</strong> Tracking causes checkout to block at zero stock,
       which is wrong for a reseller ordering in on demand.</li>
     <li>Put 6-digit <strong>HSN codes</strong> in the HS tariff field during import — backfilling later
       across the catalog is far more expensive than entering it once.</li>
     <li><strong>Trim the 7 leading-space product names before export</strong>, or they import with the
-      space and corrupt every generated handle.</li>
+      space and corrupt every generated handle.
+      <span class="pill pill--ok">Resolved</span> <code>catalog.ts</code> trims at the source, so every
+      downstream surface — site, CSV and API — agrees.</li>
   </ul>
+
+  <h3>7.1a &nbsp;Two routes in, sharing one payload</h3>
+  <p>The catalog is transformed once, in <code>scripts/shopify/payload.ts</code>, and consumed by both a
+  CSV export and an Admin API sync. Keeping a single transform is the point: a CSV and an API client that
+  disagree about what a product is would be a bug nobody notices until an order is wrong.</p>
+  <table>
+    <thead><tr><th>Command</th><th>What it does</th><th>Writes to Shopify</th></tr></thead>
+    <tbody>
+      <tr><td><code>npm run shopify:csv</code></td><td>Writes <code>docs/shopify/products-import.csv</code> (95 rows) for manual import, plus <code>owner-input.csv</code></td><td>No</td></tr>
+      <tr><td><code>npm run shopify:preflight</code></td><td>Checks API version, scopes, store currency, handle collisions and image reachability</td><td>No — read only</td></tr>
+      <tr><td><code>npm run shopify:sync</code></td><td>Dry run: prints exactly what would be sent</td><td>No</td></tr>
+      <tr><td><code>npm run shopify:sync -- --live --limit 1</code></td><td>Proves the round trip on a single product</td><td>Yes, one product</td></tr>
+      <tr><td><code>npm run shopify:sync -- --live</code></td><td>Full sync, idempotent by handle</td><td>Yes</td></tr>
+    </tbody>
+  </table>
+  <div class="box">
+    <p><strong>Why the API route is the safer one, despite being more code.</strong> A CSV import is a
+    single irreversible transaction with no dry run: if the header row is wrong you find out from 34
+    broken products. The sync is <strong>idempotent</strong> — it matches on handle and updates in place,
+    so a half-finished run is repaired by running it again rather than by deleting and starting over.
+    It also defaults to <strong>dry run</strong>, and creates products as <strong>draft</strong> unless
+    <code>--publish</code> is passed, so a mistake is never visible to a shopper. The CSV stays as the
+    fallback for the day the API is not an option.</p>
+    <p><strong>The credential never touches this repo.</strong> An Admin API token can read orders and
+    customer PII and delete the catalog, so it is read from a gitignored <code>.env</code>
+    (see <code>.env.example</code>), never logged, and never passed as a command-line argument where it
+    would land in shell history. The app should be granted <code>read_products</code> and
+    <code>write_products</code> and nothing else; preflight warns if it holds more.</p>
+  </div>
+  <p><strong>Checks that exist because they fail silently otherwise:</strong> store currency must be INR,
+  or <code>13999.00</code> imports as thirteen thousand dollars; images must return 200, or the product
+  imports cleanly with no photograph; and the two supplier photographs carrying a rival's wordmark are
+  pushed down the gallery rather than dropped, so they never become the collection thumbnail or the
+  checkout line-item image.</p>
 
   <h3>7.2 &nbsp;Draft orders as a side channel, not the main road</h3>
   <p>Custom line items that do not exist in the catalog are possible — via Admin API draft orders — but
