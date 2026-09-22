@@ -59,6 +59,20 @@ for (const required of [
   if (!present.has(required)) fail(`missing required file ${required}`);
 }
 
+/**
+ * `public/` is copied verbatim into the export, so anything dropped in it is
+ * published. A 6.5 MB `products.zip` sat at a guessable URL this way, next to
+ * macOS `.DS_Store` files and two READMEs addressed to whoever was uploading
+ * photographs. None of it was referenced by a page, so nothing caught it.
+ */
+for (const file of files) {
+  const url = toUrl(file);
+  if (!url.startsWith("/images/")) continue;
+  if (/\/\.DS_Store$/.test(url) || /\.zip$/i.test(url) || /\/README\.md$/i.test(url)) {
+    fail(`junk file published: ${url}`);
+  }
+}
+
 /* ------------------------------------------- 2. links and assets resolve */
 
 const resolves = (url: string) => {
@@ -93,6 +107,14 @@ for (const file of pages) {
   const refs = [
     ...captures(html, /href="([^"]+)"/g),
     ...captures(html, /src="([^"]+)"/g),
+    // Every responsive candidate, not just the fallback src. These URLs are
+    // computed by src/lib/image-loader.ts from a hash of the source path and
+    // written separately by scripts/generate-images.ts, so a drift between
+    // the two would break every image on the site while leaving `src` — the
+    // largest width, which both agree on — looking perfectly fine.
+    ...captures(html, /srcSet="([^"]+)"/g).flatMap((set) =>
+      set.split(",").map((candidate) => candidate.trim().split(/\s+/)[0] ?? ""),
+    ),
   ];
 
   for (const ref of refs) {

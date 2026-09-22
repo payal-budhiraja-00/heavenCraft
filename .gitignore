@@ -16,6 +16,10 @@ next-env.d.ts
 .impeccable/
 .vercel
 
+# Responsive WebP derivatives, rebuilt from public/images by `prebuild`.
+# ~900 files that would swamp every diff and clone.
+public/images/_opt/
+
 # OS / editor
 .DS_Store
 */DS_Store
