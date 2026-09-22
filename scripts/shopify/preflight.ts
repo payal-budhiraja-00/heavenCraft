@@ -223,6 +223,58 @@ async function checkImages(): Promise<void> {
   );
 }
 
+/**
+ * Shopify sits behind Cloudflare, so `server: cloudflare` says nothing about
+ * who serves a host. `powered-by: Shopify` is the honest signal.
+ */
+async function servedByShopify(host: string): Promise<boolean> {
+  try {
+    const response = await fetch(`https://${host}/`, { redirect: "manual" });
+    return /shopify/i.test(response.headers.get("powered-by") ?? "");
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Where "Pay now" actually lands.
+ *
+ * The Storefront API builds `cart.checkoutUrl` on the store's PRIMARY domain,
+ * not on myshopifyDomain. When the marketing site and the store share a root
+ * domain it is easy to make the marketing domain primary, and then checkout
+ * redirects to a host Shopify does not serve. Nothing before the payment step
+ * looks wrong, which is what makes it worth checking every run.
+ */
+async function checkCheckoutDomain(env: ShopifyEnv): Promise<void> {
+  const data = await shopifyGraphql<{
+    shop: { primaryDomain: { host: string } };
+  }>(env, `{ shop { primaryDomain { host } } }`);
+
+  const host = data.shop.primaryDomain.host;
+
+  if (host.toLowerCase().endsWith(".myshopify.com")) {
+    record(
+      true,
+      "Checkout domain",
+      `${host} -- Shopify serves this itself, so checkout resolves`,
+    );
+    return;
+  }
+
+  const ok = await servedByShopify(host);
+  record(
+    ok,
+    "Checkout domain",
+    ok
+      ? `${host} is served by Shopify -- checkout will resolve`
+      : `${host} is the primary domain, so cart.checkoutUrl points there, but it\n` +
+          "         is not served by Shopify and checkout would 404.\n" +
+          "         Add a subdomain as CNAME -> shops.myshopify.com (DNS-only, NOT\n" +
+          "         proxied, if Cloudflare fronts the zone), then make it primary\n" +
+          "         in Shopify Settings -> Domains.",
+  );
+}
+
 async function main(): Promise<void> {
   console.log("Shopify preflight -- read only, nothing will be created.\n");
 
@@ -235,6 +287,7 @@ async function main(): Promise<void> {
     await checkScopes(env);
     await checkApiVersion(env);
     await checkShop(env);
+    await checkCheckoutDomain(env);
     await checkExistingProducts(env);
   }
   await checkImages();
