@@ -211,10 +211,10 @@ td strong{color:var(--cream)}
         <td class="num">5 min</td>
       </tr>
       <tr>
-        <td><span class="pill pill--warn">S1</span></td>
-        <td><a href="#s1">Store is named “My Store”</a></td>
-        <td>Appears in checkout and order emails at the moment of payment</td>
-        <td class="num">2 min</td>
+        <td><span class="pill pill--good">S1</span></td>
+        <td><a href="#s1">Store name — <strong>done</strong></a></td>
+        <td>Now reads <code>HeavenCraft</code> in checkout and order emails</td>
+        <td class="num">—</td>
       </tr>
       <tr>
         <td><span class="pill pill--warn">S2</span></td>
@@ -398,26 +398,25 @@ FI  FR  GB  HK  IE  IL  IT  JP  KR  …</code></pre>
 </section>
 
 <section id="s1">
-  <span class="sec-n">S1 — Worth fixing</span>
-  <h2>The store is called “My Store”</h2>
+  <span class="sec-n">S1 — Resolved</span>
+  <h2>The store name is fixed</h2>
   <span class="rule"></span>
 
-  <p>The store name is still Shopify's placeholder. That name is not cosmetic — it appears
-  in the checkout header, in order confirmation and shipping emails, and in some card
+  <p>The store was called <em>My Store</em>, Shopify's placeholder. That name is not cosmetic —
+  it appears in the checkout header, in order confirmation and shipping emails, and in some card
   statement descriptors. A customer entering card details on a page headed
   <em>My Store</em> is a customer wondering whether they have been phished.</p>
 
-  <div class="box box--warn">
-    <div class="box__t">Checked again after you changed it — still “My Store”</div>
-    <p>Re-read from the Admin API, which is authoritative and uncached, and it still returns
-    <code>My Store</code>. The field is <strong>Settings → General → Store details → Store
-    name</strong>. It is easy to edit <em>Legal business name</em> just below it by mistake —
-    that one is used for invoices and billing, and is a separate value.</p>
+  <div class="box box--good">
+    <div class="box__t">Confirmed changed — both APIs now return “HeavenCraft”</div>
+    <p>The Admin API, which is authoritative and uncached, returns <code>HeavenCraft</code>.
+    The Storefront API lagged by a few minutes because it is cached at Shopify's CDN edge,
+    then caught up and now returns the same. Nothing further to do here.</p>
   </div>
 
-  <p>Set <strong>Store name</strong> to <code>HeavenCraft</code>.</p>
-  <p>While there, check <strong>Store contact email</strong> and <strong>Sender email</strong>.
-  Order email is already <code>heavencraftorders@gmail.com</code>, which is correct.</p>
+  <p>While you are in <strong>Settings → General</strong>, check <strong>Store contact
+  email</strong> and <strong>Sender email</strong>. Order email is already
+  <code>heavencraftorders@gmail.com</code>, which is correct.</p>
 </section>
 
 <section id="s2">
