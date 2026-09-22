@@ -36,6 +36,9 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
             >
               {SITE.email}
             </a>
+            <p className="mt-3 text-sm text-cream-muted">
+              Based in {SITE.city} · Delivered across India
+            </p>
           </div>
 
           {groups.map((group) => (

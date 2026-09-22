@@ -49,6 +49,12 @@ export default function ContactPage() {
               </dd>
             </div>
             <div>
+              <dt className="label text-cream-faint">Based in</dt>
+              <dd className="mt-1.5 text-sm text-cream-muted">
+                {SITE.city}, India.
+              </dd>
+            </div>
+            <div>
               <dt className="label text-cream-faint">Delivery</dt>
               <dd className="mt-1.5 text-sm text-cream-muted">
                 Across India. Send your pincode and we will confirm what it

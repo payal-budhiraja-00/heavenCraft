@@ -13,8 +13,18 @@ export const SITE = {
   legalName: "HeavenCraft, a unit of Jiwan",
   origin: "https://theheavencraft.in",
   email: "heavencraft09@gmail.com",
+  /*
+   * City only. Street address, pincode and phone are still outstanding, and
+   * they are what blocks LocalBusiness schema and a Google Business Profile
+   * -- both need a full address Google can verify. Until then this stays at
+   * locality level rather than guessing the rest, because a wrong address is
+   * far more damaging than a partial one.
+   */
+  city: "Delhi",
+  region: "DL",
+  country: "IN",
   description:
-    "Ergonomic chairs, height-adjustable desks and workspace accessories, built for long working days.",
+    "Ergonomic chairs, height-adjustable desks and workspace accessories, built for long working days. Based in Delhi, delivered across India.",
 } as const;
 
 /** Absolute URL for canonicals, Open Graph and structured data. */

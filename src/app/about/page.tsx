@@ -4,7 +4,7 @@ import { allProducts, groups } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
 
 const description =
-  "HeavenCraft supplies ergonomic chairs, height-adjustable desks and workspace accessories across India.";
+  "HeavenCraft is a Delhi-based supplier of ergonomic chairs, height-adjustable desks and workspace accessories, delivering across India.";
 
 export const metadata = pageMetadata({
   title: "About",
@@ -27,10 +27,10 @@ export default function AboutPage() {
 
         <div className="mt-8 space-y-5 text-reading leading-relaxed text-cream-muted">
           <p>
-            HeavenCraft is a unit of Jiwan. We supply ergonomic seating,
-            height-adjustable desks and the workspace hardware that goes with
-            them — to people working from home, to studios, and to offices
-            fitting out a floor.
+            HeavenCraft is a unit of Jiwan, based in Delhi. We supply ergonomic
+            seating, height-adjustable desks and the workspace hardware that
+            goes with them — to people working from home, to studios, and to
+            offices fitting out a floor.
           </p>
           <p>
             Most furniture is sold on how it looks in a photograph. That is a

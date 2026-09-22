@@ -18,10 +18,22 @@ const archivo = Archivo({
   axes: ["wdth"],
 });
 
+/*
+ * The city is in the homepage title deliberately. HeavenCraft cannot outrank
+ * Featherlite, Godrej or Amazon for "ergonomic furniture" nationally, but
+ * local intent -- "ergonomic chair delhi" -- is winnable, and the title is
+ * the strongest on-page signal available for it. Keyword leads, brand
+ * follows, matching the `%s | HeavenCraft` template used everywhere else.
+ *
+ * Declared once because Next does not derive openGraph or twitter titles
+ * from `title`; three separate copies would drift apart.
+ */
+const HOME_TITLE = `Ergonomic Chairs & Desks in Delhi | ${SITE.name}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.origin),
   title: {
-    default: `${SITE.name} — Ergonomic Chairs, Desks & Workspace Accessories`,
+    default: HOME_TITLE,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -47,7 +59,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: "en_IN",
     url: SITE.origin,
-    title: `${SITE.name} — Ergonomic Chairs, Desks & Workspace Accessories`,
+    title: HOME_TITLE,
     description: SITE.description,
     images: [
       {
@@ -60,7 +72,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Ergonomic Chairs, Desks & Workspace Accessories`,
+    title: HOME_TITLE,
     description: SITE.description,
     images: ["/og/default.png"],
   },
@@ -76,6 +88,12 @@ export const viewport = {
  * Organization only. No `aggregateRating` anywhere on this site: the ratings
  * in the source data are seeded demo content, and emitting them as structured
  * data would be a search-policy breach, not just an exaggeration.
+ *
+ * Deliberately NOT LocalBusiness/FurnitureStore yet. That type tells Google
+ * there is a place customers can visit, and it needs a street address and
+ * phone to earn a map listing. We have the city and nothing else, so this
+ * stays an Organization with a locality-level address until the rest of the
+ * details land -- an unverifiable storefront claim is worse than none.
  */
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -86,6 +104,12 @@ const organizationSchema = {
   logo: absoluteUrl("/icons/icon-512.png"),
   email: SITE.email,
   description: SITE.description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: SITE.city,
+    addressRegion: SITE.region,
+    addressCountry: SITE.country,
+  },
   areaServed: "IN",
 };
 
