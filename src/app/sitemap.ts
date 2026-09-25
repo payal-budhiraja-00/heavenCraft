@@ -26,13 +26,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Collapsed ranges share their URL with their only product, which the
+  // product entry below already lists. Emitting both would put a duplicate
+  // <loc> in the sitemap.
   const subPages: MetadataRoute.Sitemap = groups.flatMap((group) =>
-    group.subCategories.map((sub) => ({
-      url: absoluteUrl(sub.href),
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
+    group.subCategories
+      .filter((sub) => !sub.collapsed)
+      .map((sub) => ({
+        url: absoluteUrl(sub.href),
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })),
   );
 
   const productPages: MetadataRoute.Sitemap = allProducts.map((product) => ({

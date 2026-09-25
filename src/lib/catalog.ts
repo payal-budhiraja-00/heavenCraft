@@ -18,6 +18,7 @@ import type {
   Product,
   Review,
   SubCategory,
+  Variant,
 } from "./catalog-types";
 import { rupeesToPaise } from "./money";
 
@@ -31,11 +32,22 @@ type RawReview = {
   verified?: boolean;
 };
 
+type RawVariant = {
+  id: string;
+  colour: string;
+  colourSlug: string;
+  price: number;
+  images: string[];
+  inStock?: boolean;
+};
+
 type RawProduct = {
   id: string;
   name: string;
+  shortName?: string;
   category: string;
   subCategory: string;
+  subName?: string;
   price: number;
   currency: string;
   rating?: number;
@@ -43,6 +55,7 @@ type RawProduct = {
   features?: string[];
   images?: string[];
   inStock?: boolean;
+  variants?: RawVariant[];
   reviews?: RawReview[];
 };
 
@@ -57,7 +70,7 @@ const GROUP_META: Record<GroupSlug, { name: string; description: string }> = {
   chairs: {
     name: "Chairs",
     description:
-      "Mesh, fabric and leather task chairs built to be sat in for eight hours, not looked at for five minutes.",
+      "Mesh and performance-mesh task chairs built to be sat in for eight hours, not looked at for five minutes.",
   },
   tables: {
     name: "Tables",
@@ -67,14 +80,19 @@ const GROUP_META: Record<GroupSlug, { name: string; description: string }> = {
   accessories: {
     name: "Accessories",
     description:
-      "Monitor stands, footrests, cable trays and the small hardware that decides whether a desk actually works.",
+      "Footrests, trays, organisers and the small hardware that decides whether a desk actually works.",
   },
 };
 
 /**
- * Display names for sub-categories. A naive title-case would give "Cpu Stand"
- * and "Storage Boxs", so the irregular ones are named explicitly and the rest
- * fall through to a derived plural.
+ * Display names for sub-categories. A naive title-case would give "Peg Boards"
+ * and "Desk Side Organisers" from the slug alone, so every range is named
+ * explicitly and the derived plural is only a fallback.
+ *
+ * Several slugs deliberately no longer match their display name: the September
+ * 2026 range change renamed "Cable Trays" to "Cable Management Tray", but the
+ * slug stays `cable-tray` because that URL is indexed. A slug is an address,
+ * not a label, and renaming one costs ranking for no gain.
  */
 const SUB_META: Record<string, { name: string; description: string }> = {
   "mesh-chair": {
@@ -82,13 +100,10 @@ const SUB_META: Record<string, { name: string; description: string }> = {
     description:
       "Breathable mesh backs that stay cool through a full working day.",
   },
-  "fabric-chair": {
-    name: "Fabric Chairs",
-    description: "Upholstered task chairs with padded, longer-wearing support.",
-  },
-  "leather-chair": {
-    name: "Leather Chairs",
-    description: "Executive leather seating for meeting rooms and cabins.",
+  "performance-mesh-chair": {
+    name: "Performance Mesh Chairs",
+    description:
+      "Mesh chairs with a deeper range of adjustment, for desks that are worked at rather than sat at.",
   },
   "bed-table": {
     name: "Bed Tables",
@@ -115,34 +130,37 @@ const SUB_META: Record<string, { name: string; description: string }> = {
     name: "Gaming Desks",
     description: "Deep-surface desks built around multi-monitor setups.",
   },
-  "storage-box": {
-    name: "Storage Boxes",
-    description: "Under-desk storage that keeps the floor clear.",
-  },
   footrest: {
     name: "Footrests",
     description:
       "Angled footrests that fix hip angle when the chair is at the right height but the floor is not.",
   },
   "cable-tray": {
-    name: "Cable Trays",
+    name: "Cable Management Trays",
     description: "Under-desk cable management for a desk that can still move.",
-  },
-  "cpu-stand": {
-    name: "CPU Stands",
-    description: "Mobile stands that lift a tower off the floor.",
-  },
-  "monitor-stand": {
-    name: "Monitor Stands",
-    description: "Risers that bring a screen up to eye height.",
   },
   "cup-holder": {
     name: "Cup Holders",
     description: "Clamp-on holders that keep a drink off the work surface.",
   },
-  "desk-hook": {
-    name: "Desk Hooks",
-    description: "Side-mounted hooks for bags, headphones and cables.",
+  "desk-shelf-tray": {
+    name: "Desk Shelf Trays",
+    description: "Raised shelves that give back the desk space under a monitor.",
+  },
+  "desk-side-organiser": {
+    name: "Desk Side Organisers",
+    description:
+      "Side-mounted storage for the things that otherwise live on the work surface.",
+  },
+  "keyboard-tray": {
+    name: "Keyboard Trays",
+    description:
+      "Under-desk trays that drop the keyboard to elbow height without lowering the whole desk.",
+  },
+  "peg-board": {
+    name: "Peg-Boards",
+    description:
+      "Perforated boards that clamp to the back of the desk and take hooks, cups and holders.",
   },
 };
 
@@ -201,19 +219,65 @@ function build(): { groups: Group[]; products: Product[] } {
     const slug = slugify(name);
     const sub = SUB_META[subSlug];
 
+    // Single-colourway products still get a variant. The basket is
+    // variant-bound -- Shopify's Cart API takes a ProductVariant id and cannot
+    // express "add the product" -- so a product with no variants would be
+    // unbuyable. Synthesising one here keeps every downstream consumer,
+    // including the colour picker and the BuyBox, on a single code path.
+    const rawVariants: RawVariant[] =
+      row.variants && row.variants.length > 0
+        ? row.variants
+        : [
+            {
+              id: `${slug}--default`,
+              colour: "Default",
+              colourSlug: "default",
+              price: row.price,
+              images: row.images ?? [],
+              inStock: row.inStock,
+            },
+          ];
+
+    const variants: Variant[] = rawVariants.map((v) => ({
+      id: v.id,
+      colour: v.colour.trim(),
+      colourSlug: v.colourSlug,
+      pricePaise: rupeesToPaise(v.price),
+      images: v.images ?? [],
+      inStock: v.inStock !== false,
+    }));
+
+    const seenColours = new Set<string>();
+    for (const v of variants) {
+      if (seenColours.has(v.colourSlug)) {
+        throw new Error(
+          `Product ${row.id} has two variants with colour slug "${v.colourSlug}". ` +
+            `Colour slugs address a variant in the URL, so they must be unique within a product.`,
+        );
+      }
+      seenColours.add(v.colourSlug);
+    }
+
+    const defaultVariant = variants[0];
+    if (!defaultVariant) {
+      throw new Error(`Product ${row.id} resolved to zero variants.`);
+    }
+
     products.push({
       id: row.id,
       slug,
       name,
+      shortName: (row.shortName ?? name).trim(),
       description: row.description.trim(),
       features: (row.features ?? []).map((f) => f.trim()),
       groupSlug,
       groupName: GROUP_META[groupSlug].name,
       subSlug,
-      subName: sub?.name ?? titleCasePlural(subSlug),
-      pricePaise: rupeesToPaise(row.price),
-      inStock: row.inStock !== false,
-      images: row.images ?? [],
+      subName: row.subName?.trim() || sub?.name || titleCasePlural(subSlug),
+      pricePaise: Math.min(...variants.map((v) => v.pricePaise)),
+      inStock: variants.some((v) => v.inStock),
+      images: row.images ?? defaultVariant.images,
+      variants,
       reviews: (row.reviews ?? []).map(toReview),
       href: `/${groupSlug}/${slug}/`,
     });
@@ -226,13 +290,17 @@ function build(): { groups: Group[]; products: Product[] } {
       const subSlugs = [...new Set(inGroup.map((p) => p.subSlug))];
       const subCategories: SubCategory[] = subSlugs.map((subSlug) => {
         const meta = SUB_META[subSlug];
+        const inSub = inGroup.filter((p) => p.subSlug === subSlug);
+        const onlyProduct = inSub.length === 1 ? inSub[0] : undefined;
+
         return {
           slug: subSlug,
           name: meta?.name ?? titleCasePlural(subSlug),
           description: meta?.description ?? "",
           groupSlug,
-          products: inGroup.filter((p) => p.subSlug === subSlug),
+          products: inSub,
           href: `/${groupSlug}/${subSlug}/`,
+          collapsed: onlyProduct?.slug === subSlug,
         };
       });
 
@@ -255,7 +323,8 @@ function build(): { groups: Group[]; products: Product[] } {
 /**
  * Products and sub-categories share one URL shape -- /chairs/mesh-chair is a
  * sub-category and /chairs/neuro-mesh-chair is a product. That is only safe
- * while no product slug equals a sub-category slug inside the same group.
+ * while no product slug equals a sub-category slug inside the same group,
+ * unless the sub-category is deliberately collapsed into that one product.
  *
  * Nothing in products.json enforces that, so it is enforced here. Failing the
  * build is the correct outcome: the alternative is one of the two pages
@@ -265,7 +334,11 @@ function assertNoRouteCollisions(groups: Group[]): void {
   const problems: string[] = [];
 
   for (const group of groups) {
-    const subSlugs = new Set(group.subCategories.map((s) => s.slug));
+    // A collapsed range yields its URL to its only product on purpose, so it
+    // is not a claimant here. Every other range still is.
+    const subSlugs = new Set(
+      group.subCategories.filter((s) => !s.collapsed).map((s) => s.slug),
+    );
     const seen = new Map<string, string>();
 
     for (const product of group.products) {
@@ -302,11 +375,17 @@ export function getGroup(slug: string): Group | undefined {
   return groups.find((g) => g.slug === slug);
 }
 
+/**
+ * Collapsed ranges are excluded: their URL belongs to their only product, and
+ * returning one here would shadow that product page in the router.
+ */
 export function getSubCategory(
   groupSlug: string,
   subSlug: string,
 ): SubCategory | undefined {
-  return getGroup(groupSlug)?.subCategories.find((s) => s.slug === subSlug);
+  return getGroup(groupSlug)?.subCategories.find(
+    (s) => s.slug === subSlug && !s.collapsed,
+  );
 }
 
 export function getProduct(

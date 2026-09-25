@@ -36,7 +36,6 @@ import { features } from "./features";
 import type { Product } from "./catalog-types";
 import { priceStringToPaise } from "./money";
 import { storefront } from "./shopify";
-import { SITE } from "./site";
 import { GENERATED_VARIANTS } from "./variant-ids.generated";
 
 /** Shopify `ProductVariant` GID. Minted by Shopify; cannot be derived. */
@@ -105,10 +104,12 @@ export interface CommerceAdapter {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Variant IDs, keyed by the `id` in products.json.
+ * Variant IDs, keyed by SKU -- which is the `id` of a variant in
+ * products.json, e.g. `accessories-footrest-001--wooden-teak`.
  *
- * Read by `isPurchasable` to decide whether a product can be bought or only
- * enquired about, so the site degrades per-product rather than all at once.
+ * Read by `isPurchasable` to decide whether a variant can be bought or only
+ * enquired about, so the site degrades per-colourway rather than all at once:
+ * a chair whose black is synced and whose white is not still sells in black.
  */
 export const VARIANT_IDS: Readonly<Record<string, VariantId>> =
   Object.fromEntries(
@@ -123,20 +124,25 @@ const HREF_BY_SKU: Readonly<Record<string, string>> = Object.fromEntries(
   Object.entries(GENERATED_VARIANTS).map(([sku, variant]) => [sku, variant.href]),
 );
 
-export function variantIdFor(product: Product): VariantId | undefined {
-  return VARIANT_IDS[product.id];
+export function variantIdForSku(sku: string): VariantId | undefined {
+  return VARIANT_IDS[sku];
 }
 
 /**
- * Whether this product can be added to a cart at all. Requires both the build
+ * Whether this variant can be added to a cart at all. Requires both the build
  * flag and a real variant ID -- the flag alone is not enough.
  *
  * This is not the whole story at runtime: the preview gate in
  * `commerce-preview.ts` decides whether the cart is *visible* to a given
  * browser. Both must be true before an add-to-cart button renders.
  */
+export function isPurchasableSku(sku: string): boolean {
+  return features.commerce && variantIdForSku(sku) !== undefined;
+}
+
+/** True when any colourway of this product is buyable. */
 export function isPurchasable(product: Product): boolean {
-  return features.commerce && variantIdFor(product) !== undefined;
+  return product.variants.some((variant) => isPurchasableSku(variant.id));
 }
 
 /* -------------------------------------------------------------------------- */
@@ -358,15 +364,31 @@ export const shopifyCommerce: CommerceAdapter = {
 /* Enquiry fallback                                                           */
 /* -------------------------------------------------------------------------- */
 
-/** Anything can be enquired about, including things not yet in Shopify. */
-export function enquiryHref(product: Product, origin: string): string {
-  const subject = `Enquiry: ${product.name}`;
+/**
+ * Anything can be enquired about, including things not yet in Shopify.
+ *
+ * Takes flat fields rather than a `Product` so the colour picker can call it
+ * in the browser for the selected colourway. While the basket is gated this
+ * mailto is the only way an order reaches us, and an enquiry that does not
+ * say which of three footrest finishes the customer meant costs a reply.
+ */
+export function enquiryMailto(input: {
+  name: string;
+  reference: string;
+  pageUrl: string;
+  colour?: string | null;
+  email: string;
+}): string {  const subject = input.colour
+    ? `Enquiry: ${input.name} (${input.colour})`
+    : `Enquiry: ${input.name}`;
+
   const body = [
     `I would like to enquire about this product.`,
     ``,
-    `Product: ${product.name}`,
-    `Reference: ${product.id}`,
-    `Page: ${origin}${product.href}`,
+    `Product: ${input.name}`,
+    ...(input.colour ? [`Colour: ${input.colour}`] : []),
+    `Reference: ${input.reference}`,
+    `Page: ${input.pageUrl}`,
     ``,
     `Quantity needed:`,
     `Delivery pincode:`,
@@ -375,7 +397,7 @@ export function enquiryHref(product: Product, origin: string): string {
     ``,
   ].join("\n");
 
-  return `mailto:${SITE.email}?subject=${encodeURIComponent(
+  return `mailto:${input.email}?subject=${encodeURIComponent(
     subject,
   )}&body=${encodeURIComponent(body)}`;
 }

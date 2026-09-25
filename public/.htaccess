@@ -71,43 +71,111 @@ Options -Indexes
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
 <IfModule mod_alias.c>
+  Redirect 301 /product/accessories-cable-tray-001 /accessories/cable-management-tray/
+  Redirect 301 /product/accessories-cup-holder-001 /accessories/cup-holder/
+  Redirect 301 /product/desk-shelf-tray /accessories/desk-shelf-tray/
+  Redirect 301 /product/desk-side-organiser /accessories/desk-side-organiser/
+  Redirect 301 /product/accessories-footrest-001 /accessories/footrest/
+  Redirect 301 /product/keyboard-tray /accessories/keyboard-tray/
+  Redirect 301 /product/peg-board /accessories/peg-board/
   Redirect 301 /product/chair-mesh-004 /chairs/neuro-mesh-chair/
-  Redirect 301 /product/chair-mesh-005 /chairs/zynx-mesh-chair/
   Redirect 301 /product/chair-mesh-006 /chairs/xyron-mesh-chair/
-  Redirect 301 /product/chair-leather-002 /chairs/rider-leather-chair/
-  Redirect 301 /product/chair-leather-003 /chairs/nexor-leather-chair/
-  Redirect 301 /product/chair-leather-005 /chairs/valerio-leather-chair/
-  Redirect 301 /product/chair-fabric-001 /chairs/fabio-fabric-chair/
-  Redirect 301 /product/chair-fabric-003 /chairs/casca-fabric-chair/
-  Redirect 301 /product/chair-fabric-005 /chairs/niyo-fabric-chair/
-  Redirect 301 /product/table-bed-003 /tables/flexon-bed-table/
-  Redirect 301 /product/table-folding-002 /tables/exquisite-primex-folding-table/
-  Redirect 301 /product/table-folding-004 /tables/nextable-folding-table/
-  Redirect 301 /product/table-height-adjustable-002 /tables/modura-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-003 /tables/modura-primex-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-005 /tables/modulus-primex-height-adjustable-table/
-  Redirect 301 /product/table-height-adjustable-006 /tables/movix-height-adjustable-table/
+  Redirect 301 /product/chair-mesh-005 /chairs/zynx-mesh-chair/
+  Redirect 301 /product/chair-fabric-003 /chairs/casca-performance-mesh-chair/
+  Redirect 301 /product/luxor-performance-mesh-chair /chairs/luxor-performance-mesh-chair/
+  Redirect 301 /product/pointer-performance-mesh-chair /chairs/pointer-performance-mesh-chair/
+  Redirect 301 /product/flex-apex-bed-table /tables/flex-apex-bed-table/
   Redirect 301 /product/table-executive-003 /tables/imperium-executive-table/
   Redirect 301 /product/table-executive-004 /tables/signature-executive-table/
-  Redirect 301 /product/table-study-003 /tables/zenith-study-table/
-  Redirect 301 /product/table-study-006 /tables/zenvy-primex-study-table/
+  Redirect 301 /product/table-folding-002 /tables/exquisite-folding-table/
+  Redirect 301 /product/table-folding-004 /tables/nextable-folding-table/
+  Redirect 301 /product/phantom-gaming-desk /tables/phantom-gaming-desk/
   Redirect 301 /product/table-gaming-desk-001 /tables/quantum-gaming-desk/
-  Redirect 301 /product/table-gaming-desk-002 /tables/quantum-primex-gaming-desk/
-  Redirect 301 /product/accessories-storage-box-002 /accessories/storage-box-plus/
-  Redirect 301 /product/accessories-storage-box-004 /accessories/storage-box-pro-max/
-  Redirect 301 /product/accessories-footrest-001 /accessories/footrest-basic/
-  Redirect 301 /product/accessories-footrest-002 /accessories/footrest-plus/
-  Redirect 301 /product/accessories-cable-tray-001 /accessories/cable-tray-basic/
-  Redirect 301 /product/accessories-Cpu-Stand-002 /accessories/cpu-stand-plus/
-  Redirect 301 /product/accessories-Cpu-Stand-003 /accessories/cpu-stand-pro/
-  Redirect 301 /product/accessories-monitor-stand-001 /accessories/monitor-stand-basic/
-  Redirect 301 /product/accessories-monitor-stand-004 /accessories/monitor-stand-pro-max/
-  Redirect 301 /product/accessories-cup-holder-001 /accessories/cup-holder-basic/
-  Redirect 301 /product/accessories-desk-hook-001 /accessories/desk-hook-basic/
-  Redirect 301 /product/accessories-desk-hook-002 /accessories/desk-hook-plus/
+  Redirect 301 /product/modexa-height-adjustable-table /tables/modexa-height-adjustable-table/
+  Redirect 301 /product/table-height-adjustable-005 /tables/modulus-height-adjustable-table/
+  Redirect 301 /product/table-height-adjustable-002 /tables/modura-height-adjustable-table/
+  Redirect 301 /product/table-height-adjustable-006 /tables/movix-height-adjustable-table/
+  Redirect 301 /product/table-study-003 /tables/zenith-study-table/
+  Redirect 301 /product/table-study-006 /tables/zenvy-study-table/
 
   # Search was a client-side route with no server-rendered equivalent.
   Redirect 301 /search /
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# URLs withdrawn by the September 2026 range change
+# ---------------------------------------------------------------------------
+# Products that were dropped, ranges that emptied, and products that survived
+# under a new name -- a rename moves the URL, because the slug comes from the
+# name. All of these were served with a 200 by this site and are in the index.
+<IfModule mod_alias.c>
+  # The leather line was withdrawn entirely; there is no equivalent chair.
+  Redirect 301 /product/chair-leather-002 /chairs/
+  # The leather line was withdrawn entirely; there is no equivalent chair.
+  Redirect 301 /product/chair-leather-003 /chairs/
+  # The leather line was withdrawn entirely; there is no equivalent chair.
+  Redirect 301 /product/chair-leather-005 /chairs/
+  # The fabric range became the performance mesh range -- Casca moved across under the same id.
+  Redirect 301 /product/chair-fabric-001 /chairs/performance-mesh-chair/
+  # The fabric range became the performance mesh range -- Casca moved across under the same id.
+  Redirect 301 /product/chair-fabric-005 /chairs/performance-mesh-chair/
+  # Replaced within the same range by the Flex Apex.
+  Redirect 301 /product/table-bed-003 /tables/bed-table/
+  # The Primex variant was dropped; the standard Modura is the same table.
+  Redirect 301 /product/table-height-adjustable-003 /tables/modura-height-adjustable-table/
+  # The Primex variant was dropped; the standard Quantum is the same desk.
+  Redirect 301 /product/table-gaming-desk-002 /tables/quantum-gaming-desk/
+  # Storage boxes were withdrawn; nothing in the range replaces them.
+  Redirect 301 /product/accessories-storage-box-002 /accessories/
+  # Storage boxes were withdrawn; nothing in the range replaces them.
+  Redirect 301 /product/accessories-storage-box-004 /accessories/
+  # Basic and Plus merged into one footrest sold in three finishes, so the tiers are now colourways of a single product.
+  Redirect 301 /product/accessories-footrest-002 /accessories/footrest/
+  # CPU stands were withdrawn; nothing in the range replaces them.
+  Redirect 301 /product/accessories-Cpu-Stand-002 /accessories/
+  # CPU stands were withdrawn; nothing in the range replaces them.
+  Redirect 301 /product/accessories-Cpu-Stand-003 /accessories/
+  # The desk shelf tray is what now lifts a monitor off the desk, so it is the nearest thing to what this visitor came for.
+  Redirect 301 /product/accessories-monitor-stand-001 /accessories/desk-shelf-tray/
+  # The desk shelf tray is what now lifts a monitor off the desk, so it is the nearest thing to what this visitor came for.
+  Redirect 301 /product/accessories-monitor-stand-004 /accessories/desk-shelf-tray/
+  # Desk hooks were withdrawn; the peg-board ships with hooks but is not a substitute for one.
+  Redirect 301 /product/accessories-desk-hook-001 /accessories/
+  # Desk hooks were withdrawn; the peg-board ships with hooks but is not a substitute for one.
+  Redirect 301 /product/accessories-desk-hook-002 /accessories/
+  Redirect 301 /chairs/rider-leather-chair /chairs/
+  Redirect 301 /chairs/nexor-leather-chair /chairs/
+  Redirect 301 /chairs/valerio-leather-chair /chairs/
+  Redirect 301 /chairs/fabio-fabric-chair /chairs/performance-mesh-chair/
+  Redirect 301 /chairs/niyo-fabric-chair /chairs/performance-mesh-chair/
+  Redirect 301 /tables/flexon-bed-table /tables/bed-table/
+  Redirect 301 /tables/modura-primex-height-adjustable-table /tables/modura-height-adjustable-table/
+  Redirect 301 /tables/quantum-primex-gaming-desk /tables/quantum-gaming-desk/
+  Redirect 301 /accessories/storage-box-plus /accessories/
+  Redirect 301 /accessories/storage-box-pro-max /accessories/
+  Redirect 301 /accessories/footrest-plus /accessories/footrest/
+  Redirect 301 /accessories/cpu-stand-plus /accessories/
+  Redirect 301 /accessories/cpu-stand-pro /accessories/
+  Redirect 301 /accessories/monitor-stand-basic /accessories/desk-shelf-tray/
+  Redirect 301 /accessories/monitor-stand-pro-max /accessories/desk-shelf-tray/
+  Redirect 301 /accessories/desk-hook-basic /accessories/
+  Redirect 301 /accessories/desk-hook-plus /accessories/
+  Redirect 301 /chairs/casca-fabric-chair /chairs/casca-performance-mesh-chair/
+  Redirect 301 /tables/exquisite-primex-folding-table /tables/exquisite-folding-table/
+  Redirect 301 /tables/modulus-primex-height-adjustable-table /tables/modulus-height-adjustable-table/
+  Redirect 301 /tables/zenvy-primex-study-table /tables/zenvy-study-table/
+  Redirect 301 /accessories/footrest-basic /accessories/footrest/
+  Redirect 301 /accessories/cable-tray-basic /accessories/cable-management-tray/
+  Redirect 301 /accessories/cup-holder-basic /accessories/cup-holder/
+  # No leather chairs remain.
+  Redirect 301 /chairs/leather-chair /chairs/
+  # The range was renamed and re-specified rather than dropped.
+  Redirect 301 /chairs/fabric-chair /chairs/performance-mesh-chair/
+  Redirect 301 /accessories/storage-box /accessories/
+  Redirect 301 /accessories/cpu-stand /accessories/
+  # Nearest surviving product, as above.
+  Redirect 301 /accessories/monitor-stand /accessories/desk-shelf-tray/
+  Redirect 301 /accessories/desk-hook /accessories/
 </IfModule>
 
 # ---------------------------------------------------------------------------

@@ -30,7 +30,6 @@ type RemoteProduct = {
     }[];
   };
 };
-
 async function fetchAll(env: ShopifyEnv): Promise<Map<string, RemoteProduct>> {
   const out = new Map<string, RemoteProduct>();
   let cursor: string | null = null;
@@ -53,7 +52,7 @@ async function fetchAll(env: ShopifyEnv): Promise<Map<string, RemoteProduct>> {
              descriptionHtml
              seo { title description }
              media(first: 50) { nodes { ... on MediaImage { status alt } } }
-             variants(first: 1) {
+             variants(first: 50) {
                nodes { price sku inventoryItem { tracked } }
              }
            }
@@ -78,25 +77,52 @@ function compare(
   if (!remote) return ["missing from Shopify"];
 
   const problems: string[] = [];
-  const variant = remote.variants.nodes[0];
 
   if (remote.title !== local.title) {
     problems.push(`title "${remote.title}" != "${local.title}"`);
   }
-  if (!variant) {
-    problems.push("no variant, so it cannot be bought");
-  } else {
-    /* Shopify normalises 13999.00 to 13999.0, so compare numerically. */
-    if (Number(variant.price) !== Number(local.price)) {
-      problems.push(`price ${variant.price} != ${local.price}`);
+
+  /* Matched by SKU rather than by position. Shopify does not promise variant
+   * order, and a mismatch found by index would report every colourway of a
+   * reordered product as wrong while saying nothing about what is actually
+   * missing. */
+  const remoteBySku = new Map(
+    remote.variants.nodes
+      .filter((v) => v.sku)
+      .map((v) => [v.sku as string, v] as const),
+  );
+
+  if (remote.variants.nodes.length === 0) {
+    problems.push("no variants, so it cannot be bought");
+  }
+
+  for (const wanted of local.variants) {
+    const variant = remoteBySku.get(wanted.sku);
+    if (!variant) {
+      problems.push(`no variant with sku "${wanted.sku}" (${wanted.colour})`);
+      continue;
     }
-    if (variant.sku !== local.sku) {
-      problems.push(`sku "${variant.sku ?? ""}" != "${local.sku}"`);
+    /* Shopify normalises 13999.00 to 13999.0, so compare numerically. */
+    if (Number(variant.price) !== Number(wanted.price)) {
+      problems.push(`${wanted.colour}: price ${variant.price} != ${wanted.price}`);
     }
     /* A tracked variant at zero stock refuses checkout, which for a reseller
      * means a silently unbuyable product. */
     if (variant.inventoryItem.tracked) {
-      problems.push("inventory is TRACKED -- checkout will block at zero stock");
+      problems.push(
+        `${wanted.colour}: inventory is TRACKED -- checkout will block at zero stock`,
+      );
+    }
+  }
+
+  /* A variant we no longer sell is still buyable, and is the shape a botched
+   * rename leaves behind. */
+  const wantedSkus = new Set(local.variants.map((v) => v.sku));
+  for (const variant of remote.variants.nodes) {
+    if (!variant.sku) {
+      problems.push("a variant has no SKU, so an order line cannot be traced to it");
+    } else if (!wantedSkus.has(variant.sku)) {
+      problems.push(`extra variant "${variant.sku}" is not in the catalog`);
     }
   }
 
