@@ -74,26 +74,19 @@ function toCsv(columns: readonly string[], rows: Record<string, string>[]): stri
 }
 
 /**
- * The first row of a product carries every field. Additional images are rows
- * bearing only the handle and the image columns -- that is Shopify's format,
- * not a shortcut.
+ * The first row of a product carries every field. Each additional colourway
+ * is a row bearing the handle, its option value and its own variant columns;
+ * each additional image is a row bearing only the handle and image columns.
+ * That is Shopify's format, not a shortcut.
  */
 function rowsFor(product: ShopifyProduct): Row[] {
   const [lead, ...rest] = product.images;
+  const [first, ...others] = product.variants;
+  if (!first) throw new Error(`${product.handle} has no variants`);
 
-  const first: Row = {
-    Handle: product.handle,
-    Title: product.title,
-    "Body (HTML)": product.bodyHtml,
-    Vendor: product.vendor,
-    Type: product.productType,
-    Tags: product.tags.join(", "),
-    Published: "TRUE",
-    // A product with no variants still needs one option, and this is the
-    // exact pair Shopify itself emits for that case.
-    "Option1 Name": "Title",
-    "Option1 Value": "Default Title",
-    "Variant SKU": product.sku,
+  const variantCells = (variant: ShopifyProduct["variants"][number]): Row => ({
+    "Option1 Value": variant.colour,
+    "Variant SKU": variant.sku,
     "Variant Grams": "",
     // Blank tracker means Shopify does not count stock. Deliberate: this is a
     // reseller ordering in on demand, and a tracked variant at zero blocks
@@ -102,20 +95,40 @@ function rowsFor(product: ShopifyProduct): Row[] {
     "Variant Inventory Qty": "",
     "Variant Inventory Policy": "continue",
     "Variant Fulfillment Service": "manual",
-    "Variant Price": product.price,
+    "Variant Price": variant.price,
     "Variant Requires Shipping": "TRUE",
     "Variant Taxable": "TRUE",
     "Variant Weight Unit": "kg",
+  });
+
+  const head: Row = {
+    Handle: product.handle,
+    Title: product.title,
+    "Body (HTML)": product.bodyHtml,
+    Vendor: product.vendor,
+    Type: product.productType,
+    Tags: product.tags.join(", "),
+    Published: "TRUE",
+    // Every product declares a Colour option, including the single-finish
+    // ones. Shopify's own default is "Title / Default Title", which shows up
+    // on the order line and tells the person packing it nothing.
+    "Option1 Name": "Colour",
+    ...variantCells(first),
     "SEO Title": product.seoTitle,
     "SEO Description": product.seoDescription,
     Status: "active",
   };
 
   if (lead) {
-    first["Image Src"] = lead.src;
-    first["Image Position"] = String(lead.position);
-    first["Image Alt Text"] = lead.altText;
+    head["Image Src"] = lead.src;
+    head["Image Position"] = String(lead.position);
+    head["Image Alt Text"] = lead.altText;
   }
+
+  const moreVariants: Row[] = others.map((variant) => ({
+    Handle: product.handle,
+    ...variantCells(variant),
+  }));
 
   const extra: Row[] = rest.map((image) => ({
     Handle: product.handle,
@@ -124,7 +137,7 @@ function rowsFor(product: ShopifyProduct): Row[] {
     "Image Alt Text": image.altText,
   }));
 
-  return [first, ...extra];
+  return [head, ...moreVariants, ...extra];
 }
 
 /**
@@ -140,6 +153,7 @@ const OWNER_COLUMNS = [
   "Handle",
   "Category",
   "Title",
+  "Colour",
   "Variant SKU",
   "Price (INR)",
   "HSN code",
@@ -161,18 +175,25 @@ async function main() {
   const importRows = products.flatMap(rowsFor) as Record<string, string>[];
   await writeFile(IMPORT_CSV, toCsv(COLUMNS, importRows), "utf8");
 
-  const ownerRows = [...products]
+  /* One row per colourway rather than per product. The SKU is what an order
+   * line records, and the fields being asked for are not all constant across
+   * a product: a marble-topped table and a teak one do not weigh the same,
+   * and the footrest's three finishes are three different prices. */
+  const ownerRows = products
+    .flatMap((p) => p.variants.map((variant) => ({ product: p, variant })))
     .sort(
       (a, b) =>
-        a.productType.localeCompare(b.productType) ||
-        a.title.localeCompare(b.title),
+        a.product.productType.localeCompare(b.product.productType) ||
+        a.product.title.localeCompare(b.product.title) ||
+        a.variant.colour.localeCompare(b.variant.colour),
     )
-    .map((p) => ({
-      Handle: p.handle,
-      Category: p.productType,
-      Title: p.title,
-      "Variant SKU": p.sku,
-      "Price (INR)": p.price,
+    .map(({ product, variant }) => ({
+      Handle: product.handle,
+      Category: product.productType,
+      Title: product.title,
+      Colour: variant.colour,
+      "Variant SKU": variant.sku,
+      "Price (INR)": variant.price,
       /* Every fillable column is left blank on purpose. Country of origin in
        * particular is a customs declaration -- most ergonomic seating sold in
        * India is imported, and a wrong value is the owner's legal exposure,

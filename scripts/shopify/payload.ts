@@ -7,15 +7,34 @@
  */
 
 import { allProducts } from "../../src/lib/catalog";
-import type { Product } from "../../src/lib/catalog-types";
-import { encodeImagePath, imageAlt, isFeatureSafe } from "../../src/lib/images";
+import type { Product, Variant } from "../../src/lib/catalog-types";
+import { encodeImagePath, imageAlt } from "../../src/lib/images";
 import { paiseToPriceString } from "../../src/lib/money";
 import { SITE, absoluteUrl } from "../../src/lib/site";
+import { RENAMED } from "../legacy-redirects";
 
 export type ShopifyImage = {
   src: string;
   altText: string;
   position: number;
+};
+
+/**
+ * One colourway.
+ *
+ * `sku` is `<product id>--<colour slug>` and is the join between this catalog
+ * and the storefront cart: `variant-ids.generated.ts` maps it to the Shopify
+ * variant GID the Cart API needs. It keys off the product id rather than the
+ * name because a name can change -- seven did in September 2026 -- and a SKU
+ * that moves is a SKU that no longer matches the orders already placed
+ * against it.
+ */
+export type ShopifyVariant = {
+  sku: string;
+  colour: string;
+  price: string;
+  /** This colourway's own photographs, in gallery order. */
+  images: ShopifyImage[];
 };
 
 export type ShopifyProduct = {
@@ -25,13 +44,19 @@ export type ShopifyProduct = {
   vendor: string;
   productType: string;
   tags: string[];
-  sku: string;
-  price: string;
   seoTitle: string;
   seoDescription: string;
+  variants: ShopifyVariant[];
+  /** Every colourway's photographs, flattened, in the order they are shown. */
   images: ShopifyImage[];
   /** Where this product lives on the marketing site. */
   sourceHref: string;
+  /**
+   * A handle this product was previously published under, if it was renamed.
+   * The sync uses it to find and rename the existing Shopify product rather
+   * than creating a second one alongside it.
+   */
+  previousHandle?: string;
 };
 
 const escapeHtml = (text: string): string =>
@@ -42,18 +67,50 @@ const escapeHtml = (text: string): string =>
     .replace(/"/g, "&quot;");
 
 /**
- * Shopify renders this as the product description. Features become a list
- * rather than a paragraph because that is how they read on our own product
- * pages, and a buyer comparing two chairs scans a list.
+ * Shopify renders this as the product description, and it is the only place
+ * the specifications reach the buyer on that side: the Storefront API exposes
+ * no field for them, and metafields would need a matching theme change to
+ * surface. Putting them in the body means they show in the online store, in
+ * admin, and in any channel that reads the description.
+ *
+ * Features become a list rather than a paragraph because that is how they read
+ * on our own product pages, and a buyer comparing two chairs scans a list.
  */
 function bodyHtml(product: Product): string {
-  const description = `<p>${escapeHtml(product.description)}</p>`;
-  if (product.features.length === 0) return description;
+  const parts = [`<p>${escapeHtml(product.description)}</p>`];
 
-  const items = product.features
-    .map((feature) => `<li>${escapeHtml(feature)}</li>`)
-    .join("");
-  return `${description}<ul>${items}</ul>`;
+  if (product.features.length) {
+    const items = product.features
+      .map((feature) =>
+        feature.detail
+          ? `<li><strong>${escapeHtml(feature.title)}</strong> — ${escapeHtml(feature.detail)}</li>`
+          : `<li><strong>${escapeHtml(feature.title)}</strong></li>`,
+      )
+      .join("");
+    parts.push(`<h3>Features</h3><ul>${items}</ul>`);
+  }
+
+  if (product.specifications.length || product.materials.length) {
+    const rows = product.specifications
+      .map(
+        (spec) =>
+          `<tr><td>${escapeHtml(spec.label)}</td><td>${escapeHtml(spec.value)}</td></tr>`,
+      )
+      .join("");
+    const materials = product.materials.length
+      ? `<tr><td>Materials &amp; finish</td><td>${escapeHtml(product.materials.join(" · "))}</td></tr>`
+      : "";
+    parts.push(`<h3>Specifications</h3><table>${rows}${materials}</table>`);
+  }
+
+  if (product.inTheBox.length) {
+    const items = product.inTheBox
+      .map((item) => `<li>${escapeHtml(item)}</li>`)
+      .join("");
+    parts.push(`<h3>In the box</h3><ul>${items}</ul>`);
+  }
+
+  return parts.join("");
 }
 
 /**
@@ -67,22 +124,26 @@ function seoDescription(product: Product): string {
 }
 
 /**
- * Position 1 is the product's face: it is the collection thumbnail, the
- * checkout line-item image and the social card. The two supplier photographs
- * carrying a rival's wordmark are therefore pushed down the gallery rather
- * than dropped -- they are honest photographs of the product, just not ones
- * to lead with.
+ * Gallery order now simply follows the catalog.
+ *
+ * This used to sort images carrying a rival's wordmark to the back so they
+ * would not become position 1 -- the collection thumbnail, the checkout
+ * line-item image and the social card. That rule is now keyed by product
+ * rather than by file, because the offending mark is moulded into the desk
+ * leg and therefore appears in every frame. So for the two products affected
+ * there is no safe frame to promote, and for every other product there is
+ * nothing to demote. Reordering here would only shuffle the gallery away from
+ * the order the buyer sees on our own product page.
  */
-function orderedImages(product: Product): ShopifyImage[] {
-  const safe = product.images.filter(isFeatureSafe);
-  const rest = product.images.filter((src) => !isFeatureSafe(src));
+function variantImages(product: Product, variant: Variant, from: number): ShopifyImage[] {
+  const named = product.variants.length > 1 ? variant.colour : undefined;
 
-  return [...safe, ...rest].map((src, index) => ({
+  return variant.images.map((src, index) => ({
     // Shopify fetches these over the public internet and re-hosts them, so
     // they must be absolute and the spaces in the filenames must be encoded.
     src: absoluteUrl(encodeImagePath(src)),
-    altText: imageAlt(product, product.images.indexOf(src)),
-    position: index + 1,
+    altText: imageAlt(product, index, named),
+    position: from + index + 1,
   }));
 }
 
@@ -99,6 +160,20 @@ function singular(label: string): string {
 }
 
 export function toShopifyProduct(product: Product): ShopifyProduct {
+  const images: ShopifyImage[] = [];
+  const variants = product.variants.map((variant) => {
+    const own = variantImages(product, variant, images.length);
+    images.push(...own);
+    return {
+      sku: variant.id,
+      colour: variant.colour,
+      price: paiseToPriceString(variant.pricePaise),
+      images: own,
+    };
+  });
+
+  const renamed = RENAMED.find((r) => r.to === product.slug);
+
   return {
     handle: product.slug,
     title: product.name,
@@ -106,12 +181,12 @@ export function toShopifyProduct(product: Product): ShopifyProduct {
     vendor: SITE.name,
     productType: singular(product.subName),
     tags: [product.groupName, product.subName, "Ergonomic", SITE.city],
-    sku: product.id,
-    price: paiseToPriceString(product.pricePaise),
     seoTitle: product.name,
     seoDescription: seoDescription(product),
-    images: orderedImages(product),
+    variants,
+    images,
     sourceHref: product.href,
+    ...(renamed ? { previousHandle: renamed.from } : {}),
   };
 }
 
@@ -129,13 +204,32 @@ export function buildCatalog(): ShopifyProduct[] {
   const collisions: string[] = [];
   for (const product of products) {
     const clash = byHandle.get(product.handle);
-    if (clash) collisions.push(`${product.handle}: ${clash} and ${product.sku}`);
-    byHandle.set(product.handle, product.sku);
+    if (clash) collisions.push(`${product.handle}: ${clash} and ${product.title}`);
+    byHandle.set(product.handle, product.title);
   }
 
   if (collisions.length) {
     throw new Error(
       `Shopify handles must be unique store-wide, but these collide:\n  ${collisions.join("\n  ")}`,
+    );
+  }
+
+  /* A SKU is what an order line records, so a duplicate does not merge two
+   * products loudly the way a handle collision does -- it quietly makes the
+   * picking list ambiguous once the order is already placed. */
+  const bySku = new Map<string, string>();
+  const skuClashes: string[] = [];
+  for (const product of products) {
+    for (const variant of product.variants) {
+      const clash = bySku.get(variant.sku);
+      if (clash) skuClashes.push(`${variant.sku}: ${clash} and ${product.handle}`);
+      bySku.set(variant.sku, product.handle);
+    }
+  }
+
+  if (skuClashes.length) {
+    throw new Error(
+      `SKUs must be unique store-wide, but these collide:\n  ${skuClashes.join("\n  ")}`,
     );
   }
 

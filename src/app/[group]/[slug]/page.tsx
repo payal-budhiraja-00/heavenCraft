@@ -2,21 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BuyBox } from "@/components/buy-box";
-import { ProductGallery } from "@/components/product-gallery";
+import {
+  ColourPicker,
+  VariantGallery,
+  VariantPrice,
+  VariantProvider,
+} from "@/components/variant-picker";
 import { ProductGrid } from "@/components/product-card";
 import {
   Breadcrumbs,
   Container,
   Label,
   SectionHeading,
-  StockPill,
   type Crumb,
 } from "@/components/ui";
 import { getGroup, getProduct, getSubCategory, groups } from "@/lib/catalog";
 import type { Group, Product, SubCategory } from "@/lib/catalog-types";
 import { priceRange } from "@/lib/catalog-types";
 import { features } from "@/lib/features";
-import { enquiryHref, isPurchasable, variantIdFor } from "@/lib/commerce";
 import { encodeImagePath, imageAlt } from "@/lib/images";
 import { pageMetadata } from "@/lib/seo";
 import { formatPaise, paiseToPriceString } from "@/lib/money";
@@ -34,6 +37,7 @@ export function generateStaticParams(): Params[] {
 
   for (const group of groups) {
     for (const sub of group.subCategories) {
+      if (sub.collapsed) continue;
       params.push({ group: group.slug, slug: sub.slug });
     }
     for (const product of group.products) {
@@ -209,6 +213,15 @@ function SubCategoryView({ group, sub }: { group: Group; sub: SubCategory }) {
 
 function ProductView({ group, product }: { group: Group; product: Product }) {
   const subHref = `/${group.slug}/${product.subSlug}/`;
+  /*
+   * When the range collapsed into this product, `subHref` is this page's own
+   * URL. Linking to it -- in the breadcrumb or the eyebrow above the title --
+   * would be a self-link that looks broken to a visitor and dilutes the
+   * breadcrumb trail for a crawler. The name is still shown, just not linked.
+   */
+  const subIsThisPage =
+    group.subCategories.find((s) => s.slug === product.subSlug)?.collapsed ===
+    true;
 
   /*
    * Same sub-category first -- those are the real alternatives to compare. A
@@ -228,7 +241,9 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
   const trail: Crumb[] = [
     { label: "Home", href: "/" },
     { label: group.name, href: group.href },
-    { label: product.subName, href: subHref },
+    ...(subIsThisPage
+      ? []
+      : [{ label: product.subName, href: subHref } satisfies Crumb]),
     { label: product.name },
   ];
 
@@ -236,11 +251,29 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
    * Product + Offer only.
    *
    * No `aggregateRating`, and no `review`. Every rating in products.json is
-   * seeded demo content -- 34 products, not one below four stars -- and
-   * feeding an invented score into Google's index is a structured-data policy
-   * breach, not an exaggeration. It gets rich results revoked for the whole
-   * domain. The stars go in when there are real orders behind them.
+   * seeded demo content -- not one product below four stars -- and feeding an
+   * invented score into Google's index is a structured-data policy breach,
+   * not an exaggeration. It gets rich results revoked for the whole domain.
+   * The stars go in when there are real orders behind them.
+   *
+   * One Offer per colourway. A product whose finishes differ in price -- the
+   * footrest runs 999 to 1,599 -- would otherwise advertise a single figure
+   * that two of its three variants do not honour, which is exactly the
+   * mismatch Google penalises and a customer notices at checkout.
    */
+  const offers = product.variants.map((variant) => ({
+    "@type": "Offer",
+    url: absoluteUrl(product.href),
+    sku: variant.id,
+    ...(product.variants.length > 1 ? { name: variant.colour } : {}),
+    priceCurrency: "INR",
+    price: paiseToPriceString(variant.pricePaise),
+    availability: variant.inStock
+      ? "https://schema.org/InStock"
+      : "https://schema.org/PreOrder",
+    seller: { "@type": "Organization", name: SITE.legalName },
+  }));
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -252,16 +285,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     // contain spaces, and Google fetches these URLs verbatim.
     image: product.images.map((src) => absoluteUrl(encodeImagePath(src))),
     brand: { "@type": "Brand", name: SITE.name },
-    offers: {
-      "@type": "Offer",
-      url: absoluteUrl(product.href),
-      priceCurrency: "INR",
-      price: paiseToPriceString(product.pricePaise),
-      availability: product.inStock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/PreOrder",
-      seller: { "@type": "Organization", name: SITE.legalName },
-    },
+    offers: offers.length === 1 ? offers[0] : offers,
   };
 
   const breadcrumbSchema = {
@@ -280,71 +304,137 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
       <Container className="py-10 lg:py-14">
         <Breadcrumbs trail={trail} />
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
-          <ProductGallery
-            images={product.images}
-            alts={product.images.map((_, i) => imageAlt(product, i))}
-          />
+        <VariantProvider
+          variants={product.variants.map((variant) => ({
+            sku: variant.id,
+            colour: variant.colour,
+            colourSlug: variant.colourSlug,
+            pricePaise: variant.pricePaise,
+            images: variant.images,
+            alts: variant.images.map((_, i) =>
+              imageAlt(product, i, product.variants.length > 1 ? variant.colour : undefined),
+            ),
+            inStock: variant.inStock,
+          }))}
+        >
+          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
+            <VariantGallery />
 
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <Link
-              href={`/${group.slug}/${product.subSlug}/`}
-              className="label text-gold transition-colors hover:text-gold-bright"
-            >
-              {product.subName}
-            </Link>
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              {subIsThisPage ? (
+                <p className="label text-gold">{product.subName}</p>
+              ) : (
+                <Link
+                  href={subHref}
+                  className="label text-gold transition-colors hover:text-gold-bright"
+                >
+                  {product.subName}
+                </Link>
+              )}
 
-            <h1 className="type-wide mt-3 text-display-3 font-bold text-cream">
-              {product.name}
-            </h1>
+              <h1 className="type-wide mt-3 text-display-3 font-bold text-cream">
+                {product.name}
+              </h1>
 
-            <div className="mt-6 flex items-center gap-4">
-              <span className="tnum text-3xl font-bold text-cream">
-                {formatPaise(product.pricePaise)}
-              </span>
-              <StockPill inStock={product.inStock} />
+              <VariantPrice />
+              <p className="mt-2 text-xs text-cream-faint">
+                Inclusive of all taxes. Delivery quoted at checkout.
+              </p>
+
+              <p className="mt-7 text-reading text-cream-muted">
+                {product.description}
+              </p>
+
+              <ColourPicker />
+
+              <BuyBox
+                productName={product.name}
+                pageUrl={absoluteUrl(product.href)}
+                email={SITE.email}
+              />
+
+              {product.features.length ? (
+                <div className="mt-10 border-t border-edge pt-8">
+                  <Label>Features</Label>
+                  <ul className="mt-4 space-y-4">
+                    {product.features.map((feature) => (
+                      <li key={feature.title} className="flex gap-3 text-sm">
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1 shrink-0 rounded-full bg-gold"
+                        />
+                        <span className="leading-relaxed">
+                          <span className="font-medium text-cream">
+                            {feature.title}
+                          </span>
+                          {feature.detail ? (
+                            <span className="text-cream-muted">
+                              {" — "}
+                              {feature.detail}
+                            </span>
+                          ) : null}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {product.inTheBox.length ? (
+                <div className="mt-10 border-t border-edge pt-8">
+                  <Label>In the box</Label>
+                  <ul className="mt-4 space-y-3">
+                    {product.inTheBox.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3 text-sm leading-relaxed text-cream-muted"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1 shrink-0 rounded-full bg-gold"
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {product.specifications.length || product.materials.length ? (
+                <div className="mt-10 border-t border-edge pt-8">
+                  <Label>Specifications</Label>
+                  <dl className="mt-4 divide-y divide-edge">
+                    {product.specifications.map((spec) => (
+                      <div
+                        key={spec.label}
+                        className="flex justify-between gap-6 py-2.5 text-sm"
+                      >
+                        <dt className="text-cream-faint">{spec.label}</dt>
+                        <dd className="text-right font-medium text-cream-muted">
+                          {spec.value}
+                        </dd>
+                      </div>
+                    ))}
+                    {product.materials.length ? (
+                      <div className="flex justify-between gap-6 py-2.5 text-sm">
+                        <dt className="shrink-0 text-cream-faint">
+                          Materials &amp; finish
+                        </dt>
+                        <dd className="text-right font-medium text-cream-muted">
+                          {product.materials.join(" · ")}
+                        </dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                  <p className="mt-5 text-xs leading-relaxed text-cream-faint">
+                    Specifications as declared by the manufacturer. Dimensions
+                    may vary slightly between production batches.
+                  </p>
+                </div>
+              ) : null}
             </div>
-            <p className="mt-2 text-xs text-cream-faint">
-              Inclusive of all taxes. Delivery quoted at checkout.
-            </p>
-
-            <p className="mt-7 text-reading text-cream-muted">
-              {product.description}
-            </p>
-
-            <BuyBox
-              variantId={isPurchasable(product) ? (variantIdFor(product) ?? null) : null}
-              productName={product.name}
-              enquiryHref={enquiryHref(product, SITE.origin)}
-              email={SITE.email}
-              inStock={product.inStock}
-            />
-
-            {product.features.length ? (
-              <div className="mt-10 border-t border-edge pt-8">
-                <Label>Specifications</Label>
-                <ul className="mt-4 space-y-3">
-                  {product.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex gap-3 text-sm leading-relaxed text-cream-muted"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 size-1 shrink-0 rounded-full bg-gold"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-5 text-xs leading-relaxed text-cream-faint">
-                  Specifications as declared by the manufacturer. Dimensions may
-                  vary slightly between production batches.
-                </p>
-              </div>
-            ) : null}
           </div>
-        </div>
+        </VariantProvider>
       </Container>
 
       {features.reviews && product.reviews.length ? (

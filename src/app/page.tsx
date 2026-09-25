@@ -8,29 +8,54 @@ import { encodeImagePath, featureImage, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
 
 /*
- * The hero is a portrait studio frame, so the page is built around a split
- * rather than a letterbox band: type holds the left column, the photograph
- * runs full-height on the right and bleeds off the edge. A wide crop of a
- * portrait image would have cut the chair in half.
+ * The hero is a portrait frame, so the page is built around a split rather
+ * than a letterbox band: type holds the left column, the photograph runs
+ * full-height on the right and bleeds off the edge. A wide crop of a portrait
+ * image would have cut the chair in half.
+ *
+ * Chosen by eye from the September 2026 set. Most frames in that set stage
+ * slogan posters, printed mugs or -- in the Neuro meeting-room frame -- a
+ * whiteboard of unreadable pseudo-equations, none of which survive being
+ * rendered a metre wide. This one carries no text at all.
  */
-const HERO_SRC = "/images/products/chairs/mesh-chair/4 - Neuro.jpeg";
+const HERO_SRC = "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/3.jpeg";
 
-/** Flagship first: the sit-stand desks are the reason to visit. */
+/**
+ * Flagship first: the sit-stand desks are the reason to visit. Then a spread
+ * across both chair ranges and down to an accessory, so the grid shows the
+ * whole price ladder rather than eight variations on a desk.
+ *
+ * Quantum is deliberately absent -- see `NOT_FOR_FEATURE` in lib/images.ts.
+ */
 const FEATURED_IDS = [
-  "table-height-adjustable-003",
-  "chair-mesh-004",
+  "table-height-adjustable-006",
+  "chair-mesh-006",
   "table-executive-003",
-  "chair-leather-002",
-  "table-folding-004",
-  "chair-fabric-001",
+  "chair-mesh-004",
+  "table-height-adjustable-005",
+  "chair-fabric-003",
   "table-study-003",
-  "accessories-monitor-stand-001",
+  "accessories-footrest-001",
 ];
 
 export default function HomePage() {
-  const featured = FEATURED_IDS.map((id) =>
-    allProducts.find((p) => p.id === id),
-  ).filter((p) => p !== undefined);
+  /*
+   * Throws rather than filtering. These IDs are written by hand and the
+   * catalogue is replaced wholesale when the supplier sends a new range; the
+   * previous version quietly dropped missing entries, so a range change left
+   * the homepage showing four products instead of eight with nothing to say
+   * it had happened.
+   */
+  const featured = FEATURED_IDS.map((id) => {
+    const product = allProducts.find((p) => p.id === id);
+    if (!product) {
+      throw new Error(
+        `FEATURED_IDS names "${id}", which is not in the catalogue. ` +
+          `Pick a replacement in src/app/page.tsx.`,
+      );
+    }
+    return product;
+  });
 
   const range = priceRange(allProducts);
   const subCount = groups.reduce((n, g) => n + g.subCategories.length, 0);

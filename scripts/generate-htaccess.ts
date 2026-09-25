@@ -13,6 +13,7 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { allProducts } from "../src/lib/catalog";
+import { LEGACY_REDIRECTS } from "./legacy-redirects";
 
 const OUT = path.join(process.cwd(), "public/.htaccess");
 
@@ -23,6 +24,21 @@ function redirects(): string {
   });
 
   return lines.join("\n");
+}
+
+/**
+ * Redirects for URLs the September 2026 range change removed.
+ *
+ * Emitted with their rationale as comments because a bare list of 301s is
+ * unreadable a year later, and the question asked of it then will be "why
+ * does this one point here", not "which ones exist".
+ */
+function legacyRedirects(): string {
+  return LEGACY_REDIRECTS.map(({ from, to, note }) =>
+    note
+      ? `  # ${note}\n  Redirect 301 ${from} ${to}`
+      : `  Redirect 301 ${from} ${to}`,
+  ).join("\n");
 }
 
 const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
@@ -105,6 +121,16 @@ ${redirects()}
 </IfModule>
 
 # ---------------------------------------------------------------------------
+# URLs withdrawn by the September 2026 range change
+# ---------------------------------------------------------------------------
+# Products that were dropped, ranges that emptied, and products that survived
+# under a new name -- a rename moves the URL, because the slug comes from the
+# name. All of these were served with a 200 by this site and are in the index.
+<IfModule mod_alias.c>
+${legacyRedirects()}
+</IfModule>
+
+# ---------------------------------------------------------------------------
 # Compression
 # ---------------------------------------------------------------------------
 <IfModule mod_deflate.c>
@@ -166,7 +192,8 @@ ${redirects()}
 async function main() {
   await writeFile(OUT, body, "utf8");
   console.log(
-    `wrote public/.htaccess with ${allProducts.length} product redirects`,
+    `wrote public/.htaccess with ${allProducts.length} product redirects ` +
+      `and ${LEGACY_REDIRECTS.length} legacy redirects`,
   );
 }
 

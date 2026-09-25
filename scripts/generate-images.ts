@@ -17,7 +17,7 @@
  */
 
 import { existsSync } from "node:fs";
-import { mkdir, readdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { IMAGE_WIDTHS, imageKey } from "../src/lib/image-opt";
@@ -85,6 +85,34 @@ async function render(source: Source): Promise<number> {
   return written;
 }
 
+/**
+ * Deletes derivatives whose source no longer exists.
+ *
+ * Rendering is incremental -- it skips anything already newer than its source
+ * -- so without this step the directory only ever grows. Retiring a product
+ * would leave its photographs behind, and `out/` copies the whole directory,
+ * so discontinued stock would be published at a guessable URL and counted
+ * against the export budget forever.
+ */
+async function prune(liveKeys: Set<string>): Promise<number> {
+  const entries = await readdir(OUT_DIR, { withFileTypes: true });
+  let removed = 0;
+
+  for (const entry of entries) {
+    if (!entry.isFile() || !entry.name.endsWith(".webp")) continue;
+
+    // "<key>-<width>.webp" -- split on the last dash so a key can never be
+    // confused with the width suffix.
+    const key = entry.name.slice(0, entry.name.lastIndexOf("-"));
+    if (liveKeys.has(key)) continue;
+
+    await rm(path.join(OUT_DIR, entry.name));
+    removed += 1;
+  }
+
+  return removed;
+}
+
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
 
@@ -130,8 +158,10 @@ async function main() {
   );
 
   const expected = sources.length * IMAGE_WIDTHS.length;
+  const removed = await prune(new Set(byKey.keys()));
   console.log(
-    `images: ${sources.length} sources -> ${expected} derivatives (${written} rendered, ${expected - written} cached)`,
+    `images: ${sources.length} sources -> ${expected} derivatives ` +
+      `(${written} rendered, ${expected - written} cached, ${removed} pruned)`,
   );
 }
 
