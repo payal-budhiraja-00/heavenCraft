@@ -52,7 +52,10 @@ type RawProduct = {
   currency: string;
   rating?: number;
   description: string;
-  features?: string[];
+  features?: { title: string; detail?: string }[];
+  specifications?: { label: string; value: string }[];
+  materials?: string[];
+  inTheBox?: string[];
   images?: string[];
   inStock?: boolean;
   variants?: RawVariant[];
@@ -269,7 +272,17 @@ function build(): { groups: Group[]; products: Product[] } {
       name,
       shortName: (row.shortName ?? name).trim(),
       description: row.description.trim(),
-      features: (row.features ?? []).map((f) => f.trim()),
+      features: (row.features ?? [])
+        .map((f) => ({
+          title: f.title.trim(),
+          detail: (f.detail ?? "").trim(),
+        }))
+        .filter((f) => f.title !== ""),
+      specifications: (row.specifications ?? [])
+        .map((s) => ({ label: s.label.trim(), value: s.value.trim() }))
+        .filter((s) => s.label !== "" && s.value !== ""),
+      materials: (row.materials ?? []).map((m) => m.trim()).filter(Boolean),
+      inTheBox: (row.inTheBox ?? []).map((b) => b.trim()).filter(Boolean),
       groupSlug,
       groupName: GROUP_META[groupSlug].name,
       subSlug,

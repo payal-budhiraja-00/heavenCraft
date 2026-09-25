@@ -355,21 +355,77 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
 
               {product.features.length ? (
                 <div className="mt-10 border-t border-edge pt-8">
-                  <Label>Specifications</Label>
-                  <ul className="mt-4 space-y-3">
+                  <Label>Features</Label>
+                  <ul className="mt-4 space-y-4">
                     {product.features.map((feature) => (
+                      <li key={feature.title} className="flex gap-3 text-sm">
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1 shrink-0 rounded-full bg-gold"
+                        />
+                        <span className="leading-relaxed">
+                          <span className="font-medium text-cream">
+                            {feature.title}
+                          </span>
+                          {feature.detail ? (
+                            <span className="text-cream-muted">
+                              {" — "}
+                              {feature.detail}
+                            </span>
+                          ) : null}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {product.inTheBox.length ? (
+                <div className="mt-10 border-t border-edge pt-8">
+                  <Label>In the box</Label>
+                  <ul className="mt-4 space-y-3">
+                    {product.inTheBox.map((item) => (
                       <li
-                        key={feature}
+                        key={item}
                         className="flex gap-3 text-sm leading-relaxed text-cream-muted"
                       >
                         <span
                           aria-hidden="true"
                           className="mt-2 size-1 shrink-0 rounded-full bg-gold"
                         />
-                        {feature}
+                        {item}
                       </li>
                     ))}
                   </ul>
+                </div>
+              ) : null}
+
+              {product.specifications.length || product.materials.length ? (
+                <div className="mt-10 border-t border-edge pt-8">
+                  <Label>Specifications</Label>
+                  <dl className="mt-4 divide-y divide-edge">
+                    {product.specifications.map((spec) => (
+                      <div
+                        key={spec.label}
+                        className="flex justify-between gap-6 py-2.5 text-sm"
+                      >
+                        <dt className="text-cream-faint">{spec.label}</dt>
+                        <dd className="text-right font-medium text-cream-muted">
+                          {spec.value}
+                        </dd>
+                      </div>
+                    ))}
+                    {product.materials.length ? (
+                      <div className="flex justify-between gap-6 py-2.5 text-sm">
+                        <dt className="shrink-0 text-cream-faint">
+                          Materials &amp; finish
+                        </dt>
+                        <dd className="text-right font-medium text-cream-muted">
+                          {product.materials.join(" · ")}
+                        </dd>
+                      </div>
+                    ) : null}
+                  </dl>
                   <p className="mt-5 text-xs leading-relaxed text-cream-faint">
                     Specifications as declared by the manufacturer. Dimensions
                     may vary slightly between production batches.

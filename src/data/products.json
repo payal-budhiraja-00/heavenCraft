@@ -8,14 +8,28 @@
     "subName": "Cable Management Tray",
     "price": 1999,
     "currency": "INR",
-    "description": "Simple Basic cable tray for organized desk cable management. Under-desk mount design keeps cables tidy and off the floor for a clean workspace.",
+    "description": "An open steel basket that clamps under the desk and carries the power strip, the adapters and the slack that would otherwise hang down the back of it. The clamp fits tops from 1.5 to 5 cm and needs no drilling. Because the sides are open wire rather than a closed box, air moves through it and you can pull one cable out without unthreading the rest. Tie straps are included for bundling, and the steel is powder-coated against rust.",
     "features": [
-      "Under-desk mount",
-      "Wire organization",
-      "Easy installation",
-      "Durable material",
-      "No-drill clamp option",
-      "Holds up to 5 cables"
+      {
+        "title": "Adjustable Clamp",
+        "detail": "Fits different table thickness (1.5 – 5 cm). No drilling required."
+      },
+      {
+        "title": "Cable Routing",
+        "detail": "Keeps cables neatly routed and organized for a clean workspace."
+      },
+      {
+        "title": "Sturdy Metal Build",
+        "detail": "Durable, rust-resistant steel with premium powder coating."
+      },
+      {
+        "title": "Cable Tie Straps",
+        "detail": "Keeps cables organized and prevents tangling."
+      },
+      {
+        "title": "Open Wire Design",
+        "detail": "Better airflow, easy access and visibility."
+      }
     ],
     "images": [
       "/images/products/accessories/cable-tray/cable-tray-basic/black/1.jpeg",
@@ -58,6 +72,28 @@
         "comment": "Wire organization made easy. Cables off the floor. Good value for keeping workspace tidy!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "16 in"
+      },
+      {
+        "label": "Width",
+        "value": "6.5 in"
+      },
+      {
+        "label": "Height",
+        "value": "2 in"
+      },
+      {
+        "label": "Fits different table thickness",
+        "value": "1.5 – 5 cm"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Durable, rust-resistant steel with premium powder coating."
     ]
   },
   {
@@ -69,14 +105,52 @@
     "subName": "Cup Holder",
     "price": 999,
     "currency": "INR",
-    "description": "Simple Basic cup holder that clips to your desk edge. Keeps beverages within easy reach while saving valuable desk space.",
+    "description": "A clamp-on holder that moves the mug off the desk and out of elbow range. It takes cups, mugs, bottles and tumblers up to 8.5 cm across, held by flexible arms with anti-slip silicone pads, and it rotates so the drink sits where you actually reach rather than where the clamp happened to go. The base is open, so it drains if something spills and rinses out afterwards. Hand-tighten knob, no tools, fits desk tops from 1.5 to 5 cm.",
     "features": [
-      "Desk edge clip",
-      "Spill-resistant design",
-      "Easy installation",
-      "Compact size",
-      "Holds cups up to 500ml",
-      "Corrosion-resistant finish"
+      {
+        "title": "Coffee cup",
+        "detail": "For your daily brew"
+      },
+      {
+        "title": "Glass",
+        "detail": "Keep your drink within reach"
+      },
+      {
+        "title": "Ceramic cup",
+        "detail": "Stable and secure"
+      },
+      {
+        "title": "Beverage bottle",
+        "detail": "Fits most sizes"
+      },
+      {
+        "title": "Strong Clamp Grip",
+        "detail": "Securely attaches to desks without drilling."
+      },
+      {
+        "title": "Suitable for Most Desktops",
+        "detail": "Adjustable clamp fits desk thickness 1.5 – 5 cm."
+      },
+      {
+        "title": "Easy Installation",
+        "detail": "Tool-free design with hand-tighten knob."
+      },
+      {
+        "title": "Secure & Stable Hold",
+        "detail": "Flexible arms with anti-slip silicone pads keep your cup in place."
+      },
+      {
+        "title": "Wide Compatibility",
+        "detail": "Fits most cups, mugs, bottles and tumblers (up to 8.5 cm diameter)."
+      },
+      {
+        "title": "Open Base Design",
+        "detail": "Helps in easy cleaning and drainage."
+      },
+      {
+        "title": "Space-Saving & Adjustable",
+        "detail": "Rotates to keep your drink in the perfect position."
+      }
     ],
     "images": [
       "/images/products/accessories/cup-holder/cup-holder-basic/black/1.jpeg",
@@ -121,6 +195,36 @@
         "comment": "Works well for cups and bottles. Installation is super easy. Useful addition to my workspace!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Adjustable Table Thickness",
+        "value": "0 – 2.5 in"
+      },
+      {
+        "label": "Outer Diameter",
+        "value": "4.4 in"
+      },
+      {
+        "label": "Inner Diameter",
+        "value": "3.6 in"
+      },
+      {
+        "label": "Height",
+        "value": "3.5 in"
+      },
+      {
+        "label": "Desk thickness",
+        "value": "1.5 – 5 cm"
+      },
+      {
+        "label": "Compatible diameter",
+        "value": "up to 8.5 cm diameter"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "anti-slip silicone pads"
     ]
   },
   {
@@ -132,8 +236,57 @@
     "subName": "Desk Shelf Tray",
     "price": 3999,
     "currency": "INR",
-    "description": "A two-tier shelf that clamps to the back edge of the desk and lifts the monitor, speakers and whatever else has crept onto the surface up off it. The space underneath comes back for a keyboard, a notebook or a lamp. Slots along each shelf let cables drop straight through to the tray below, and because it clamps rather than screws, a height-adjustable desk still moves normally.",
-    "features": [],
+    "description": "A two-tier steel shelf that clamps to the desk and lifts the monitor, the speakers and whatever else has crept onto the surface up off it. It stands 51 cm tall and spans 44 cm, so the wall of space above the desk becomes storage and the space underneath comes back for a keyboard, a notebook or a lamp. A wire basket hangs below the clamp for cables. The clamp takes tops up to 4.5 cm thick and needs nothing drilled, so a height-adjustable desk still moves normally.",
+    "features": [
+      {
+        "title": "Easy Installation",
+        "detail": "No Drilling"
+      },
+      {
+        "title": "Sturdy & Stable",
+        "detail": "Durable Build"
+      },
+      {
+        "title": "Maximize Your Space",
+        "detail": "Organize Better"
+      },
+      {
+        "title": "Modern & Functional",
+        "detail": "For a Better Workspace"
+      },
+      {
+        "title": "Game Desk Shelf",
+        "detail": "Keep your gaming setup neat and within reach."
+      },
+      {
+        "title": "Study Desk Shelf",
+        "detail": "Create a clean and focused learning space."
+      },
+      {
+        "title": "Office Desk Shelf",
+        "detail": "Maximise your workspace efficiently."
+      },
+      {
+        "title": "Display Shelf",
+        "detail": "Showcase what you love, beautifully."
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "Strong Metal Frame"
+      },
+      {
+        "title": "Multi-Purpose",
+        "detail": "Suitable for Home & Office"
+      },
+      {
+        "title": "Space Saving",
+        "detail": "Keeps your desk organized"
+      },
+      {
+        "title": "Easy to Install",
+        "detail": "Hassle-free setup"
+      }
+    ],
     "images": [
       "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/1.jpeg",
       "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/2.jpeg",
@@ -158,7 +311,30 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Width",
+        "value": "44 cm"
+      },
+      {
+        "label": "Depth",
+        "value": "5.5 cm"
+      },
+      {
+        "label": "Height",
+        "value": "51 cm"
+      },
+      {
+        "label": "Clamp Height",
+        "value": "4.5 cm"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Strong Metal Frame",
+      "Durable Build"
+    ]
   },
   {
     "id": "desk-side-organiser",
@@ -169,8 +345,45 @@
     "subName": "Desk Side Organiser",
     "price": 1999,
     "currency": "INR",
-    "description": "Hooks over the side of the desk and takes the things that otherwise colonise the work surface: notebooks and files in the wide slot, pens and scissors in the cup, headphones on the hook underneath. It hangs off the edge rather than standing on the desk, so it costs no surface area and needs nothing drilled.",
-    "features": [],
+    "description": "Hangs off the side of the desk and takes the files, notebooks, tablets and magazines that otherwise spread across the work surface, with a divided cup on the outside for pens. Ventilation slots down the face let you see what is in it. Silicone protectors and an anti-slip pad stop it marking or sliding on the desk, and soft padding inside protects a laptop stored upright. It costs no desk space and nothing is drilled.",
+    "features": [
+      {
+        "title": "Anti-scratch Silicone Protector",
+        "detail": "Protects your table from scratches and provides a firm grip."
+      },
+      {
+        "title": "Anti-slip Cushion Pad",
+        "detail": "Keeps the organiser stable and prevents sliding."
+      },
+      {
+        "title": "Visible Window",
+        "detail": "Stylish ventilation slots let you see contents easily and add a modern look."
+      },
+      {
+        "title": "Smooth Edges",
+        "detail": "Premium finish with smooth, rounded edges for safe and stylish use."
+      },
+      {
+        "title": "Anti-scratch Cushion",
+        "detail": "Soft padding inside to prevent scratches on your laptop, books or devices."
+      },
+      {
+        "title": "Easy to Install",
+        "detail": "No drilling required"
+      },
+      {
+        "title": "Durable & Sturdy",
+        "detail": "High-quality metal build"
+      },
+      {
+        "title": "Multi-Purpose",
+        "detail": "Store files, books, laptops, notebooks, stationery and more"
+      },
+      {
+        "title": "Large Compartments",
+        "detail": "Spacious storage for files, notebooks, tablets, magazines and stationery."
+      }
+    ],
     "images": [
       "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/1.jpeg",
       "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/2.jpeg",
@@ -193,7 +406,29 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Width",
+        "value": "12 in"
+      },
+      {
+        "label": "Depth",
+        "value": "3 in"
+      },
+      {
+        "label": "Height",
+        "value": "8 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Anti-scratch Silicone Protector",
+      "Anti-slip Cushion Pad",
+      "Premium finish with smooth, rounded edges",
+      "Soft padding inside",
+      "High-quality metal build"
+    ]
   },
   {
     "id": "accessories-footrest-001",
@@ -204,14 +439,88 @@
     "subName": "Footrest",
     "price": 999,
     "currency": "INR",
-    "description": "Ergonomic Basic footrest to improve posture and reduce leg fatigue. Simple, sturdy design with non-slip surface for comfortable foot support during work.",
+    "description": "A footrest tilts the floor to meet your feet instead of asking your legs to reach it, which takes the pressure off the backs of your thighs. The adjustable model locks at several angles across a 3 to 7.5 inch rise and has a textured surface with rollers to work tired feet; the wooden and marble-finish models are a fixed 3 to 5 inch slope in a solid, smooth-edged build. All of them sit on anti-slip feet that hold position and protect the floor.",
     "features": [
-      "Non-slip surface",
-      "Ergonomic angle",
-      "Durable construction",
-      "Compact size",
-      "Adjustable tilt",
-      "Lightweight & portable"
+      {
+        "title": "Improves Posture",
+        "detail": "Supports proper sitting alignment"
+      },
+      {
+        "title": "Reduces Leg Fatigue",
+        "detail": "Relieves pressure on legs and feet"
+      },
+      {
+        "title": "Adjustable Angle",
+        "detail": "Multiple tilt positions for personalized comfort"
+      },
+      {
+        "title": "Massage Surface",
+        "detail": "Textured bumps stimulate feet and improve circulation"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "High-quality build for long-lasting use"
+      },
+      {
+        "title": "Adjustable Height & Angle",
+        "detail": "Find your perfect position"
+      },
+      {
+        "title": "Massage Texture",
+        "detail": "Stimulates feet and boosts blood circulation"
+      },
+      {
+        "title": "Foot Massage Rollers",
+        "detail": "Soothes tired feet during long hours"
+      },
+      {
+        "title": "Adjustable Angle",
+        "detail": "Multiple tilt levels for customized comfort"
+      },
+      {
+        "title": "Anti-Slip Pads",
+        "detail": "Keeps the footrest stable and protects your floor"
+      },
+      {
+        "title": "Reduces Leg Fatigue",
+        "detail": "Keeps legs comfortable during long hours"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "Premium wooden build for long-lasting use"
+      },
+      {
+        "title": "Modern Wooden Finish",
+        "detail": "Elegant design blends with any space"
+      },
+      {
+        "title": "Anti-Slip Base",
+        "detail": "Rubber feet keep it stable and protect your floor"
+      },
+      {
+        "title": "Smooth Edges",
+        "detail": "Safe and comfortable for everyday use"
+      },
+      {
+        "title": "Solid Construction",
+        "detail": "Strong wooden support for stability"
+      },
+      {
+        "title": "Anti-Slip Feet",
+        "detail": "Keeps the footrest in place and prevents floor scratches"
+      },
+      {
+        "title": "Premium Wooden Finish",
+        "detail": "Stylish and versatile to match any interior"
+      },
+      {
+        "title": "Premium Marble Finish",
+        "detail": "Stylish marble-look design enhances any space"
+      },
+      {
+        "title": "Premium Marble Finish",
+        "detail": "Elegant and versatile to match any interior"
+      }
     ],
     "images": [
       "/images/products/accessories/footrest/footrest-basic/black/1.jpeg",
@@ -280,6 +589,57 @@
         "comment": "Ergonomic angle is comfortable. Durable construction. Simple but effective. Recommended for desk workers!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Adjustable Footrest Width",
+        "value": "17 in"
+      },
+      {
+        "label": "Adjustable Footrest Depth",
+        "value": "12 in"
+      },
+      {
+        "label": "Adjustable Footrest Front Height",
+        "value": "7.5 in"
+      },
+      {
+        "label": "Adjustable Footrest Rear Height",
+        "value": "3 in"
+      },
+      {
+        "label": "Adjustable Footrest Height",
+        "value": "3 in – 7.5 in (Front to Rear Slope)"
+      },
+      {
+        "label": "Wooden Footrest Width",
+        "value": "18 in"
+      },
+      {
+        "label": "Wooden Footrest Depth",
+        "value": "12 in"
+      },
+      {
+        "label": "Wooden Footrest Front Height",
+        "value": "5 in"
+      },
+      {
+        "label": "Wooden Footrest Rear Height",
+        "value": "3 in"
+      },
+      {
+        "label": "Wooden Footrest Height",
+        "value": "3 in - 5 in (Front to Rear Slope)"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Textured bumps",
+      "Premium wooden build",
+      "Modern wooden finish",
+      "Premium wooden finish",
+      "Premium marble finish",
+      "Premium marble-look design"
     ]
   },
   {
@@ -291,8 +651,57 @@
     "subName": "Keyboard Tray",
     "price": 3899,
     "currency": "INR",
-    "description": "Clamps under the desk and carries the keyboard and mouse below the surface, which lets a desk that is the right height for a monitor also be the right height for your elbows. The front edge is padded across its full width as a wrist rest, and the tray is wide enough to keep the mouse alongside the keyboard rather than up on the desk.",
-    "features": [],
+    "description": "Clamps under the desk on ball-bearing slides and carries the keyboard and mouse below the surface, which lets a desk at the right height for a monitor also be the right height for your elbows. The tray is 68 cm across and 28.3 cm deep, so the mouse sits alongside the keyboard rather than back up on the desk, and the front edge is a soft PU leather wrist rest. The clamps fit tops from 1.5 to 4.5 cm and tighten by hand.",
+    "features": [
+      {
+        "title": "Easy Clamp Installation",
+        "detail": "No Drilling Required"
+      },
+      {
+        "title": "Smooth Glide Mechanism",
+        "detail": "Ball Bearing Slides"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "Supports Daily Use"
+      },
+      {
+        "title": "Spacious Surface",
+        "detail": "Fits Keyboard & Mouse"
+      },
+      {
+        "title": "Sleek & Modern Design",
+        "detail": "Blends with Any Workspace"
+      },
+      {
+        "title": "Ball Bearing Slide",
+        "detail": "For Smooth Operation"
+      },
+      {
+        "title": "Sturdy Clamp Mount",
+        "detail": "Adjustable clamps fit table tops of 1.5 – 4.5 cm thickness. No drilling required."
+      },
+      {
+        "title": "Wide Work Surface",
+        "detail": "Adjustable keyboard and mouse with extra space for comfortable use."
+      },
+      {
+        "title": "Padded Wrist Rest",
+        "detail": "Soft PU leather cushion reduces wrist strain."
+      },
+      {
+        "title": "Adjustable & Secure",
+        "detail": "Easy-to-use tightening knobs ensure a firm and stable fit."
+      },
+      {
+        "title": "Durable Finish",
+        "detail": "Scratch-resistant, easy-to-clean surface for long-lasting use."
+      },
+      {
+        "title": "Ergonomic Design",
+        "detail": "Promotes better posture and reduces neck, shoulder and wrist fatigue."
+      }
+    ],
     "images": [
       "/images/products/accessories/keyboard-tray/keyboard-tray/black/1.jpeg",
       "/images/products/accessories/keyboard-tray/keyboard-tray/black/2.jpeg",
@@ -315,7 +724,31 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Total Length",
+        "value": "80 cm"
+      },
+      {
+        "label": "Tray Length",
+        "value": "68 cm"
+      },
+      {
+        "label": "Depth",
+        "value": "28.3 cm"
+      },
+      {
+        "label": "Clamp fits table tops",
+        "value": "1.5 – 4.5 cm thickness"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Ball Bearing Slides",
+      "Soft PU leather cushion",
+      "Scratch-resistant, easy-to-clean surface"
+    ]
   },
   {
     "id": "peg-board",
@@ -326,8 +759,57 @@
     "subName": "Peg-Board",
     "price": 3499,
     "currency": "INR",
-    "description": "A perforated steel board that clamps to the back edge of the desk and stands upright behind it, turning the wall of space above the desk into storage. Hooks, pen cups and holders locate anywhere on the grid and move when the setup changes. Nothing is fixed to the wall, so it comes with you and leaves no holes.",
-    "features": [],
+    "description": "A perforated metal panel that clamps to the desk and turns the space above or below it into storage. It mounts horizontally or vertically, rotates, and takes accessories on both faces. The kit comes with two hanging boxes, a bottle holder, a headphone holder, a shelf, four hooks and four magnetic pins, all of which move anywhere on the grid when the setup changes. The finish is scratch-resistant powder coating, and because it clamps rather than screws, nothing is fixed to the wall.",
+    "features": [
+      {
+        "title": "On-Desk and Under-Desk Installation",
+        "detail": "Satisfies different needs while saving more desktop space"
+      },
+      {
+        "title": "Double-Sided Design",
+        "detail": "for attaching more pegboard accessories and items"
+      },
+      {
+        "title": "Rotating Design",
+        "detail": ""
+      },
+      {
+        "title": "Modular Storage",
+        "detail": "Hooks, cups, boxes & shelves to keep essentials organised"
+      },
+      {
+        "title": "Flexible Mounting",
+        "detail": "Panels can be attached horizontally or vertically to suit your space"
+      },
+      {
+        "title": "Tool-Free Setup",
+        "detail": "Easy clamp installation — no drilling required"
+      },
+      {
+        "title": "Durable Metal Build",
+        "detail": "Sturdy, scratch-resistant powder-coated finish"
+      },
+      {
+        "title": "Space-Saving Design",
+        "detail": "Keeps your desk clutter-free and essentials within reach"
+      },
+      {
+        "title": "Multi-Purpose Use",
+        "detail": "Ideal for home office, study, gaming or workstations"
+      },
+      {
+        "title": "Sturdy Clamp Mount",
+        "detail": "Fits most tabletops"
+      },
+      {
+        "title": "Multiple Accessories",
+        "detail": "Customise as per your needs"
+      },
+      {
+        "title": "Horizontal or Vertical",
+        "detail": "Install the panel your way"
+      }
+    ],
     "images": [
       "/images/products/accessories/peg-board/peg-board/black/1.jpeg",
       "/images/products/accessories/peg-board/peg-board/black/2.jpeg",
@@ -352,7 +834,33 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Width",
+        "value": "42 cm (16.5 in)"
+      },
+      {
+        "label": "Height",
+        "value": "32 cm (12.5 in)"
+      },
+      {
+        "label": "Depth",
+        "value": "3.5 in"
+      }
+    ],
+    "inTheBox": [
+      "2x Pieces Of Plastic Hanging Boxes",
+      "1x Piece Of Plastic Bottle Holder",
+      "1x Piece Of Plastic Headphone Holder",
+      "1x Piece Of Metal Pegboard Of Size 42x32 CM With Table Mount Rotating Bracket",
+      "1x Piece Of Metal Multi-Purpose Rack",
+      "4x Pieces Of Metal Multi-Purpose Hooks",
+      "4x Pieces Of Magnetic Pins Used To Hold Notes On Metal Board"
+    ],
+    "materials": [
+      "Sturdy, scratch-resistant powder-coated finish"
+    ]
   },
   {
     "id": "chair-mesh-004",
@@ -363,14 +871,48 @@
     "subName": "Mesh Chairs",
     "price": 14999,
     "currency": "INR",
-    "description": "High-performance Atlas mesh chair with superior ergonomic design and premium build quality. Features enhanced breathability and maximum comfort for demanding work environments.",
+    "description": "A mesh task chair with the full set of adjustments rather than a selection of them. The headrest moves for height and angle, the lumbar support moves for height, and the armrests adjust four ways — height, width, depth and angle — on soft PU pads. The back is breathable mesh over a PP frame; the seat is high-density moulded foam. Recline, tilt lock and seat height sit under the seat, on a Class 3 gas lift and a heavy-duty five-star nylon base.",
     "features": [
-      "3D adjustable armrests",
-      "Synchro-tilt mechanism",
-      "Adjustable headrest",
-      "Premium mesh fabric",
-      "High-load capacity frame",
-      "Anti-fatigue lumbar curve"
+      {
+        "title": "Adjustable Headrest",
+        "detail": "Height & angle adjustable headrest for personalized neck support."
+      },
+      {
+        "title": "Breathable Mesh Backrest",
+        "detail": "Premium breathable mesh keeps you cool and comfortable all day."
+      },
+      {
+        "title": "Ergonomic Back Frame",
+        "detail": "Sturdy PP frame with modern design for enhanced strength and support."
+      },
+      {
+        "title": "Adjustable Lumbar Support",
+        "detail": "Height adjustable lumbar support to maintain natural spine alignment."
+      },
+      {
+        "title": "4D Adjustable Armrests",
+        "detail": "Height, width, depth and angle adjustable armrests with soft PU pads for complete arm support."
+      },
+      {
+        "title": "Comfortable Seat Cushion",
+        "detail": "High-density molded foam seat for superior comfort and long-lasting support."
+      },
+      {
+        "title": "Multi-function Mechanism",
+        "detail": "Recline, tilt lock and height adjustment for a relaxed sitting experience."
+      },
+      {
+        "title": "Class 3 Gas Lift",
+        "detail": "Smooth and durable height adjustment with Class 3 gas lift."
+      },
+      {
+        "title": "Sturdy Nylon Base",
+        "detail": "Heavy-duty 5-star nylon base for stability and durability."
+      },
+      {
+        "title": "Smooth Castor Wheels",
+        "detail": "360° swivel wheels for smooth and silent movement on all floor types."
+      }
     ],
     "images": [
       "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/1.jpeg",
@@ -426,6 +968,16 @@
         "comment": "As someone 6 feet tall, the adjustable headrest and 3D armrests finally fit me perfectly. Very comfortable after minor adjustments. Highly satisfied!",
         "verified": false
       }
+    ],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": [
+      "Premium breathable mesh",
+      "Sturdy PP frame",
+      "soft PU pads",
+      "High-density molded foam seat",
+      "Class 3 gas lift",
+      "Heavy-duty 5-star nylon base"
     ]
   },
   {
@@ -437,14 +989,44 @@
     "subName": "Mesh Chairs",
     "price": 18999,
     "currency": "INR",
-    "description": "Next-generation Xyron mesh chair engineered for maximum comfort and style. Features ultra-breathable dual-layer mesh, full 4D armrest control, and an innovative self-adjusting lumbar system for unmatched all-day support.",
+    "description": "The chair in the range built to be leaned back in. The backrest opens to 135°, the headrest is curved to carry the neck at that angle, and a footrest pulls out from beneath the seat so you can stop working without leaving the chair. Padded armrests with a smooth curve, a thick high-density foam seat, and a Class 4 gas lift — the strongest in the range — on a five-star nylon base with quiet casters.",
     "features": [
-      "Dual-layer ultra-breathable mesh",
-      "4D adjustable armrests",
-      "Self-adjusting lumbar system",
-      "Recline lock with tilt tension",
-      "Adjustable headrest with neck cushion",
-      "Heavy-duty aluminium base"
+      {
+        "title": "Curved Headrest",
+        "detail": "Curved design for ergonomic neck support and reduced strain."
+      },
+      {
+        "title": "Ergonomic Backrest",
+        "detail": "Contour design to support your spine and promote healthy posture."
+      },
+      {
+        "title": "Comfortable Armrests",
+        "detail": "Padded armrests with smooth curve for relaxed arm support."
+      },
+      {
+        "title": "Spacious Seat Cushion",
+        "detail": "Thick, high-density foam for all-day comfort."
+      },
+      {
+        "title": "Extendable Footrest",
+        "detail": "Pull-out footrest to relax your legs and unwind anytime."
+      },
+      {
+        "title": "Multi-Function Mechanism",
+        "detail": "Recline, tilt lock and height adjustment for personalized comfort."
+      },
+      {
+        "title": "Class 4 Gas Lift",
+        "detail": "Smooth height adjustment with strong and durable build."
+      },
+      {
+        "title": "Sturdy Five-Star Base",
+        "detail": "Premium nylon base for excellent stability and long-lasting performance."
+      },
+      {
+        "title": "360° Smooth Casters",
+        "detail": "Quiet, durable wheels for effortless movement on any floor."
+      }
     ],
     "images": [
       "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/1.jpeg",
@@ -521,6 +1103,19 @@
         "comment": "Assembly took about an hour but the result is worth it. The recline lock is smooth and the neck cushion on the headrest is a thoughtful touch. Very comfortable for long hours!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Recline Range",
+        "value": "90° - 135°"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Thick, high-density foam",
+      "Class 4 Gas Lift",
+      "Premium nylon base",
+      "Quiet, durable wheels"
     ]
   },
   {
@@ -532,14 +1127,44 @@
     "subName": "Mesh Chairs",
     "price": 16999,
     "currency": "INR",
-    "description": "Premium mesh chair with advanced lumbar support and adjustable headrest. Designed for professionals who value comfort and productivity.",
+    "description": "A mesh task chair with 4D armrests that set for height, swivel left and right and slide forward and back, and lumbar support that adjusts for height and adapts to the lower back. The mesh back is contoured rather than flat, so it holds the spine's shape instead of pressing against it. Thick high-density moulded foam seat, recline with tilt lock, Class 3 gas lift, five-star base on PU casters that run quietly on hard floors.",
     "features": [
-      "3D adjustable armrests",
-      "Synchro-tilt mechanism",
-      "Adjustable headrest",
-      "Premium mesh fabric",
-      "Ergonomic lumbar support",
-      "Height adjustable gas lift"
+      {
+        "title": "Adjustable Headrest",
+        "detail": "Height-adjustable headrest for personalized neck support."
+      },
+      {
+        "title": "Breathable Mesh Backrest",
+        "detail": "Ergonomic contoured design for spine support and better posture."
+      },
+      {
+        "title": "Adjustable Lumbar Support",
+        "detail": "Height-adjustable with adaptive support for lower back comfort."
+      },
+      {
+        "title": "4D Adjustable Armrests",
+        "detail": "Soft PU pads with height adjustment, left-right swivel and front-back sliding for personalized support."
+      },
+      {
+        "title": "Thick Seat Cushion",
+        "detail": "Spacious high-density molded foam for long hours of comfort."
+      },
+      {
+        "title": "Multi-Function Mechanism",
+        "detail": "Recline, tilt lock and seat height adjustment for dynamic sitting."
+      },
+      {
+        "title": "Class 3 Gas Lift",
+        "detail": "Smooth height adjustment with enhanced safety and durability."
+      },
+      {
+        "title": "Sturdy 5-Star Base",
+        "detail": "Strong and stable base for long-term use."
+      },
+      {
+        "title": "Smooth PU Casters",
+        "detail": "Silent, durable wheels for effortless movement on all floor types."
+      }
     ],
     "images": [
       "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/1.jpeg",
@@ -593,6 +1218,16 @@
         "comment": "The chair quality is top-tier. 3D armrests are unique and very useful. Assembly took about 45 minutes but the result is incredible. Highly recommend for serious users.",
         "verified": true
       }
+    ],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": [
+      "Breathable mesh backrest",
+      "Soft PU pads",
+      "Spacious high-density molded foam",
+      "Class 3 Gas Lift",
+      "Sturdy 5-Star Base",
+      "Smooth PU Casters"
     ]
   },
   {
@@ -604,14 +1239,44 @@
     "subName": "Performance Mesh Chairs",
     "price": 14899,
     "currency": "INR",
-    "description": "Premium Casca fabric chair with luxurious upholstery and superior comfort. Designed with high-quality fabric and ergonomic support for all-day comfort.",
+    "description": "A mesh back with a fabric seat: airflow where your back is, padding where your weight is. The backrest locks at three recline angles, so an upright working position and a leaning-back one are both repeatable rather than something you hold with your legs. Adjustable lumbar support, 3D armrests that move for height, swivel and slide, a curved headrest, and a thick high-density foam seat on a five-star base with casters.",
     "features": [
-      "Luxury fabric upholstery",
-      "Enhanced lumbar support",
-      "Adjustable components",
-      "Durable construction",
-      "Multi-function tilt mechanism",
-      "Padded seat cushion"
+      {
+        "title": "Ergonomic Headrest",
+        "detail": "Curved headrest provides comfortable neck support and reduces strain."
+      },
+      {
+        "title": "Breathable + Absorbing Mesh",
+        "detail": "Premium mesh backrest keeps you cool with airflow and absorbs pressure for all-day comfort."
+      },
+      {
+        "title": "Ergonomic Backrest",
+        "detail": "Contoured design supports your spine and promotes healthy posture."
+      },
+      {
+        "title": "Adjustable Lumbar Support",
+        "detail": "Easily adjustable lumbar support gives targeted lower back support for long working hours."
+      },
+      {
+        "title": "3D Armrest",
+        "detail": "Height, left-right swivel and front-back sliding armrests for maximum comfort."
+      },
+      {
+        "title": "Comfortable Seat Cushion",
+        "detail": "Thick, high-density foam seat with breathable fabric for lasting comfort."
+      },
+      {
+        "title": "3 Recliner Lock",
+        "detail": "Backrest can be locked at 3 different recline angles to suit your working or relaxation mode."
+      },
+      {
+        "title": "Height Adjustment",
+        "detail": "Smooth gas lift for easy seat height adjustment."
+      },
+      {
+        "title": "Sturdy Base & Smooth Casters",
+        "detail": "Strong 5-star base with durable casters for stability and smooth movement on all floor types."
+      }
     ],
     "images": [
       "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/1.jpeg",
@@ -679,6 +1344,14 @@
         "comment": "Very comfortable and well-made. The fabric feels premium. Assembly was easy. Slightly expensive but quality justifies the price.",
         "verified": true
       }
+    ],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": [
+      "Premium mesh backrest",
+      "Soft PU pads",
+      "Thick, high-density foam seat with breathable fabric",
+      "Strong 5-star base with durable casters"
     ]
   },
   {
@@ -690,8 +1363,37 @@
     "subName": "Performance Mesh Chairs",
     "price": 13499,
     "currency": "INR",
-    "description": "A high-back task chair with a performance-mesh back stretched inside a moulded frame, so the support comes from the frame's shape rather than from padding that flattens. Fixed loop arms, a gas lift and a tilt mechanism under the seat, on a five-star nylon base with castors. The taller back is the point: it carries the shoulders, not just the lumbar.",
-    "features": [],
+    "description": "A high-back mesh chair with moisture-absorbing fabric worked into the weave, so it stays dry through a long day as well as cool. The headrest and the lumbar support both adjust for height, the armrests move three ways — up, forward and sideways — on soft PU pads, and the back locks at three recline angles. High-density moulded foam seat under breathable fabric, on a strong five-star base with 360° casters.",
+    "features": [
+      {
+        "title": "Adjustable Headrest",
+        "detail": "Height adjustable headrest provides neck support and reduces strain."
+      },
+      {
+        "title": "Breathable + Absorbing Mesh",
+        "detail": "Premium breathable mesh with moisture-absorbing fabric keeps you cool, dry and comfortable even during long hours."
+      },
+      {
+        "title": "3D Adjustable Armrests",
+        "detail": "Height, forward-backward and left-right adjustment with soft PU pads for complete arm support."
+      },
+      {
+        "title": "Comfortable Seat Cushion",
+        "detail": "High-density molded foam with breathable fabric for superior comfort and support during long sitting hours."
+      },
+      {
+        "title": "3 Recliner Lock Positions",
+        "detail": "Recline and lock at 3 different angles for your preferred sitting posture."
+      },
+      {
+        "title": "Adjustable Lumbar Support",
+        "detail": "Height adjustable lumbar support helps maintain proper spine alignment and reduces back fatigue."
+      },
+      {
+        "title": "Sturdy Base & Smooth Casters",
+        "detail": "Strong five-star base with 360° smooth-rolling casters for stability and easy mobility on any floor."
+      }
+    ],
     "images": [
       "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/1.jpeg",
       "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/2.jpeg",
@@ -727,7 +1429,15 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": [
+      "Premium breathable mesh with moisture-absorbing fabric",
+      "Soft PU pads",
+      "High-density molded foam with breathable fabric",
+      "Strong five-star base with 360° smooth-rolling casters"
+    ]
   },
   {
     "id": "pointer-performance-mesh-chair",
@@ -738,8 +1448,37 @@
     "subName": "Performance Mesh Chairs",
     "price": 12999,
     "currency": "INR",
-    "description": "A performance-mesh task chair with an adjustable headrest and height-adjustable arms, built around a moulded frame that shapes the back rather than relying on foam. Gas lift and tilt under the seat, five-star nylon base on castors. The headrest is the difference between this and the Luxor, and it matters most on calls and in any chair you lean back in.",
-    "features": [],
+    "description": "A mesh task chair that locks at three measured recline angles — 90°, 105° and 120° — so the upright working position and the one you lean back into are both repeatable. The headrest adjusts for neck support, lumbar support is built into the frame, and the armrests move for height, forward and back, and swivel. Breathable moisture-absorbing mesh, a thick high-density foam seat, and a heavy-duty five-star base on smooth-rolling casters.",
+    "features": [
+      {
+        "title": "ADJUSTABLE HEADREST",
+        "detail": "Ergonomic neck support to reduce strain."
+      },
+      {
+        "title": "BREATHABLE + ABSORBING MESH",
+        "detail": "Premium breathable and moisture-absorbing mesh keeps you cool and comfortable even during long hours."
+      },
+      {
+        "title": "LUMBAR SUPPORT",
+        "detail": "Built-in lumbar support provides better spine alignment and reduces back fatigue."
+      },
+      {
+        "title": "3D ARMREST",
+        "detail": "Adjustable in height, forward-back, left-right swivel for personalized comfort."
+      },
+      {
+        "title": "COMFORTABLE SEAT",
+        "detail": "Thick high-density foam seat with breathable fabric for long-lasting comfort."
+      },
+      {
+        "title": "3 RECLINER LOCK",
+        "detail": "Recline and lock in 3 different positions (90° / 105° / 120°) for work, relax and recharge."
+      },
+      {
+        "title": "STRONG & STABLE BASE",
+        "detail": "Heavy-duty 5-star base with smooth rolling casters for stability and easy mobility."
+      }
+    ],
     "images": [
       "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/1.jpeg",
       "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/2.jpeg",
@@ -775,7 +1514,19 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Recline positions",
+        "value": "90° / 105° / 120°"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Premium breathable and moisture-absorbing mesh",
+      "Thick high-density foam seat with breathable fabric",
+      "Heavy-duty 5-star base with smooth rolling casters"
+    ]
   },
   {
     "id": "flex-apex-bed-table",
@@ -786,8 +1537,33 @@
     "subName": "Bed Tables",
     "price": 1299,
     "currency": "INR",
-    "description": "A folding table sized for working from a bed or a sofa. The legs fold flat against the underside, so it stores upright in a gap rather than needing floor space, and the marble-effect top is wide enough for a laptop with a notebook or a mug beside it. Light enough to carry in one hand between rooms.",
-    "features": [],
+    "description": "A low table sized for a bed, a sofa or the floor — 24 inches by 16, standing 10 inches tall. The top is a smooth marble-effect surface that wipes clean, with room for a laptop and a mug beside it. Strong metal legs with anti-slip feet keep it steady on a mattress or a rug, and the whole thing is light enough to carry between rooms in one hand.",
+    "features": [
+      {
+        "title": "Spacious Tabletop",
+        "detail": "Ample space for laptop, books, snacks and more."
+      },
+      {
+        "title": "Premium Finish",
+        "detail": "Smooth, durable and easy to clean surface."
+      },
+      {
+        "title": "Space Saving",
+        "detail": "Compact & lightweight design, easy to move and store."
+      },
+      {
+        "title": "Multi-Purpose Use",
+        "detail": "Perfect for work, study, reading, eating or relaxing in bed or on the floor."
+      },
+      {
+        "title": "Sturdy & Stable",
+        "detail": "Strong metal legs with anti-slip feet for enhanced stability."
+      },
+      {
+        "title": "Modern Aesthetic",
+        "detail": "Minimal and stylish design that blends with any space."
+      }
+    ],
     "images": [
       "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/1.jpeg",
       "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/2.jpeg",
@@ -826,7 +1602,26 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "24 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "16 in"
+      },
+      {
+        "label": "Height",
+        "value": "10 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Smooth, durable and easy to clean surface.",
+      "Strong metal legs with anti-slip feet for enhanced stability."
+    ]
   },
   {
     "id": "table-executive-003",
@@ -837,14 +1632,68 @@
     "subName": "Executive Tables",
     "price": 14599,
     "currency": "INR",
-    "description": "Luxury Imperium executive desk with expansive surface and premium craftsmanship. Features built-in filing system, integrated lighting, and executive-grade finish.",
+    "description": "An executive desk offered in two finishes: a natural woodgrain top on solid wooden legs, or a marble-effect top on a powder-coated metal frame. Both measure 36 inches by 24 and stand 30 inches tall, with a scratch-resistant surface that wipes clean, bevelled edges and a signature accent panel across the front.",
     "features": [
-      "Built-in filing",
-      "Integrated lighting",
-      "Expansive surface",
-      "Luxury finish",
-      "Executive leather inlay",
-      "Solid wood construction"
+      {
+        "title": "Premium Tabletop",
+        "detail": "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish."
+      },
+      {
+        "title": "Stylish Accent Detail",
+        "detail": "Signature panel for a modern, premium look."
+      },
+      {
+        "title": "Refined Edge Design",
+        "detail": "Sleek, bevelled edges for a modern and safe finish."
+      },
+      {
+        "title": "Sturdy Wooden Legs",
+        "detail": "Robust construction with a natural wood finish for stability and long-lasting use."
+      },
+      {
+        "title": "Modern Aesthetic",
+        "detail": "Enhances any workspace"
+      },
+      {
+        "title": "Durable Build",
+        "detail": "Made for everyday use"
+      },
+      {
+        "title": "Easy to Maintain",
+        "detail": "Just wipe & work"
+      },
+      {
+        "title": "Stable & Reliable",
+        "detail": "Supports heavy usage"
+      },
+      {
+        "title": "Versatile Use",
+        "detail": "Ideal for home, office & professional spaces"
+      },
+      {
+        "title": "Premium Tabletop",
+        "detail": "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish."
+      },
+      {
+        "title": "Thick & Sturdy Edge",
+        "detail": "Premium finish with durable edge banding for long life."
+      },
+      {
+        "title": "Strong Metal Legs",
+        "detail": "Robust, powder-coated metal frame ensures stability and supports heavy usage."
+      },
+      {
+        "title": "Premium Look",
+        "detail": "Elevates any workspace"
+      },
+      {
+        "title": "Durable Construction",
+        "detail": "Built for long-term use"
+      },
+      {
+        "title": "Stable & Sturdy",
+        "detail": "Supports heavy usage"
+      }
     ],
     "images": [
       "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/1.jpeg",
@@ -903,6 +1752,27 @@
         "comment": "Luxury finish transforms my office! All features work perfectly. Executive-grade quality throughout. Best investment for my home office!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "36 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish.",
+      "Robust construction with a natural wood finish for stability and long-lasting use.",
+      "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish.",
+      "Robust, powder-coated metal frame ensures stability and supports heavy usage."
     ]
   },
   {
@@ -914,14 +1784,44 @@
     "subName": "Executive Tables",
     "price": 15699,
     "currency": "INR",
-    "description": "Luxury Signature executive desk with expansive surface and premium craftsmanship. Features built-in filing system, integrated lighting, and executive-grade finish.",
+    "description": "A marble-effect executive desk with a white signature panel set into the front and a powder-coated metal frame beneath it. 36 inches by 24, standing 30 inches tall. The top is scratch-resistant and waterproof, so it wipes clean rather than staining, and thick edge banding runs the whole way round.",
     "features": [
-      "Built-in filing",
-      "Integrated lighting",
-      "Expansive surface",
-      "Luxury finish",
-      "Executive leather inlay",
-      "Solid wood construction"
+      {
+        "title": "Premium Tabletop",
+        "detail": "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish."
+      },
+      {
+        "title": "Stylish Accent Detail",
+        "detail": "Signature white panel for a modern, premium look."
+      },
+      {
+        "title": "Thick & Durable Edge",
+        "detail": "Premium finish with robust edge banding for long-lasting use."
+      },
+      {
+        "title": "Strong Metal Legs",
+        "detail": "Sturdy, powder-coated metal frame ensures stability and supports heavy usage."
+      },
+      {
+        "title": "Premium Look",
+        "detail": "Elevates any workspace"
+      },
+      {
+        "title": "Durable Construction",
+        "detail": "Built for long-term use"
+      },
+      {
+        "title": "Easy to Maintain",
+        "detail": "Just wipe & work"
+      },
+      {
+        "title": "Stable & Sturdy",
+        "detail": "Supports heavy usage"
+      },
+      {
+        "title": "Versatile Use",
+        "detail": "Ideal for home, office & professional spaces"
+      }
     ],
     "images": [
       "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/1.jpeg",
@@ -966,6 +1866,25 @@
         "comment": "Luxury finish transforms my office! All features work perfectly. Executive-grade quality throughout. Best investment for my home office!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "36 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish.",
+      "Sturdy, powder-coated metal frame ensures stability and supports heavy usage."
     ]
   },
   {
@@ -977,14 +1896,32 @@
     "subName": "Folding Tables",
     "price": 8499,
     "currency": "INR",
-    "description": "Mid-size Exquisite folding table with reinforced frame and larger surface area. Perfect for dining, work, or events with quick setup and takedown.",
+    "description": "A 48-inch folding table for offices, training rooms and meeting spaces — out when it is needed, flat against a wall when it is not. The metal frame folds on a smooth mechanism and the feet adjust individually, so it sits level on a floor that is not. The top is scratch-resistant and low-maintenance.",
     "features": [
-      "Reinforced frame",
-      "Larger surface",
-      "Quick setup",
-      "Durable finish",
-      "Stable locking legs",
-      "Seats up to 6 people"
+      {
+        "title": "Space Saving Design",
+        "detail": "Folds easily for compact storage"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "Strong metal frame with premium tabletop"
+      },
+      {
+        "title": "Easy to Use",
+        "detail": "Smooth folding mechanism"
+      },
+      {
+        "title": "Multi-Purpose",
+        "detail": "Ideal for offices, training rooms, conference rooms & home"
+      },
+      {
+        "title": "Adjustable Feet",
+        "detail": "For stability on uneven floors"
+      },
+      {
+        "title": "Easy to Clean",
+        "detail": "Scratch-resistant, low-maintenance surface"
+      }
     ],
     "images": [
       "/images/products/tables/folding-table/exquisite-primex-folding-table/black-marble/1.jpeg",
@@ -1040,6 +1977,25 @@
         "comment": "Durable finish and sturdy build. Use it for work and dining. Easy to store when not in use. Good value!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "48 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Strong metal frame with premium tabletop",
+      "Scratch-resistant, low-maintenance surface"
     ]
   },
   {
@@ -1051,14 +2007,52 @@
     "subName": "Folding Tables",
     "price": 12999,
     "currency": "INR",
-    "description": "The Exquisite Pro is the ultimate folding table for professionals and families alike. Features a waterproof anti-scratch tabletop, one-click fold mechanism, and carry handle — the easiest fold-and-go table in the range.",
+    "description": "A folding table on lockable wheels, so it rolls to where it is needed and then stays there. Sturdy metal locks hold the frame open and release it to fold flat for storage in a narrow gap. 36 inches by 24, standing 30 inches tall, with a durable scratch-resistant top that wipes clean.",
     "features": [
-      "One-click fold mechanism",
-      "Waterproof & anti-scratch surface",
-      "Carry handle for portability",
-      "Reinforced heavy-duty legs",
-      "Non-slip rubber feet",
-      "Seats up to 8 people"
+      {
+        "title": "Premium Tabletop",
+        "detail": "Durable, scratch-resistant and easy to clean surface."
+      },
+      {
+        "title": "Easy Folding Mechanism",
+        "detail": "Smooth and secure folding with sturdy metal locks."
+      },
+      {
+        "title": "Lockable Wheels",
+        "detail": "Smooth mobility with wheel locks for stability."
+      },
+      {
+        "title": "Sturdy Metal Frame",
+        "detail": "Strong, stable and long-lasting construction."
+      },
+      {
+        "title": "Space-Saving Design",
+        "detail": "Folds easily for compact storage when not in use."
+      },
+      {
+        "title": "Multi-Purpose",
+        "detail": "Ideal for office, training, meetings and home use."
+      },
+      {
+        "title": "Compact Storage",
+        "detail": "Folds easily for small spaces."
+      },
+      {
+        "title": "Strong & Durable",
+        "detail": "Built for everyday use."
+      },
+      {
+        "title": "Mobility",
+        "detail": "Smooth rolling & lockable wheels."
+      },
+      {
+        "title": "Easy To Clean",
+        "detail": "Low maintenance surface."
+      },
+      {
+        "title": "Modern Design",
+        "detail": "Clean, minimal and professional look."
+      }
     ],
     "images": [
       "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/1.jpeg",
@@ -1114,6 +2108,26 @@
         "comment": "The non-slip rubber feet keep the table perfectly stable on tiled floors. One-click mechanism is smooth. Great value upgrade over the standard models!",
         "verified": false
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "36 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Durable, scratch-resistant and easy to clean surface.",
+      "Smooth and secure folding with sturdy metal locks.",
+      "Strong, stable and long-lasting construction."
     ]
   },
   {
@@ -1125,8 +2139,41 @@
     "subName": "Gaming Desk",
     "price": 14499,
     "currency": "INR",
-    "description": "A Z-frame gaming desk with a carbon-textured top, an LED strip running the front edge, and a headphone hook and cup holder mounted at the side so neither takes up desk space. The surface is deep enough for an ultrawide monitor with a full keyboard and mouse in front of it, and the tower sits on the floor inside the frame rather than in the legroom.",
-    "features": [],
+    "description": "A 55-inch gaming desk on an X-shaped steel frame, with RGB lighting down both sides and a carbon-fibre-texture top that resists scratches and water. The front edge is cut away in a curve so your forearms rest on the desk rather than on its corner. A grommet takes cables down through the surface, a headphone stand keeps the headset off it, and levelling feet deal with an uneven floor.",
+    "features": [
+      {
+        "title": "RGB LED Lighting",
+        "detail": "Dynamic RGB lighting on both sides for an immersive gaming experience."
+      },
+      {
+        "title": "Premium Carbon Fiber Texture Top",
+        "detail": "Scratch-resistant, water-resistant and easy to clean surface."
+      },
+      {
+        "title": "Cable Management Grommet",
+        "detail": "Keep your setup clean and organized."
+      },
+      {
+        "title": "Ergonomic Front Edge",
+        "detail": "Curved cut-out design for comfortable long hours of gaming or work."
+      },
+      {
+        "title": "Anti-Slip Edge Design",
+        "detail": "Angled edges to keep your gear safe and in place."
+      },
+      {
+        "title": "Sturdy Metal Frame",
+        "detail": "Heavy-duty steel frame with X-shape design for maximum stability and durability."
+      },
+      {
+        "title": "Adjustable Feet",
+        "detail": "Leveling feet ensure stability on uneven floors."
+      },
+      {
+        "title": "Headphone Stand",
+        "detail": ""
+      }
+    ],
     "images": [
       "/images/products/tables/gaming-desk/phantom-gaming-desk/black/1.jpeg",
       "/images/products/tables/gaming-desk/phantom-gaming-desk/black/2.jpeg",
@@ -1153,7 +2200,30 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "55 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [
+      "Headphone Stand",
+      "Cable Management Grommet"
+    ],
+    "materials": [
+      "Premium Carbon Fiber Texture Top",
+      "Scratch-resistant, water-resistant and easy to clean surface.",
+      "Heavy-duty steel frame with X-shape design for maximum stability and durability."
+    ]
   },
   {
     "id": "table-gaming-desk-001",
@@ -1164,14 +2234,44 @@
     "subName": "Gaming Desk",
     "price": 14499,
     "currency": "INR",
-    "description": "The Quantum Gaming Desk is engineered for serious gamers who demand performance and style. Features a spacious carbon-fibre texture surface, built-in RGB LED strip, cable management cutouts, and a headphone hook — everything a modern gaming battlestation needs.",
+    "description": "A 55-inch gaming desk with RGB lighting along both sides, a carbon-fibre-texture top and gaming-style side panels. A headphone hook and a detachable cup holder move the headset and the drink off the work surface, and a grommet takes cables through it. Heavy-duty steel frame on a stable base, with angled anti-slip edges to keep gear from sliding off.",
     "features": [
-      "Large carbon-fibre texture surface",
-      "Built-in RGB LED strip",
-      "Cable management cutouts",
-      "Headphone hook included",
-      "Cup holder slot",
-      "Heavy-duty steel frame"
+      {
+        "title": "RGB LED Lighting",
+        "detail": "Dynamic RGB lighting on both sides for an immersive gaming experience."
+      },
+      {
+        "title": "Premium Carbon Fiber Texture Top",
+        "detail": "Scratch-resistant, water-resistant and easy to clean surface."
+      },
+      {
+        "title": "Cable Management Grommet",
+        "detail": "Keep your setup clean and organized."
+      },
+      {
+        "title": "Headphone Hook",
+        "detail": "Convenient hook to keep your headset within reach."
+      },
+      {
+        "title": "Cup Holder",
+        "detail": "Detachable cup holder for drinks and bottles."
+      },
+      {
+        "title": "Sturdy Metal Frame",
+        "detail": "Heavy-duty steel frame with stable base for maximum support."
+      },
+      {
+        "title": "Anti-Slip Edge Design",
+        "detail": "Angled edges to keep your gear safe and in place."
+      },
+      {
+        "title": "Gaming Style Design",
+        "detail": "Stylish side panels with gaming-inspired accents for a premium look."
+      },
+      {
+        "title": "Headphone Stand",
+        "detail": ""
+      }
     ],
     "images": [
       "/images/products/tables/gaming-desk/quantum-gaming-desk/black/1.jpeg",
@@ -1227,6 +2327,30 @@
         "comment": "The quality is excellent and the RGB adds great ambiance. Assembly took about 90 minutes but the result is worth every minute. My gaming room looks completely transformed!",
         "verified": false
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "55 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      }
+    ],
+    "inTheBox": [
+      "Headphone Hook",
+      "Cup Holder",
+      "Cable Management Grommet"
+    ],
+    "materials": [
+      "Premium Carbon Fiber Texture Top",
+      "Scratch-resistant, water-resistant and easy to clean surface.",
+      "Heavy-duty steel frame with stable base for maximum support."
     ]
   },
   {
@@ -1238,8 +2362,49 @@
     "subName": "Height Adjustable Tables",
     "price": 12999,
     "currency": "INR",
-    "description": "A sit-stand desk raised and lowered by a hand crank under the right-hand side rather than a motor, which means no cable to the wall and nothing electrical to fail. The crank folds away against the frame when it is not being turned. A wood-finish top on a black steel frame, sized as a primary desk rather than a side table.",
-    "features": [],
+    "description": "A sit-stand desk raised and lowered by a hand crank rather than a motor, which means no cable to the wall and nothing electrical to fail. It travels from 72 to 117 cm, covering seated and standing height, on telescopic steel legs. A wide base with levellers holds it steady on an uneven floor. The top measures 48 inches by 24, sized as a primary desk rather than a side table.",
+    "features": [
+      {
+        "title": "Sit or Stand",
+        "detail": "Adjust to your ideal height"
+      },
+      {
+        "title": "Smooth Crank Mechanism",
+        "detail": "Easy & effortless height adjustment"
+      },
+      {
+        "title": "Sturdy Build",
+        "detail": "Strong steel frame for long-lasting use"
+      },
+      {
+        "title": "Ergonomic Wellness",
+        "detail": "Supports better posture and productivity"
+      },
+      {
+        "title": "Easy Assembly",
+        "detail": "Simple setup with clear instructions"
+      },
+      {
+        "title": "Space-Efficient Design",
+        "detail": "Perfect for home or office"
+      },
+      {
+        "title": "Manual Crank Handle",
+        "detail": "Smooth and effortless height adjustment"
+      },
+      {
+        "title": "Telescopic Legs",
+        "detail": "Stable and durable steel construction"
+      },
+      {
+        "title": "Wide Base with Levelers",
+        "detail": "Extra stability on uneven floors"
+      },
+      {
+        "title": "Height Range",
+        "detail": "Easily adjust the height to sit or stand"
+      }
+    ],
     "images": [
       "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/1.jpeg",
       "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/2.jpeg",
@@ -1264,7 +2429,26 @@
         "inStock": true
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "48 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height Range",
+        "value": "72 cm – 117 cm (28 in – 46 in)"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Strong steel frame for long-lasting use",
+      "Stable and durable steel construction"
+    ]
   },
   {
     "id": "table-height-adjustable-005",
@@ -1275,14 +2459,40 @@
     "subName": "Height Adjustable Tables",
     "price": 17999,
     "currency": "INR",
-    "description": "The flagship Modulus Primex is the pinnacle of sit-stand desk engineering. Features an AI-powered posture reminder, 6 memory presets, ultra-wide surface for multi-monitor setups, and a built-in wireless charging pad — redefining what a height adjustable desk can be.",
+    "description": "A motorised sit-stand desk with a digital panel that shows the current height, stores up to four presets and reminds you to change position. Dual motors move it from 72 to 120 cm quietly and steadily, and an anti-collision sensor stops and reverses the desk if it meets a drawer unit or a chair arm on the way down. Heavy-duty steel frame, 48 inches by 24.",
     "features": [
-      "AI posture reminder system",
-      "6 memory height presets",
-      "Ultra-wide XL surface (160 cm)",
-      "Built-in wireless charging pad",
-      "Dual motor with anti-collision",
-      "Integrated cable spine management"
+      {
+        "title": "Digital Control Panel",
+        "detail": "Height Display; Up / Down Adjustment; Memory Presets (Save up to 4 Heights); Sit-Stand Reminder"
+      },
+      {
+        "title": "Height Range",
+        "detail": "Smooth transition from 72 cm to 120 cm. Suitable for sitting and standing postures."
+      },
+      {
+        "title": "Powerful Dual Motors",
+        "detail": "Smooth, quiet and stable height adjustment."
+      },
+      {
+        "title": "Sturdy Steel Frame",
+        "detail": "Heavy-duty steel construction for long-lasting stability."
+      },
+      {
+        "title": "Anti-Collision Sensor",
+        "detail": "Automatically stops and reverses on obstacle detection for added safety."
+      },
+      {
+        "title": "Better Posture",
+        "detail": "Reduce back pain"
+      },
+      {
+        "title": "Improved Health",
+        "detail": "More movement, more energy"
+      },
+      {
+        "title": "Higher Productivity",
+        "detail": "A healthier, happier you"
+      }
     ],
     "images": [
       "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/1.jpeg",
@@ -1345,6 +2555,32 @@
         "comment": "The AI reminder feature takes a day or two to calibrate but once set it works brilliantly. The desk itself is stunning — solid, smooth and incredibly functional. Worth every rupee!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "48 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height Range",
+        "value": "72 cm - 120 cm (28 in - 48 in)"
+      },
+      {
+        "label": "Memory Presets",
+        "value": "Save up to 4 Heights"
+      },
+      {
+        "label": "Motors",
+        "value": "Dual motors"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Heavy-duty steel construction for long-lasting stability."
     ]
   },
   {
@@ -1356,14 +2592,40 @@
     "subName": "Height Adjustable Tables",
     "price": 8999,
     "currency": "INR",
-    "description": "Advanced Modura sit-stand desk with dual motor system for enhanced stability. Features programmable height memory and whisper-quiet operation.",
+    "description": "A hand-cranked sit-stand desk: no motor, no power lead, nothing electrical to fail. The crank moves it from 72 to 117 cm, which covers seated and standing height, on telescopic steel legs. Wide feet with levellers hold it steady on a floor that is not quite flat. The top measures 48 inches by 24.",
     "features": [
-      "Dual motor system",
-      "4 memory presets",
-      "Anti-collision",
-      "Quiet operation",
-      "Wide height range (60–125 cm)",
-      "Heavy-duty steel frame"
+      {
+        "title": "Sit or Stand",
+        "detail": "Adjust to your ideal height"
+      },
+      {
+        "title": "Smooth Crank Mechanism",
+        "detail": "Easy & effortless operation"
+      },
+      {
+        "title": "Sturdy Build",
+        "detail": "Strong metal frame for long-lasting use"
+      },
+      {
+        "title": "Ergonomic Wellness",
+        "detail": "Supports better posture and productivity"
+      },
+      {
+        "title": "Easy Assembly",
+        "detail": "Simple setup with clear instructions"
+      },
+      {
+        "title": "Manual Crank Handle",
+        "detail": "Smooth and effortless height adjustment"
+      },
+      {
+        "title": "Telescopic Legs",
+        "detail": "Stable and durable steel construction"
+      },
+      {
+        "title": "Sturdy Base",
+        "detail": "Wide feet with levelers for extra stability"
+      }
     ],
     "images": [
       "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/1.jpeg",
@@ -1408,6 +2670,25 @@
         "comment": "Anti-collision feature gives peace of mind. Smooth and quiet operation. Enhanced stability is noticeable. Best standing desk purchase!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "48 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height Range",
+        "value": "72 cm - 117 cm (28 in - 46 in)"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Strong metal frame for long-lasting use",
+      "Stable and durable steel construction"
     ]
   },
   {
@@ -1419,14 +2700,40 @@
     "subName": "Height Adjustable Tables",
     "price": 22999,
     "currency": "INR",
-    "description": "Premium Modvix standing desk with maximum stability and load capacity. Professional-grade with triple motor system and smart control features.",
+    "description": "A motorised sit-stand desk with a digital control panel showing the current height, four memory presets and a sit-stand reminder. Dual motors run it from 72 to 120 cm, and an anti-collision sensor reverses it if it meets an obstruction. Heavy-duty steel construction, 48 inches by 24.",
     "features": [
-      "Triple motor system",
-      "Smart controls",
-      "High load capacity",
-      "Premium materials",
-      "Programmable height display",
-      "USB charging port integrated"
+      {
+        "title": "Digital Control Panel",
+        "detail": "Height Display; Up / Down Adjustment; Memory Presets (Save up to 4 heights); Sit-Stand Reminder"
+      },
+      {
+        "title": "Height Range",
+        "detail": "Smooth transition from 72 cm to 120 cm. Suitable for sitting and standing postures."
+      },
+      {
+        "title": "Powerful Dual Motors",
+        "detail": "Smooth, quiet and stable height adjustment."
+      },
+      {
+        "title": "Sturdy Steel Frame",
+        "detail": "Heavy-duty steel construction for long-lasting stability."
+      },
+      {
+        "title": "Anti-Collision Sensor",
+        "detail": "Automatically stops and reverses on obstacle detection for added safety."
+      },
+      {
+        "title": "Better Posture",
+        "detail": "Reduce back pain"
+      },
+      {
+        "title": "Improved Health",
+        "detail": "More movement, more energy"
+      },
+      {
+        "title": "Higher Productivity",
+        "detail": "A healthier, happier you"
+      }
     ],
     "images": [
       "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/1.jpeg",
@@ -1471,6 +2778,32 @@
         "comment": "Professional-grade quality is evident. Can handle multiple monitors with ease. Smart features are intuitive. Best desk I've ever owned!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "48 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height Range",
+        "value": "72 cm - 120 cm (28 in - 48 in)"
+      },
+      {
+        "label": "Memory Presets",
+        "value": "Save up to 4 heights"
+      },
+      {
+        "label": "Motors",
+        "value": "Dual motors"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Heavy-duty steel construction for long-lasting stability."
     ]
   },
   {
@@ -1482,14 +2815,52 @@
     "subName": "Study Tables",
     "price": 9999,
     "currency": "INR",
-    "description": "Enhanced Zenith study desk with multi-level storage and ergonomic design. Features keyboard tray, CPU stand, and adjustable shelving for comprehensive study setup.",
+    "description": "A study desk with a 10-inch-deep shelf raised above the work surface for books and stationery, so the desk itself stays clear for what you are actually doing. MDF board on a powder-coated steel frame, 36 inches by 24, standing 30 inches tall. Height adjusters in the feet level it on an uneven floor, and an anti-slip base protects the floor underneath.",
     "features": [
-      "Multi-level storage",
-      "Keyboard tray",
-      "CPU stand",
-      "Adjustable shelves",
-      "Cable management system",
-      "Ergonomic monitor riser"
+      {
+        "title": "Spacious Tabletop",
+        "detail": "Smooth, durable surface for comfortable studying or working"
+      },
+      {
+        "title": "Storage Shelf",
+        "detail": "Extra space to keep books, stationery and essentials"
+      },
+      {
+        "title": "Adjustable Feet",
+        "detail": "Height adjusters for stability on uneven floors"
+      },
+      {
+        "title": "Sturdy Metal Frame",
+        "detail": "Strong powder-coated steel for long-lasting durability"
+      },
+      {
+        "title": "Anti-Slip Base",
+        "detail": "Protects floor from scratches and ensures extra stability"
+      },
+      {
+        "title": "Spacious Workspace",
+        "detail": "Ample space for laptop, books and more"
+      },
+      {
+        "title": "Additional Shelf",
+        "detail": "Keeps your study essentials organized"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "High-quality MDF board with powder-coated metal frame"
+      },
+      {
+        "title": "Modern Design",
+        "detail": "Minimal and stylish look suits any space"
+      },
+      {
+        "title": "Easy Assembly",
+        "detail": "Simple setup with clear instructions"
+      },
+      {
+        "title": "Versatile Use",
+        "detail": "Perfect for study, work from home or creative projects"
+      }
     ],
     "images": [
       "/images/products/tables/study-table/zenith-study-table/wooden-teak/1.jpeg",
@@ -1532,6 +2903,30 @@
         "comment": "Son loves the ergonomic design! Adjustable shelves grow with his needs. Comprehensive setup in one desk. Highly recommend!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "36 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      },
+      {
+        "label": "Shelf depth",
+        "value": "10 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Smooth, durable surface for comfortable studying or working",
+      "Strong powder-coated steel for long-lasting durability",
+      "High-quality MDF board with powder-coated metal frame"
     ]
   },
   {
@@ -1543,14 +2938,52 @@
     "subName": "Study Tables",
     "price": 9999,
     "currency": "INR",
-    "description": "Premium Zenvy Primex study workstation with complete organization system. Includes hutch with LED lighting, cable management, and extensive storage for serious students.",
+    "description": "A study desk with a thick woodgrain-finish top and a 10-inch-deep shelf above it for books and stationery. 36 inches by 24, standing 30 inches tall, on a sturdy powder-coated steel frame with adjustable feet for floors that are not level.",
     "features": [
-      "LED lighting",
-      "Hutch design",
-      "Extensive storage",
-      "Cable management",
-      "Pinboard included",
-      "Solid engineered wood frame"
+      {
+        "title": "Spacious Tabletop",
+        "detail": "Smooth, durable surface for comfortable studying or working"
+      },
+      {
+        "title": "Storage Shelf",
+        "detail": "Extra space to keep books, stationery and essentials"
+      },
+      {
+        "title": "Adjustable Feet",
+        "detail": "Height adjusters for stability on uneven floors"
+      },
+      {
+        "title": "Premium Finish",
+        "detail": "Thick tabletop with woodgrain finish for a stylish look"
+      },
+      {
+        "title": "Strong Metal Frame",
+        "detail": "Sturdy powder-coated steel frame with modern design for long-lasting durability"
+      },
+      {
+        "title": "Spacious Workspace",
+        "detail": "Ample space for laptop, books and more"
+      },
+      {
+        "title": "Additional Shelf",
+        "detail": "Keeps your study essentials organized"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "High-quality board with powder-coated metal frame"
+      },
+      {
+        "title": "Modern Design",
+        "detail": "Stylish and versatile look for any space"
+      },
+      {
+        "title": "Easy Assembly",
+        "detail": "Simple setup with clear instructions"
+      },
+      {
+        "title": "Versatile Use",
+        "detail": "Perfect for study, work from home or creative projects"
+      }
     ],
     "images": [
       "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/1.jpeg",
@@ -1593,6 +3026,31 @@
         "comment": "Daughter preparing for medical entrance loves it! Complete organization system is excellent. Extensive storage handles all her materials. Premium quality!",
         "verified": true
       }
+    ],
+    "specifications": [
+      {
+        "label": "Length",
+        "value": "36 in"
+      },
+      {
+        "label": "Breadth",
+        "value": "24 in"
+      },
+      {
+        "label": "Height",
+        "value": "30 in"
+      },
+      {
+        "label": "Shelf depth",
+        "value": "10 in"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Smooth, durable surface for comfortable studying or working",
+      "Thick tabletop with woodgrain finish for a stylish look",
+      "Sturdy powder-coated steel frame with modern design for long-lasting durability",
+      "High-quality board with powder-coated metal frame"
     ]
   }
 ]

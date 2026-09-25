@@ -33,6 +33,27 @@ export type Variant = {
   inStock: boolean;
 };
 
+/**
+ * One row of the printed specification table, e.g. { label: "Width", value:
+ * "44 cm" }. Values keep the supplier's own unit and wording.
+ */
+export type Specification = {
+  label: string;
+  value: string;
+};
+
+/**
+ * A labelled selling point taken from the supplier's own feature sheet. Split
+ * into heading and body because the heading is the scannable part -- a reader
+ * deciding between two chairs wants to see "4D Adjustable Armrests" without
+ * reading the sentence under it.
+ */
+export type Feature = {
+  title: string;
+  /** May be empty where the sheet printed a heading with no explanatory line. */
+  detail: string;
+};
+
 export type Product = {
   id: string;
   /** URL slug, unique within its group. Derived from the trimmed name. */
@@ -47,8 +68,33 @@ export type Product = {
    */
   shortName: string;
   description: string;
-  /** Manufacturer-declared specifications. Not measured by HeavenCraft. */
-  features: string[];
+  /**
+   * Selling points as printed on the supplier's feature sheets. Replaced the
+   * previous hand-written bullets wholesale after those were found to
+   * contradict the sheets -- one desk was listed with a dual motor and memory
+   * presets when the manufacturer's own artwork shows a hand crank.
+   */
+  features: Feature[];
+  /**
+   * Measured figures printed on the supplier's own dimension diagrams, copied
+   * verbatim rather than converted, so a shopper checking whether a desk fits
+   * an alcove is reading the manufacturer's number and not our arithmetic.
+   * Units are therefore mixed across the range -- some sheets are in cm, some
+   * in inches. Empty where the supplier published no diagram.
+   */
+  specifications: Specification[];
+  /**
+   * Printed material and finish claims, e.g. "Powder-coated steel". Separate
+   * from `specifications` because they are qualities rather than measurements
+   * and read better as prose than in a two-column table.
+   */
+  materials: string[];
+  /**
+   * Printed pack contents. Only a few products ship as a kit, so this is
+   * usually empty -- but where it exists it answers the question a pegboard
+   * buyer actually has, which is how many hooks and boxes come with it.
+   */
+  inTheBox: string[];
   groupSlug: GroupSlug;
   groupName: string;
   subSlug: string;

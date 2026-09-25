@@ -67,18 +67,50 @@ const escapeHtml = (text: string): string =>
     .replace(/"/g, "&quot;");
 
 /**
- * Shopify renders this as the product description. Features become a list
- * rather than a paragraph because that is how they read on our own product
- * pages, and a buyer comparing two chairs scans a list.
+ * Shopify renders this as the product description, and it is the only place
+ * the specifications reach the buyer on that side: the Storefront API exposes
+ * no field for them, and metafields would need a matching theme change to
+ * surface. Putting them in the body means they show in the online store, in
+ * admin, and in any channel that reads the description.
+ *
+ * Features become a list rather than a paragraph because that is how they read
+ * on our own product pages, and a buyer comparing two chairs scans a list.
  */
 function bodyHtml(product: Product): string {
-  const description = `<p>${escapeHtml(product.description)}</p>`;
-  if (product.features.length === 0) return description;
+  const parts = [`<p>${escapeHtml(product.description)}</p>`];
 
-  const items = product.features
-    .map((feature) => `<li>${escapeHtml(feature)}</li>`)
-    .join("");
-  return `${description}<ul>${items}</ul>`;
+  if (product.features.length) {
+    const items = product.features
+      .map((feature) =>
+        feature.detail
+          ? `<li><strong>${escapeHtml(feature.title)}</strong> — ${escapeHtml(feature.detail)}</li>`
+          : `<li><strong>${escapeHtml(feature.title)}</strong></li>`,
+      )
+      .join("");
+    parts.push(`<h3>Features</h3><ul>${items}</ul>`);
+  }
+
+  if (product.specifications.length || product.materials.length) {
+    const rows = product.specifications
+      .map(
+        (spec) =>
+          `<tr><td>${escapeHtml(spec.label)}</td><td>${escapeHtml(spec.value)}</td></tr>`,
+      )
+      .join("");
+    const materials = product.materials.length
+      ? `<tr><td>Materials &amp; finish</td><td>${escapeHtml(product.materials.join(" · "))}</td></tr>`
+      : "";
+    parts.push(`<h3>Specifications</h3><table>${rows}${materials}</table>`);
+  }
+
+  if (product.inTheBox.length) {
+    const items = product.inTheBox
+      .map((item) => `<li>${escapeHtml(item)}</li>`)
+      .join("");
+    parts.push(`<h3>In the box</h3><ul>${items}</ul>`);
+  }
+
+  return parts.join("");
 }
 
 /**
