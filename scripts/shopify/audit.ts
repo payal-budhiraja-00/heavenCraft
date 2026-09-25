@@ -70,6 +70,26 @@ async function fetchAll(env: ShopifyEnv): Promise<Map<string, RemoteProduct>> {
   return out;
 }
 
+/**
+ * The visible text of a fragment of HTML, normalised.
+ *
+ * Shopify does not store the markup it is handed byte for byte, so comparing
+ * `descriptionHtml` directly reports a difference on a product that is
+ * perfectly in sync. What matters is whether the store is telling shoppers the
+ * same thing the catalog says, and that survives the rewriting.
+ */
+function textOf(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function compare(
   local: ShopifyProduct,
   remote: RemoteProduct | undefined,
@@ -80,6 +100,20 @@ function compare(
 
   if (remote.title !== local.title) {
     problems.push(`title "${remote.title}" != "${local.title}"`);
+  }
+
+  /*
+    The description is the field most likely to drift silently: nothing about a
+    stale one looks broken, so it survives every other check here. It is also
+    the field that carries the per-finish feature sheets, where being out of
+    date means the store asserts something about the product that is not true
+    -- a fixed wooden footrest advertising massage rollers, say. Shopify
+    rewrites the markup it is given (it re-orders attributes and normalises
+    whitespace), so an exact string comparison would cry wolf on every run;
+    comparing the text content catches a stale description without that.
+  */
+  if (textOf(remote.descriptionHtml) !== textOf(local.bodyHtml)) {
+    problems.push("description differs from the catalog -- re-run the sync");
   }
 
   /* Matched by SKU rather than by position. Shopify does not promise variant
