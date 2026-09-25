@@ -16,7 +16,8 @@
     "shopify:preflight": "tsx scripts/shopify/preflight.ts",
     "shopify:sync": "tsx scripts/shopify/sync.ts",
     "shopify:audit": "tsx scripts/shopify/audit.ts",
-    "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts"
+    "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts",
+    "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts"
   },
   "dependencies": {
     "next": "16.3.5",
