@@ -444,82 +444,6 @@
       {
         "title": "Improves Posture",
         "detail": "Supports proper sitting alignment"
-      },
-      {
-        "title": "Reduces Leg Fatigue",
-        "detail": "Relieves pressure on legs and feet"
-      },
-      {
-        "title": "Adjustable Angle",
-        "detail": "Multiple tilt positions for personalized comfort"
-      },
-      {
-        "title": "Massage Surface",
-        "detail": "Textured bumps stimulate feet and improve circulation"
-      },
-      {
-        "title": "Sturdy & Durable",
-        "detail": "High-quality build for long-lasting use"
-      },
-      {
-        "title": "Adjustable Height & Angle",
-        "detail": "Find your perfect position"
-      },
-      {
-        "title": "Massage Texture",
-        "detail": "Stimulates feet and boosts blood circulation"
-      },
-      {
-        "title": "Foot Massage Rollers",
-        "detail": "Soothes tired feet during long hours"
-      },
-      {
-        "title": "Adjustable Angle",
-        "detail": "Multiple tilt levels for customized comfort"
-      },
-      {
-        "title": "Anti-Slip Pads",
-        "detail": "Keeps the footrest stable and protects your floor"
-      },
-      {
-        "title": "Reduces Leg Fatigue",
-        "detail": "Keeps legs comfortable during long hours"
-      },
-      {
-        "title": "Sturdy & Durable",
-        "detail": "Premium wooden build for long-lasting use"
-      },
-      {
-        "title": "Modern Wooden Finish",
-        "detail": "Elegant design blends with any space"
-      },
-      {
-        "title": "Anti-Slip Base",
-        "detail": "Rubber feet keep it stable and protect your floor"
-      },
-      {
-        "title": "Smooth Edges",
-        "detail": "Safe and comfortable for everyday use"
-      },
-      {
-        "title": "Solid Construction",
-        "detail": "Strong wooden support for stability"
-      },
-      {
-        "title": "Anti-Slip Feet",
-        "detail": "Keeps the footrest in place and prevents floor scratches"
-      },
-      {
-        "title": "Premium Wooden Finish",
-        "detail": "Stylish and versatile to match any interior"
-      },
-      {
-        "title": "Premium Marble Finish",
-        "detail": "Stylish marble-look design enhances any space"
-      },
-      {
-        "title": "Premium Marble Finish",
-        "detail": "Elegant and versatile to match any interior"
       }
     ],
     "images": [
@@ -541,7 +465,53 @@
           "/images/products/accessories/footrest/footrest-basic/black/3.jpeg",
           "/images/products/accessories/footrest/footrest-basic/black/4.jpeg"
         ],
-        "inStock": true
+        "inStock": true,
+        "features": [
+          {
+            "title": "Improves Posture",
+            "detail": "Supports proper sitting alignment"
+          },
+          {
+            "title": "Reduces Leg Fatigue",
+            "detail": "Relieves pressure on legs and feet"
+          },
+          {
+            "title": "Adjustable Angle",
+            "detail": "Multiple tilt positions for personalized comfort"
+          },
+          {
+            "title": "Massage Surface",
+            "detail": "Textured bumps stimulate feet and improve circulation"
+          },
+          {
+            "title": "Sturdy & Durable",
+            "detail": "High-quality build for long-lasting use"
+          },
+          {
+            "title": "Adjustable Height & Angle",
+            "detail": "Find your perfect position"
+          },
+          {
+            "title": "Massage Texture",
+            "detail": "Stimulates feet and boosts blood circulation"
+          },
+          {
+            "title": "Foot Massage Rollers",
+            "detail": "Soothes tired feet during long hours"
+          },
+          {
+            "title": "Adjustable Angle",
+            "detail": "Multiple tilt levels for customized comfort"
+          },
+          {
+            "title": "Anti-Slip Pads",
+            "detail": "Keeps the footrest stable and protects your floor"
+          }
+        ],
+        "materials": [
+          "Textured bumps",
+          "Massage rollers"
+        ]
       },
       {
         "id": "accessories-footrest-001--wooden-teak",
@@ -554,7 +524,49 @@
           "/images/products/accessories/footrest/footrest-basic/wooden-teak/3.jpeg",
           "/images/products/accessories/footrest/footrest-basic/wooden-teak/4.jpeg"
         ],
-        "inStock": true
+        "inStock": true,
+        "features": [
+          {
+            "title": "Improves Posture",
+            "detail": "Supports proper sitting alignment"
+          },
+          {
+            "title": "Reduces Leg Fatigue",
+            "detail": "Keeps legs comfortable during long hours"
+          },
+          {
+            "title": "Sturdy & Durable",
+            "detail": "Premium wooden build for long-lasting use"
+          },
+          {
+            "title": "Modern Wooden Finish",
+            "detail": "Elegant design blends with any space"
+          },
+          {
+            "title": "Anti-Slip Base",
+            "detail": "Rubber feet keep it stable and protect your floor"
+          },
+          {
+            "title": "Smooth Edges",
+            "detail": "Safe and comfortable for everyday use"
+          },
+          {
+            "title": "Solid Construction",
+            "detail": "Strong wooden support for stability"
+          },
+          {
+            "title": "Anti-Slip Feet",
+            "detail": "Keeps the footrest in place and prevents floor scratches"
+          },
+          {
+            "title": "Premium Wooden Finish",
+            "detail": "Stylish and versatile to match any interior"
+          }
+        ],
+        "materials": [
+          "Premium wooden build",
+          "Modern wooden finish"
+        ]
       },
       {
         "id": "accessories-footrest-001--black-marble",
@@ -567,7 +579,49 @@
           "/images/products/accessories/footrest/footrest-basic/black-marble/3.jpeg",
           "/images/products/accessories/footrest/footrest-basic/black-marble/4.jpeg"
         ],
-        "inStock": true
+        "inStock": true,
+        "features": [
+          {
+            "title": "Improves Posture",
+            "detail": "Supports proper sitting alignment"
+          },
+          {
+            "title": "Reduces Leg Fatigue",
+            "detail": "Keeps legs comfortable during long hours"
+          },
+          {
+            "title": "Sturdy & Durable",
+            "detail": "Premium wooden build for long-lasting use"
+          },
+          {
+            "title": "Premium Marble Finish",
+            "detail": "Stylish marble-look design enhances any space"
+          },
+          {
+            "title": "Anti-Slip Base",
+            "detail": "Rubber feet keep it stable and protect your floor"
+          },
+          {
+            "title": "Smooth Edges",
+            "detail": "Safe and comfortable for everyday use"
+          },
+          {
+            "title": "Solid Construction",
+            "detail": "Strong wooden support for stability"
+          },
+          {
+            "title": "Anti-Slip Feet",
+            "detail": "Keeps the footrest in place and prevents floor scratches"
+          },
+          {
+            "title": "Premium Marble Finish",
+            "detail": "Elegant and versatile to match any interior"
+          }
+        ],
+        "materials": [
+          "Premium wooden build",
+          "Marble-look finish"
+        ]
       }
     ],
     "reviews": [
@@ -633,14 +687,7 @@
       }
     ],
     "inTheBox": [],
-    "materials": [
-      "Textured bumps",
-      "Premium wooden build",
-      "Modern wooden finish",
-      "Premium wooden finish",
-      "Premium marble finish",
-      "Premium marble-look design"
-    ]
+    "materials": []
   },
   {
     "id": "keyboard-tray",
@@ -1632,67 +1679,15 @@
     "subName": "Executive Tables",
     "price": 14599,
     "currency": "INR",
-    "description": "An executive desk offered in two finishes: a natural woodgrain top on solid wooden legs, or a marble-effect top on a powder-coated metal frame. Both measure 36 inches by 24 and stand 30 inches tall, with a scratch-resistant surface that wipes clean, bevelled edges and a signature accent panel across the front.",
+    "description": "An executive desk offered in two finishes that differ in more than colour: a natural woodgrain top on solid wooden legs, or a marble-effect top on a powder-coated metal frame. Both measure 36 inches by 24 and stand 30 inches tall, with a scratch-resistant surface that wipes clean, bevelled edges and the signature orange panel, printed with the word Office, set into the frame beneath the top. Select a finish to see the specification for that version.",
     "features": [
-      {
-        "title": "Premium Tabletop",
-        "detail": "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish."
-      },
-      {
-        "title": "Stylish Accent Detail",
-        "detail": "Signature panel for a modern, premium look."
-      },
-      {
-        "title": "Refined Edge Design",
-        "detail": "Sleek, bevelled edges for a modern and safe finish."
-      },
-      {
-        "title": "Sturdy Wooden Legs",
-        "detail": "Robust construction with a natural wood finish for stability and long-lasting use."
-      },
-      {
-        "title": "Modern Aesthetic",
-        "detail": "Enhances any workspace"
-      },
-      {
-        "title": "Durable Build",
-        "detail": "Made for everyday use"
-      },
       {
         "title": "Easy to Maintain",
         "detail": "Just wipe & work"
       },
       {
-        "title": "Stable & Reliable",
-        "detail": "Supports heavy usage"
-      },
-      {
         "title": "Versatile Use",
         "detail": "Ideal for home, office & professional spaces"
-      },
-      {
-        "title": "Premium Tabletop",
-        "detail": "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish."
-      },
-      {
-        "title": "Thick & Sturdy Edge",
-        "detail": "Premium finish with durable edge banding for long life."
-      },
-      {
-        "title": "Strong Metal Legs",
-        "detail": "Robust, powder-coated metal frame ensures stability and supports heavy usage."
-      },
-      {
-        "title": "Premium Look",
-        "detail": "Elevates any workspace"
-      },
-      {
-        "title": "Durable Construction",
-        "detail": "Built for long-term use"
-      },
-      {
-        "title": "Stable & Sturdy",
-        "detail": "Supports heavy usage"
       }
     ],
     "images": [
@@ -1716,7 +1711,49 @@
           "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/4.jpeg",
           "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/5.jpeg"
         ],
-        "inStock": true
+        "inStock": true,
+        "features": [
+          {
+            "title": "Premium Tabletop",
+            "detail": "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish."
+          },
+          {
+            "title": "Stylish Accent Detail",
+            "detail": "Signature panel for a modern, premium look."
+          },
+          {
+            "title": "Refined Edge Design",
+            "detail": "Sleek, bevelled edges for a modern and safe finish."
+          },
+          {
+            "title": "Sturdy Wooden Legs",
+            "detail": "Robust construction with a natural wood finish for stability and long-lasting use."
+          },
+          {
+            "title": "Modern Aesthetic",
+            "detail": "Enhances any workspace"
+          },
+          {
+            "title": "Durable Build",
+            "detail": "Made for everyday use"
+          },
+          {
+            "title": "Easy to Maintain",
+            "detail": "Just wipe & work"
+          },
+          {
+            "title": "Stable & Reliable",
+            "detail": "Supports heavy usage"
+          },
+          {
+            "title": "Versatile Use",
+            "detail": "Ideal for home, office & professional spaces"
+          }
+        ],
+        "materials": [
+          "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish.",
+          "Robust construction with a natural wood finish for stability and long-lasting use."
+        ]
       },
       {
         "id": "table-executive-003--dark-grey-black-marble",
@@ -1730,7 +1767,49 @@
           "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/4.jpeg",
           "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/5.jpeg"
         ],
-        "inStock": true
+        "inStock": true,
+        "features": [
+          {
+            "title": "Premium Tabletop",
+            "detail": "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish."
+          },
+          {
+            "title": "Stylish Accent Detail",
+            "detail": "Signature orange panel for a modern, premium look."
+          },
+          {
+            "title": "Thick & Sturdy Edge",
+            "detail": "Premium finish with durable edge banding for long life."
+          },
+          {
+            "title": "Strong Metal Legs",
+            "detail": "Robust, powder-coated metal frame ensures stability and supports heavy usage."
+          },
+          {
+            "title": "Premium Look",
+            "detail": "Elevates any workspace"
+          },
+          {
+            "title": "Durable Construction",
+            "detail": "Built for long-term use"
+          },
+          {
+            "title": "Easy to Maintain",
+            "detail": "Just wipe & work"
+          },
+          {
+            "title": "Stable & Sturdy",
+            "detail": "Supports heavy usage"
+          },
+          {
+            "title": "Versatile Use",
+            "detail": "Ideal for home, office & professional spaces"
+          }
+        ],
+        "materials": [
+          "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish.",
+          "Robust, powder-coated metal frame ensures stability and supports heavy usage."
+        ]
       }
     ],
     "reviews": [
@@ -1768,12 +1847,7 @@
       }
     ],
     "inTheBox": [],
-    "materials": [
-      "Smooth, scratch-resistant and easy to clean surface with a natural woodgrain finish.",
-      "Robust construction with a natural wood finish for stability and long-lasting use.",
-      "Scratch-resistant, waterproof and easy to clean surface with elegant marble finish.",
-      "Robust, powder-coated metal frame ensures stability and supports heavy usage."
-    ]
+    "materials": []
   },
   {
     "id": "table-executive-004",

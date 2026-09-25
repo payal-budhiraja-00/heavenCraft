@@ -79,15 +79,47 @@ const escapeHtml = (text: string): string =>
 function bodyHtml(product: Product): string {
   const parts = [`<p>${escapeHtml(product.description)}</p>`];
 
-  if (product.features.length) {
-    const items = product.features
+  const featureList = (features: Product["features"]): string =>
+    features
       .map((feature) =>
         feature.detail
           ? `<li><strong>${escapeHtml(feature.title)}</strong> — ${escapeHtml(feature.detail)}</li>`
           : `<li><strong>${escapeHtml(feature.title)}</strong></li>`,
       )
       .join("");
-    parts.push(`<h3>Features</h3><ul>${items}</ul>`);
+
+  const perFinish = product.variants.filter(
+    (v) => v.features?.length || v.materials?.length,
+  );
+
+  /*
+    Where the finishes have their own printed sheets, each section below is
+    already complete on its own. Emitting the product-level list as well would
+    lead with the two or three lines the sheets happen to share and then repeat
+    them inside every section, which reads like a mistake.
+  */
+  if (!perFinish.length && product.features.length) {
+    parts.push(`<h3>Features</h3><ul>${featureList(product.features)}</ul>`);
+  }
+
+  /*
+    Shopify has one description per product and no way to vary it per variant,
+    so where the finishes differ in more than colour the only honest form is a
+    heading each. The footrest is the sharp case: its black model is adjustable
+    and has massage rollers, and its wooden and marble models are fixed
+    platforms with no moving parts.
+  */
+  for (const variant of perFinish) {
+    const section = [`<h3>${escapeHtml(variant.colour)} finish</h3>`];
+    if (variant.features?.length) {
+      section.push(`<ul>${featureList(variant.features)}</ul>`);
+    }
+    if (variant.materials?.length) {
+      section.push(
+        `<p><strong>Materials &amp; finish:</strong> ${escapeHtml(variant.materials.join(" · "))}</p>`,
+      );
+    }
+    parts.push(section.join(""));
   }
 
   if (product.specifications.length || product.materials.length) {
