@@ -13,6 +13,7 @@
 
 import raw from "@/data/products.json";
 import type {
+  Feature,
   Group,
   GroupSlug,
   Product,
@@ -39,6 +40,8 @@ type RawVariant = {
   price: number;
   images: string[];
   inStock?: boolean;
+  features?: { title: string; detail?: string }[];
+  materials?: string[];
 };
 
 type RawProduct = {
@@ -201,6 +204,16 @@ function toReview(r: RawReview): Review {
   };
 }
 
+function toFeatures(raw: { title: string; detail?: string }[]): Feature[] {
+  return raw
+    .map((f) => ({ title: f.title.trim(), detail: (f.detail ?? "").trim() }))
+    .filter((f) => f.title !== "");
+}
+
+function toLines(raw: string[]): string[] {
+  return raw.map((s) => s.trim()).filter(Boolean);
+}
+
 function build(): { groups: Group[]; products: Product[] } {
   const rows = raw as RawProduct[];
   const products: Product[] = [];
@@ -241,14 +254,21 @@ function build(): { groups: Group[]; products: Product[] } {
             },
           ];
 
-    const variants: Variant[] = rawVariants.map((v) => ({
-      id: v.id,
-      colour: v.colour.trim(),
-      colourSlug: v.colourSlug,
-      pricePaise: rupeesToPaise(v.price),
-      images: v.images ?? [],
-      inStock: v.inStock !== false,
-    }));
+    const variants: Variant[] = rawVariants.map((v) => {
+      const features = toFeatures(v.features ?? []);
+      const materials = toLines(v.materials ?? []);
+
+      return {
+        id: v.id,
+        colour: v.colour.trim(),
+        colourSlug: v.colourSlug,
+        pricePaise: rupeesToPaise(v.price),
+        images: v.images ?? [],
+        inStock: v.inStock !== false,
+        ...(features.length ? { features } : {}),
+        ...(materials.length ? { materials } : {}),
+      };
+    });
 
     const seenColours = new Set<string>();
     for (const v of variants) {
@@ -259,6 +279,21 @@ function build(): { groups: Group[]; products: Product[] } {
         );
       }
       seenColours.add(v.colourSlug);
+    }
+
+    /*
+      Per-finish features are all-or-nothing. With only some variants carrying
+      them the page would show that finish's real list and fall back to the
+      merged product-level one for the rest -- which is the exact bug this
+      field exists to remove, reintroduced on a subset of the swatches and
+      much harder to spot than the original.
+    */
+    const withFeatures = variants.filter((v) => v.features?.length).length;
+    if (withFeatures !== 0 && withFeatures !== variants.length) {
+      throw new Error(
+        `Product ${row.id} sets per-variant features on ${withFeatures} of ` +
+          `${variants.length} variants. Set them on every variant or none.`,
+      );
     }
 
     const defaultVariant = variants[0];
@@ -272,17 +307,12 @@ function build(): { groups: Group[]; products: Product[] } {
       name,
       shortName: (row.shortName ?? name).trim(),
       description: row.description.trim(),
-      features: (row.features ?? [])
-        .map((f) => ({
-          title: f.title.trim(),
-          detail: (f.detail ?? "").trim(),
-        }))
-        .filter((f) => f.title !== ""),
+      features: toFeatures(row.features ?? []),
       specifications: (row.specifications ?? [])
         .map((s) => ({ label: s.label.trim(), value: s.value.trim() }))
         .filter((s) => s.label !== "" && s.value !== ""),
-      materials: (row.materials ?? []).map((m) => m.trim()).filter(Boolean),
-      inTheBox: (row.inTheBox ?? []).map((b) => b.trim()).filter(Boolean),
+      materials: toLines(row.materials ?? []),
+      inTheBox: toLines(row.inTheBox ?? []),
       groupSlug,
       groupName: GROUP_META[groupSlug].name,
       subSlug,

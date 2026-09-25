@@ -31,6 +31,21 @@ export type Variant = {
   /** Raw paths as they sit on disk. Encode at render. */
   images: string[];
   inStock: boolean;
+  /**
+   * Set only where the supplier printed a separate feature sheet per finish
+   * and the two disagree about the product itself rather than its colour.
+   *
+   * The Imperium executive table is the case this exists for: one finish
+   * stands on solid wooden legs and the other on a powder-coated metal frame,
+   * so a single merged list claimed both at once and half the page was wrong
+   * whichever finish the reader had selected.
+   *
+   * Empty on every other product, where the finishes differ only in colour and
+   * the product-level list is true of all of them.
+   */
+  features?: Feature[];
+  /** Per-finish material claims. Present under the same condition as `features`. */
+  materials?: string[];
 };
 
 /**

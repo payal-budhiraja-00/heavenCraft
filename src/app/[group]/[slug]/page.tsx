@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { BuyBox } from "@/components/buy-box";
 import {
   ColourPicker,
+  VariantFeatures,
   VariantGallery,
+  VariantMaterialsRow,
   VariantPrice,
   VariantProvider,
 } from "@/components/variant-picker";
@@ -12,8 +14,10 @@ import { ProductGrid } from "@/components/product-card";
 import {
   Breadcrumbs,
   Container,
+  FeatureList,
   Label,
   SectionHeading,
+  SpecRow,
   type Crumb,
 } from "@/components/ui";
 import { getGroup, getProduct, getSubCategory, groups } from "@/lib/catalog";
@@ -299,6 +303,14 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     })),
   };
 
+  /*
+    True only where the supplier printed one feature sheet per finish and the
+    sheets disagree about the product rather than its colour. It gates the
+    reactive sections so the other products keep their features on the server
+    instead of shipping a second copy into the client payload.
+  */
+  const perFinish = product.variants.some((v) => v.features?.length);
+
   return (
     <>
       <Container className="py-10 lg:py-14">
@@ -315,6 +327,12 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               imageAlt(product, i, product.variants.length > 1 ? variant.colour : undefined),
             ),
             inStock: variant.inStock,
+            ...(perFinish
+              ? {
+                  features: variant.features ?? [],
+                  materials: variant.materials ?? [],
+                }
+              : {}),
           }))}
         >
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16">
@@ -353,30 +371,12 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                 email={SITE.email}
               />
 
-              {product.features.length ? (
+              {perFinish ? (
+                <VariantFeatures />
+              ) : product.features.length ? (
                 <div className="mt-10 border-t border-edge pt-8">
                   <Label>Features</Label>
-                  <ul className="mt-4 space-y-4">
-                    {product.features.map((feature) => (
-                      <li key={feature.title} className="flex gap-3 text-sm">
-                        <span
-                          aria-hidden="true"
-                          className="mt-2 size-1 shrink-0 rounded-full bg-gold"
-                        />
-                        <span className="leading-relaxed">
-                          <span className="font-medium text-cream">
-                            {feature.title}
-                          </span>
-                          {feature.detail ? (
-                            <span className="text-cream-muted">
-                              {" — "}
-                              {feature.detail}
-                            </span>
-                          ) : null}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <FeatureList features={product.features} />
                 </div>
               ) : null}
 
@@ -400,30 +400,25 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                 </div>
               ) : null}
 
-              {product.specifications.length || product.materials.length ? (
+              {product.specifications.length ||
+              product.materials.length ||
+              perFinish ? (
                 <div className="mt-10 border-t border-edge pt-8">
                   <Label>Specifications</Label>
                   <dl className="mt-4 divide-y divide-edge">
                     {product.specifications.map((spec) => (
-                      <div
+                      <SpecRow
                         key={spec.label}
-                        className="flex justify-between gap-6 py-2.5 text-sm"
-                      >
-                        <dt className="text-cream-faint">{spec.label}</dt>
-                        <dd className="text-right font-medium text-cream-muted">
-                          {spec.value}
-                        </dd>
-                      </div>
+                        label={spec.label}
+                        value={spec.value}
+                      />
                     ))}
-                    {product.materials.length ? (
-                      <div className="flex justify-between gap-6 py-2.5 text-sm">
-                        <dt className="shrink-0 text-cream-faint">
-                          Materials &amp; finish
-                        </dt>
-                        <dd className="text-right font-medium text-cream-muted">
-                          {product.materials.join(" · ")}
-                        </dd>
-                      </div>
+                    {perFinish ? (
+                      <VariantMaterialsRow />
+                    ) : product.materials.length ? (
+                      <SpecRow
+                        label="Materials & finish"
+                        value={product.materials.join(" · ")}                      />
                     ) : null}
                   </dl>
                   <p className="mt-5 text-xs leading-relaxed text-cream-faint">

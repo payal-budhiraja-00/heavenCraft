@@ -1,11 +1,64 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
+import type { Feature } from "@/lib/catalog-types";
 
 /**
  * The small set of primitives every page is built from. Kept deliberately
  * short: a button, a label, a section header, a breadcrumb. Anything that
  * appears once lives in the page that uses it.
  */
+
+/**
+ * The product page's feature list.
+ *
+ * Lives here rather than inline because it is rendered from two places: the
+ * server component, for the products whose finishes differ only in colour,
+ * and the client variant picker, for the ones where each finish has its own
+ * printed sheet. Sharing the markup is what stops those two paths drifting
+ * into two subtly different lists.
+ *
+ * Has no hooks and no client directive, so importing it from a server
+ * component does not pull a boundary across the rest of the page.
+ */
+export function FeatureList({ features }: { features: Feature[] }) {
+  return (
+    <ul className="mt-4 space-y-4">
+      {features.map((feature, i) => (
+        /*
+          Keyed by position as well as title: several supplier sheets print the
+          same heading twice with different wording beneath it -- the adjustable
+          footrest carries "Adjustable Angle" in both its top and bottom rows --
+          and a bare title would collide.
+        */
+        <li key={`${feature.title}-${i}`} className="flex gap-3 text-sm">
+          <span
+            aria-hidden="true"
+            className="mt-2 size-1 shrink-0 rounded-full bg-gold"
+          />
+          <span className="leading-relaxed">
+            <span className="font-medium text-cream">{feature.title}</span>
+            {feature.detail ? (
+              <span className="text-cream-muted">
+                {" — "}
+                {feature.detail}
+              </span>
+            ) : null}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** One row of the specifications table. Shared for the same reason. */
+export function SpecRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between gap-6 py-2.5 text-sm">
+      <dt className="shrink-0 text-cream-faint">{label}</dt>
+      <dd className="text-right font-medium text-cream-muted">{value}</dd>
+    </div>
+  );
+}
 
 export function Label({
   children,

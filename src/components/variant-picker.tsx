@@ -25,7 +25,8 @@
 
 import { createContext, useContext, useMemo, useState } from "react";
 import { ProductGallery } from "./product-gallery";
-import { StockPill } from "./ui";
+import { FeatureList, Label, SpecRow, StockPill } from "./ui";
+import type { Feature } from "@/lib/catalog-types";
 import { formatPaise } from "@/lib/money";
 
 /** A variant flattened to exactly what the page needs. */
@@ -39,6 +40,14 @@ export type VariantView = {
   images: string[];
   alts: string[];
   inStock: boolean;
+  /**
+   * Present only where the supplier printed a separate sheet per finish. The
+   * page checks for it before mounting the reactive sections at all, so the
+   * other twenty-five products keep their feature lists on the server and out
+   * of the client payload entirely.
+   */
+  features?: Feature[];
+  materials?: string[];
 };
 
 type VariantState = {
@@ -110,6 +119,43 @@ export function VariantPrice() {
       <StockPill inStock={selected.inStock} />
     </div>
   );
+}
+
+/**
+ * The features and materials for the selected finish.
+ *
+ * Only mounted for products whose variants carry their own printed sheets --
+ * the Imperium executive table, where one finish stands on wooden legs and the
+ * other on a metal frame. Everywhere else the page renders the same markup on
+ * the server and ships none of this.
+ */
+export function VariantFeatures() {
+  const { selected } = useVariant();
+  const features = selected.features ?? [];
+  if (!features.length) return null;
+
+  return (
+    <div className="mt-10 border-t border-edge pt-8">
+      <Label>Features</Label>
+      <p className="mt-2 text-xs text-cream-faint">
+        For the {selected.colour} finish.
+      </p>
+      <FeatureList features={features} />
+    </div>
+  );
+}
+
+/**
+ * The materials row inside the specifications table. Separate from
+ * `VariantFeatures` because it sits inside a `<dl>` the server owns, between
+ * dimension rows that do not change with finish.
+ */
+export function VariantMaterialsRow() {
+  const { selected } = useVariant();
+  const materials = selected.materials ?? [];
+  if (!materials.length) return null;
+
+  return <SpecRow label="Materials & finish" value={materials.join(" · ")} />;
 }
 
 /**
