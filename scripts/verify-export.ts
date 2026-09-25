@@ -232,7 +232,10 @@ if (/RewriteCond\s+%\{HTTPS\}/.test(htaccess)) {
   fail(".htaccess redirects on %{HTTPS} — this loops behind Cloudflare");
 }
 
-const redirectTargets = captures(htaccess, /^\s*Redirect 301 \S+ (\S+)/gm);
+const redirectTargets = captures(
+  htaccess,
+  /^\s*RedirectMatch 301 \S+ (\S+)/gm,
+);
 
 /*
  * Checked by membership rather than by count.
@@ -242,9 +245,16 @@ const redirectTargets = captures(htaccess, /^\s*Redirect 301 \S+ (\S+)/gm);
  * change made the number wrong without making the redirects wrong. Asserting
  * that each URL we know to be dead is actually listed is the check that was
  * intended.
+ *
+ * Sources are written as anchored patterns -- `^/chairs/rider-leather-chair/?$`
+ * -- so strip the anchors and the optional trailing slash back off to recover
+ * the plain path, and drop the backslashes the generator added to escape
+ * regex metacharacters.
  */
 const redirectSources = new Set(
-  captures(htaccess, /^\s*Redirect 301 (\S+)/gm).map((s) => s.replace(/\/$/, "")),
+  captures(htaccess, /^\s*RedirectMatch 301 \^(\S+?)\/\?\$/gm).map((s) =>
+    s.replace(/\\(.)/g, "$1").replace(/\/$/, ""),
+  ),
 );
 for (const product of allProducts) {
   if (!redirectSources.has(`/product/${product.id}`)) {

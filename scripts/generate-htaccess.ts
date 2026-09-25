@@ -17,11 +17,34 @@ import { LEGACY_REDIRECTS } from "./legacy-redirects";
 
 const OUT = path.join(process.cwd(), "public/.htaccess");
 
+/** Characters that mean something to Apache's regex engine. */
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * One redirect, anchored to the exact path.
+ *
+ * `Redirect` is a *prefix* match and appends whatever follows the matched
+ * portion to the target, so `Redirect 301 /chairs/rider-leather-chair /chairs/`
+ * sent `/chairs/rider-leather-chair/` -- the trailing-slash form every internal
+ * link used and the form Google indexed -- to `/chairs//`. Apache still served
+ * that with a 200, which is why it went unnoticed, but a doubled slash is a
+ * distinct URL to a crawler and splits exactly the signal a 301 exists to
+ * consolidate. The prefix is loose in the other direction too: `/search` would
+ * also have caught a hypothetical `/search-results`.
+ *
+ * `RedirectMatch` with `^...$` matches the one path, with or without its
+ * trailing slash, and appends nothing.
+ */
+function redirectLine(from: string, to: string): string {
+  return `  RedirectMatch 301 ^${escapeRegex(from)}/?$ ${to}`;
+}
+
 function redirects(): string {
-  const lines = allProducts.map((product) => {
-    const from = `/product/${product.id}`;
-    return `  Redirect 301 ${from} ${product.href}`;
-  });
+  const lines = allProducts.map((product) =>
+    redirectLine(`/product/${product.id}`, product.href),
+  );
 
   return lines.join("\n");
 }
@@ -36,8 +59,8 @@ function redirects(): string {
 function legacyRedirects(): string {
   return LEGACY_REDIRECTS.map(({ from, to, note }) =>
     note
-      ? `  # ${note}\n  Redirect 301 ${from} ${to}`
-      : `  Redirect 301 ${from} ${to}`,
+      ? `  # ${note}\n${redirectLine(from, to)}`
+      : redirectLine(from, to),
   ).join("\n");
 }
 
@@ -117,7 +140,7 @@ Options -Indexes
 ${redirects()}
 
   # Search was a client-side route with no server-rendered equivalent.
-  Redirect 301 /search /
+${redirectLine("/search", "/")}
 </IfModule>
 
 # ---------------------------------------------------------------------------
