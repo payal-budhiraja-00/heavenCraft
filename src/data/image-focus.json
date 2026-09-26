@@ -1,0 +1,539 @@
+{
+  "/images/products/accessories/cable-tray/cable-tray-basic/black/1.jpeg": {
+    "ar": 0.97
+  },
+  "/images/products/accessories/cable-tray/cable-tray-basic/black/2.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/accessories/cable-tray/cable-tray-basic/black/3.jpeg": {
+    "ar": 1.41,
+    "pos": "50.7% 51%"
+  },
+  "/images/products/accessories/cable-tray/cable-tray-basic/black/4.jpeg": {
+    "ar": 1.64
+  },
+  "/images/products/accessories/cup-holder/cup-holder-basic/black/1.jpeg": {
+    "ar": 0.88
+  },
+  "/images/products/accessories/cup-holder/cup-holder-basic/black/2.jpeg": {
+    "ar": 0.69
+  },
+  "/images/products/accessories/cup-holder/cup-holder-basic/black/3.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/cup-holder/cup-holder-basic/black/4.jpeg": {
+    "ar": 1.41,
+    "pos": "50% 49%"
+  },
+  "/images/products/accessories/cup-holder/cup-holder-basic/black/5.jpeg": {
+    "ar": 0.88,
+    "pos": "50.7% 49.4%"
+  },
+  "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/1.jpeg": {
+    "ar": 0.71
+  },
+  "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/2.jpeg": {
+    "ar": 0.85
+  },
+  "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/3.jpeg": {
+    "ar": 1.33
+  },
+  "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/4.jpeg": {
+    "ar": 1.41,
+    "pos": "50% 49%"
+  },
+  "/images/products/accessories/desk-shelf-tray/desk-shelf-tray/black/5.jpeg": {
+    "ar": 1,
+    "pos": "50% 49.3%"
+  },
+  "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/1.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/2.jpeg": {
+    "ar": 1.06
+  },
+  "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/3.jpeg": {
+    "ar": 1.41,
+    "pos": "50% 51%"
+  },
+  "/images/products/accessories/desk-side-organiser/desk-side-organiser/black/4.jpeg": {
+    "ar": 0.97,
+    "pos": "50.7% 50%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/black-marble/1.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/footrest/footrest-basic/black-marble/2.jpeg": {
+    "ar": 1,
+    "pos": "50% 49.3%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/black-marble/3.jpeg": {
+    "ar": 1.41,
+    "pos": "49.3% 49%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/black-marble/4.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/footrest/footrest-basic/black/1.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/footrest/footrest-basic/black/2.jpeg": {
+    "ar": 1,
+    "pos": "50% 49.3%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/black/3.jpeg": {
+    "ar": 1.41,
+    "pos": "49.3% 49%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/black/4.jpeg": {
+    "ar": 1,
+    "pos": "50% 47.9%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/wooden-teak/1.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/footrest/footrest-basic/wooden-teak/2.jpeg": {
+    "ar": 1,
+    "pos": "50% 49.3%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/wooden-teak/3.jpeg": {
+    "ar": 1.41,
+    "pos": "49.3% 49%"
+  },
+  "/images/products/accessories/footrest/footrest-basic/wooden-teak/4.jpeg": {
+    "ar": 1,
+    "pos": "50% 47.9%"
+  },
+  "/images/products/accessories/keyboard-tray/keyboard-tray/black/1.jpeg": {
+    "ar": 1.53
+  },
+  "/images/products/accessories/keyboard-tray/keyboard-tray/black/2.jpeg": {
+    "ar": 2
+  },
+  "/images/products/accessories/keyboard-tray/keyboard-tray/black/3.jpeg": {
+    "ar": 1.5,
+    "pos": "50% 53.1%"
+  },
+  "/images/products/accessories/keyboard-tray/keyboard-tray/black/4.jpeg": {
+    "ar": 1.71
+  },
+  "/images/products/accessories/peg-board/peg-board/black/1.jpeg": {
+    "ar": 1
+  },
+  "/images/products/accessories/peg-board/peg-board/black/2.jpeg": {
+    "ar": 1.07
+  },
+  "/images/products/accessories/peg-board/peg-board/black/3.jpeg": {
+    "ar": 1.06
+  },
+  "/images/products/accessories/peg-board/peg-board/black/4.jpeg": {
+    "ar": 1.5,
+    "pos": "48.6% 50%"
+  },
+  "/images/products/accessories/peg-board/peg-board/black/5.jpeg": {
+    "ar": 0.84,
+    "pos": "50% 50.6%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/1.jpeg": {
+    "ar": 0.6,
+    "pos": "50% 46.7%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/2.jpeg": {
+    "ar": 0.66,
+    "pos": "50% 44%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/3.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 47.7%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/4.jpeg": {
+    "ar": 0.71,
+    "pos": "50% 43.6%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/5.jpeg": {
+    "ar": 0.6,
+    "pos": "50% 49.2%"
+  },
+  "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/6.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/1.jpeg": {
+    "ar": 0.53,
+    "pos": "50% 45.2%"
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/2.jpeg": {
+    "ar": 0.65
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/3.jpeg": {
+    "ar": 0.54
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/4.jpeg": {
+    "ar": 0.92
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/black/5.jpeg": {
+    "ar": 0.94
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/white/1.jpeg": {
+    "ar": 0.53,
+    "pos": "50% 46%"
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/white/2.jpeg": {
+    "ar": 0.65
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/white/3.jpeg": {
+    "ar": 0.53
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/white/4.jpeg": {
+    "ar": 0.94
+  },
+  "/images/products/chairs/mesh-chair/xyron-mesh-chair/white/5.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/1.jpeg": {
+    "ar": 0.64,
+    "pos": "50% 46%"
+  },
+  "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/2.jpeg": {
+    "ar": 0.89
+  },
+  "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/3.jpeg": {
+    "ar": 1,
+    "pos": "50% 48.6%"
+  },
+  "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/4.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/5.jpeg": {
+    "ar": 1
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 47.7%"
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/2.jpeg": {
+    "ar": 0.73
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/3.jpeg": {
+    "ar": 0.73
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/4.jpeg": {
+    "ar": 0.88
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/black-dark-grey/5.jpeg": {
+    "ar": 0.78
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/white-light-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 48.1%"
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/white-light-grey/2.jpeg": {
+    "ar": 0.73
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/white-light-grey/3.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/white-light-grey/4.jpeg": {
+    "ar": 0.88
+  },
+  "/images/products/chairs/performance-mesh-chair/casca-fabric-chair/white-light-grey/5.jpeg": {
+    "ar": 0.78
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 46.7%"
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/2.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/3.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/black-dark-grey/4.jpeg": {
+    "ar": 0.69,
+    "pos": "50% 50.5%"
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/white-light-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 47.2%"
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/white-light-grey/2.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/white-light-grey/3.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/luxor-performance-mesh-chair/white-light-grey/4.jpeg": {
+    "ar": 0.69,
+    "pos": "50% 50.5%"
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 47.2%"
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/2.jpeg": {
+    "ar": 0.71
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/3.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/black-dark-grey/4.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/white-light-grey/1.jpeg": {
+    "ar": 0.67,
+    "pos": "50% 48.1%"
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/white-light-grey/2.jpeg": {
+    "ar": 0.71
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/white-light-grey/3.jpeg": {
+    "ar": 0.7,
+    "pos": "50% 50.5%"
+  },
+  "/images/products/chairs/performance-mesh-chair/pointer-performance-mesh-chair/white-light-grey/4.jpeg": {
+    "ar": 0.67
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/1.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/2.jpeg": {
+    "ar": 1.11
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/3.jpeg": {
+    "ar": 1.16
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/4.jpeg": {
+    "ar": 1.26,
+    "pos": "50% 48.2%"
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/black-marble/5.jpeg": {
+    "ar": 1.71
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/wooden-teak/1.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/wooden-teak/2.jpeg": {
+    "ar": 1.11
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/wooden-teak/3.jpeg": {
+    "ar": 1.16
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/wooden-teak/4.jpeg": {
+    "ar": 1.26,
+    "pos": "50% 48.2%"
+  },
+  "/images/products/tables/bed-table/flex-apex-bed-table/wooden-teak/5.jpeg": {
+    "ar": 1.71
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/1.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/2.jpeg": {
+    "ar": 1.18
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/3.jpeg": {
+    "ar": 1.64
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/4.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/beige-wooden-teak/5.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/1.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/2.jpeg": {
+    "ar": 1.24
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/3.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/4.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/imperium-executive-table/dark-grey-black-marble/5.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/1.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/2.jpeg": {
+    "ar": 0.9
+  },
+  "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/3.jpeg": {
+    "ar": 1.64
+  },
+  "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/4.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/5.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/black-marble/1.jpeg": {
+    "ar": 1.06
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/black-marble/2.jpeg": {
+    "ar": 0.69
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/black-marble/3.jpeg": {
+    "ar": 1.03
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/black-marble/4.jpeg": {
+    "ar": 1.53
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/wooden-teak/1.jpeg": {
+    "ar": 1.06
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/wooden-teak/2.jpeg": {
+    "ar": 0.69
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/wooden-teak/3.jpeg": {
+    "ar": 1.03
+  },
+  "/images/products/tables/folding-table/exquisite-primex-folding-table/wooden-teak/4.jpeg": {
+    "ar": 1.53
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/1.jpeg": {
+    "ar": 0.95
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/2.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/3.jpeg": {
+    "ar": 1.04
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/4.jpeg": {
+    "ar": 0.73
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/5.jpeg": {
+    "ar": 0.94
+  },
+  "/images/products/tables/folding-table/nextable-folding-table/wooden-teak/6.jpeg": {
+    "ar": 0.96,
+    "pos": "49.3% 47.3%"
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/1.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/2.jpeg": {
+    "ar": 1
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/3.jpeg": {
+    "ar": 1.41
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/4.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/5.jpeg": {
+    "ar": 0.81,
+    "pos": "50% 48.3%"
+  },
+  "/images/products/tables/gaming-desk/phantom-gaming-desk/black/6.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/1.jpeg": {
+    "ar": 0.73
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/2.jpeg": {
+    "ar": 1.33
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/3.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/4.jpeg": {
+    "ar": 1.11
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/5.jpeg": {
+    "ar": 0.81,
+    "pos": "50% 48.3%"
+  },
+  "/images/products/tables/gaming-desk/quantum-gaming-desk/black/6.jpeg": {
+    "ar": 1.53
+  },
+  "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/1.jpeg": {
+    "ar": 1.33
+  },
+  "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/2.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/3.jpeg": {
+    "ar": 1.33
+  },
+  "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/4.jpeg": {
+    "ar": 1.41
+  },
+  "/images/products/tables/height-adjustable-table/modexa-height-adjustable-table/wooden-teak/5.jpeg": {
+    "ar": 1.33,
+    "pos": "51.4% 49.1%"
+  },
+  "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/1.jpeg": {
+    "ar": 1.47
+  },
+  "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/2.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/3.jpeg": {
+    "ar": 1.47
+  },
+  "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/4.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/5.jpeg": {
+    "ar": 1.47
+  },
+  "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/1.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/2.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/3.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/4.jpeg": {
+    "ar": 1.64
+  },
+  "/images/products/tables/height-adjustable-table/modura-height-adjustable-table/wooden-teak/5.jpeg": {
+    "ar": 1.57
+  },
+  "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/1.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/2.jpeg": {
+    "ar": 1.6
+  },
+  "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/3.jpeg": {
+    "ar": 1.5
+  },
+  "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/4.jpeg": {
+    "ar": 1.41
+  },
+  "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/5.jpeg": {
+    "ar": 1.76
+  },
+  "/images/products/tables/study-table/zenith-study-table/wooden-teak/1.jpeg": {
+    "ar": 1.26
+  },
+  "/images/products/tables/study-table/zenith-study-table/wooden-teak/2.jpeg": {
+    "ar": 1.22
+  },
+  "/images/products/tables/study-table/zenith-study-table/wooden-teak/3.jpeg": {
+    "ar": 1.18
+  },
+  "/images/products/tables/study-table/zenith-study-table/wooden-teak/4.jpeg": {
+    "ar": 1.18
+  },
+  "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/1.jpeg": {
+    "ar": 0.74
+  },
+  "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/2.jpeg": {
+    "ar": 0.7
+  },
+  "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/3.jpeg": {
+    "ar": 0.8
+  },
+  "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/4.jpeg": {
+    "ar": 0.96
+  }
+}

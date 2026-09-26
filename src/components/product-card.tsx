@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/lib/catalog-types";
-import { cardImage, imageAlt } from "@/lib/images";
+import { cardImage, gridAspect, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
 import { ProductImage } from "./product-image";
 
@@ -14,25 +14,31 @@ import { ProductImage } from "./product-image";
 export function ProductCard({
   product,
   priority = false,
+  /**
+   * Set by the grid so every card in one row is the same shape. Left to the
+   * product's own category when a card is placed on its own.
+   */
+  aspect,
 }: {
   product: Product;
   priority?: boolean;
+  aspect?: string;
 }) {
   const src = cardImage(product);
+  const box = aspect ?? gridAspect([product]);
 
   return (
     <Link
       href={product.href}
       className="group flex flex-col overflow-hidden rounded-panel border border-edge bg-surface transition-colors duration-300 hover:border-edge-strong"
     >
-      <div className="relative aspect-4/5 overflow-hidden bg-raised">
+      <div className={`relative ${box} overflow-hidden bg-raised`}>
         {src ? (
           <ProductImage
             src={src}
             alt={imageAlt(product)}
             priority={priority}
             sizes="(min-width: 1280px) 22rem, (min-width: 768px) 33vw, 85vw"
-            inset="p-4"
             className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         ) : null}
@@ -79,12 +85,18 @@ export function ProductGrid({
   products: Product[];
   priorityCount?: number;
 }) {
+  // Decided once for the whole grid rather than per card: a row of cards whose
+  // photographs are different heights looks broken even when each individual
+  // crop is the better one.
+  const aspect = gridAspect(products);
+
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product, i) => (
         <ProductCard
           key={product.id}
           product={product}
+          aspect={aspect}
           priority={i < priorityCount}
         />
       ))}

@@ -41,6 +41,7 @@ export function ProductGallery({
           src={current}
           alt={alts[active] ?? ""}
           priority
+          fit="contain"
           sizes="(min-width: 1024px) 40rem, 100vw"
           inset="p-4"
         />
@@ -64,7 +65,13 @@ export function ProductGallery({
                     : "border-edge opacity-65 hover:border-edge-strong hover:opacity-90"
                 }`}
               >
-                <ProductImage src={src} alt="" sizes="6rem" inset="p-1" />
+                <ProductImage
+                  src={src}
+                  alt=""
+                  fit="contain"
+                  sizes="6rem"
+                  inset="p-1"
+                />
               </button>
             </li>
           ))}

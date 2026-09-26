@@ -1,45 +1,47 @@
 import Image from "next/image";
-import { encodeImagePath } from "@/lib/images";
+import { encodeImagePath, imageFocus } from "@/lib/images";
 
 /**
- * A product photograph fitted into a fixed box without cutting the product up.
+ * A product photograph in a fixed box.
  *
- * ## Why this exists
+ * ## Why this is not just an `<Image>`
  *
- * The catalogue mixes two kinds of supplier photography: tall studio shots on
- * a seamless paper backdrop (the chairs, around 0.53:1) and wide lifestyle
- * room shots (the tables, around 1.60:1). That is a threefold spread of aspect
- * ratio being poured into one fixed box.
+ * Two things have to be decided per placement, and getting either wrong is
+ * visible from across the room.
  *
- * With `object-fit: cover` the box is filled by throwing away whatever does
- * not fit, so the executive table lost both its legs and the mesh chair lost
- * its headrest and its castors -- the category tile showed a band of upholstery
- * that could have been almost any piece of furniture.
+ * **Where to crop.** A card fills its box, so something is thrown away. The
+ * default is to keep the middle, but the supplier's studio frames leave a
+ * stretch of empty backdrop above each chair, so keeping the middle drifted
+ * down and cut the headrest off. `imageFocus` supplies a measured point for
+ * the frames that need one -- see `scripts/generate-focus.ts`.
  *
- * `contain` fixes that, but it leaves bars, and no single bar colour can sit
- * behind both a tan seamless backdrop and a grey office floor without one of
- * them looking like a mistake. So the photograph is drawn twice: once scaled
- * up, blurred and cropped to fill the box, and once contained on top of it.
- * The bars are then always drawn from that photograph's own colours.
+ * **Whether to crop at all.** Most placements should crop: a tile with bars
+ * down the side reads as a loading failure. But the galleries carry the
+ * supplier's dimension and feature drawings alongside the photographs, and
+ * those are text. Cropping a drawing deletes the measurements, so a gallery
+ * asks for `contain` and accepts the bars.
  *
- * ## Cost
- *
- * The backdrop asks for the smallest rung of the width ladder (384px). It is
- * blurred past all recognition, so resolution is irrelevant, and on a product
- * card that rung is usually the one already being fetched for the foreground.
+ * An earlier version filled the bars with a blurred, scaled-up copy of the
+ * photograph. It kept every pixel and it was rejected on sight -- it made
+ * every product look like it was floating on a smear. Bars are better than
+ * that, and cropping to a ratio that suits the photograph is better than
+ * both, which is what `gridAspect` is for.
  *
  * The caller owns the box: this fills whatever `relative` element it is put
- * in, which must clip (`overflow-hidden`) because the backdrop is scaled past
- * the edges to keep the blur from feathering into the border.
+ * in, and that element should clip.
  */
 export function ProductImage({
   src,
   alt,
   sizes,
   priority = false,
-  /** Applied to the foreground only, so hover transforms leave the backdrop still. */
   className = "",
-  /** Keeps the product clear of the card edge. Not applied to the backdrop. */
+  /**
+   * `contain` for anything that might be a drawing rather than a photograph,
+   * because cropping one destroys the information it exists to carry.
+   */
+  fit = "cover",
+  /** Only meaningful with `contain`: keeps the subject off the border. */
   inset = "",
 }: {
   src: string;
@@ -47,21 +49,13 @@ export function ProductImage({
   sizes: string;
   priority?: boolean;
   className?: string;
+  fit?: "cover" | "contain";
   inset?: string;
 }) {
   const href = encodeImagePath(src);
 
-  return (
-    <>
-      <Image
-        src={href}
-        alt=""
-        aria-hidden="true"
-        fill
-        sizes="384px"
-        className="scale-125 object-cover blur-2xl"
-      />
-
+  if (fit === "contain") {
+    return (
       <Image
         src={href}
         alt={alt}
@@ -70,6 +64,18 @@ export function ProductImage({
         sizes={sizes}
         className={`object-contain ${inset} ${className}`}
       />
-    </>
+    );
+  }
+
+  return (
+    <Image
+      src={href}
+      alt={alt}
+      fill
+      priority={priority}
+      sizes={sizes}
+      style={{ objectPosition: imageFocus(src) }}
+      className={`object-cover ${className}`}
+    />
   );
 }
