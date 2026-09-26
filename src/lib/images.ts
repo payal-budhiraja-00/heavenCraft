@@ -71,20 +71,30 @@ export function imageFocus(src: string): string {
  *
  * ## Why this is measured rather than declared
  *
- * The supplier shot the range in wildly different orientations -- chairs
- * upright at about 0.6:1, room shots of the executive tables at about 1.6:1 --
- * and pouring that into one fixed box is what made the old tiles look wrong.
- * There is no single ratio that a chair and a desk both sit in comfortably.
+ * The supplier shot the range in wildly different orientations, and pouring
+ * that into one fixed box is what made the old tiles look wrong. Measured
+ * across all 165 frames the split is not subtle:
  *
- * A ratio per category is not true either: the tables hold both a 0.73:1
- * gaming desk shot upright and a 1.6:1 executive table shot across the room,
- * so "tables are landscape" mis-crops the desk as badly as one global ratio.
+ *   chairs       0.53 - 0.74, every frame, no exceptions
+ *   desks        1.16 - 1.64 for all but two ranges
+ *   accessories  0.71 - 1.53, genuinely mixed
  *
- * So the box is chosen from the photographs actually in the grid, from a
- * short list of stops -- an arbitrary decimal would give every page a
- * slightly different and faintly wrong shape.
+ * There is no ratio a chair and an executive desk both sit in. A chair is
+ * only ever photographed upright -- there is not one landscape frame of a
+ * chair in the catalogue -- and a 2m desk is only ever photographed across
+ * the room.
  *
- * ## Why the choice is a compromise, and how it is struck
+ * ## The asymmetry that matters
+ *
+ * Losing the sides of a room shot is close to free: the desk stays whole and
+ * what goes is wall and carpet. Losing the top of a chair takes its headrest
+ * off. So the stops below reach out to 2:3 and 3:2 -- the shapes the
+ * photography actually is -- rather than clustering near square and forcing
+ * every tall chair and every wide desk to meet in a middle that suits
+ * neither. Stopping at 4:5 and 4:3 was the bug: it cut 40% off a chair on the
+ * homepage and a fifth off the executive tables.
+ *
+ * ## How the choice is struck
  *
  * Three objectives were tried against the real catalogue. Snapping to the
  * median ratio suits the majority but cut 44% off the two tables that happen
@@ -96,13 +106,23 @@ export function imageFocus(src: string): string {
  * times as much as trimming a tenth off four of them, so the majority still
  * decides the shape while a card that would look broken can still veto it.
  *
- * The obvious alternative -- pick a better-fitting frame from the same
+ * Two things were tried and rejected on sight rather than by measurement,
+ * both of which keep the whole product. Drawing the photograph blurred behind
+ * itself to fill the bars left every product floating on a smear of itself.
+ * Extending the backdrop sideways to reach the box -- plausible, because
+ * these are graded studio sweeps that replicate cleanly -- makes a tall chair
+ * a small object marooned in a wide frame. Keeping every pixel is not the
+ * goal; the product looking right is.
+ *
+ * The remaining alternative -- pick a better-fitting frame from the same
  * product -- is done, but only from a checked list. See `CARD_FRAME`.
  */
 const ASPECT_STOPS: Array<[ratio: number, className: string]> = [
+  [2 / 3, "aspect-2/3"],
   [4 / 5, "aspect-4/5"],
   [1, "aspect-square"],
   [4 / 3, "aspect-4/3"],
+  [3 / 2, "aspect-3/2"],
 ];
 
 const FALLBACK_ASPECT = "aspect-square";
@@ -168,6 +188,12 @@ const CARD_FRAME: Record<string, number> = {
   // other five chairs. Frame 1 is the same chair in the same upright pose,
   // shot wider, so the range still reads as one set.
   "chair-mesh-006": 1,
+  // Shot upright by default, which made it one of two cards pulling the whole
+  // tables grid narrow and costing the eleven room shots their ends. Frame 1
+  // is the table flipped flat on its castors at 1.6:1 -- the widest genuine
+  // photograph of any folding table here, and the feature the range is named
+  // for, so it reads as the product rather than as a crop of it.
+  "table-folding-004": 1,
 };
 
 function leadFrame(product: Product): string | undefined {

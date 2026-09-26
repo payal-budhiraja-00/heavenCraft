@@ -221,7 +221,10 @@ for (const loc of locs) {
 /* ------------------------------------------------------- 5. .htaccess */
 
 const htaccess = readFileSync(join(OUT, ".htaccess"), "utf8");
-const errorDoc = htaccess.match(/ErrorDocument\s+404\s+(\S+)/)?.[1];
+// Line-anchored: the surrounding comment block quotes the directive while
+// explaining why this host ignores it, and an unanchored match reads that
+// instead of the real one.
+const errorDoc = htaccess.match(/^\s*ErrorDocument\s+404\s+(\S+)/m)?.[1];
 if (!errorDoc) fail("no ErrorDocument 404 in .htaccess");
 else if (!present.has(errorDoc)) {
   fail(`ErrorDocument points at ${errorDoc}, which does not exist`);
@@ -229,13 +232,13 @@ else if (!present.has(errorDoc)) {
 
 /*
   The shim is what actually produces the 404 on this host -- the platform
-  ignores ErrorDocument pointed at a static file -- and it works by setting
-  the status itself and printing the branded page. Two ways it could quietly
-  stop doing that: losing the status call, leaving a soft 200 that tells
-  Google a dead URL is a real page; or losing the reference to 404.html,
-  leaving visitors the bare fallback markup instead of the real page. Neither
-  breaks the build, and neither is visible without asking for a URL that does
-  not exist, so assert both here.
+  ignores ErrorDocument however it is pointed, at a static file or at PHP --
+  and it works by setting the status itself and printing the branded page.
+  Two ways it could quietly stop doing that: losing the status call, leaving
+  a soft 200 that tells Google a dead URL is a real page; or losing the
+  reference to 404.html, leaving visitors the bare fallback markup instead of
+  the real page. Neither breaks the build, and neither is visible without
+  asking for a URL that does not exist, so assert both here.
 */
 const shim = readFileSync(join(OUT, "404.php"), "utf8");
 if (!/http_response_code\(404\)/.test(shim)) {
@@ -245,16 +248,78 @@ if (!shim.includes("404.html")) {
   fail("404.php no longer reads 404.html, so the branded page is not served");
 }
 
+/*
+ * ErrorDocument is declared but inert on this host, so what actually reaches
+ * a visitor on a dead URL is the rewrite catch-all. It is three lines and
+ * every one of them is load-bearing:
+ *
+ *  - without `!-f` it would shadow every real file on the site;
+ *  - without `!-d` it would shadow every directory index, i.e. every page;
+ *  - and without either, it would also rewrite `/404.php` onto itself.
+ *
+ * Losing it doesn't fail a build -- it just quietly restores the grey default
+ * page nobody looks at.
+ */
+const catchAll = htaccess.search(/^\s*RewriteRule \^ \/404\.php \[L\]/m);
+if (catchAll === -1) {
+  fail("no rewrite catch-all to /404.php — dead URLs get the host's own page");
+} else {
+  const guard = htaccess.slice(0, catchAll);
+  const guarded =
+    /RewriteCond %\{REQUEST_FILENAME\} !-f\s*\n\s*RewriteCond %\{REQUEST_FILENAME\} !-d\s*$/.test(
+      guard.trimEnd() + "\n",
+    );
+  if (!guarded) {
+    fail("catch-all is missing its !-f/!-d guards and would shadow real pages");
+  }
+  /*
+   * mod_rewrite stops at the first rule that matches and carries [L], so the
+   * catch-all has to be last. A 301 written below it is unreachable for
+   * exactly the URLs it exists to serve -- the withdrawn ones, which have no
+   * file on disk -- and it fails silently, because the target still exists
+   * and the redirect is still present in the file.
+   */
+  if (/^\s*RewriteRule \S+ \S+ \[R=301,L\]/m.test(htaccess.slice(catchAll))) {
+    fail("a 301 rewrite is written below the catch-all, so it can never fire");
+  }
+}
+
+/*
+ * No mod_alias here, and this is not a style preference. mod_rewrite
+ * registers its fixup hook APR_HOOK_FIRST and mod_alias registers
+ * fixup_redir APR_HOOK_MIDDLE, so within one .htaccess every RewriteRule is
+ * evaluated before any Redirect regardless of the order they are written in.
+ * A `Redirect` added back would sit below the catch-all in effect, not in
+ * text, and the withdrawn URL it was written for would 404 instead.
+ */
+if (/^\s*Redirect(Match|Permanent|Temp)?\s+\d/m.test(htaccess)) {
+  fail("mod_alias Redirect in .htaccess — the rewrite catch-all preempts it");
+}
+
 // TLS terminates at Cloudflare, so %{HTTPS} is "off" at this origin even for
 // HTTPS visitors. A redirect keyed on it would loop until the browser gives up.
 if (/RewriteCond\s+%\{HTTPS\}/.test(htaccess)) {
   fail(".htaccess redirects on %{HTTPS} — this loops behind Cloudflare");
 }
 
-const redirectTargets = captures(
-  htaccess,
-  /^\s*RedirectMatch 301 \S+ (\S+)/gm,
-);
+/*
+ * Sources and targets are read as pairs from the same anchored shape --
+ * `RewriteRule ^chairs/rider-leather-chair/?$ /chairs/ [R=301,L]` -- which
+ * also excludes the canonical-host rule, whose target is an absolute URL on
+ * this same site and would not resolve as a path.
+ *
+ * Strip the optional trailing slash back off to recover the plain path, drop
+ * the backslashes the generator added to escape regex metacharacters, and put
+ * back the leading slash that per-directory mod_rewrite matches without.
+ */
+const redirectPairs = [
+  ...htaccess.matchAll(/^\s*RewriteRule \^(\S+?)\/\?\$ (\S+) \[R=301,L\]/gm),
+].map(([, source, target]) => ({
+  source: `/${(source ?? "").replace(/\\(.)/g, "$1").replace(/\/$/, "")}`,
+  target: target ?? "",
+}));
+const redirectTargets = redirectPairs.map((pair) => pair.target);
+const redirectSources = new Set(redirectPairs.map((pair) => pair.source));
 
 /*
  * Checked by membership rather than by count.
@@ -264,17 +329,7 @@ const redirectTargets = captures(
  * change made the number wrong without making the redirects wrong. Asserting
  * that each URL we know to be dead is actually listed is the check that was
  * intended.
- *
- * Sources are written as anchored patterns -- `^/chairs/rider-leather-chair/?$`
- * -- so strip the anchors and the optional trailing slash back off to recover
- * the plain path, and drop the backslashes the generator added to escape
- * regex metacharacters.
  */
-const redirectSources = new Set(
-  captures(htaccess, /^\s*RedirectMatch 301 \^(\S+?)\/\?\$/gm).map((s) =>
-    s.replace(/\\(.)/g, "$1").replace(/\/$/, ""),
-  ),
-);
 for (const product of allProducts) {
   if (!redirectSources.has(`/product/${product.id}`)) {
     fail(`no /product/${product.id} redirect for ${product.name}`);
@@ -290,7 +345,8 @@ for (const target of redirectTargets) {
 }
 
 // A redirect whose source still resolves is dead config at best and shadows a
-// live page at worst -- mod_alias answers before the file is ever looked for.
+// live page at worst -- the rule carries [L], so it answers with a 301 before
+// the file on disk is ever reached.
 for (const source of redirectSources) {
   if (source !== "/search" && resolves(`${source}/`)) {
     fail(`redirect source ${source} still resolves to a real page`);
