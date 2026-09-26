@@ -23,11 +23,18 @@
  * which is the one that shows the colour that was just chosen.
  */
 
-import { createContext, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { ProductGallery } from "./product-gallery";
 import { FeatureList, Label, SpecRow, StockPill } from "./ui";
 import type { Feature, Specification } from "@/lib/catalog-types";
 import { formatPaise } from "@/lib/money";
+import { useBrowserValue } from "@/lib/use-browser-value";
 
 /** A variant flattened to exactly what the page needs. */
 export type VariantView = {
@@ -73,6 +80,17 @@ export function useVariant(): VariantState {
   return state;
 }
 
+/**
+ * The query parameter that carries a colourway between people.
+ *
+ * Selection used to live only in memory, which quietly broke every shared
+ * link: someone would pick the black finish, send it on, and the recipient
+ * would open the grey one. The parameter is only ever written for products
+ * that actually have a choice, so the other twenty-odd keep clean URLs, and
+ * the canonical tag is emitted without a query string either way.
+ */
+export const COLOUR_PARAM = "colour";
+
 export function VariantProvider({
   variants,
   children,
@@ -80,19 +98,55 @@ export function VariantProvider({
   variants: VariantView[];
   children: React.ReactNode;
 }) {
-  const [colourSlug, setColourSlug] = useState(variants[0]?.colourSlug ?? "");
+  /*
+    Two sources, in priority order: whatever this visitor has clicked, and
+    failing that whatever the link they arrived on asked for.
+
+    Deriving rather than copying the parameter into state is what keeps them
+    from fighting. Seeding state from the URL would mean the moment we rewrite
+    the URL on selection we have two places holding the same fact, and the
+    interesting bugs all live in the gap between them.
+  */
+  const [picked, setPicked] = useState<string | null>(null);
+
+  const requested = useBrowserValue(
+    () => new URLSearchParams(window.location.search).get(COLOUR_PARAM),
+    null,
+  );
+
+  const select = useCallback(
+    (next: string) => {
+      setPicked(next);
+
+      /*
+        Keep the address bar honest, so copying it by hand shares the same
+        thing the share button would. `replaceState` rather than `pushState`:
+        changing finish is not navigation, and making Back step through
+        colours instead of leaving the page is not what anyone expects.
+      */
+      if (variants.length > 1) {
+        const url = new URL(window.location.href);
+        url.searchParams.set(COLOUR_PARAM, next);
+        window.history.replaceState(null, "", url);
+      }
+    },
+    [variants.length],
+  );
 
   const value = useMemo<VariantState | null>(() => {
     const first = variants[0];
     if (!first) return null;
 
+    // Never trust the parameter -- match it to a real variant or ignore it.
+    const wanted = picked ?? requested;
+
     return {
       variants,
-      selected: variants.find((v) => v.colourSlug === colourSlug) ?? first,
-      select: setColourSlug,
+      selected: variants.find((v) => v.colourSlug === wanted) ?? first,
+      select,
       hasChoice: variants.length > 1,
     };
-  }, [variants, colourSlug]);
+  }, [variants, picked, requested, select]);
 
   if (!value) return children;
 
