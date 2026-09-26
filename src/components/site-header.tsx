@@ -38,16 +38,32 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  /**
+   * Which desktop group panel is showing, if any.
+   *
+   * This used to be pure CSS -- `group-hover` plus `group-focus-within` --
+   * which cannot survive a client-side navigation. Clicking an item leaves the
+   * pointer over the panel and focus on the link inside it, so both selectors
+   * still matched and the menu hung over the page it had just opened. Moving
+   * the pointer away did not help, because focus alone kept it open until the
+   * visitor happened to click somewhere else.
+   *
+   * Driving it from state is what lets a route change close it, which is the
+   * one thing the CSS had no way to express.
+   */
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+
   /*
-   * A route change must not leave the mobile sheet hanging open behind the new
-   * page. Adjusted during render rather than in an effect: an effect would
-   * paint the new route with the old menu still over it, then re-render to
-   * remove it.
+   * A route change must not leave the mobile sheet or a desktop panel hanging
+   * open over the new page. Adjusted during render rather than in an effect:
+   * an effect would paint the new route with the old menu still over it, then
+   * re-render to remove it.
    */
   const [routeWhenOpened, setRouteWhenOpened] = useState(pathname);
   if (routeWhenOpened !== pathname) {
     setRouteWhenOpened(pathname);
     setOpen(false);
+    setOpenGroup(null);
   }
 
   useEffect(() => {
@@ -89,7 +105,40 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
             {groups.map((group) => {
               const active = pathname?.startsWith(group.href);
               return (
-                <div key={group.slug} className="group relative">
+                /*
+                 * Pointer and focus are handled on the wrapper, not the links:
+                 * React maps onFocus/onBlur to focusin/focusout, so tabbing
+                 * into the panel keeps it open and tabbing past it closes it,
+                 * which is what `group-focus-within` used to do.
+                 */
+                <div
+                  key={group.slug}
+                  className="relative"
+                  onPointerEnter={() => setOpenGroup(group.slug)}
+                  onPointerLeave={() =>
+                    setOpenGroup((current) =>
+                      current === group.slug ? null : current,
+                    )
+                  }
+                  /*
+                   * Closing on the click itself, not on the route change.
+                   * The route-change reset below cannot be the only mechanism:
+                   * it runs inside the router's transition, and it does not
+                   * run at all when the link points at the page already open,
+                   * which would leave the panel stranded over its own page.
+                   */
+                  onClick={() => setOpenGroup(null)}
+                  onFocus={() => setOpenGroup(group.slug)}
+                  onBlur={(event) => {
+                    if (event.currentTarget.contains(event.relatedTarget)) return;
+                    setOpenGroup((current) =>
+                      current === group.slug ? null : current,
+                    );
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape") setOpenGroup(null);
+                  }}
+                >
                   <Link
                     href={group.href}
                     aria-current={ariaCurrent(pathname, group.href)}
@@ -100,7 +149,7 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                     }`}
                   >
                     {group.name}
-                    <Chevron />
+                    <Chevron open={openGroup === group.slug} />
                   </Link>
 
                   {/*
@@ -108,7 +157,13 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
                     timer: the panel starts flush under the trigger so the
                     pointer never crosses dead space on the way down.
                   */}
-                  <div className="invisible absolute left-1/2 top-full z-10 w-72 -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div
+                    className={`absolute left-1/2 top-full z-10 w-72 -translate-x-1/2 pt-2 transition-[opacity,visibility] duration-150 ${
+                      openGroup === group.slug
+                        ? "visible opacity-100"
+                        : "invisible opacity-0"
+                    }`}
+                  >
                     <div className="overflow-hidden rounded-panel border border-edge bg-surface shadow-panel">
                       <ul className="p-2">
                         {group.subCategories.map((sub) => (
@@ -296,12 +351,12 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
   );
 }
 
-function Chevron() {
+function Chevron({ open }: { open: boolean }) {
   return (
     <svg
       viewBox="0 0 12 12"
       aria-hidden="true"
-      className="size-3 transition-transform duration-200 group-hover:rotate-180"
+      className={`size-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
