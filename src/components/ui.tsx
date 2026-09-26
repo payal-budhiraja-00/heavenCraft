@@ -144,18 +144,19 @@ export type Crumb = { label: string; href?: string };
 export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-cream-faint">
+      <ol className="flex flex-wrap items-center gap-x-2 text-xs text-cream-faint">
         {trail.map((crumb, i) => (
           <li key={`${crumb.label}-${i}`} className="flex items-center gap-2">
             {crumb.href ? (
               <Link
                 href={crumb.href}
-                className="transition-colors hover:text-gold"
+                /* py-2 lifts a 16px crumb to ~32px, clearing WCAG 2.5.8. */
+                className="inline-block py-2 transition-colors hover:text-gold"
               >
                 {crumb.label}
               </Link>
             ) : (
-              <span className="text-cream-muted">{crumb.label}</span>
+              <span className="py-2 text-cream-muted">{crumb.label}</span>
             )}
             {i < trail.length - 1 ? (
               <span aria-hidden="true" className="text-edge-strong">

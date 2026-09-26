@@ -42,14 +42,14 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
             >
               {SITE.phoneDisplay}
             </a>
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 text-sm">
               <a
                 href={whatsappUrl(
                   `Hi ${SITE.name}, I have a question about your furniture.`,
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
+                className="inline-block py-1.5 text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
               >
                 WhatsApp
               </a>
@@ -58,7 +58,7 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
               </span>
               <a
                 href={`mailto:${SITE.email}`}
-                className="text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
+                className="inline-block py-1.5 text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
               >
                 {SITE.email}
               </a>
@@ -80,12 +80,19 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
           {groups.map((group) => (
             <div key={group.slug}>
               <h2 className="label text-cream">{group.name}</h2>
-              <ul className="mt-5 space-y-2.5">
+              {/*
+                py-1.5 on the link rather than space-y on the list: the gap
+                between list items is dead space a thumb can miss, whereas
+                padding inside the link is part of the target. Takes each one
+                from 15px to ~32px, clearing WCAG 2.5.8's 24px minimum, and
+                the list ends up barely taller than it was.
+              */}
+              <ul className="mt-3.5">
                 {group.subCategories.map((sub) => (
                   <li key={sub.slug}>
                     <Link
                       href={sub.href}
-                      className="text-sm text-cream-muted transition-colors hover:text-gold"
+                      className="inline-block py-1.5 text-sm text-cream-muted transition-colors hover:text-gold"
                     >
                       {sub.name}
                     </Link>
@@ -100,12 +107,12 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
           <p className="text-xs text-cream-faint">
             © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <ul className="flex flex-wrap gap-x-6">
             {policies.map((policy) => (
               <li key={policy.href}>
                 <Link
                   href={policy.href}
-                  className="text-xs text-cream-faint transition-colors hover:text-gold"
+                  className="inline-block py-1.5 text-xs text-cream-faint transition-colors hover:text-gold"
                 >
                   {policy.label}
                 </Link>

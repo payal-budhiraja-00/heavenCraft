@@ -221,7 +221,7 @@ export default function HomePage() {
             <SectionHeading eyebrow="Selected" title="Worth a closer look" />
             <Link
               href="/tables/"
-              className="label text-gold transition-colors hover:text-gold-bright"
+              className="label inline-flex min-h-11 items-center py-2 text-gold transition-colors hover:text-gold-bright"
             >
               All tables →
             </Link>
@@ -237,7 +237,7 @@ export default function HomePage() {
             </h3>
             <Link
               href="/chairs/"
-              className="label text-gold transition-colors hover:text-gold-bright"
+              className="label inline-flex min-h-11 items-center py-2 text-gold transition-colors hover:text-gold-bright"
             >
               All chairs →
             </Link>
@@ -263,12 +263,12 @@ export default function HomePage() {
                 <h3 className="type-wide text-lg font-bold text-cream">
                   <Link
                     href={group.href}
-                    className="transition-colors hover:text-gold"
+                    className="inline-block py-1.5 transition-colors hover:text-gold"
                   >
                     {group.name}
                   </Link>
                 </h3>
-                <ul className="mt-4 space-y-1">
+                <ul className="mt-2.5 space-y-1">
                   {group.subCategories.map((sub) => (
                     <li key={sub.slug}>
                       <Link
