@@ -354,4 +354,10 @@ export const REQUIRED_SCOPES = [
   /* Products stay invisible to shoppers until they are published to the
    * Online Store channel, which is a separate permission from editing them. */
   "write_publications",
+  /* Publishing to the Online Store is what mints a checkout URL, so Shopify
+   * always serves a second browsable copy of the catalogue at the shop
+   * subdomain. `apply-redirect-snippet` edits layout/theme.liquid to send that
+   * copy to the real site, which needs read and write on theme code. */
+  "read_themes",
+  "write_themes",
 ] as const;

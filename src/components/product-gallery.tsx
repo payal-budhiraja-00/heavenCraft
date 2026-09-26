@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import { encodeImagePath } from "@/lib/images";
+import { ProductImage } from "./product-image";
 
 /**
  * Product gallery.
@@ -37,14 +36,13 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-3">
       <div className="relative aspect-4/5 overflow-hidden rounded-panel border border-edge bg-raised">
-        <Image
+        <ProductImage
           key={current}
-          src={encodeImagePath(current)}
+          src={current}
           alt={alts[active] ?? ""}
-          fill
           priority
           sizes="(min-width: 1024px) 40rem, 100vw"
-          className="object-cover"
+          inset="p-4"
         />
       </div>
 
@@ -60,21 +58,13 @@ export function ProductGallery({
                 onClick={() => setActive(i)}
                 aria-label={alts[i] ?? ""}
                 aria-current={i === active}
-                className={`relative block aspect-square w-full overflow-hidden rounded-plate border transition-colors ${
+                className={`relative block aspect-square w-full overflow-hidden rounded-plate border transition-all ${
                   i === active
-                    ? "border-gold"
-                    : "border-edge hover:border-edge-strong"
+                    ? "border-gold opacity-100"
+                    : "border-edge opacity-65 hover:border-edge-strong hover:opacity-90"
                 }`}
               >
-                <Image
-                  src={encodeImagePath(src)}
-                  alt=""
-                  fill
-                  sizes="6rem"
-                  className={`object-cover transition-opacity ${
-                    i === active ? "opacity-100" : "opacity-65 hover:opacity-90"
-                  }`}
-                />
+                <ProductImage src={src} alt="" sizes="6rem" inset="p-1" />
               </button>
             </li>
           ))}

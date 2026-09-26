@@ -158,7 +158,7 @@ export function CartDrawer() {
                       width={80}
                       height={80}
                       loading="lazy"
-                      className="size-full object-cover"
+                      className="size-full object-contain p-1"
                     />
                   ) : null}
                 </div>

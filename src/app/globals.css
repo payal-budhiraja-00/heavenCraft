@@ -159,6 +159,25 @@
     );
   }
 
+  /*
+   * The same scrim the other way up, for the category headers, where the
+   * breadcrumb, heading and description sit at the *top* of the photograph.
+   * Those pages were using `.scrim-bottom`, which is opaque along the bottom
+   * edge, so it was darkening empty space while the type sat in the clear part
+   * of the gradient: cream on a bright studio backdrop measured 1.87:1, under
+   * the 3:1 that large text needs. Keep both -- the homepage category tiles
+   * bottom-align their type and want `.scrim-bottom`.
+   */
+  .scrim-top {
+    background: linear-gradient(
+      to bottom,
+      rgb(7 7 6 / 0.94) 0%,
+      rgb(7 7 6 / 0.82) 38%,
+      rgb(7 7 6 / 0.45) 72%,
+      rgb(7 7 6 / 0.2) 100%
+    );
+  }
+
   /* A hairline in gold, used instead of a box to separate structure. */
   .rule-gold {
     display: block;

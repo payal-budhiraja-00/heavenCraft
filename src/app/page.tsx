@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ProductGrid } from "@/components/product-card";
+import { ProductImage } from "@/components/product-image";
 import { ButtonLink, Container, Label, SectionHeading } from "@/components/ui";
 import { allProducts, getGroup, groups } from "@/lib/catalog";
 import { priceRange } from "@/lib/catalog-types";
@@ -278,15 +279,15 @@ function GroupCard({ slug }: { slug: string }) {
   return (
     <Link
       href={group.href}
-      className="group relative flex min-h-[24rem] flex-col justify-end overflow-hidden rounded-panel border border-edge"
+      className="group relative flex aspect-square flex-col justify-end overflow-hidden rounded-panel border border-edge md:aspect-4/5"
     >
       {src && lead ? (
-        <Image
-          src={encodeImagePath(src)}
+        <ProductImage
+          src={src}
           alt={imageAlt(lead)}
-          fill
           sizes="(min-width: 768px) 33vw, 90vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          inset="p-6 pb-28"
+          className="transition-transform duration-700 ease-out group-hover:scale-105"
         />
       ) : null}
 

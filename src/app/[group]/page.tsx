@@ -82,7 +82,7 @@ export default async function GroupPage({
             />
             <div
               aria-hidden="true"
-              className="scrim-bottom absolute inset-0 -z-10"
+              className="scrim-top absolute inset-0 -z-10"
             />
           </>
         ) : null}
