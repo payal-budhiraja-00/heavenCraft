@@ -254,6 +254,22 @@ ${legacyRedirects()}
   AddType image/webp .webp
   AddType font/woff2 .woff2
 </IfModule>
+
+# ---------------------------------------------------------------------------
+# Character set
+# ---------------------------------------------------------------------------
+# The host serves "Content-Type: text/html" with no charset. Browsers cope,
+# because <meta charset> sits in the first 1024 bytes and HTML5 says to honour
+# it. Link scrapers are less reliable, and the copy is full of characters that
+# break loudly when guessed wrong: the em dashes in every og:image:alt, the
+# ellipsis that ends most og:description values, and the rupee sign in the
+# prices. A WhatsApp preview reading those as Latin-1 renders "â¦" and "â¹".
+# Declaring it in the header removes the guess. Scoped to the text types so
+# it cannot be appended to an image or font response.
+<IfModule mod_mime.c>
+  AddCharset utf-8 .html .css .js .json .xml .svg .webmanifest .txt
+</IfModule>
+AddDefaultCharset utf-8
 `;
 
 async function main() {
