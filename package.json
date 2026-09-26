@@ -23,6 +23,8 @@
     "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts",
     "shopify:mrp-preview": "tsx scripts/shopify/preview-compare-at.ts",
     "shopify:mrp-set": "tsx scripts/shopify/set-compare-at.ts",
+    "shopify:policies": "tsx scripts/shopify/store-policies.ts",
+    "shopify:policies-apply": "tsx scripts/shopify/store-policies.ts --apply",
     "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts",
     "og": "tsx scripts/generate-og.ts"
   },

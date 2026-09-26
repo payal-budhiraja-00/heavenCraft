@@ -150,8 +150,8 @@ td strong{color:var(--cream)}
     <a href="#verdict"><span class="n">00</span>Verdict</a>
     <a href="#state"><span class="n">01</span>Live store state</a>
     <hr>
-    <a href="#b1"><span class="n">B1</span>Payment provider</a>
-    <a href="#b2"><span class="n">B2</span>Store policies</a>
+    <a href="#b1"><span class="n">B1</span>Payment provider — done</a>
+    <a href="#b2"><span class="n">B2</span>Store policies — done</a>
     <a href="#b3"><span class="n">B3</span>International shipping</a>
     <hr>
     <a href="#s1"><span class="n">S1</span>Store name</a>
@@ -176,15 +176,16 @@ td strong{color:var(--cream)}
 
 <section id="verdict">
   <span class="sec-n">00 — Verdict</span>
-  <h2>Three blockers, four fixes worth making</h2>
+  <h2>One blocker left</h2>
   <span class="rule"></span>
 
-  <div class="box box--bad">
-    <div class="box__t">Nothing can be bought today</div>
-    <p>A cart was created successfully against the live store and it produced a valid
-    checkout URL. Opening that URL <strong>redirects to the shop homepage</strong> instead of
-    showing a payment page. That is what Shopify does when a store has no active payment
-    provider. Until <a href="#b1">B1</a> is done, every other item here is academic.</p>
+  <div class="box box--good">
+    <div class="box__t">The store can take money</div>
+    <p>Razorpay is connected, and a cart built against the live store now resolves to a real
+    payment page — branded <em>Checkout&nbsp;&mdash;&nbsp;HeavenCraft</em>, priced in INR,
+    India preselected — instead of bouncing to the homepage. The basket is open to every
+    visitor, not just a preview flag. B1 and B2 below are kept for the record; B3 is the one
+    still outstanding.</p>
   </div>
 
   <table>
@@ -193,16 +194,16 @@ td strong{color:var(--cream)}
     </thead>
     <tbody>
       <tr>
-        <td><span class="pill pill--bad">B1</span></td>
-        <td><strong><a href="#b1">Payment provider</a></strong></td>
-        <td>No way to take money. Checkout bounces to the homepage</td>
-        <td class="num">1 hr<br><span class="tag">+ KYC days</span></td>
+        <td><span class="pill pill--good">B1</span></td>
+        <td><a href="#b1">Payment provider — <strong>done</strong></a></td>
+        <td>Razorpay is live. Checkout reaches a payment page</td>
+        <td class="num">—</td>
       </tr>
       <tr>
-        <td><span class="pill pill--bad">B2</span></td>
-        <td><strong><a href="#b2">Refund, Terms &amp; Shipping policies</a></strong></td>
-        <td>Razorpay will not approve a merchant without them. Also required by law</td>
-        <td class="num">1–2 hrs</td>
+        <td><span class="pill pill--good">B2</span></td>
+        <td><a href="#b2">Refund, Terms &amp; Shipping policies — <strong>done</strong></a></td>
+        <td>All four were 404. Now generated from <code>policies.ts</code> and published</td>
+        <td class="num">—</td>
       </tr>
       <tr>
         <td><span class="pill pill--bad">B3</span></td>
@@ -271,12 +272,17 @@ td strong{color:var(--cream)}
 </section>
 
 <section id="b1">
-  <span class="sec-n">B1 — Blocker</span>
-  <h2>Connect a payment provider</h2>
+  <span class="sec-n">B1 — Done</span>
+  <h2>Payment provider is connected</h2>
   <span class="rule"></span>
 
-  <p>This is the whole game. Everything else on this page is a refinement of a store that
-  cannot currently take a rupee.</p>
+  <div class="box box--good">
+    <div class="box__t">Razorpay is live</div>
+    <p>Verified against the live store: a cart built from a product page resolves to
+    <code>/checkouts/cn/&hellip;</code> with Razorpay present on the page, rather than
+    redirecting to the shop homepage. The rest of this section is kept as the record of how
+    it was chosen and set up.</p>
+  </div>
 
   <h3>Choosing one</h3>
   <p>Shopify Payments is not available to Indian merchants, so you need a third-party
@@ -325,46 +331,53 @@ td strong{color:var(--cream)}
 </section>
 
 <section id="b2">
-  <span class="sec-n">B2 — Blocker</span>
-  <h2>Write the three missing policies</h2>
+  <span class="sec-n">B2 — Done</span>
+  <h2>Store policies are published</h2>
   <span class="rule"></span>
 
-  <p>Checked against the live store:</p>
+  <p>Four of the store's five policy pages were returning 404 at the moment the cart opened
+  to real customers — so a shopper who clicked <em>Refund policy</em> while entering their
+  card details got nothing. All four are now live, checked against the store:</p>
 
   <table>
-    <thead><tr><th>Policy</th><th>Status</th><th>Needed because</th></tr></thead>
+    <thead><tr><th>Policy</th><th>Status</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td>Privacy Policy</td><td><span class="pill pill--good">Exists</span></td><td>—</td></tr>
-      <tr><td><strong>Refund / Cancellation</strong></td><td><span class="pill pill--bad">Missing</span></td><td>Razorpay requires it to approve you. Indian e-commerce rules require it</td></tr>
-      <tr><td><strong>Terms of Service</strong></td><td><span class="pill pill--bad">Missing</span></td><td>Razorpay requires it. Defines what you are actually selling</td></tr>
-      <tr><td><strong>Shipping Policy</strong></td><td><span class="pill pill--bad">Missing</span></td><td>Razorpay requires it. Sets delivery expectations before a dispute, not after</td></tr>
+      <tr><td>Refund / Cancellation</td><td><span class="pill pill--good">Live</span></td><td>Rendered from <code>policies.ts</code></td></tr>
+      <tr><td>Shipping</td><td><span class="pill pill--good">Live</span></td><td>Rendered from <code>policies.ts</code></td></tr>
+      <tr><td>Terms of Service</td><td><span class="pill pill--good">Live</span></td><td>Rendered from <code>policies.ts</code></td></tr>
+      <tr><td>Contact information</td><td><span class="pill pill--good">Live</span></td><td>Assembled from <code>site.ts</code></td></tr>
+      <tr><td>Privacy</td><td><span class="pill pill--good">Live</span></td><td>Shopify's own — left alone deliberately</td></tr>
     </tbody>
   </table>
 
-  <p><strong>Settings → Policies.</strong> Shopify offers a template for each — start there and
-  edit, rather than writing from nothing.</p>
+  <h3>Why they are generated rather than typed into the admin</h3>
+  <p>Shopify's checkout footer links to the <em>store's</em> policy records, which are
+  different documents from the ones at <code>theheavencraft.in/policies/</code>. Two
+  hand-maintained sets of legal text drift, and the drift stays invisible because nobody
+  reads either one until there is a dispute. <code>npm run shopify:policies</code> renders
+  the store's copies from the same <code>src/lib/policies.ts</code> the site publishes, so
+  the two can only ever say the same thing.</p>
 
-  <h3>What yours specifically need to say</h3>
-  <ul>
-    <li><strong>Refund window and who pays return freight.</strong> For furniture this is the
-    expensive clause. A 20&nbsp;kg chair returned across India at your cost can erase the
-    margin on several orders. State it plainly.</li>
-    <li><strong>Assembled or damaged-in-transit goods.</strong> Say what happens when a desk
-    arrives with a scratched top — replacement part, full swap, or partial refund.</li>
-    <li><strong>Delivery window by region.</strong> Delhi NCR versus rest of India. Vague
-    promises become chargebacks.</li>
-    <li><strong>Warranty.</strong> Duration and what it excludes. This is also the answer to
-    the most common pre-sale question, so it earns its keep twice.</li>
-    <li><strong>Cancellation before dispatch.</strong> Usually free; say so, and say what
-    happens after dispatch.</li>
-  </ul>
+  <table>
+    <thead><tr><th>Command</th><th>Does</th></tr></thead>
+    <tbody>
+      <tr><td><code>npm run shopify:policies</code></td><td>Shows what would change. Writes nothing</td></tr>
+      <tr><td><code>npm run shopify:policies -- --preview out.html</code></td><td>Writes the exact text to a page you can read</td></tr>
+      <tr><td><code>npm run shopify:policies-apply</code></td><td>Publishes to the store</td></tr>
+    </tbody>
+  </table>
+
+  <p>Change the wording in <code>src/lib/policies.ts</code>, deploy the site, then run
+  <code>shopify:policies-apply</code>. Editing a policy in the Shopify admin instead will be
+  silently overwritten the next time that runs.</p>
 
   <div class="box box--gold">
-    <div class="box__t">These also belong on the site</div>
-    <p>The static site already renders policy pages from <code>src/lib/policies.ts</code>.
-    Once the Shopify versions are written, the same text should go there so both surfaces
-    agree — a customer who reads one thing on the product page and another at checkout is a
-    dispute waiting to happen.</p>
+    <div class="box__t">Why privacy is the exception</div>
+    <p>Shopify generates a 15,776-character privacy policy describing data processing at its
+    own checkout — its processors, cookies and regional rights — none of which this site can
+    speak for, and all of which matters precisely when a customer is on that checkout. Ours
+    is a 1,300-character summary of what the static site does. Replacing one with the other
+    would be a loss of cover, not a tidy-up, so the two stay separate on purpose.</p>
   </div>
 </section>
 

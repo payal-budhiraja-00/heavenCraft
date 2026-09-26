@@ -360,4 +360,9 @@ export const REQUIRED_SCOPES = [
    * copy to the real site, which needs read and write on theme code. */
   "read_themes",
   "write_themes",
+  /* Shopify's checkout footer links to the *store's* policy records, not to
+   * theheavencraft.in/policies/. `store-policies` keeps the two in step, and
+   * without this scope the refund, shipping and terms links a customer meets
+   * while entering their card details go nowhere. */
+  "write_legal_policies",
 ] as const;
