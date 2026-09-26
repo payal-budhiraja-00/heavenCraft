@@ -56,6 +56,16 @@ const FEATURED_CHAIR_IDS = [
   "pointer-performance-mesh-chair",
 ];
 
+/*
+ * Counted rather than written out. The lead said "Sixteen groups" beside a
+ * list that rendered fifteen, because the sentence was typed once and the
+ * catalogue kept moving underneath it.
+ */
+const SUB_CATEGORY_COUNT = groups.reduce(
+  (total, group) => total + group.subCategories.length,
+  0,
+);
+
 export default function HomePage() {
   /*
    * Throws rather than filtering. These IDs are written by hand and the
@@ -244,7 +254,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Browse"
             title="Every category"
-            lead="Sixteen groups across chairs, tables and accessories."
+            lead={`${SUB_CATEGORY_COUNT} groups across chairs, tables and accessories.`}
           />
 
           <div className="mt-12 grid gap-10 md:grid-cols-3">

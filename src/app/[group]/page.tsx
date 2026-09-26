@@ -35,7 +35,7 @@ export async function generateMetadata({
     title,
     description,
     path: group.href,
-    image: lead ? encodeImagePath(featureImage(lead)!) : undefined,
+    cardProductId: lead?.id,
     imageAlt: lead ? imageAlt(lead) : undefined,
   });
 }

@@ -6,9 +6,10 @@
  * mistake, so every one of these failures would be visible to a visitor or to
  * Google. This runs in CI between `build` and the FTP upload.
  */
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { allProducts, groups } from "../src/lib/catalog";
+import { SITE } from "../src/lib/site";
 import { LEGACY_REDIRECTS } from "./legacy-redirects";
 
 const OUT = join(process.cwd(), "out");
@@ -53,7 +54,7 @@ for (const required of [
   "/.htaccess",
   "/favicon.ico",
   "/site.webmanifest",
-  "/og/default.png",
+  "/og/default.jpg",
 ]) {
   if (!present.has(required)) fail(`missing required file ${required}`);
 }
@@ -91,6 +92,15 @@ const resolves = (url: string) => {
 };
 
 const brokenLinks = new Map<string, string>();
+
+/** Bytes of an exported file, or 0 if it is not there. */
+const sizeOf = (url: string) => {
+  try {
+    return statSync(join(OUT, decodeURI(url).slice(1))).size;
+  } catch {
+    return 0;
+  }
+};
 
 /*
  * Every URL the catalog implies must have been exported.
@@ -160,6 +170,38 @@ for (const file of pages) {
   if (ogImage.length !== 1) fail(`${ogImage.length} og:image on ${url}`);
   if (!noindex && canonical.length !== 1) {
     fail(`${canonical.length} canonical tags on ${url}`);
+  }
+
+  /*
+    og:image is absolute, so the relative broken-reference sweep above cannot
+    see it. Nothing else can either: a social card is only ever fetched by a
+    crawler, so a missing one fails silently and is discovered when a shared
+    link unfurls blank -- typically months later, on someone else's phone.
+
+    The cards are generated in `prebuild` from products.json, which means a
+    product added without a rerun would reference a file that was never made.
+   */
+  const card = ogImage[0] ?? "";
+  const cardPath = card.startsWith(SITE.origin)
+    ? card.slice(SITE.origin.length)
+    : card;
+  if (!cardPath.startsWith("/")) {
+    fail(`og:image is not on ${SITE.origin} (${card} on ${url})`);
+  } else if (!resolves(cardPath)) {
+    fail(`og:image missing from export: ${cardPath} (on ${url})`);
+  }
+
+  // WhatsApp is the dominant share surface in this market and will not fetch
+  // a card much past 600 kB. Facebook and X are looser but not unbounded.
+  const cardBytes = cardPath.startsWith("/") ? sizeOf(cardPath) : 0;
+  if (cardBytes > 500_000) {
+    fail(`og:image is ${Math.round(cardBytes / 1024)} kB: ${cardPath}`);
+  }
+
+  // Without these a card is fetched, measured and often re-cropped by the
+  // consumer; with them it is laid out correctly before the bytes arrive.
+  if (!/<meta property="og:image:width"/.test(head)) {
+    fail(`og:image has no declared width on ${url}`);
   }
 
   // Reviews on this site are seeded demo content. Emitting them as ratings

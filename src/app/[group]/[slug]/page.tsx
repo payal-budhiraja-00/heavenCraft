@@ -33,6 +33,15 @@ import { SITE, absoluteUrl } from "@/lib/site";
 type Params = { group: string; slug: string };
 
 /**
+ * Whether a spec row states a physical measurement, as opposed to a grade, a
+ * count or a mechanism. Tested on the value rather than the label because the
+ * labels lie in both directions: "Height adjustment" is a gas lift, "Recline
+ * range" is degrees, while "Fits different table thickness" is genuinely
+ * "1.5 – 5 cm". A number followed by a length unit is the reliable signal.
+ */
+const MEASURED_VALUE = /\d\s*(?:mm|cm|m|in|inch|inches|ft|")(?![a-z])/i;
+
+/**
  * Sub-categories and products share one URL shape, so both are emitted from
  * here. `catalog.ts` fails the build if a product slug ever collides with a
  * sub-category slug inside the same group, which is what makes this safe.
@@ -78,14 +87,24 @@ export async function generateMetadata({
   if (found.kind === "sub") {
     const { sub } = found;
     const range = priceRange(sub.products);
-    const description = `${sub.description} ${sub.products.length} ${sub.name.toLowerCase()} from ${formatPaise(range.minPaise)}.`;
+    /*
+      Sub-category names are plural ("Cable Management Trays"), so counting
+      into them produced "1 cable management trays". Singularise the name when
+      there is one product rather than counting separately, because the phrase
+      has to agree with whatever the catalogue happens to hold.
+    */
+    const noun =
+      sub.products.length === 1
+        ? sub.name.toLowerCase().replace(/e?s$/, "")
+        : sub.name.toLowerCase();
+    const description = `${sub.description} ${sub.products.length} ${noun} from ${formatPaise(range.minPaise)}.`;
     const lead = sub.products.find((p) => p.images.length > 0);
 
     return pageMetadata({
       title: sub.name,
       description,
       path: sub.href,
-      image: lead ? encodeImagePath(lead.images[0]!) : undefined,
+      cardProductId: lead?.id,
       imageAlt: lead ? imageAlt(lead) : undefined,
     });
   }
@@ -95,14 +114,13 @@ export async function generateMetadata({
     product.description.length > 155
       ? `${product.description.slice(0, 152).trimEnd()}…`
       : product.description;
-  const image = product.images[0];
 
   return pageMetadata({
     title: product.name,
     description,
     path: product.href,
-    image: image ? encodeImagePath(image) : undefined,
-    imageAlt: image ? imageAlt(product) : undefined,
+    cardProductId: product.images.length ? product.id : undefined,
+    imageAlt: product.images.length ? imageAlt(product) : undefined,
   });
 }
 
@@ -279,6 +297,23 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     seller: { "@type": "Organization", name: SITE.legalName },
   }));
 
+  /*
+    The specifications table, restated for machines. Until the chair sheets
+    were transcribed this would have been empty on every chair, so it was not
+    worth emitting; now that the mechanism, armrest travel, gas-lift class and
+    base are recorded, they are exactly the attributes a shopping surface
+    matches a query against.
+
+    Variant rows are excluded: `additionalProperty` describes the product, and
+    a footrest that measures 17in in black and 18in in teak would otherwise
+    assert both widths at once.
+  */
+  const additionalProperty = product.specifications.map((spec) => ({
+    "@type": "PropertyValue",
+    name: spec.label,
+    value: spec.value,
+  }));
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -290,6 +325,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     // contain spaces, and Google fetches these URLs verbatim.
     image: product.images.map((src) => absoluteUrl(encodeImagePath(src))),
     brand: { "@type": "Brand", name: SITE.name },
+    ...(additionalProperty.length ? { additionalProperty } : {}),
     offers: offers.length === 1 ? offers[0] : offers,
   };
 
@@ -314,6 +350,18 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     (v) => v.features?.length || v.specifications?.length,
   );
   const perFinishSpecs = product.variants.some((v) => v.specifications?.length);
+
+  /*
+    The footnote used to promise that "dimensions may vary between batches" on
+    every product, including the chairs, whose suppliers never printed a
+    measured drawing at all. Telling a shopper their figures might vary when no
+    figures are shown reads as evasion. So the sentence is earned: it appears
+    only where the table actually carries a measurement.
+  */
+  const hasMeasurements = [
+    ...product.specifications,
+    ...product.variants.flatMap((v) => v.specifications ?? []),
+  ].some((spec) => MEASURED_VALUE.test(spec.value));
 
   return (
     <>
@@ -433,8 +481,10 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                     ) : null}
                   </dl>
                   <p className="mt-5 text-xs leading-relaxed text-cream-faint">
-                    Specifications as declared by the manufacturer. Dimensions
-                    may vary slightly between production batches.
+                    Specifications as declared by the manufacturer.
+                    {hasMeasurements
+                      ? " Dimensions may vary slightly between production batches."
+                      : null}
                   </p>
                 </div>
               ) : null}

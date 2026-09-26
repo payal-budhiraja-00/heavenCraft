@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { footerGroups, navGroups } from "@/lib/nav";
 import { SITE, absoluteUrl } from "@/lib/site";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 /*
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: [
       {
-        url: "/og/default.png",
+        url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
         alt: `${SITE.name} — ergonomic workspace furniture`,
@@ -76,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: HOME_TITLE,
     description: SITE.description,
-    images: ["/og/default.png"],
+    images: [DEFAULT_OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };

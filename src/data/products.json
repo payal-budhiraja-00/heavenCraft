@@ -1033,7 +1033,44 @@
         "verified": false
       }
     ],
-    "specifications": [],
+    "specifications": [
+      {
+        "label": "Headrest",
+        "value": "Height and angle adjustable"
+      },
+      {
+        "label": "Lumbar support",
+        "value": "Height adjustable"
+      },
+      {
+        "label": "Armrests",
+        "value": "4D — height, width, depth and angle, with soft PU pads"
+      },
+      {
+        "label": "Backrest",
+        "value": "Breathable mesh over a PP frame"
+      },
+      {
+        "label": "Seat",
+        "value": "High-density moulded foam"
+      },
+      {
+        "label": "Mechanism",
+        "value": "Multi-function — recline, tilt lock and height adjustment"
+      },
+      {
+        "label": "Gas lift",
+        "value": "Class 3"
+      },
+      {
+        "label": "Base",
+        "value": "Heavy-duty 5-star nylon"
+      },
+      {
+        "label": "Castors",
+        "value": "360° swivel"
+      }
+    ],
     "inTheBox": [],
     "materials": [
       "Premium breathable mesh",
@@ -1170,8 +1207,44 @@
     ],
     "specifications": [
       {
-        "label": "Recline Range",
-        "value": "90° - 135°"
+        "label": "Recline range",
+        "value": "90° – 135°"
+      },
+      {
+        "label": "Headrest",
+        "value": "Curved, for neck support"
+      },
+      {
+        "label": "Backrest",
+        "value": "Contoured ergonomic"
+      },
+      {
+        "label": "Armrests",
+        "value": "Padded, with a smooth curve"
+      },
+      {
+        "label": "Seat",
+        "value": "Thick high-density foam"
+      },
+      {
+        "label": "Footrest",
+        "value": "Extendable, pull-out"
+      },
+      {
+        "label": "Mechanism",
+        "value": "Multi-function — recline, tilt lock and height adjustment"
+      },
+      {
+        "label": "Gas lift",
+        "value": "Class 4"
+      },
+      {
+        "label": "Base",
+        "value": "Premium nylon, five-star"
+      },
+      {
+        "label": "Castors",
+        "value": "360°, quiet-rolling"
       }
     ],
     "inTheBox": [],
@@ -1283,7 +1356,44 @@
         "verified": true
       }
     ],
-    "specifications": [],
+    "specifications": [
+      {
+        "label": "Headrest",
+        "value": "Height adjustable"
+      },
+      {
+        "label": "Lumbar support",
+        "value": "Height adjustable, adaptive"
+      },
+      {
+        "label": "Armrests",
+        "value": "4D — height, left-right swivel and front-back slide, with soft PU pads"
+      },
+      {
+        "label": "Backrest",
+        "value": "Breathable mesh, ergonomically contoured"
+      },
+      {
+        "label": "Seat",
+        "value": "Spacious high-density moulded foam"
+      },
+      {
+        "label": "Mechanism",
+        "value": "Multi-function — recline, tilt lock and seat-height adjustment"
+      },
+      {
+        "label": "Gas lift",
+        "value": "Class 3"
+      },
+      {
+        "label": "Base",
+        "value": "Sturdy 5-star"
+      },
+      {
+        "label": "Castors",
+        "value": "PU, silent-rolling"
+      }
+    ],
     "inTheBox": [],
     "materials": [
       "Breathable mesh backrest",
@@ -1409,7 +1519,40 @@
         "verified": true
       }
     ],
-    "specifications": [],
+    "specifications": [
+      {
+        "label": "Recline lock",
+        "value": "3 positions"
+      },
+      {
+        "label": "Headrest",
+        "value": "Curved, for neck support"
+      },
+      {
+        "label": "Lumbar support",
+        "value": "Adjustable"
+      },
+      {
+        "label": "Armrests",
+        "value": "3D — height, left-right swivel and front-back slide"
+      },
+      {
+        "label": "Backrest",
+        "value": "Breathable, pressure-absorbing mesh, contoured"
+      },
+      {
+        "label": "Seat",
+        "value": "Thick high-density foam with breathable fabric"
+      },
+      {
+        "label": "Height adjustment",
+        "value": "Gas lift"
+      },
+      {
+        "label": "Base",
+        "value": "Strong 5-star with durable castors"
+      }
+    ],
     "inTheBox": [],
     "materials": [
       "Premium mesh backrest",
@@ -1494,7 +1637,36 @@
       }
     ],
     "reviews": [],
-    "specifications": [],
+    "specifications": [
+      {
+        "label": "Recline lock",
+        "value": "3 positions"
+      },
+      {
+        "label": "Headrest",
+        "value": "Height adjustable"
+      },
+      {
+        "label": "Lumbar support",
+        "value": "Height adjustable"
+      },
+      {
+        "label": "Armrests",
+        "value": "3D — height, forward-backward and left-right, with soft PU pads"
+      },
+      {
+        "label": "Backrest",
+        "value": "Breathable mesh with moisture-absorbing fabric"
+      },
+      {
+        "label": "Seat",
+        "value": "High-density moulded foam with breathable fabric"
+      },
+      {
+        "label": "Base",
+        "value": "Five-star, with 360° smooth-rolling castors"
+      }
+    ],
     "inTheBox": [],
     "materials": [
       "Premium breathable mesh with moisture-absorbing fabric",
@@ -1583,6 +1755,30 @@
       {
         "label": "Recline positions",
         "value": "90° / 105° / 120°"
+      },
+      {
+        "label": "Headrest",
+        "value": "Adjustable"
+      },
+      {
+        "label": "Lumbar support",
+        "value": "Built-in"
+      },
+      {
+        "label": "Armrests",
+        "value": "3D — height, forward-back and left-right swivel"
+      },
+      {
+        "label": "Backrest",
+        "value": "Breathable, moisture-absorbing mesh"
+      },
+      {
+        "label": "Seat",
+        "value": "Thick high-density foam with breathable fabric"
+      },
+      {
+        "label": "Base",
+        "value": "Heavy-duty 5-star with smooth-rolling castors"
       }
     ],
     "inTheBox": [],
