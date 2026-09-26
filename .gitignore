@@ -34,3 +34,7 @@ shopify-theme/backup/
 
 # Per-product Open Graph cards, rebuilt from products.json by `prebuild`.
 public/og/products/
+
+# Copies of recent builds' fingerprinted assets, carried between deploys by
+# the Actions cache so a browser a build behind still resolves its chunks.
+.asset-history/

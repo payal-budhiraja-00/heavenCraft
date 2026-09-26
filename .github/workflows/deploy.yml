@@ -56,6 +56,34 @@ jobs:
       - name: Verify export
         run: npm run verify
 
+      # A deploy deletes the chunk filenames it no longer references, which
+      # breaks visitors still holding a cached navigation payload that asks
+      # for them: they get a 404 and a page that will only come back with a
+      # reload. Cloudflare hides this for a while by answering from its own
+      # year-long cache, so it surfaces as an intermittent fault that cannot
+      # be reproduced on a clean browser.
+      #
+      # Restoring the previous window and carrying those files back into out/
+      # means the deploy leaves them in place. A miss is harmless: the step
+      # simply starts a new window.
+      - name: Restore recent build assets
+        uses: actions/cache/restore@v4
+        with:
+          path: .asset-history
+          key: asset-history-${{ github.run_id }}
+          restore-keys: asset-history-
+
+      # After verify on purpose, so the verifier only ever inspects what this
+      # build produced rather than files carried over from earlier ones.
+      - name: Carry recent build assets forward
+        run: npm run retain-assets
+
+      - name: Save recent build assets
+        uses: actions/cache/save@v4
+        with:
+          path: .asset-history
+          key: asset-history-${{ github.run_id }}
+
       - name: Deploy to GoDaddy over FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
