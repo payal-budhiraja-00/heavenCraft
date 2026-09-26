@@ -476,7 +476,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               ) : (
                 <Link
                   href={subHref}
-                  className="label text-gold transition-colors hover:text-gold-bright"
+                  className="label -mt-1.5 inline-block py-1.5 text-gold transition-colors hover:text-gold-bright"
                 >
                   {product.subName}
                 </Link>
@@ -676,7 +676,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
           */}
           <Link
             href={relatedAreSiblings ? subHref : group.href}
-            className="label mt-10 inline-flex items-center gap-2 text-gold transition-colors hover:text-gold-bright"
+            className="label mt-8 inline-flex min-h-11 items-center gap-2 py-2 text-gold transition-colors hover:text-gold-bright"
           >
             {relatedAreSiblings
               ? `All ${product.subName.toLowerCase()}`

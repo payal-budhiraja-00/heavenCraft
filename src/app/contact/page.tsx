@@ -63,10 +63,10 @@ export default function ContactPage() {
             </div>
             <div>
               <dt className="label text-cream-faint">Email</dt>
-              <dd className="mt-1.5">
+              <dd className="mt-0.5">
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="text-gold transition-colors hover:text-gold-bright"
+                  className="inline-block py-2 text-gold transition-colors hover:text-gold-bright"
                 >
                   {SITE.email}
                 </a>
