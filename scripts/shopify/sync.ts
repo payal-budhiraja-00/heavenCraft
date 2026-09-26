@@ -7,6 +7,7 @@
  *   npm run shopify:sync -- --live --publish
  *   npm run shopify:sync -- --live --retire          # archive withdrawn products
  *   npm run shopify:sync -- --live --replace-media   # re-fetch every photograph
+ *   npm run shopify:sync -- --live --replace-media --only wooden-footrest
  *
  * Three deliberate safety properties:
  *
@@ -15,6 +16,11 @@
  *      than duplicates. It is safe to run after a partial failure.
  *   3. Products are created as DRAFT unless `--publish` is passed, so a
  *      mistake is invisible to shoppers and is reviewed in admin first.
+ *
+ * `--publish` is not only about new products. `productSet` is declarative and
+ * is sent `status` for every product it touches, so on a catalog that is
+ * already live a bare `--live` sets all of them back to DRAFT and takes the
+ * store down. Syncing a published catalog means `--live --publish`.
  *
  * ## Why `productSet` for everything except media
  *
@@ -62,6 +68,39 @@ const limitArg = process.argv.find((a) => a.startsWith("--limit"));
 const LIMIT = limitArg
   ? Number(limitArg.split("=")[1] ?? process.argv[process.argv.indexOf(limitArg) + 1])
   : Infinity;
+
+/**
+ * Restricts a run to named handles.
+ *
+ * `--limit` cannot express this: it takes the first N in catalog order, and
+ * the product that needs attention is rarely first. It is `--replace-media`
+ * that needs it. That flag rebuilds every gallery in the catalog, which means
+ * re-fetching every photograph to fix one product -- and this origin is shared
+ * hosting that Shopify's fetcher already times out on, so a whole-catalog
+ * rebuild trades one known defect for a chance of several new ones.
+ */
+const onlyArg = process.argv.find((a) => a.startsWith("--only"));
+const ONLY = onlyArg
+  ? new Set(
+      (onlyArg.split("=")[1] ?? process.argv[process.argv.indexOf(onlyArg) + 1] ?? "")
+        .split(",")
+        .map((h) => h.trim())
+        .filter(Boolean),
+    )
+  : null;
+
+/** The catalog a run operates on, after `--only` and `--limit`. */
+function selectedCatalog(): ShopifyProduct[] {
+  const all = buildCatalog();
+  const chosen = ONLY ? all.filter((p) => ONLY.has(p.handle)) : all;
+  if (ONLY) {
+    const missing = [...ONLY].filter((h) => !all.some((p) => p.handle === h));
+    if (missing.length) {
+      throw new Error(`--only names handles that are not in the catalog: ${missing.join(", ")}`);
+    }
+  }
+  return chosen.slice(0, LIMIT);
+}
 
 type ExistingProduct = {
   id: string;
@@ -523,7 +562,7 @@ async function rebuildGalleries(
 }
 
 async function main(): Promise<void> {
-  const catalog = buildCatalog().slice(0, LIMIT);
+  const catalog = selectedCatalog();
 
   if (RETRY_MEDIA || REPLACE_MEDIA) {
     const everything = REPLACE_MEDIA;
@@ -543,7 +582,7 @@ async function main(): Promise<void> {
         ? `Replacing every gallery on ${env.domain}\n`
         : `Retrying failed media on ${env.domain}\n`,
     );
-    await rebuildGalleries(env, buildCatalog(), everything);
+    await rebuildGalleries(env, catalog, everything);
     return;
   }
 
