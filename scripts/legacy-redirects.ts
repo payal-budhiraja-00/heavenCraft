@@ -191,6 +191,31 @@ export const RENAMED: readonly { group: string; from: string; to: string }[] = [
   { group: "accessories", from: "cup-holder-basic", to: "cup-holder" },
 ];
 
+/**
+ * Renames that moved a Shopify handle without moving a site URL.
+ *
+ * Kept apart from `RENAMED` because that list is consumed twice -- once to
+ * rename the handle, once to emit a 301 -- and these entries must do only the
+ * first.
+ *
+ * The footrest is the case this exists for. It was one listing sold in three
+ * finishes, which it never was: black is an adjustable plastic wedge and the
+ * wooden and marble ones are fixed boards, measured on separate sheets. It is
+ * now two products. The Shopify product keeps its media and its black variant
+ * and is renamed `footrest` -> `ergonomic-footrest`, so the sync updates it
+ * rather than stranding it in the admin under a name nothing points at.
+ *
+ * `/accessories/footrest/` is deliberately absent from `RENAMED`, because it
+ * did not move -- it is now the range page listing both footrests. A 301 there
+ * would shadow a page that still resolves.
+ *
+ * The wooden footrest has no entry at all: it is new to the shop and is
+ * created as a draft like any other new product.
+ */
+export const HANDLE_RENAMES: readonly { from: string; to: string }[] = [
+  { from: "footrest", to: "ergonomic-footrest" },
+];
+
 /** Shopify handles of withdrawn products, for archiving. */
 export const RETIRED_HANDLES: readonly string[] = RETIRED_PRODUCT_IDS.map(
   (id) => RETIRED[id]!.slug,

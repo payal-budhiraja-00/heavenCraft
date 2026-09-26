@@ -11,7 +11,7 @@ import type { Product, Variant } from "../../src/lib/catalog-types";
 import { encodeImagePath, imageAlt } from "../../src/lib/images";
 import { paiseToPriceString } from "../../src/lib/money";
 import { SITE, absoluteUrl } from "../../src/lib/site";
-import { RENAMED } from "../legacy-redirects";
+import { HANDLE_RENAMES, RENAMED } from "../legacy-redirects";
 import { compareAtFor } from "./pricing";
 
 export type ShopifyImage = {
@@ -234,7 +234,9 @@ export function toShopifyProduct(product: Product): ShopifyProduct {
     };
   });
 
-  const renamed = RENAMED.find((r) => r.to === product.slug);
+  const renamed =
+    RENAMED.find((r) => r.to === product.slug) ??
+    HANDLE_RENAMES.find((r) => r.to === product.slug);
 
   return {
     handle: product.slug,

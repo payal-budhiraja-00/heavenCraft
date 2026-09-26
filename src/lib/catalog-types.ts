@@ -51,11 +51,11 @@ export type Variant = {
    * measured sheet per finish, which happens when the "colours" are really
    * different products sold under one listing.
    *
-   * The footrest is the case this exists for: the black one is an adjustable
-   * plastic wedge at 17 in wide rising to 7.5 in, the wooden and marble ones
-   * are fixed boards at 18 in wide rising to 5 in. Merging those gave one
-   * table of ten rows that described neither, with each row prefixed by which
-   * product it applied to.
+   * Empty on every product today. The footrest was the case this existed for
+   * -- a black adjustable plastic wedge and a fixed wooden board shared one
+   * listing, and merging their sheets gave one table of ten rows that
+   * described neither. They are now two products, each with its own
+   * product-level table, which is the better fix where it is available.
    */
   specifications?: Specification[];
 };
@@ -127,9 +127,9 @@ export type Product = {
   subSlug: string;
   subName: string;
   /**
-   * The lowest price across variants. Every colourway is the same price today
-   * except the footrests, so a card can show one figure honestly -- but it is
-   * a minimum, not a fact about any particular variant.
+   * The lowest price across variants. Every colourway of every product is the
+   * same price today, so a card can show one figure honestly -- but it is a
+   * minimum, not a fact about any particular variant.
    */
   pricePaise: number;
   inStock: boolean;

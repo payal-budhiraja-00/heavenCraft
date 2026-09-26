@@ -78,7 +78,7 @@ const GROUP_META: Record<GroupSlug, { name: string; description: string }> = {
   chairs: {
     name: "Chairs",
     description:
-      "Mesh and performance-mesh task chairs built to be sat in for eight hours, not looked at for five minutes.",
+      "Mesh and performance-mesh task chairs built to be sat in for twelve hours, not looked at for five minutes.",
   },
   tables: {
     name: "Tables",

@@ -182,10 +182,11 @@ export function offerForSku(sku: string, pricePaise: number): Offer | null {
  * The SKU a product card should quote.
  *
  * A card shows `product.pricePaise`, which is the *lowest* price across
- * colourways, not the default one -- the black footrest costs Rs 1,599 while
- * the other two are Rs 999. Quoting the default variant's MRP against the
- * cheapest variant's price would overstate the saving on exactly those
- * products, so the card has to ask about the variant the price came from.
+ * colourways, not the default one. No product prices its finishes differently
+ * today -- the black footrest and the wooden ones are now separate products --
+ * but quoting the default variant's MRP against the cheapest variant's price
+ * would overstate the saving the moment one does, so the card has to ask about
+ * the variant the price came from.
  */
 export function cheapestSku(product: Product): string {
   return product.variants.reduce((cheapest, variant) =>
@@ -456,7 +457,7 @@ export const shopifyCommerce: CommerceAdapter = {
  * Takes flat fields rather than a `Product` so the colour picker can call it
  * in the browser for the selected colourway. While the basket is gated this
  * mailto is the only way an order reaches us, and an enquiry that does not
- * say which of three footrest finishes the customer meant costs a reply.
+ * say which of the two wooden footrest finishes the customer meant costs a reply.
  */
 export function enquiryMailto(input: {
   name: string;

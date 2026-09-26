@@ -308,10 +308,10 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
    * not an exaggeration. It gets rich results revoked for the whole domain.
    * The stars go in when there are real orders behind them.
    *
-   * One Offer per colourway. A product whose finishes differ in price -- the
-   * footrest runs 999 to 1,599 -- would otherwise advertise a single figure
-   * that two of its three variants do not honour, which is exactly the
-   * mismatch Google penalises and a customer notices at checkout.
+   * One Offer per colourway. A product whose finishes differ in price would
+   * otherwise advertise a single figure that its other variants do not
+   * honour, which is exactly the mismatch Google penalises and a customer
+   * notices at checkout.
    */
   /*
     Delivery and returns, restated for machines.
@@ -416,8 +416,8 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     matches a query against.
 
     Variant rows are excluded: `additionalProperty` describes the product, and
-    a footrest that measures 17in in black and 18in in teak would otherwise
-    assert both widths at once.
+    a product measured separately per finish would otherwise assert both sets
+    of dimensions at once.
   */
   const additionalProperty = product.specifications.map((spec) => ({
     "@type": "PropertyValue",

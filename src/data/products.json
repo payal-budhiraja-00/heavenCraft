@@ -424,18 +424,54 @@
   },
   {
     "id": "accessories-footrest-001",
-    "name": "Footrest",
-    "shortName": "Footrest",
+    "name": "Ergonomic Footrest",
+    "shortName": "Ergonomic Footrest",
     "category": "accessories",
     "subCategory": "footrest",
     "subName": "Footrest",
-    "price": 999,
+    "price": 1599,
     "currency": "INR",
-    "description": "A footrest tilts the floor to meet your feet instead of asking your legs to reach it, which takes the pressure off the backs of your thighs. The adjustable model locks at several angles across a 3 to 7.5 inch rise and has a textured surface with rollers to work tired feet; the wooden and marble-finish models are a fixed 3 to 5 inch slope in a solid, smooth-edged build. All of them sit on anti-slip feet that hold position and protect the floor.",
+    "description": "An adjustable wedge that tilts the floor up to meet your feet instead of asking your legs to reach it, which takes the pressure off the backs of your thighs. It locks at several angles across a 3 to 7.5 inch rise, and the surface is moulded with massage bumps and three rollers set into the centre to work tired feet without leaving the desk. Anti-slip feet hold the angle you set and protect the floor.",
     "features": [
       {
         "title": "Improves Posture",
         "detail": "Supports proper sitting alignment"
+      },
+      {
+        "title": "Reduces Leg Fatigue",
+        "detail": "Relieves pressure on legs and feet"
+      },
+      {
+        "title": "Adjustable Angle",
+        "detail": "Multiple tilt positions for personalized comfort"
+      },
+      {
+        "title": "Massage Surface",
+        "detail": "Textured bumps stimulate feet and improve circulation"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "High-quality build for long-lasting use"
+      },
+      {
+        "title": "Adjustable Height & Angle",
+        "detail": "Find your perfect position"
+      },
+      {
+        "title": "Massage Texture",
+        "detail": "Stimulates feet and boosts blood circulation"
+      },
+      {
+        "title": "Foot Massage Rollers",
+        "detail": "Soothes tired feet during long hours"
+      },
+      {
+        "title": "Adjustable Angle",
+        "detail": "Multiple tilt levels for customized comfort"
+      },
+      {
+        "title": "Anti-Slip Pads",
+        "detail": "Keeps the footrest stable and protects your floor"
       }
     ],
     "images": [
@@ -457,76 +493,92 @@
           "/images/products/accessories/footrest/footrest-basic/black/3.jpeg",
           "/images/products/accessories/footrest/footrest-basic/black/4.jpeg"
         ],
-        "inStock": true,
-        "features": [
-          {
-            "title": "Improves Posture",
-            "detail": "Supports proper sitting alignment"
-          },
-          {
-            "title": "Reduces Leg Fatigue",
-            "detail": "Relieves pressure on legs and feet"
-          },
-          {
-            "title": "Adjustable Angle",
-            "detail": "Multiple tilt positions for personalized comfort"
-          },
-          {
-            "title": "Massage Surface",
-            "detail": "Textured bumps stimulate feet and improve circulation"
-          },
-          {
-            "title": "Sturdy & Durable",
-            "detail": "High-quality build for long-lasting use"
-          },
-          {
-            "title": "Adjustable Height & Angle",
-            "detail": "Find your perfect position"
-          },
-          {
-            "title": "Massage Texture",
-            "detail": "Stimulates feet and boosts blood circulation"
-          },
-          {
-            "title": "Foot Massage Rollers",
-            "detail": "Soothes tired feet during long hours"
-          },
-          {
-            "title": "Adjustable Angle",
-            "detail": "Multiple tilt levels for customized comfort"
-          },
-          {
-            "title": "Anti-Slip Pads",
-            "detail": "Keeps the footrest stable and protects your floor"
-          }
-        ],
-        "materials": [
-          "Textured bumps",
-          "Massage rollers"
-        ],
-        "specifications": [
-          {
-            "label": "Width",
-            "value": "17 in"
-          },
-          {
-            "label": "Depth",
-            "value": "12 in"
-          },
-          {
-            "label": "Front height",
-            "value": "7.5 in"
-          },
-          {
-            "label": "Rear height",
-            "value": "3 in"
-          },
-          {
-            "label": "Height range",
-            "value": "3 in – 7.5 in (front to rear slope)"
-          }
-        ]
+        "inStock": true
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Sanjay Desai",
+        "rating": 4,
+        "date": "2026-02-08",
+        "title": "Good ergonomic addition",
+        "comment": "Non-slip surface works well. Improves my posture during long work hours. Compact size fits under desk perfectly. Good value!",
+        "verified": true
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Width",
+        "value": "17 in"
       },
+      {
+        "label": "Depth",
+        "value": "12 in"
+      },
+      {
+        "label": "Front height",
+        "value": "7.5 in"
+      },
+      {
+        "label": "Rear height",
+        "value": "3 in"
+      },
+      {
+        "label": "Height range",
+        "value": "3 in – 7.5 in (front to rear slope)"
+      }
+    ],
+    "inTheBox": [],
+    "materials": [
+      "Textured bumps",
+      "Massage rollers"
+    ]
+  },
+  {
+    "id": "accessories-footrest-wooden",
+    "name": "Wooden Footrest",
+    "shortName": "Wooden Footrest",
+    "category": "accessories",
+    "subCategory": "footrest",
+    "subName": "Footrest",
+    "price": 999,
+    "currency": "INR",
+    "description": "A solid board on a fixed 3 to 5 inch slope, 18 inches across, for a desk where the footrest is furniture as much as it is hardware. There is nothing to adjust and nothing to break: the angle is built in, the edges are rounded smooth, and rubber feet keep it where you put it without marking the floor. Sold in two finishes — a warm wooden teak and a black marble.",
+    "features": [
+      {
+        "title": "Improves Posture",
+        "detail": "Supports proper sitting alignment"
+      },
+      {
+        "title": "Reduces Leg Fatigue",
+        "detail": "Keeps legs comfortable during long hours"
+      },
+      {
+        "title": "Sturdy & Durable",
+        "detail": "Premium wooden build for long-lasting use"
+      },
+      {
+        "title": "Anti-Slip Base",
+        "detail": "Rubber feet keep it stable and protect your floor"
+      },
+      {
+        "title": "Smooth Edges",
+        "detail": "Safe and comfortable for everyday use"
+      },
+      {
+        "title": "Solid Construction",
+        "detail": "Strong wooden support for stability"
+      }
+    ],
+    "images": [
+      "/images/products/accessories/footrest/footrest-basic/wooden-teak/1.jpeg",
+      "/images/products/accessories/footrest/footrest-basic/wooden-teak/2.jpeg",
+      "/images/products/accessories/footrest/footrest-basic/wooden-teak/3.jpeg",
+      "/images/products/accessories/footrest/footrest-basic/wooden-teak/4.jpeg"
+    ],
+    "inStock": true,
+    "variants": [
       {
         "id": "accessories-footrest-001--wooden-teak",
         "colour": "Wooden Teak",
@@ -580,28 +632,6 @@
         "materials": [
           "Premium wooden build",
           "Modern wooden finish"
-        ],
-        "specifications": [
-          {
-            "label": "Width",
-            "value": "18 in"
-          },
-          {
-            "label": "Depth",
-            "value": "12 in"
-          },
-          {
-            "label": "Front height",
-            "value": "5 in"
-          },
-          {
-            "label": "Rear height",
-            "value": "3 in"
-          },
-          {
-            "label": "Height range",
-            "value": "3 in – 5 in (front to rear slope)"
-          }
         ]
       },
       {
@@ -657,43 +687,12 @@
         "materials": [
           "Premium wooden build",
           "Marble-look finish"
-        ],
-        "specifications": [
-          {
-            "label": "Width",
-            "value": "18 in"
-          },
-          {
-            "label": "Depth",
-            "value": "12 in"
-          },
-          {
-            "label": "Front height",
-            "value": "5 in"
-          },
-          {
-            "label": "Rear height",
-            "value": "3 in"
-          },
-          {
-            "label": "Height range",
-            "value": "3 in – 5 in (front to rear slope)"
-          }
         ]
       }
     ],
     "reviews": [
       {
         "id": 1,
-        "author": "Sanjay Desai",
-        "rating": 4,
-        "date": "2026-02-08",
-        "title": "Good ergonomic addition",
-        "comment": "Non-slip surface works well. Improves my posture during long work hours. Compact size fits under desk perfectly. Good value!",
-        "verified": true
-      },
-      {
-        "id": 2,
         "author": "Lakshmi Iyer",
         "rating": 4,
         "date": "2026-01-19",
@@ -702,9 +701,32 @@
         "verified": true
       }
     ],
-    "specifications": [],
+    "specifications": [
+      {
+        "label": "Width",
+        "value": "18 in"
+      },
+      {
+        "label": "Depth",
+        "value": "12 in"
+      },
+      {
+        "label": "Front height",
+        "value": "5 in"
+      },
+      {
+        "label": "Rear height",
+        "value": "3 in"
+      },
+      {
+        "label": "Height range",
+        "value": "3 in – 5 in (front to rear slope)"
+      }
+    ],
     "inTheBox": [],
-    "materials": []
+    "materials": [
+      "Premium wooden build"
+    ]
   },
   {
     "id": "keyboard-tray",
