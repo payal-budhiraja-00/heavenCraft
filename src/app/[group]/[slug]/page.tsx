@@ -12,6 +12,7 @@ import {
   VariantProvider,
 } from "@/components/variant-picker";
 import { ProductGrid } from "@/components/product-card";
+import { ShareProduct } from "@/components/share-product";
 import {
   Breadcrumbs,
   Container,
@@ -40,6 +41,16 @@ type Params = { group: string; slug: string };
  * "1.5 – 5 cm". A number followed by a length unit is the reliable signal.
  */
 const MEASURED_VALUE = /\d\s*(?:mm|cm|m|in|inch|inches|ft|")(?![a-z])/i;
+
+/**
+ * Singular nouns for the share label. The catalogue's group names are plural
+ * and "Share this Accessories" is not a sentence.
+ */
+const SHARE_NOUNS: Record<string, string> = {
+  chairs: "chair",
+  tables: "desk",
+  accessories: "piece",
+};
 
 /**
  * Sub-categories and products share one URL shape, so both are emitted from
@@ -532,6 +543,12 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                   sit in it before you buy
                 </li>
               </ul>
+
+              <ShareProduct
+                productName={product.name}
+                pageUrl={absoluteUrl(product.href)}
+                noun={SHARE_NOUNS[group.slug] ?? "piece"}
+              />
 
               {perFinish ? (
                 <VariantFeatures />
