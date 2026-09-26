@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/generate-htaccess.ts && tsx scripts/generate-images.ts",
+    "prebuild": "tsx scripts/generate-htaccess.ts && tsx scripts/generate-images.ts && tsx scripts/generate-og.ts",
     "build": "next build",
     "start": "next start",
     "icons": "tsx scripts/generate-icons.ts",
@@ -21,7 +21,8 @@
     "shopify:redirect-apply": "tsx scripts/shopify/apply-redirect-snippet.ts",
     "shopify:redirect-verify": "tsx scripts/shopify/verify-redirect-roundtrip.ts",
     "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts",
-    "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts"
+    "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts",
+    "og": "tsx scripts/generate-og.ts"
   },
   "dependencies": {
     "next": "16.3.5",

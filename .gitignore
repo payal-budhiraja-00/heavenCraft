@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Live theme backups taken before each redirect-snippet write.
 shopify-theme/backup/
+
+# Per-product Open Graph cards, rebuilt from products.json by `prebuild`.
+public/og/products/

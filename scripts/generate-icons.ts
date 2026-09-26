@@ -16,71 +16,20 @@ import { Buffer } from "node:buffer";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
+import { BASE, GOLD, monogram, ROOT } from "./lib/brand";
 
-const ROOT = process.cwd();
-const LOGO = path.join(ROOT, "public/images/logo/heavencraft-logo.jpg");
+/*
+ * The homepage hero. Pointed at "4 - Neuro.jpeg" until the September 2026
+ * catalogue replaced it, which left this script unable to run at all -- the
+ * committed card outlived its own source. Using the same frame the hero uses
+ * keeps the two in step.
+ */
 const HERO = path.join(
   ROOT,
-  "public/images/products/chairs/mesh-chair/4 - Neuro.jpeg",
+  "public/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/3.jpeg",
 );
 const ICON_DIR = path.join(ROOT, "public/icons");
 const OG_DIR = path.join(ROOT, "public/og");
-
-const BASE = { r: 7, g: 7, b: 6, alpha: 1 };
-const GOLD = "#dea846";
-const GOLD_RGB = { r: 0xde, g: 0xa8, b: 0x46 };
-
-/**
- * The monogram sits inside the ring. This window clears the ring on every side
- * and clears the arced wordmark at the top, leaving the HC and some slack;
- * `trim` then tightens onto the actual gold pixels.
- */
-const MONOGRAM_WINDOW = { left: 196, top: 212, width: 452, height: 470 };
-
-/**
- * The logo is a JPEG, so the monogram arrives on a black rectangle rather than
- * on transparency -- and that black is not the same black as the site ground,
- * which leaves a visible square seam around the glyph at every size.
- *
- * Rather than trying to match the two blacks, the glyph is keyed out: the
- * source luminance becomes the alpha channel and the colour is replaced with
- * the exact brand gold. That kills the seam, repairs the JPEG's colour drift,
- * and keeps the original anti-aliasing as partial alpha instead of as a halo
- * of dark pixels.
- */
-async function monogram(): Promise<Buffer> {
-  const { data, info } = await sharp(LOGO)
-    .extract(MONOGRAM_WINDOW)
-    .removeAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-
-  // Luminance of the brand gold. Anything at or above it is fully opaque.
-  const GOLD_LUM =
-    0.299 * GOLD_RGB.r + 0.587 * GOLD_RGB.g + 0.114 * GOLD_RGB.b;
-  const FLOOR = 14; // JPEG noise in the black ground
-  const span = GOLD_LUM - FLOOR;
-
-  const rgba = Buffer.alloc(info.width * info.height * 4);
-  for (let i = 0, j = 0; i < data.length; i += 3, j += 4) {
-    const lum =
-      0.299 * data[i]! + 0.587 * data[i + 1]! + 0.114 * data[i + 2]!;
-    const alpha = Math.round(
-      Math.min(255, Math.max(0, ((lum - FLOOR) / span) * 255)),
-    );
-    rgba[j] = GOLD_RGB.r;
-    rgba[j + 1] = GOLD_RGB.g;
-    rgba[j + 2] = GOLD_RGB.b;
-    rgba[j + 3] = alpha;
-  }
-
-  return sharp(rgba, {
-    raw: { width: info.width, height: info.height, channels: 4 },
-  })
-    .trim({ threshold: 1 })
-    .png()
-    .toBuffer();
-}
 
 /** The monogram centred on the brand ground, with optical margin. */
 async function icon(size: number, glyph: Buffer, inset = 0.74): Promise<Buffer> {
@@ -196,6 +145,11 @@ function buildIco(images: { size: number; data: Buffer }[]): Buffer {
 /**
  * The Open Graph card. Photograph on the right, type on the left, same split
  * as the hero, so a link preview looks like the page it opens.
+ *
+ * Encoded as JPEG. It was a PNG at 695 kB, which is above WhatsApp's ~600 kB
+ * ceiling for fetching a preview image -- so the card most likely to be shared
+ * in this market was the one most likely not to render. It is a photograph
+ * with a gradient behind type; PNG was the wrong container for it.
  */
 async function openGraph(glyph: Buffer): Promise<Buffer> {
   const W = 1200;
@@ -253,7 +207,7 @@ async function openGraph(glyph: Buffer): Promise<Buffer> {
       { input: type, left: 0, top: 0 },
       { input: badge, left: 72, top: 496 },
     ])
-    .png({ compressionLevel: 9 })
+    .jpeg({ quality: 88, chromaSubsampling: "4:4:4" })
     .toBuffer();
 }
 
@@ -293,8 +247,8 @@ async function main() {
   console.log(`  public/favicon.ico (${ico.length} bytes, 16/32/48)`);
 
   const og = await openGraph(glyph);
-  await writeFile(path.join(OG_DIR, "default.png"), og);
-  console.log(`  public/og/default.png (${og.length} bytes)`);
+  await writeFile(path.join(OG_DIR, "default.jpg"), og);
+  console.log(`  public/og/default.jpg (${og.length} bytes)`);
 
   // Rendered at 256 and displayed around 32, so it stays sharp on 3x screens.
   const mark = await badge(256);
