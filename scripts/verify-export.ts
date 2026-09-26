@@ -130,6 +130,27 @@ for (const product of allProducts) {
   if (!resolves(product.href)) fail(`product page ${product.href} was not exported`);
 }
 
+/*
+ * Feature lists are transcribed from supplier sheets, and a listing that sold
+ * two products under one name carried both sheets concatenated -- which is how
+ * the footrest came to advertise "Adjustable Angle" twice, once for
+ * "personalized" and once for "customized" comfort. Read individually each row
+ * looks fine, so this only shows up when the rendered list is read end to end.
+ *
+ * Compared on the title alone: two rows heading the same claim is a defect
+ * whatever their wording, and the wording is what disguises it.
+ */
+for (const product of allProducts) {
+  const seen = new Set<string>();
+  for (const feature of product.features) {
+    const key = feature.title.trim().toLowerCase();
+    if (seen.has(key)) {
+      fail(`${product.id} lists the feature "${feature.title}" more than once`);
+    }
+    seen.add(key);
+  }
+}
+
 /* ------------------------------------------------------ 3. per-page <head> */
 
 /*
