@@ -21,6 +21,7 @@ import { useCart } from "./cart-provider";
 import { useVariant } from "./variant-picker";
 import { enquiryMailto, variantIdForSku, type VariantId } from "@/lib/commerce";
 import { features } from "@/lib/features";
+import { SITE, whatsappUrl } from "@/lib/site";
 
 export type BuyBoxProps = {
   productName: string;
@@ -140,25 +141,49 @@ function Enquiry({ productName, pageUrl, email }: BuyBoxProps) {
     email,
   });
 
+  const enquiry = `Hi ${SITE.name}, I'd like a price for the ${productName}${
+    hasChoice ? ` in ${selected.colour}` : ""
+  } (${selected.sku}). ${pageUrl}`;
+
   return (
     <div className="mt-8">
-      <ButtonLink href={href} className="w-full sm:w-auto">
-        Get a price by email
-      </ButtonLink>
-      <p className="mt-3 text-xs leading-relaxed text-cream-faint">
-        Opens your email app with this model
-        {hasChoice ? `, in ${selected.colour},` : ""} and its details already
-        filled in. We reply with stock, delivery time and the final price —
-        usually the same working day.
-      </p>
       {/*
-        A mailto: link does nothing at all on a desktop with no mail client
-        configured, and the visitor has no way to tell the click failed. Print
-        the address so it can always be copied.
+        WhatsApp first, mailto: second.
+
+        `mailto:` frequently resolves to nothing on Android and on a desktop
+        with no mail client, and the visitor gets no signal that the tap
+        failed -- so the only route to buying was one that silently dies for a
+        large share of this audience. WhatsApp is installed on effectively
+        every phone in this market, keeps the thread after the browser is
+        closed, and arrives with the product and finish already written out.
       */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <ButtonLink
+          href={whatsappUrl(enquiry)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full sm:w-auto"
+        >
+          Enquire on WhatsApp
+        </ButtonLink>
+        <a
+          href={`tel:${SITE.phone}`}
+          className="flex min-h-11 w-full items-center justify-center rounded-plate border border-edge-strong px-5 py-3 text-sm font-semibold text-cream transition-colors hover:border-gold hover:text-gold sm:w-auto"
+        >
+          Call {SITE.phoneDisplay}
+        </a>
+      </div>
+      <p className="mt-3 text-xs leading-relaxed text-cream-faint">
+        We reply with stock, delivery time and the final price — usually the
+        same working day. {SITE.hoursSummary}.
+      </p>
       <p className="mt-2 text-xs leading-relaxed text-cream-faint">
-        No email app? Write to{" "}
-        <span className="select-all text-cream-muted">{email}</span>.
+        Prefer email?{" "}
+        <a href={href} className="text-cream-muted underline">
+          Send the details
+        </a>{" "}
+        or write to <span className="select-all text-cream-muted">{email}</span>
+        .
       </p>
     </div>
   );

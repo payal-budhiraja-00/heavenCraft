@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SITE, whatsappUrl } from "@/lib/site";
 import { Container } from "./ui";
 import { Wordmark } from "./wordmark";
 
@@ -31,11 +31,41 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
               all day, not for a showroom floor.
             </p>
             <a
-              href={`mailto:${SITE.email}`}
-              className="mt-6 inline-block text-sm text-gold transition-colors hover:text-gold-bright"
+              href={`tel:${SITE.phone}`}
+              className="mt-6 block text-lg font-semibold text-gold transition-colors hover:text-gold-bright"
             >
-              {SITE.email}
+              {SITE.phoneDisplay}
             </a>
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+              <a
+                href={whatsappUrl(
+                  `Hi ${SITE.name}, I have a question about your furniture.`,
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
+              >
+                WhatsApp
+              </a>
+              <span aria-hidden className="text-cream-faint">
+                ·
+              </span>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="text-cream-muted underline decoration-cream-faint underline-offset-4 transition-colors hover:text-gold hover:decoration-gold"
+              >
+                {SITE.email}
+              </a>
+            </div>
+
+            <address className="mt-5 text-sm not-italic leading-relaxed text-cream-muted">
+              {SITE.street}
+              <br />
+              {SITE.city} {SITE.postalCode}
+            </address>
+            <p className="mt-3 text-sm text-cream-muted">
+              {SITE.hoursSummary}
+            </p>
             <p className="mt-3 text-sm text-cream-muted">
               Based in {SITE.city} · Delivered across India
             </p>

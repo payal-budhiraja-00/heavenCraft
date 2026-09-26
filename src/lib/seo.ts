@@ -24,6 +24,36 @@ export type PageSeo = {
 export const DEFAULT_OG_IMAGE = "/og/default.jpg";
 
 /**
+ * The clause every listing description ends with, budget permitting.
+ *
+ * These four facts are the ones that answer the objection a first-time buyer
+ * of a ₹15,000 chair from an unfamiliar brand actually has, and none of them
+ * were visible anywhere a search engine could read. Kept short because a meta
+ * description is truncated around 160 characters and the product-specific
+ * half matters more than this half.
+ */
+export const TRUST_SUFFIX = "2-year warranty and free assembly.";
+
+/**
+ * Joins a page-specific description to a fixed tail without overrunning the
+ * ~160 characters a result snippet shows.
+ *
+ * The tail is the part that must survive, because it is the same on every
+ * page and is what gets cut first when the lead is long. So the lead is
+ * trimmed to fit around it, at a word boundary, rather than the whole string
+ * being chopped and the trust clause lost.
+ */
+export function composeDescription(lead: string, tail = TRUST_SUFFIX): string {
+  const LIMIT = 158;
+  const room = LIMIT - tail.length - 1;
+  if (lead.length <= room) return `${lead} ${tail}`;
+
+  const cut = lead.slice(0, room - 1);
+  const atWord = cut.slice(0, cut.lastIndexOf(" ")).trimEnd();
+  return `${atWord.replace(/[,;:.]$/, "")}… ${tail}`;
+}
+
+/**
  * Every social card is a pre-rendered 1200x630 landscape, never a raw gallery
  * photograph.
  *

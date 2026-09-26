@@ -132,6 +132,19 @@ for (const product of allProducts) {
 
 /* ------------------------------------------------------ 3. per-page <head> */
 
+/*
+ * Attribute values arrive HTML-escaped, so "&" is five characters and an
+ * unescaped apostrophe is six. Measuring a snippet without decoding first
+ * overstates its length and fails a description that is actually fine.
+ */
+const decode = (s: string) =>
+  s
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#(?:39|x27);/g, "'")
+    .replace(/&amp;/g, "&");
+
 const titles = new Map<string, string>();
 const canonicals = new Map<string, string>();
 
@@ -170,6 +183,17 @@ for (const file of pages) {
   if (ogImage.length !== 1) fail(`${ogImage.length} og:image on ${url}`);
   if (!noindex && canonical.length !== 1) {
     fail(`${canonical.length} canonical tags on ${url}`);
+  }
+
+  /*
+    A snippet is cut around 160 characters, and the cut lands wherever it
+    lands -- usually mid-word, and always after the part that says why to buy
+    from us. Descriptions are composed to fit, so anything over the limit
+    means a call site built one by hand and bypassed composeDescription().
+  */
+  const text = decode(desc[0] ?? "");
+  if (text.length > 160) {
+    fail(`meta description is ${text.length} chars on ${url}`);
   }
 
   /*
@@ -219,6 +243,46 @@ for (const file of pages) {
 }
 
 for (const [ref, on] of brokenLinks) fail(`broken reference ${ref} (on ${on})`);
+
+/*
+ * The business facts, asserted once against the homepage.
+ *
+ * These are the values a customer phones, a courier drives to and Google
+ * cross-checks against the Business Profile. A typo in any of them is not a
+ * cosmetic defect: a wrong phone number is a silently lost order, and a
+ * LocalBusiness address that disagrees with the Business Profile costs the
+ * map listing the schema was added to win.
+ */
+{
+  const home = readFileSync(join(OUT, "index.html"), "utf8");
+
+  const ld = [...home.matchAll(/type="application\/ld\+json">(.*?)<\/script>/gs)]
+    .map((m) => m[1] ?? "")
+    .join(" ");
+
+  if (!ld.includes('"FurnitureStore"')) {
+    fail("homepage is missing FurnitureStore schema");
+  }
+  for (const fact of [
+    SITE.phone,
+    SITE.street,
+    SITE.postalCode,
+    SITE.legalName,
+  ]) {
+    if (!ld.includes(fact)) fail(`business schema is missing "${fact}"`);
+  }
+  for (const profile of SITE.sameAs) {
+    if (!ld.includes(profile)) fail(`sameAs is missing ${profile}`);
+  }
+
+  // A number nobody can tap is a number nobody calls.
+  if (!home.includes(`tel:${SITE.phone}`)) {
+    fail("homepage has no tel: link");
+  }
+  if (!home.includes(`wa.me/${SITE.whatsapp}`)) {
+    fail("homepage has no WhatsApp link");
+  }
+}
 
 const reportDuplicates = (map: Map<string, string>, label: string) => {
   const byValue = new Map<string, string[]>();

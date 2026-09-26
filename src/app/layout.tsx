@@ -88,32 +88,63 @@ export const viewport = {
 };
 
 /**
- * Organization only. No `aggregateRating` anywhere on this site: the ratings
- * in the source data are seeded demo content, and emitting them as structured
- * data would be a search-policy breach, not just an exaggeration.
+ * FurnitureStore, which is a LocalBusiness, which is an Organization -- so
+ * one node carries the brand entity and the storefront at once.
  *
- * Deliberately NOT LocalBusiness/FurnitureStore yet. That type tells Google
- * there is a place customers can visit, and it needs a street address and
- * phone to earn a map listing. We have the city and nothing else, so this
- * stays an Organization with a locality-level address until the rest of the
- * details land -- an unverifiable storefront claim is worse than none.
+ * This was deliberately held at bare `Organization` until there was a street
+ * address and a phone number to put in it, because a storefront claim Google
+ * cannot verify is worse than no claim. Both landed, along with a confirmed
+ * walk-in showroom, so the narrower type is now the honest one: it is what
+ * makes the business eligible for the map pack rather than a service-area
+ * listing, and `openingHoursSpecification` is what produces "Open now".
+ *
+ * Still no `aggregateRating`. The ratings in the source data are seeded demo
+ * content, and emitting them would be a search-policy breach rather than an
+ * exaggeration. Real reviews replace them or nothing does.
+ *
+ * No `geo` either: coordinates have to be measured, not guessed from an
+ * address, and a wrong pin sends a delivery van to the wrong street.
  */
-const organizationSchema = {
+const businessSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "FurnitureStore",
+  "@id": `${SITE.origin}/#business`,
   name: SITE.name,
   legalName: SITE.legalName,
   url: SITE.origin,
   logo: absoluteUrl("/icons/icon-512.png"),
+  image: absoluteUrl("/og/default.jpg"),
   email: SITE.email,
+  telephone: SITE.phone,
   description: SITE.description,
   address: {
     "@type": "PostalAddress",
+    streetAddress: SITE.street,
     addressLocality: SITE.city,
     addressRegion: SITE.region,
+    postalCode: SITE.postalCode,
     addressCountry: SITE.country,
   },
-  areaServed: "IN",
+  openingHoursSpecification: SITE.openingHours.map((block) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [...block.days],
+    opens: block.opens,
+    closes: block.closes,
+  })),
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: SITE.phone,
+    email: SITE.email,
+    areaServed: "IN",
+    availableLanguage: ["en", "hi"],
+  },
+  sameAs: [...SITE.sameAs],
+  // Pan-India delivery from a single Delhi showroom.
+  areaServed: { "@type": "Country", name: "India" },
+  currenciesAccepted: "INR",
+  paymentAccepted: "Cash on Delivery, UPI, Credit Card, Debit Card, Net Banking",
+  priceRange: "₹₹",
 };
 
 export default function RootLayout({
@@ -147,7 +178,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: JSON.stringify(businessSchema),
           }}
         />
       </body>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { CartButton } from "./cart-drawer";
 import { Wordmark } from "./wordmark";
 import { Container } from "./ui";
+import { SITE, whatsappUrl } from "@/lib/site";
 
 /**
  * Nav data is passed in from the server rather than imported here, so the
@@ -151,6 +152,27 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <a
+              href={`tel:${SITE.phone}`}
+              className="hidden items-center gap-2 text-sm font-semibold text-cream transition-colors hover:text-gold md:inline-flex"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {SITE.phoneDisplay}
+            </a>
+
             <Link
               href="/contact/"
               className="hidden rounded-plate border border-edge-strong px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:border-gold hover:text-gold sm:inline-flex"
@@ -224,6 +246,32 @@ export function SiteHeader({ groups }: { groups: NavGroup[] }) {
               >
                 Get a quote
               </Link>
+
+              {/*
+                Two taps that do not require typing anything. On a phone these
+                outperform a form for a considered purchase, and WhatsApp in
+                particular lets the conversation survive the customer closing
+                the browser.
+              */}
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <a
+                  href={`tel:${SITE.phone}`}
+                  className="flex min-h-11 items-center justify-center rounded-plate border border-edge-strong px-4 py-3 text-sm font-semibold text-cream"
+                >
+                  Call
+                </a>
+                <a
+                  href={whatsappUrl(
+                    `Hi ${SITE.name}, I have a question about your furniture.`,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-11 items-center justify-center rounded-plate border border-edge-strong px-4 py-3 text-sm font-semibold text-cream"
+                >
+                  WhatsApp
+                </a>
+              </div>
+
               <div className="mt-4 flex flex-col gap-2">
                 <Link
                   href="/about/"
