@@ -56,8 +56,14 @@
 {%- comment -%}
   This pair is what actually removes the duplicate from search results. The
   script below only moves people; a crawler obeys these two.
+
+  Policy pages get the noindex but not the canonical: a shopper is meant to
+  read them here, and pointing a refund policy at the homepage would be a
+  false claim about what that page is.
 {%- endcomment -%}
+{%- unless request.page_type == 'policy' -%}
 <link rel="canonical" href="{{ target }}">
+{%- endunless -%}
 <meta name="robots" content="noindex, follow">
 
 <script>
@@ -69,13 +75,22 @@
        and bouncing someone out of a half-finished payment would be
        unforgivable, so the cart paths are guarded too. Nothing is lost by it:
        our own cart is a drawer served from the Storefront API, so a shopper
-       has no reason to be on this store's /cart in the first place. */
-    if (/^\/(cart|checkouts?|account|orders|tools|services|apps|wpm)\b/.test(path)) return;
+       has no reason to be on this store's /cart in the first place.
+
+       /policies is guarded for the opposite reason -- a shopper is *meant* to
+       end up there. The checkout footer links to these pages relatively, so
+       without this guard clicking "Refund policy" while entering card details
+       would load the policy and then throw the reader at the homepage. The
+       noindex above still keeps these copies out of search; this only stops
+       the bounce. */
+    if (/^\/(cart|checkouts?|policies|account|orders|tools|services|apps|wpm)\b/.test(path)) return;
     /* replace(), not assign(), so Back does not bounce the visitor again. */
     window.location.replace({{ target | json }});
   })();
 </script>
 
+{%- unless request.page_type == 'policy' -%}
 <noscript>
   <meta http-equiv="refresh" content="0; url={{ target }}">
 </noscript>
+{%- endunless -%}
