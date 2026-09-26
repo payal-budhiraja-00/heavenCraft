@@ -21,7 +21,13 @@ const policies = [
 export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
   return (
     <footer className="mt-24 border-t border-edge bg-surface">
-      <Container className="py-16">
+      {/*
+        The extra bottom padding on phones keeps the product page's sticky buy
+        bar from covering the last line of the footer. Reserved permanently
+        rather than added when the bar appears, because growing the page under
+        someone mid-scroll is worse than a little breathing room.
+      */}
+      <Container className="py-16 pb-32 lg:pb-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
             <Wordmark size="lg" withTagline />

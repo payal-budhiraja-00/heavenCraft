@@ -34,8 +34,22 @@ export function ProductGallery({
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="relative aspect-4/5 overflow-hidden rounded-panel border border-edge bg-raised">
+    /*
+      `min-w-0` is load-bearing. A grid item defaults to `min-width: auto`,
+      which refuses to shrink below its contents -- so the scrolling
+      thumbnail strip below sized this column to its full 482px and pushed
+      the entire page into horizontal overflow. Without this the strip can
+      never scroll, because its container just grows instead.
+    */
+    <div className="flex min-w-0 flex-col gap-3">
+      {/*
+        Height-capped on phones. At 4:5 the frame took 603px of a 915px
+        screen -- and a real phone shows ~840px once the browser's own
+        toolbar is counted -- so the name and the price both started below
+        the fold. Capping rather than re-cropping keeps the photograph
+        untouched: `contain` simply renders it smaller inside the panel.
+      */}
+      <div className="relative aspect-4/5 max-h-[46vh] overflow-hidden rounded-panel border border-edge bg-raised lg:max-h-none">
         <ProductImage
           key={current}
           src={current}
@@ -48,18 +62,28 @@ export function ProductGallery({
       </div>
 
       {images.length > 1 ? (
+        /*
+          One scrolling row rather than a wrapping grid. At five columns a
+          sixth photograph dropped onto a row of its own, which read as a
+          layout fault and cost roughly ninety pixels of the first phone
+          screen -- enough to push the product's name and price below the
+          fold. Scrolling also keeps a partially visible thumbnail at the
+          edge, which is what tells you there are more.
+        */
         <ul
-          className="grid grid-cols-5 gap-2.5"
+          className="flex w-full snap-x gap-2.5 overflow-x-auto pb-1"
           aria-label="Product photographs"
         >
           {images.map((src, i) => (
-            <li key={src}>
+            <li key={src} className="shrink-0 snap-start">
               <button
                 type="button"
                 onClick={() => setActive(i)}
-                aria-label={alts[i] ?? ""}
+                aria-label={`Photograph ${i + 1} of ${images.length}${
+                  alts[i] ? `: ${alts[i]}` : ""
+                }`}
                 aria-current={i === active}
-                className={`relative block aspect-square w-full overflow-hidden rounded-plate border transition-all ${
+                className={`relative block aspect-square w-18 overflow-hidden rounded-plate border transition-all sm:w-22 ${
                   i === active
                     ? "border-gold opacity-100"
                     : "border-edge opacity-65 hover:border-edge-strong hover:opacity-90"
