@@ -5,7 +5,13 @@ import { ProductImage } from "@/components/product-image";
 import { ButtonLink, Container, Label, SectionHeading } from "@/components/ui";
 import { allProducts, getGroup, groups } from "@/lib/catalog";
 import { priceRange } from "@/lib/catalog-types";
-import { encodeImagePath, featureImage, imageAlt } from "@/lib/images";
+import {
+  encodeImagePath,
+  featureImage,
+  gridAspect,
+  imageAlt,
+  imageFocus,
+} from "@/lib/images";
 import { formatPaise } from "@/lib/money";
 
 /*
@@ -98,14 +104,21 @@ export default function HomePage() {
             </Container>
           </div>
 
-          <div className="relative min-h-[26rem] lg:min-h-[44rem]">
+          {/*
+            Shaped to the photograph rather than given a fixed height. The
+            supplier's chair frames are upright at about 0.67:1, and a short
+            landscape band cropped 55% of the frame away -- on a phone the
+            hero showed a strip of seat with the base and headrest gone.
+          */}
+          <div className="relative aspect-4/5 sm:aspect-square lg:aspect-auto lg:min-h-[44rem]">
             <Image
               src={encodeImagePath(HERO_SRC)}
-              alt="A white mesh task chair with an adjustable headrest in a top-floor office"
+              alt="Two dark grey mesh task chairs with adjustable headrests in a high-rise office overlooking a city skyline"
               fill
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-center"
+              style={{ objectPosition: imageFocus(HERO_SRC) }}
+              className="object-cover"
             />
             {/* Angled on desktop so the type side stays dark while the chair
                 keeps its own light; vertical on mobile where they stack. */}
@@ -276,17 +289,24 @@ function GroupCard({ slug }: { slug: string }) {
   const src = lead ? featureImage(lead) : undefined;
   const range = priceRange(group.products);
 
+  /*
+   * The tile takes the same shape its own range takes on the category page
+   * rather than a fixed square. The chairs are shot upright at about 0.6:1,
+   * and a square tile threw away 40% of the chair -- the one thing the tile
+   * exists to show.
+   */
+  const aspect = lead ? gridAspect([lead]) : "aspect-4/5";
+
   return (
     <Link
       href={group.href}
-      className="group relative flex aspect-square flex-col justify-end overflow-hidden rounded-panel border border-edge md:aspect-4/5"
+      className={`group relative flex ${aspect} flex-col justify-end overflow-hidden rounded-panel border border-edge`}
     >
       {src && lead ? (
         <ProductImage
           src={src}
           alt={imageAlt(lead)}
           sizes="(min-width: 768px) 33vw, 90vw"
-          inset="p-6 pb-28"
           className="transition-transform duration-700 ease-out group-hover:scale-105"
         />
       ) : null}
