@@ -1,18 +1,20 @@
-import { SITE } from "./site";
+import { SITE, TERMS } from "./site";
 
 /**
  * Policy page content.
  *
- * Deliberately written without invented specifics. There is no registered
- * address, GSTIN, phone number or courier contract recorded anywhere in this
- * project, so none of them are asserted here -- a returns window or a delivery
- * SLA published on a storefront is a representation to the customer, and an
- * invented one is worse than an absent one.
+ * Written without invented specifics. A returns window or a delivery SLA
+ * published on a storefront is a representation to the customer, and an
+ * invented one is worse than an absent one -- so every number here traces
+ * back to an answer the business gave, and the places still waiting on one
+ * are marked NEEDS-FACT and say "confirmed per order" rather than guessing.
  *
- * Where a number is genuinely required, the copy commits to confirming it per
- * order instead of quoting a figure nobody has agreed to. Every one of those
- * places is marked NEEDS-FACT below, and they all have to be filled before
- * Shopify goes live: Shopify requires refund, privacy, terms and shipping
+ * Confirmed: 3-5 working day delivery, 7-day returns with return freight on
+ * us, a 24-month warranty across all three categories, cash on delivery at no
+ * extra charge, and free assembly at the customer's address.
+ *
+ * Still outstanding: GSTIN, courier partners, the free-shipping threshold and
+ * the rate below it. Shopify requires refund, privacy, terms and shipping
  * policies to be published before it will process a payment.
  */
 
@@ -23,7 +25,7 @@ export type Policy = {
   sections: { heading: string; body: string[] }[];
 };
 
-const contact = `Write to ${SITE.email} and we will respond, usually within one working day.`;
+const contact = `Call or WhatsApp ${SITE.phoneDisplay}, or write to ${SITE.email}. We respond within one working day.`;
 
 export const POLICIES: Policy[] = [
   {
@@ -38,6 +40,25 @@ export const POLICIES: Policy[] = [
           "We deliver across India. Some pincodes are served only by surface freight, which takes longer than the metros.",
           // NEEDS-FACT: courier partners and serviceable pincode list.
           "If you want to check your pincode before ordering, send it to us and we will confirm.",
+        ],
+      },
+      {
+        heading: "How long it takes",
+        body: [
+          `Most orders arrive within ${TERMS.deliveryDaysMin} to ${TERMS.deliveryDaysMax} working days of dispatch. Remote pincodes served by surface freight take longer, and we tell you before you pay if yours is one of them.`,
+          "Made-to-order items are marked as such on the product page; the dispatch date for those is confirmed after the order.",
+        ],
+      },
+      {
+        heading: "Assembly",
+        body: [
+          "Assembly at your address is included, at no charge. Most items need it, and a chair assembled wrongly is a chair that fails early — so this is not an upsell we withhold.",
+        ],
+      },
+      {
+        heading: "Payment",
+        body: [
+          "Cash on delivery is available, with no extra fee. Cards, UPI and net banking are accepted at checkout.",
         ],
       },
       {
@@ -73,22 +94,21 @@ export const POLICIES: Policy[] = [
       {
         heading: "What can be returned",
         body: [
-          "Anything that arrives damaged, faulty, or is not what you ordered can be returned. We pay the return freight in those cases.",
-          // NEEDS-FACT: change-of-mind window and restocking policy.
-          "For a change of mind, write to us before the item is used or assembled and we will tell you what is possible for that specific product. Return freight on furniture is substantial and is assessed per order.",
+          `You have ${TERMS.returnDays} days from delivery to return a product. Anything that arrives damaged, faulty, or is not what you ordered can be returned within that window, and so can a change of mind.`,
+          "We pay the return freight. Return shipping on furniture is expensive, and making the customer carry it is how a returns policy becomes one nobody can actually use.",
         ],
       },
       {
         heading: "What cannot be returned",
         body: [
-          "Items that have been assembled, modified, or used beyond what is needed to check fit and function.",
+          "Items that have been modified, or used beyond what is needed to check fit and function. Assembly by our own team does not count against you.",
           "Made-to-order and custom-specified items, which are built after the order is placed.",
         ],
       },
       {
         heading: "How to start a return",
         body: [
-          `Email ${SITE.email} with your order reference, the product, and photographs of the problem. ${contact}`,
+          `Call or WhatsApp ${SITE.phoneDisplay}, or email ${SITE.email}, with your order reference, the product, and photographs if something is damaged.`,
           "Keep the original packaging until you are satisfied with the product. Furniture cannot safely travel back without it.",
         ],
       },
@@ -96,7 +116,7 @@ export const POLICIES: Policy[] = [
         heading: "Refunds",
         body: [
           "Approved refunds are paid to the original payment method. Your bank decides how quickly it appears on your statement, which is usually a few working days after we release it.",
-          "Where a delivery charge was paid on an order that is being returned for a fault on our side, that charge is refunded too.",
+          "Where a delivery charge was paid on an order that is being returned, that charge is refunded too.",
         ],
       },
     ],
@@ -104,13 +124,13 @@ export const POLICIES: Policy[] = [
   {
     slug: "warranty",
     title: "Warranty",
-    summary: "What the manufacturer covers, and how to make a claim.",
+    summary: `Every product carries a ${TERMS.warrantyMonths / 12}-year warranty. What it covers, and how to claim.`,
     sections: [
       {
-        heading: "Manufacturer warranty",
+        heading: `${TERMS.warrantyMonths / 12}-year warranty`,
         body: [
-          // NEEDS-FACT: per-product warranty terms from each supplier.
-          "Warranty terms are set by the manufacturer and differ between products — gas lifts, mechanisms, frames and upholstery are frequently covered for different periods. The applicable terms for a specific product are confirmed with your order.",
+          `Every chair, table and accessory we sell carries a ${TERMS.warrantyMonths / 12}-year warranty from the date of delivery. The same term applies across all three categories — there is no shorter cover hidden on the cheaper items.`,
+          "You deal with us directly on a claim — we assess it ourselves rather than sending you to a helpline, and we are a short drive away in Hari Nagar if it is easier to bring the item in.",
           "Keep your invoice. It is the proof of purchase date that any claim is assessed against.",
         ],
       },

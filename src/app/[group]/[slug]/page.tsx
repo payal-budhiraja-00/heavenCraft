@@ -26,9 +26,9 @@ import type { Group, Product, SubCategory } from "@/lib/catalog-types";
 import { priceRange } from "@/lib/catalog-types";
 import { features } from "@/lib/features";
 import { encodeImagePath, imageAlt } from "@/lib/images";
-import { pageMetadata } from "@/lib/seo";
+import { composeDescription, pageMetadata } from "@/lib/seo";
 import { formatPaise, paiseToPriceString } from "@/lib/money";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, TERMS, absoluteUrl } from "@/lib/site";
 
 type Params = { group: string; slug: string };
 
@@ -110,10 +110,12 @@ export async function generateMetadata({
   }
 
   const { product } = found;
-  const description =
-    product.description.length > 155
-      ? `${product.description.slice(0, 152).trimEnd()}…`
-      : product.description;
+  /*
+    The product's own words first, and the trust clause in the room left over.
+    A buyer reading the snippet learns more from what the thing is than from
+    our terms, so the description is what gets trimmed to make them both fit.
+  */
+  const description = composeDescription(product.description);
 
   return pageMetadata({
     title: product.name,
@@ -284,6 +286,50 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
    * that two of its three variants do not honour, which is exactly the
    * mismatch Google penalises and a customer notices at checkout.
    */
+  /*
+    Delivery and returns, restated for machines.
+
+    Google renders both directly in Shopping and in the product snippet, and
+    an absent return policy is treated as a worse one -- "vague" scores below
+    "30 days, buyer pays". Ours is unusually good and was invisible: seven
+    days, with return shipping on us. It is worth the markup on its own.
+
+    `shippingRate` is omitted rather than guessed. The free-shipping threshold
+    and the rate below it are the two answers still outstanding, and a wrong
+    delivery charge in a rich result is a complaint at the door.
+  */
+  const shippingDetails = {
+    "@type": "OfferShippingDetails",
+    shippingDestination: {
+      "@type": "DefinedRegion",
+      addressCountry: "IN",
+    },
+    deliveryTime: {
+      "@type": "ShippingDeliveryTime",
+      handlingTime: {
+        "@type": "QuantitativeValue",
+        minValue: 0,
+        maxValue: 1,
+        unitCode: "DAY",
+      },
+      transitTime: {
+        "@type": "QuantitativeValue",
+        minValue: TERMS.deliveryDaysMin,
+        maxValue: TERMS.deliveryDaysMax,
+        unitCode: "DAY",
+      },
+    },
+  };
+
+  const returnPolicy = {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: "IN",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: TERMS.returnDays,
+    returnMethod: "https://schema.org/ReturnByMail",
+    returnFees: "https://schema.org/FreeReturn",
+  };
+
   const offers = product.variants.map((variant) => ({
     "@type": "Offer",
     url: absoluteUrl(product.href),
@@ -294,7 +340,18 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     availability: variant.inStock
       ? "https://schema.org/InStock"
       : "https://schema.org/PreOrder",
+    itemCondition: "https://schema.org/NewCondition",
     seller: { "@type": "Organization", name: SITE.legalName },
+    shippingDetails,
+    hasMerchantReturnPolicy: returnPolicy,
+    warranty: {
+      "@type": "WarrantyPromise",
+      durationOfWarranty: {
+        "@type": "QuantitativeValue",
+        value: TERMS.warrantyMonths,
+        unitCode: "MON",
+      },
+    },
   }));
 
   /*
@@ -325,6 +382,17 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     // contain spaces, and Google fetches these URLs verbatim.
     image: product.images.map((src) => absoluteUrl(encodeImagePath(src))),
     brand: { "@type": "Brand", name: SITE.name },
+    /*
+      No `manufacturer` node.
+
+      The questionnaire answered "Manufacturer", but the specifications for
+      this range were transcribed from supplier infographics, which is not
+      what an own-factory range looks like. Claiming manufacture in structured
+      data is a claim Google will surface as fact, so the bar is what we can
+      stand behind rather than what the form said. `countryOfOrigin` stays --
+      the goods are Indian-made, which is a separate and answerable question.
+    */
+    countryOfOrigin: { "@type": "Country", name: "India" },
     ...(additionalProperty.length ? { additionalProperty } : {}),
     offers: offers.length === 1 ? offers[0] : offers,
   };
@@ -423,6 +491,47 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                 pageUrl={absoluteUrl(product.href)}
                 email={SITE.email}
               />
+
+              {/*
+                The terms that answer the objections, in the one place the
+                decision is made. All four were true already and all four were
+                buried in policy pages nobody opens: a two-year warranty, a
+                return window where we pay the courier, assembly included, and
+                cash on delivery. For a first purchase from an unknown brand
+                these do more work than another paragraph of description.
+              */}
+              <ul className="mt-7 grid gap-x-6 gap-y-3 border-t border-edge pt-6 text-sm text-cream-muted sm:grid-cols-2">
+                <li>
+                  <span className="text-cream">
+                    {TERMS.warrantyMonths / 12}-year warranty
+                  </span>{" "}
+                  on every unit
+                </li>
+                <li>
+                  <span className="text-cream">
+                    {TERMS.returnDays}-day returns
+                  </span>{" "}
+                  — we pay the return shipping
+                </li>
+                <li>
+                  <span className="text-cream">Free assembly</span> at your
+                  address
+                </li>
+                <li>
+                  <span className="text-cream">Cash on delivery</span>{" "}
+                  available, no extra fee
+                </li>
+                <li>
+                  <span className="text-cream">
+                    {TERMS.deliveryDaysMin}–{TERMS.deliveryDaysMax} working days
+                  </span>{" "}
+                  across India
+                </li>
+                <li>
+                  <span className="text-cream">Delhi showroom</span> — come and
+                  sit in it before you buy
+                </li>
+              </ul>
 
               {perFinish ? (
                 <VariantFeatures />

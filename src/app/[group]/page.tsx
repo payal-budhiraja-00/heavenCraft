@@ -8,7 +8,7 @@ import { getGroup, groups } from "@/lib/catalog";
 import { priceRange } from "@/lib/catalog-types";
 import { encodeImagePath, featureImage, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
-import { pageMetadata } from "@/lib/seo";
+import { TRUST_SUFFIX, composeDescription, pageMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
 type Params = { group: string };
@@ -16,6 +16,36 @@ type Params = { group: string };
 export function generateStaticParams(): Params[] {
   return groups.map((group) => ({ group: group.slug }));
 }
+
+/**
+ * Search-led titles, from the phrases customers actually use on the phone
+ * rather than the words the catalogue happens to be organised by.
+ *
+ * "Revolving chair" is the term a large part of this market types; nothing on
+ * the site said it. "Work from home" is how the accessories are shopped for.
+ * The catalogue's own group names stay as the on-page H1 -- this only changes
+ * what a search engine is told the page is about.
+ */
+const SEARCH_TITLES: Record<string, string> = {
+  chairs: "Ergonomic Office & Revolving Chairs",
+  tables: "Height-Adjustable Desks & Office Tables",
+  accessories: "Desk & Work From Home Accessories",
+};
+
+/**
+ * Short leads written for the snippet, not for the page.
+ *
+ * The on-page description is editorial and runs to around a hundred
+ * characters. A snippet has to fit that, the model count, the starting price
+ * and the warranty into roughly 158 -- and when it overruns, it is the price
+ * that gets cut, which is the one clause that qualifies the click. Writing a
+ * shorter lead for search keeps all three. The prose stays on the page.
+ */
+const SEARCH_LEADS: Record<string, string> = {
+  chairs: "Mesh and ergonomic task chairs built for eight-hour days.",
+  tables: "Height-adjustable, executive, study and folding desks.",
+  accessories: "Footrests, monitor stands, trays and desk organisers.",
+};
 
 export async function generateMetadata({
   params,
@@ -27,8 +57,11 @@ export async function generateMetadata({
   if (!group) return {};
 
   const range = priceRange(group.products);
-  const title = `Ergonomic ${group.name} Online`;
-  const description = `${group.description} ${group.products.length} products from ${formatPaise(range.minPaise)}.`;
+  const title = SEARCH_TITLES[group.slug] ?? `Ergonomic ${group.name} Online`;
+  const description = composeDescription(
+    SEARCH_LEADS[group.slug] ?? group.description,
+    `${group.products.length} models from ${formatPaise(range.minPaise)}. ${TRUST_SUFFIX}`,
+  );
   const lead = group.products.find((p) => featureImage(p));
 
   return pageMetadata({
