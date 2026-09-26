@@ -42,15 +42,39 @@ export const TRUST_SUFFIX = "2-year warranty and free assembly.";
  * page and is what gets cut first when the lead is long. So the lead is
  * trimmed to fit around it, at a word boundary, rather than the whole string
  * being chopped and the trust clause lost.
+ *
+ * Trimming at a word boundary is not enough on its own. A third of the
+ * catalogue landed on a function word -- "The headrest moves for height
+ * and… 2-year warranty" -- which reads like the sentence was interrupted
+ * rather than shortened. Trailing conjunctions, articles and prepositions
+ * are therefore dropped too, and if what remains already ends a sentence the
+ * ellipsis is left off entirely, because "…" after a full stop is noise.
  */
+const DANGLING =
+  /\s+(?:and|or|but|with|without|the|a|an|for|to|of|in|on|at|by|as|so|if|is|are|was|were|be|been|that|which|who|from|into|onto|up|down|over|under|its|it|their|there|this|these|those|when|while|than|then)$/i;
+
 export function composeDescription(lead: string, tail = TRUST_SUFFIX): string {
   const LIMIT = 158;
   const room = LIMIT - tail.length - 1;
   if (lead.length <= room) return `${lead} ${tail}`;
 
   const cut = lead.slice(0, room - 1);
-  const atWord = cut.slice(0, cut.lastIndexOf(" ")).trimEnd();
-  return `${atWord.replace(/[,;:.]$/, "")}… ${tail}`;
+  let trimmed = cut.slice(0, cut.lastIndexOf(" ")).trimEnd();
+
+  /*
+    Repeated because one strip can expose another ("for height and the" ->
+    "for height and" -> "for height"). Stops short of gutting the sentence:
+    below ~40 characters the lead has stopped saying anything useful and a
+    dangling word is the lesser problem.
+  */
+  for (;;) {
+    const next = trimmed.replace(DANGLING, "").trimEnd();
+    if (next === trimmed || next.length < 40) break;
+    trimmed = next;
+  }
+
+  if (/[.!?]$/.test(trimmed)) return `${trimmed} ${tail}`;
+  return `${trimmed.replace(/[,;:]$/, "")}… ${tail}`;
 }
 
 /**
