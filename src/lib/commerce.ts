@@ -455,7 +455,7 @@ export const shopifyCommerce: CommerceAdapter = {
  * Anything can be enquired about, including things not yet in Shopify.
  *
  * Takes flat fields rather than a `Product` so the colour picker can call it
- * in the browser for the selected colourway. While the basket is gated this
+ * in the browser for the selected colourway. While the cart is gated this
  * mailto is the only way an order reaches us, and an enquiry that does not
  * say which of the two wooden footrest finishes the customer meant costs a reply.
  */

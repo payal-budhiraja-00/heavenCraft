@@ -434,7 +434,7 @@ async function publishToOnlineStore(
  * shop serves: it keeps showing the old set from its own CDN indefinitely.
  * That matters because the cart drawer and the checkout line item both take
  * their image from Shopify, so a product page showing the new photography
- * would hand the buyer a basket showing the old. `--replace-media` is the
+ * would hand the buyer a cart showing the old. `--replace-media` is the
  * deliberate, destructive answer to that, and it is opt-in because it throws
  * away work Shopify did and makes it fetch every file again.
  *

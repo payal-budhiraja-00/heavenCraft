@@ -16,9 +16,9 @@
  *
  * ## Why mutations are serialised
  *
- * Two clicks on "Add to basket" before the first response lands would both
+ * Two clicks on "Add to cart" before the first response lands would both
  * see `cart === null` and both call `cartCreate`. The result is two carts,
- * the second silently orphaning the first, and a basket that appears to lose
+ * the second silently orphaning the first, and a cart that appears to lose
  * an item at random. Every mutation goes through one promise chain so the
  * second click always sees the cart the first one made.
  */

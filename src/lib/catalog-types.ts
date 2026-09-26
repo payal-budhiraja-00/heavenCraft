@@ -90,7 +90,7 @@ export type Product = {
   /**
    * The supplier's bare model name, e.g. "Neuro" where `name` is "Neuro Mesh
    * Chair". Used as the page heading, where the category is already on screen
-   * a line above. `name` is kept for the title tag, search results and basket
+   * a line above. `name` is kept for the title tag, search results and cart
    * lines, all of which are read without that surrounding context.
    */
   shortName: string;
@@ -137,7 +137,7 @@ export type Product = {
   images: string[];
   /**
    * Always at least one entry. A product with a single colourway still has a
-   * variant, because the basket is variant-bound: Shopify's Cart API takes a
+   * variant, because the cart is variant-bound: Shopify's Cart API takes a
    * ProductVariant id and has no concept of adding "a product".
    */
   variants: Variant[];

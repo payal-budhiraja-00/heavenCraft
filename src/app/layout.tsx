@@ -178,8 +178,8 @@ export default function RootLayout({
         </a>
 
         {/*
-          The provider wraps header and page together because the basket count
-          lives in one and the add-to-basket button in the other. While the
+          The provider wraps header and page together because the cart count
+          lives in one and the add-to-cart button in the other. While the
           preview gate is closed it renders its children and does nothing else
           -- no storage, no Shopify calls.
         */}

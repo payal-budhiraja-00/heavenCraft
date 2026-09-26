@@ -243,7 +243,7 @@ function build(): { groups: Group[]; products: Product[] } {
     const slug = slugify(name);
     const sub = SUB_META[subSlug];
 
-    // Single-colourway products still get a variant. The basket is
+    // Single-colourway products still get a variant. The cart is
     // variant-bound -- Shopify's Cart API takes a ProductVariant id and cannot
     // express "add the product" -- so a product with no variants would be
     // unbuyable. Synthesising one here keeps every downstream consumer,

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The basket: a trigger for the header and the slide-over panel it opens.
+ * The cart: a trigger for the header and the slide-over panel it opens.
  *
  * Both render `null` when `features.commerce` is off, so a build without
  * commerce gets exactly the header and page it had before Phase 4 existed.
@@ -37,7 +37,7 @@ export function CartButton() {
       data-cart-trigger=""
       onClick={() => setOpen(true)}
       className="relative rounded-plate border border-edge-strong p-2.5 text-cream transition-colors hover:border-gold hover:text-gold"
-      aria-label={count === 1 ? "Basket, 1 item" : `Basket, ${count} items`}
+      aria-label={count === 1 ? "Cart, 1 item" : `Cart, ${count} items`}
     >
       <BagIcon />
       {count > 0 ? (
@@ -71,7 +71,7 @@ export function CartDrawer() {
 
     /*
       Where focus came from, so it can be handed back. Without this, closing
-      the basket drops focus onto <body> and the next Tab starts again from
+      the cart drops focus onto <body> and the next Tab starts again from
       the top of the document -- a keyboard user loses their place entirely.
     */
     const opener = document.activeElement as HTMLElement | null;
@@ -86,7 +86,7 @@ export function CartDrawer() {
       /*
         `aria-modal` tells a screen reader the rest of the page is out of
         bounds; it does nothing whatsoever to the Tab key. Without this the
-        sixth Tab walked out of the basket and carried on through the page
+        sixth Tab walked out of the cart and carried on through the page
         behind it, still visibly scrolled away under the overlay.
 
         Queried on each press rather than cached: lines can be removed while
@@ -127,12 +127,12 @@ export function CartDrawer() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
       /*
-        `opener` is frequently not a real control by now. "Add to basket"
+        `opener` is frequently not a real control by now. "Add to cart"
         disables itself while the Shopify call is in flight, and disabling a
         focused button drops focus to <body> -- so by the time the drawer
         opens, the thing we captured is the body element, which is connected
         and focusable-looking but focusing it does nothing. Measured, not
-        assumed. The basket trigger is the honest landing place anyway: it is
+        assumed. The cart trigger is the honest landing place anyway: it is
         where the drawer came from and it is still on screen.
       */
       const reusable =
@@ -163,7 +163,7 @@ export function CartDrawer() {
   );
 
   return (
-    <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="Basket">
+    <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="Cart">
       <button
         type="button"
         onClick={close}
@@ -178,11 +178,11 @@ export function CartDrawer() {
         className="absolute right-0 top-0 flex h-dvh w-full max-w-md flex-col border-l border-edge bg-surface shadow-panel outline-none"
       >
         <div className="flex items-center justify-between gap-4 border-b border-edge px-6 py-5">
-          <h2 className="type-wide text-lg font-bold text-cream">Basket</h2>
+          <h2 className="type-wide text-lg font-bold text-cream">Cart</h2>
           <button
             type="button"
             onClick={close}
-            aria-label="Close basket"
+            aria-label="Close cart"
             className="-mr-2 flex size-11 items-center justify-center rounded-plate text-cream-muted transition-colors hover:text-gold"
           >
             <CloseIcon />
@@ -204,7 +204,7 @@ export function CartDrawer() {
 
         {lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center">
-            <p className="text-sm text-cream-muted">Your basket is empty.</p>
+            <p className="text-sm text-cream-muted">Your cart is empty.</p>
             <button
               type="button"
               onClick={close}
@@ -248,7 +248,7 @@ export function CartDrawer() {
                       /*
                         py-1.5 lifts this from 15px to ~27px tall, clearing
                         WCAG 2.5.8's 24px minimum. Not taken to 44px: that
-                        would stretch every basket row, and the actions that
+                        would stretch every cart row, and the actions that
                         matter here -- quantity, remove, checkout -- are all
                         44px already.
                       */

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The buy box: add-to-basket when the preview gate is open and the selected
+ * The buy box: add-to-cart when the preview gate is open and the selected
  * colourway has a Shopify variant, an email enquiry otherwise.
  *
  * Both paths live here rather than being chosen on the server, because the
@@ -45,7 +45,7 @@ export function BuyBox(props: BuyBoxProps) {
     <>
       <div ref={region}>
         {sellable ? (
-          <AddToBasket {...props} variantId={sellable} />
+          <AddToCart {...props} variantId={sellable} />
         ) : (
           <Enquiry {...props} />
         )}
@@ -54,7 +54,7 @@ export function BuyBox(props: BuyBoxProps) {
       {/*
         The bar is rendered from here, and takes the same branch as the box
         above it, so the two can never offer different things. Suppressed
-        while the basket drawer is open, where it would sit under the overlay
+        while the cart drawer is open, where it would sit under the overlay
         competing with the drawer's own checkout button.
       */}
       <StickyBuyBar
@@ -158,7 +158,7 @@ function StickyBuyBar({
             disabled={busy}
             className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-plate bg-gold px-5 text-sm font-semibold text-base transition-colors hover:bg-gold-bright disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {busy ? "Adding…" : "Add to basket"}
+            {busy ? "Adding…" : "Add to cart"}
           </button>
         ) : (
           <a
@@ -175,7 +175,7 @@ function StickyBuyBar({
   );
 }
 
-function AddToBasket({
+function AddToCart({
   variantId,
   productName,
 }: BuyBoxProps & { variantId: VariantId }) {
@@ -183,7 +183,7 @@ function AddToBasket({
   const { selected, hasChoice } = useVariant();
   const [quantity, setQuantity] = useState(1);
 
-  const inBasket = cart?.lines
+  const inCart = cart?.lines
     .filter((line) => line.variantId === variantId)
     .reduce((total, line) => total + line.quantity, 0);
 
@@ -224,19 +224,19 @@ function AddToBasket({
           disabled={busy}
           className="inline-flex flex-1 items-center justify-center gap-2 rounded-plate bg-gold px-6 py-3.5 text-sm font-semibold text-base transition-colors hover:bg-gold-bright disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
         >
-          {busy ? "Adding…" : "Add to basket"}
+          {busy ? "Adding…" : "Add to cart"}
         </button>
       </div>
 
-      {inBasket ? (
+      {inCart ? (
         <p className="mt-3 text-xs text-cream-muted">
-          {inBasket} {hasChoice ? `in ${selected.colour} ` : ""}in your basket.{" "}
+          {inCart} {hasChoice ? `in ${selected.colour} ` : ""}in your cart.{" "}
           <button
             type="button"
             onClick={() => setOpen(true)}
             className="text-gold underline-offset-2 hover:underline"
           >
-            View basket
+            View cart
           </button>
         </p>
       ) : null}
