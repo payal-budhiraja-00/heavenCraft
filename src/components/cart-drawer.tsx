@@ -34,6 +34,7 @@ export function CartButton() {
   return (
     <button
       type="button"
+      data-cart-trigger=""
       onClick={() => setOpen(true)}
       className="relative rounded-plate border border-edge-strong p-2.5 text-cream transition-colors hover:border-gold hover:text-gold"
       aria-label={count === 1 ? "Basket, 1 item" : `Basket, ${count} items`}
@@ -66,20 +67,81 @@ export function CartDrawer() {
 
   useEffect(() => {
     if (!open) return;
+    const surface = panel.current;
+    if (!surface) return;
+
+    /*
+      Where focus came from, so it can be handed back. Without this, closing
+      the basket drops focus onto <body> and the next Tab starts again from
+      the top of the document -- a keyboard user loses their place entirely.
+    */
+    const opener = document.activeElement as HTMLElement | null;
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
+      if (event.key === "Escape") {
+        close();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      /*
+        `aria-modal` tells a screen reader the rest of the page is out of
+        bounds; it does nothing whatsoever to the Tab key. Without this the
+        sixth Tab walked out of the basket and carried on through the page
+        behind it, still visibly scrolled away under the overlay.
+
+        Queried on each press rather than cached: lines can be removed while
+        the drawer is open, and a stale list would trap focus on a button
+        that no longer exists.
+      */
+      const focusable = Array.from(
+        surface.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetWidth > 0 || el.offsetHeight > 0);
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) {
+        event.preventDefault();
+        surface.focus();
+        return;
+      }
+
+      const active = document.activeElement;
+      if (event.shiftKey && (active === first || active === surface)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     // Move focus into the panel so a keyboard user is not left tabbing
     // through the page behind it.
-    panel.current?.focus();
+    surface.focus();
 
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      /*
+        `opener` is frequently not a real control by now. "Add to basket"
+        disables itself while the Shopify call is in flight, and disabling a
+        focused button drops focus to <body> -- so by the time the drawer
+        opens, the thing we captured is the body element, which is connected
+        and focusable-looking but focusing it does nothing. Measured, not
+        assumed. The basket trigger is the honest landing place anyway: it is
+        where the drawer came from and it is still on screen.
+      */
+      const reusable =
+        opener && opener !== document.body && opener.isConnected;
+      const target = reusable
+        ? opener
+        : document.querySelector<HTMLElement>("[data-cart-trigger]");
+      target?.focus?.();
     };
   }, [open, close]);
 
@@ -92,7 +154,8 @@ export function CartDrawer() {
       <button
         type="button"
         onClick={close}
-        aria-label="Close basket"
+        tabIndex={-1}
+        aria-hidden="true"
         className="absolute inset-0 h-full w-full cursor-default bg-base/70 backdrop-blur-sm"
       />
 
@@ -107,7 +170,7 @@ export function CartDrawer() {
             type="button"
             onClick={close}
             aria-label="Close basket"
-            className="rounded-plate p-2 text-cream-muted transition-colors hover:text-gold"
+            className="-mr-2 flex size-11 items-center justify-center rounded-plate text-cream-muted transition-colors hover:text-gold"
           >
             <CloseIcon />
           </button>
@@ -158,6 +221,15 @@ export function CartDrawer() {
                       width={80}
                       height={80}
                       loading="lazy"
+                      /*
+                        These URLs are Shopify's, not ours, and carry a
+                        `width` transform. If one fails the tile should stay
+                        a neutral square rather than show a broken-image
+                        glyph next to a product someone is about to pay for.
+                      */
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
                       className="size-full object-contain p-1"
                     />
                   ) : null}
@@ -168,17 +240,24 @@ export function CartDrawer() {
                     <Link
                       href={line.href}
                       onClick={close}
-                      className="text-sm font-semibold leading-snug text-cream transition-colors hover:text-gold"
+                      /*
+                        py-1.5 lifts this from 15px to ~27px tall, clearing
+                        WCAG 2.5.8's 24px minimum. Not taken to 44px: that
+                        would stretch every basket row, and the actions that
+                        matter here -- quantity, remove, checkout -- are all
+                        44px already.
+                      */
+                      className="inline-block py-1.5 text-sm font-semibold leading-snug text-cream transition-colors hover:text-gold"
                     >
                       {line.title}
                     </Link>
                   ) : (
-                    <p className="text-sm font-semibold leading-snug text-cream">
+                    <p className="py-1.5 text-sm font-semibold leading-snug text-cream">
                       {line.title}
                     </p>
                   )}
 
-                  <p className="tnum mt-1 text-xs text-cream-faint">
+                  <p className="tnum text-xs text-cream-faint">
                     {formatPaise(line.unitPaise)} each
                   </p>
 
@@ -212,7 +291,7 @@ export function CartDrawer() {
                     type="button"
                     onClick={() => remove(line.id)}
                     disabled={busy}
-                    className="mt-2 text-xs text-cream-faint underline-offset-2 transition-colors hover:text-poor hover:underline disabled:opacity-50"
+                    className="mt-1 inline-flex min-h-11 items-center text-xs text-cream-faint underline-offset-2 transition-colors hover:text-poor hover:underline disabled:opacity-50"
                   >
                     Remove
                   </button>
@@ -276,7 +355,7 @@ function Step({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="px-2.5 py-1.5 text-sm text-cream-muted transition-colors hover:text-gold disabled:opacity-40"
+      className="flex size-11 items-center justify-center text-sm text-cream-muted transition-colors hover:text-gold disabled:opacity-40"
     >
       {children}
     </button>
