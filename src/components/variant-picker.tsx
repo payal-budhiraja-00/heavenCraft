@@ -26,7 +26,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { ProductGallery } from "./product-gallery";
 import { FeatureList, Label, SpecRow, StockPill } from "./ui";
-import type { Feature } from "@/lib/catalog-types";
+import type { Feature, Specification } from "@/lib/catalog-types";
 import { formatPaise } from "@/lib/money";
 
 /** A variant flattened to exactly what the page needs. */
@@ -48,6 +48,11 @@ export type VariantView = {
    */
   features?: Feature[];
   materials?: string[];
+  /**
+   * Per-finish dimensions, present under the same condition as `features` and
+   * for the same reason: the finishes are measurably different objects.
+   */
+  specifications?: Specification[];
 };
 
 type VariantState = {
@@ -142,6 +147,28 @@ export function VariantFeatures() {
       </p>
       <FeatureList features={features} />
     </div>
+  );
+}
+
+/**
+ * Dimension rows inside the specifications table, for products whose finishes
+ * measure differently. Sits above `VariantMaterialsRow` in the same `<dl>`.
+ *
+ * Renders its own caption because a reader who has scrolled past the colour
+ * picker needs to know these numbers moved when they changed finish -- without
+ * it the table silently rewrites itself.
+ */
+export function VariantSpecRows() {
+  const { selected } = useVariant();
+  const specs = selected.specifications ?? [];
+  if (!specs.length) return null;
+
+  return (
+    <>
+      {specs.map((spec) => (
+        <SpecRow key={spec.label} label={spec.label} value={spec.value} />
+      ))}
+    </>
   );
 }
 

@@ -77,12 +77,22 @@ const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
 # ---------------------------------------------------------------------------
 # Error document
 # ---------------------------------------------------------------------------
-# Declared first, before mod_rewrite is touched. The host was answering
-# unmatched paths with its own generic "File Not Found" body even though every
-# other directive in this file was being applied, and hoisting this above the
-# rewrite blocks is the cheapest thing that might stop that. The status code
-# was always correct, so this only ever affected what the visitor read.
-ErrorDocument 404 /404.html
+# Declared first, before mod_rewrite is touched.
+#
+# This points at a PHP shim rather than straight at the branded 404.html, and
+# the reason is the host. Unmatched paths were being answered with GoDaddy's
+# own grey "File not found" page even though every other directive in this
+# file was live in production -- mod_rewrite, mod_alias and mod_headers rules
+# all apply, and they need the same AllowOverride level ErrorDocument does. So
+# the platform is intercepting Apache's error handling specifically, and
+# naming a different static file would change nothing.
+#
+# What the platform demonstrably does not intercept is a status set by PHP:
+# /enquiry.php answers a GET with its own 405 and JSON body, and that reaches
+# the client intact. 404.php sets the status itself and prints the same
+# branded page, so Apache's error machinery is never entered and there is
+# nothing left to intercept.
+ErrorDocument 404 /404.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On

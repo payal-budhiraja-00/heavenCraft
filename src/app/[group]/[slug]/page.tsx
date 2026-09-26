@@ -7,6 +7,7 @@ import {
   VariantFeatures,
   VariantGallery,
   VariantMaterialsRow,
+  VariantSpecRows,
   VariantPrice,
   VariantProvider,
 } from "@/components/variant-picker";
@@ -309,7 +310,10 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     reactive sections so the other products keep their features on the server
     instead of shipping a second copy into the client payload.
   */
-  const perFinish = product.variants.some((v) => v.features?.length);
+  const perFinish = product.variants.some(
+    (v) => v.features?.length || v.specifications?.length,
+  );
+  const perFinishSpecs = product.variants.some((v) => v.specifications?.length);
 
   return (
     <>
@@ -331,6 +335,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               ? {
                   features: variant.features ?? [],
                   materials: variant.materials ?? [],
+                  specifications: variant.specifications ?? [],
                 }
               : {}),
           }))}
@@ -405,6 +410,11 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               perFinish ? (
                 <div className="mt-10 border-t border-edge pt-8">
                   <Label>Specifications</Label>
+                  {perFinishSpecs ? (
+                    <p className="mt-2 text-xs text-cream-faint">
+                      Measured for the finish selected above.
+                    </p>
+                  ) : null}
                   <dl className="mt-4 divide-y divide-edge">
                     {product.specifications.map((spec) => (
                       <SpecRow
@@ -413,6 +423,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                         value={spec.value}
                       />
                     ))}
+                    {perFinishSpecs ? <VariantSpecRows /> : null}
                     {perFinish ? (
                       <VariantMaterialsRow />
                     ) : product.materials.length ? (

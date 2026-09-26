@@ -47,6 +47,7 @@ const present = new Set(files.map(toUrl));
 for (const required of [
   "/index.html",
   "/404.html",
+  "/404.php",
   "/sitemap.xml",
   "/robots.txt",
   "/.htaccess",
@@ -224,6 +225,24 @@ const errorDoc = htaccess.match(/ErrorDocument\s+404\s+(\S+)/)?.[1];
 if (!errorDoc) fail("no ErrorDocument 404 in .htaccess");
 else if (!present.has(errorDoc)) {
   fail(`ErrorDocument points at ${errorDoc}, which does not exist`);
+}
+
+/*
+  The shim is what actually produces the 404 on this host -- the platform
+  ignores ErrorDocument pointed at a static file -- and it works by setting
+  the status itself and printing the branded page. Two ways it could quietly
+  stop doing that: losing the status call, leaving a soft 200 that tells
+  Google a dead URL is a real page; or losing the reference to 404.html,
+  leaving visitors the bare fallback markup instead of the real page. Neither
+  breaks the build, and neither is visible without asking for a URL that does
+  not exist, so assert both here.
+*/
+const shim = readFileSync(join(OUT, "404.php"), "utf8");
+if (!/http_response_code\(404\)/.test(shim)) {
+  fail("404.php does not set a 404 status, so dead URLs would answer 200");
+}
+if (!shim.includes("404.html")) {
+  fail("404.php no longer reads 404.html, so the branded page is not served");
 }
 
 // TLS terminates at Cloudflare, so %{HTTPS} is "off" at this origin even for

@@ -46,6 +46,18 @@ export type Variant = {
   features?: Feature[];
   /** Per-finish material claims. Present under the same condition as `features`. */
   materials?: string[];
+  /**
+   * Per-finish dimensions. Present where the supplier printed a separate
+   * measured sheet per finish, which happens when the "colours" are really
+   * different products sold under one listing.
+   *
+   * The footrest is the case this exists for: the black one is an adjustable
+   * plastic wedge at 17 in wide rising to 7.5 in, the wooden and marble ones
+   * are fixed boards at 18 in wide rising to 5 in. Merging those gave one
+   * table of ten rows that described neither, with each row prefixed by which
+   * product it applied to.
+   */
+  specifications?: Specification[];
 };
 
 /**
