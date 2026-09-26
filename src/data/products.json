@@ -199,7 +199,7 @@
     "specifications": [
       {
         "label": "Adjustable Table Thickness",
-        "value": "0 – 2.5 in"
+        "value": "1.5 – 5 cm (approx. 0.6 – 2 in)"
       },
       {
         "label": "Outer Diameter",
@@ -212,14 +212,6 @@
       {
         "label": "Height",
         "value": "3.5 in"
-      },
-      {
-        "label": "Desk thickness",
-        "value": "1.5 – 5 cm"
-      },
-      {
-        "label": "Compatible diameter",
-        "value": "up to 8.5 cm diameter"
       }
     ],
     "inTheBox": [],
@@ -511,6 +503,28 @@
         "materials": [
           "Textured bumps",
           "Massage rollers"
+        ],
+        "specifications": [
+          {
+            "label": "Width",
+            "value": "17 in"
+          },
+          {
+            "label": "Depth",
+            "value": "12 in"
+          },
+          {
+            "label": "Front height",
+            "value": "7.5 in"
+          },
+          {
+            "label": "Rear height",
+            "value": "3 in"
+          },
+          {
+            "label": "Height range",
+            "value": "3 in – 7.5 in (front to rear slope)"
+          }
         ]
       },
       {
@@ -566,6 +580,28 @@
         "materials": [
           "Premium wooden build",
           "Modern wooden finish"
+        ],
+        "specifications": [
+          {
+            "label": "Width",
+            "value": "18 in"
+          },
+          {
+            "label": "Depth",
+            "value": "12 in"
+          },
+          {
+            "label": "Front height",
+            "value": "5 in"
+          },
+          {
+            "label": "Rear height",
+            "value": "3 in"
+          },
+          {
+            "label": "Height range",
+            "value": "3 in – 5 in (front to rear slope)"
+          }
         ]
       },
       {
@@ -621,6 +657,28 @@
         "materials": [
           "Premium wooden build",
           "Marble-look finish"
+        ],
+        "specifications": [
+          {
+            "label": "Width",
+            "value": "18 in"
+          },
+          {
+            "label": "Depth",
+            "value": "12 in"
+          },
+          {
+            "label": "Front height",
+            "value": "5 in"
+          },
+          {
+            "label": "Rear height",
+            "value": "3 in"
+          },
+          {
+            "label": "Height range",
+            "value": "3 in – 5 in (front to rear slope)"
+          }
         ]
       }
     ],
@@ -644,48 +702,7 @@
         "verified": true
       }
     ],
-    "specifications": [
-      {
-        "label": "Adjustable Footrest Width",
-        "value": "17 in"
-      },
-      {
-        "label": "Adjustable Footrest Depth",
-        "value": "12 in"
-      },
-      {
-        "label": "Adjustable Footrest Front Height",
-        "value": "7.5 in"
-      },
-      {
-        "label": "Adjustable Footrest Rear Height",
-        "value": "3 in"
-      },
-      {
-        "label": "Adjustable Footrest Height",
-        "value": "3 in – 7.5 in (Front to Rear Slope)"
-      },
-      {
-        "label": "Wooden Footrest Width",
-        "value": "18 in"
-      },
-      {
-        "label": "Wooden Footrest Depth",
-        "value": "12 in"
-      },
-      {
-        "label": "Wooden Footrest Front Height",
-        "value": "5 in"
-      },
-      {
-        "label": "Wooden Footrest Rear Height",
-        "value": "3 in"
-      },
-      {
-        "label": "Wooden Footrest Height",
-        "value": "3 in - 5 in (Front to Rear Slope)"
-      }
-    ],
+    "specifications": [],
     "inTheBox": [],
     "materials": []
   },

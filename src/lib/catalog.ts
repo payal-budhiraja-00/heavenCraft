@@ -18,6 +18,7 @@ import type {
   GroupSlug,
   Product,
   Review,
+  Specification,
   SubCategory,
   Variant,
 } from "./catalog-types";
@@ -41,6 +42,7 @@ type RawVariant = {
   images: string[];
   inStock?: boolean;
   features?: { title: string; detail?: string }[];
+  specifications?: { label: string; value: string }[];
   materials?: string[];
 };
 
@@ -214,6 +216,12 @@ function toLines(raw: string[]): string[] {
   return raw.map((s) => s.trim()).filter(Boolean);
 }
 
+function toSpecs(raw: { label: string; value: string }[]): Specification[] {
+  return raw
+    .map((s) => ({ label: s.label.trim(), value: s.value.trim() }))
+    .filter((s) => s.label !== "" && s.value !== "");
+}
+
 function build(): { groups: Group[]; products: Product[] } {
   const rows = raw as RawProduct[];
   const products: Product[] = [];
@@ -257,6 +265,7 @@ function build(): { groups: Group[]; products: Product[] } {
     const variants: Variant[] = rawVariants.map((v) => {
       const features = toFeatures(v.features ?? []);
       const materials = toLines(v.materials ?? []);
+      const specifications = toSpecs(v.specifications ?? []);
 
       return {
         id: v.id,
@@ -266,6 +275,7 @@ function build(): { groups: Group[]; products: Product[] } {
         images: v.images ?? [],
         inStock: v.inStock !== false,
         ...(features.length ? { features } : {}),
+        ...(specifications.length ? { specifications } : {}),
         ...(materials.length ? { materials } : {}),
       };
     });
@@ -308,9 +318,7 @@ function build(): { groups: Group[]; products: Product[] } {
       shortName: (row.shortName ?? name).trim(),
       description: row.description.trim(),
       features: toFeatures(row.features ?? []),
-      specifications: (row.specifications ?? [])
-        .map((s) => ({ label: s.label.trim(), value: s.value.trim() }))
-        .filter((s) => s.label !== "" && s.value !== ""),
+      specifications: toSpecs(row.specifications ?? []),
       materials: toLines(row.materials ?? []),
       inTheBox: toLines(row.inTheBox ?? []),
       groupSlug,

@@ -88,8 +88,24 @@ function bodyHtml(product: Product): string {
       )
       .join("");
 
+  const specTable = (
+    rows: { label: string; value: string }[],
+    materials: string[],
+  ): string => {
+    const cells = rows
+      .map(
+        (spec) =>
+          `<tr><td>${escapeHtml(spec.label)}</td><td>${escapeHtml(spec.value)}</td></tr>`,
+      )
+      .join("");
+    const materialsRow = materials.length
+      ? `<tr><td>Materials &amp; finish</td><td>${escapeHtml(materials.join(" · "))}</td></tr>`
+      : "";
+    return `<table>${cells}${materialsRow}</table>`;
+  };
+
   const perFinish = product.variants.filter(
-    (v) => v.features?.length || v.materials?.length,
+    (v) => v.features?.length || v.materials?.length || v.specifications?.length,
   );
 
   /*
@@ -114,7 +130,17 @@ function bodyHtml(product: Product): string {
     if (variant.features?.length) {
       section.push(`<ul>${featureList(variant.features)}</ul>`);
     }
-    if (variant.materials?.length) {
+    /*
+      Dimensions go inside the finish section, not the shared table below,
+      wherever the supplier measured each finish separately -- a footrest that
+      is 17 in wide in black and 18 in wide in wood has no shared number to
+      put in a common table.
+    */
+    if (variant.specifications?.length) {
+      section.push(
+        specTable(variant.specifications, variant.materials ?? []),
+      );
+    } else if (variant.materials?.length) {
       section.push(
         `<p><strong>Materials &amp; finish:</strong> ${escapeHtml(variant.materials.join(" · "))}</p>`,
       );
@@ -123,16 +149,9 @@ function bodyHtml(product: Product): string {
   }
 
   if (product.specifications.length || product.materials.length) {
-    const rows = product.specifications
-      .map(
-        (spec) =>
-          `<tr><td>${escapeHtml(spec.label)}</td><td>${escapeHtml(spec.value)}</td></tr>`,
-      )
-      .join("");
-    const materials = product.materials.length
-      ? `<tr><td>Materials &amp; finish</td><td>${escapeHtml(product.materials.join(" · "))}</td></tr>`
-      : "";
-    parts.push(`<h3>Specifications</h3><table>${rows}${materials}</table>`);
+    parts.push(
+      `<h3>Specifications</h3>${specTable(product.specifications, product.materials)}`,
+    );
   }
 
   if (product.inTheBox.length) {
