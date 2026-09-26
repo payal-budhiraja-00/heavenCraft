@@ -35,7 +35,7 @@ export default function AboutPage() {
           <p>
             Most furniture is sold on how it looks in a photograph. That is a
             reasonable way to buy a sofa and a poor way to buy something you
-            will sit in for eight hours a day. A chair that cannot be adjusted
+            will sit in for twelve hours a day. A chair that cannot be adjusted
             to your body fits you by accident, and a desk at the wrong height
             costs you something every day you use it.
           </p>

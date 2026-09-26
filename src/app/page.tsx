@@ -104,7 +104,7 @@ export default function HomePage() {
                 <h1 className="type-wide mt-5 text-display-1 font-bold text-cream">
                   Built for the{" "}
                   <br />
-                  <span className="text-gold">eight-hour</span> day.
+                  <span className="text-gold">twelve-hour</span> day.
                 </h1>
 
                 <p className="mt-7 max-w-md text-reading text-cream-muted">
@@ -117,6 +117,9 @@ export default function HomePage() {
                   <ButtonLink href="/chairs/">Shop chairs</ButtonLink>
                   <ButtonLink href="/tables/height-adjustable-table/" variant="secondary">
                     Height-adjustable desks
+                  </ButtonLink>
+                  <ButtonLink href="/accessories/" variant="secondary">
+                    Accessories
                   </ButtonLink>
                 </div>
 
