@@ -6,13 +6,13 @@
  * Shopify holds the cart; this holds the ID of it and whatever the last call
  * returned. Nothing about pricing, availability or totals is decided here.
  *
- * ## Nothing happens until the preview gate opens
+ * ## Nothing happens unless commerce is built in
  *
- * While the gate is closed this provider makes no network calls, reads no
- * storage beyond the gate key itself, and renders its children untouched.
- * That is the point: until the store has a payment provider and its policies,
- * an ordinary visitor should not be able to tell the cart exists, and should
- * certainly not be generating traffic against it.
+ * `features.commerce` is resolved at build time and baked into the HTML, so
+ * when it is off this provider makes no network calls, touches no storage and
+ * renders its children untouched. There is no second, client-side gate: the
+ * cart is now open to every visitor, and a `?cart=on` opt-in that everybody
+ * passes is just a way to render the first paint wrong.
  *
  * ## Why mutations are serialised
  *
@@ -31,16 +31,10 @@ import {
   useMemo,
   useRef,
   useState,
-  useSyncExternalStore,
 } from "react";
 import type { Cart, VariantId } from "@/lib/commerce";
 import { shopifyCommerce } from "@/lib/commerce";
-import {
-  getPreviewServerSnapshot,
-  getPreviewSnapshot,
-  persistPreviewFromUrl,
-  subscribePreview,
-} from "@/lib/commerce-preview";
+import { features } from "@/lib/features";
 
 const CART_ID_KEY = "hc.cart.id";
 
@@ -62,8 +56,6 @@ function writeCartId(id: string | null): void {
 }
 
 export type CartContextValue = {
-  /** Whether the cart UI may render at all in this browser. */
-  previewEnabled: boolean;
   cart: Cart | null;
   /** A mutation is in flight. Buttons disable on this rather than optimistically
    *  updating: Shopify owns the totals, and guessing them then correcting is
@@ -87,18 +79,6 @@ export function useCart(): CartContextValue {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  /*
-   * Subscribed rather than held in state. The static HTML was built with the
-   * gate shut, so `getPreviewServerSnapshot` returns false and hydration
-   * matches by construction; the browser's real answer is adopted straight
-   * after, without the extra render an effect-plus-setState would cost.
-   */
-  const previewEnabled = useSyncExternalStore(
-    subscribePreview,
-    getPreviewSnapshot,
-    getPreviewServerSnapshot,
-  );
-
   const [cart, setCart] = useState<Cart | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -122,12 +102,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    // Remember an explicit ?cart=on/off so the gate survives the next click.
-    persistPreviewFromUrl();
-  }, []);
-
-  useEffect(() => {
-    if (!previewEnabled) return;
+    if (!features.commerce) return;
 
     const stored = readCartId();
     if (!stored) return;
@@ -154,7 +129,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [previewEnabled, commit]);
+  }, [commit]);
 
   const run = useCallback(
     async (task: () => Promise<Cart | null>) => {
@@ -228,7 +203,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<CartContextValue>(
     () => ({
-      previewEnabled,
       cart,
       busy,
       error,
@@ -239,7 +213,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       remove,
       dismissError,
     }),
-    [previewEnabled, cart, busy, error, open, add, setQuantity, remove, dismissError],
+    [cart, busy, error, open, add, setQuantity, remove, dismissError],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

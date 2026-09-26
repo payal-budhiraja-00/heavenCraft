@@ -58,7 +58,7 @@ export function promoMessages(): string[] {
   }
 
   messages.push(
-    `${TERMS.returnDays}-day returns, return shipping on us`,
+    `${TERMS.warrantyMonths / 12}-year warranty on everything`,
   );
 
   return messages;

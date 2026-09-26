@@ -22,7 +22,13 @@ import {
   SpecRow,
   type Crumb,
 } from "@/components/ui";
-import { getGroup, getProduct, getSubCategory, groups } from "@/lib/catalog";
+import {
+  byPriceAscending,
+  getGroup,
+  getProduct,
+  getSubCategory,
+  groups,
+} from "@/lib/catalog";
 import { offerForSku } from "@/lib/commerce";
 import type { Group, Product, SubCategory } from "@/lib/catalog-types";
 import { priceRange } from "@/lib/catalog-types";
@@ -30,7 +36,7 @@ import { features } from "@/lib/features";
 import { encodeImagePath, imageAlt } from "@/lib/images";
 import { composeDescription, pageMetadata } from "@/lib/seo";
 import { formatPaise, paiseToPriceString } from "@/lib/money";
-import { SITE, TERMS, absoluteUrl } from "@/lib/site";
+import { SITE, TERMS, absoluteUrl, includesAssembly } from "@/lib/site";
 
 type Params = { group: string; slug: string };
 
@@ -160,6 +166,7 @@ export default async function GroupSlugPage({
 
 function SubCategoryView({ group, sub }: { group: Group; sub: SubCategory }) {
   const range = priceRange(sub.products);
+  const listed = [...sub.products].sort(byPriceAscending);
   const siblings = group.subCategories.filter((s) => s.slug !== sub.slug);
 
   const schema = {
@@ -212,7 +219,7 @@ function SubCategoryView({ group, sub }: { group: Group; sub: SubCategory }) {
       </Container>
 
       <Container className="py-14">
-        <ProductGrid products={sub.products} priorityCount={4} />
+        <ProductGrid products={listed} priorityCount={4} />
 
         {siblings.length ? (
           <div className="mt-20 border-t border-edge pt-12">
@@ -273,7 +280,15 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     (p) => p.subSlug !== product.subSlug && p.id !== product.id,
   );
   const relatedAreSiblings = sameSub.length > 0;
-  const related = (relatedAreSiblings ? sameSub : wider).slice(0, 4);
+  /*
+   * Sorted after the slice, not before. Sorting the pool first would make the
+   * rail always offer the four cheapest alternatives, which is a different
+   * decision from the one being made here -- the four are chosen for
+   * relevance, and only then put in a sensible reading order.
+   */
+  const related = (relatedAreSiblings ? sameSub : wider)
+    .slice(0, 4)
+    .sort(byPriceAscending);
 
   const trail: Crumb[] = [
     { label: "Home", href: "/" },
@@ -333,13 +348,21 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     },
   };
 
+  /*
+   * `MerchantReturnPolicy` describes the discretionary, change-of-mind return
+   * window. It is not the place a buyer's statutory remedy for faulty goods is
+   * expressed, and we offer the second without the first -- so the honest
+   * category is `MerchantReturnNotPermitted`.
+   *
+   * `returnMethod` and `returnFees` are dropped with it: they only carry
+   * meaning where returns are permitted, and leaving a finite window here
+   * would put "free 7-day returns" back into the rich result, which is the
+   * exact claim the storefront no longer makes.
+   */
   const returnPolicy = {
     "@type": "MerchantReturnPolicy",
     applicableCountry: "IN",
-    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-    merchantReturnDays: TERMS.returnDays,
-    returnMethod: "https://schema.org/ReturnByMail",
-    returnFees: "https://schema.org/FreeReturn",
+    returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
   };
 
   const offers = product.variants.map((variant) => {
@@ -525,11 +548,15 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
 
               {/*
                 The terms that answer the objections, in the one place the
-                decision is made. All four were true already and all four were
-                buried in policy pages nobody opens: a two-year warranty, a
-                return window where we pay the courier, assembly included, and
-                cash on delivery. For a first purchase from an unknown brand
-                these do more work than another paragraph of description.
+                decision is made — a two-year warranty, a free replacement if
+                it arrives broken, cash on delivery, and a showroom. Each was
+                true already and each was buried in a policy page nobody
+                opens. For a first purchase from an unknown brand these do
+                more work than another paragraph of description.
+
+                Assembly is listed only where it is offered. A trust row that
+                promises something this product does not come with damages
+                the other five lines along with it.
               */}
               <ul className="mt-7 grid gap-x-6 gap-y-3 border-t border-edge pt-6 text-sm text-cream-muted sm:grid-cols-2">
                 <li>
@@ -540,14 +567,16 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                 </li>
                 <li>
                   <span className="text-cream">
-                    {TERMS.returnDays}-day returns
+                    Damaged on arrival, replaced free
                   </span>{" "}
-                  — we pay the return shipping
+                  — we pay the freight
                 </li>
-                <li>
-                  <span className="text-cream">Free assembly</span> at your
-                  address
-                </li>
+                {includesAssembly(product.groupSlug) ? (
+                  <li>
+                    <span className="text-cream">Free assembly</span> at your
+                    address
+                  </li>
+                ) : null}
                 <li>
                   <span className="text-cream">Cash on delivery</span>{" "}
                   available, no extra fee

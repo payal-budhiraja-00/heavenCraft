@@ -97,7 +97,7 @@ export default function ContactPage() {
               <dd className="mt-1.5 text-sm text-cream-muted">
                 Across India, typically {TERMS.deliveryDaysMin}–
                 {TERMS.deliveryDaysMax} working days. Cash on delivery is
-                available, and assembly at your address is included.
+                available, and assembly at your address is included on tables.
               </dd>
             </div>
           </dl>

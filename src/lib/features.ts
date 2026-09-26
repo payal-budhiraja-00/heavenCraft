@@ -22,6 +22,9 @@ export const features = {
    * Turning this on requires a Shopify store with every product present as a
    * Product + ProductVariant, because the Cart API is variant-bound. Until
    * those variant IDs exist there is nothing for an add-to-cart button to add.
+   *
+   * On in CI and in the deploy workflow, so this is the whole gate: there is
+   * no longer a second client-side switch deciding who may see the basket.
    */
   commerce: flag(process.env.NEXT_PUBLIC_COMMERCE_ENABLED),
 

@@ -452,3 +452,23 @@ export function getProduct(
 export function legacyRedirects(): { from: string; to: string }[] {
   return allProducts.map((p) => ({ from: `/product/${p.id}`, to: p.href }));
 }
+
+/**
+ * Cheapest first, for the listing grids.
+ *
+ * Sorts on `pricePaise`, which is the lowest variant price, so a product is
+ * ordered by the same "from" figure its card prints — sorting on anything
+ * else would produce a grid whose visible numbers do not ascend. Equal prices
+ * fall back to the name so the order is total and stable: an arbitrary
+ * tie-break would reshuffle a listing between builds and invalidate the
+ * cached HTML for no reason.
+ *
+ * Applied at the grids rather than inside `build()`, deliberately. Position
+ * in `group.products` carries meaning elsewhere — the category hero is the
+ * first product with a usable image, and the related-products rail takes the
+ * first four — so sorting at the source would quietly change which product
+ * fronts a category and which four are offered as alternatives.
+ */
+export function byPriceAscending(a: Product, b: Product): number {
+  return a.pricePaise - b.pricePaise || a.name.localeCompare(b.name, "en");
+}

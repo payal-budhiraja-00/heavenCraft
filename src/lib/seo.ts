@@ -26,13 +26,18 @@ export const DEFAULT_OG_IMAGE = "/og/default.jpg";
 /**
  * The clause every listing description ends with, budget permitting.
  *
- * These four facts are the ones that answer the objection a first-time buyer
- * of a ₹15,000 chair from an unfamiliar brand actually has, and none of them
- * were visible anywhere a search engine could read. Kept short because a meta
+ * These are the facts that answer the objection a first-time buyer of a
+ * ₹15,000 chair from an unfamiliar brand actually has, and none of them were
+ * visible anywhere a search engine could read. Kept short because a meta
  * description is truncated around 160 characters and the product-specific
  * half matters more than this half.
+ *
+ * Both claims have to hold for every page this is appended to, which is all
+ * of them. Free assembly used to sit here and no longer can: it is included
+ * on tables only, and a site-wide suffix cannot state a category-scoped
+ * offer without promising it on the chairs too.
  */
-export const TRUST_SUFFIX = "2-year warranty and free assembly.";
+export const TRUST_SUFFIX = "2-year warranty and cash on delivery.";
 
 /**
  * Joins a page-specific description to a fixed tail without overrunning the

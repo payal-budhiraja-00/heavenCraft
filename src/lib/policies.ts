@@ -9,9 +9,13 @@ import { SITE, TERMS } from "./site";
  * back to an answer the business gave, and the places still waiting on one
  * are marked NEEDS-FACT and say "confirmed per order" rather than guessing.
  *
- * Confirmed: 3-5 working day delivery, 7-day returns with return freight on
- * us, a 24-month warranty across all three categories, cash on delivery at no
- * extra charge, and free assembly at the customer's address.
+ * Confirmed: 3-5 working day delivery, a 24-month warranty across all three
+ * categories, cash on delivery at no extra charge, returns for anything that
+ * arrives damaged, faulty or wrong, and free assembly on tables.
+ *
+ * Deliberately not claimed: change-of-mind returns, and free assembly on
+ * chairs or accessories. Both were published here before the business
+ * confirmed them and neither turned out to be the offer.
  *
  * Still outstanding: GSTIN, courier partners, the free-shipping threshold and
  * the rate below it. Shopify requires refund, privacy, terms and shipping
@@ -52,7 +56,8 @@ export const POLICIES: Policy[] = [
       {
         heading: "Assembly",
         body: [
-          "Assembly at your address is included, at no charge. Most items need it, and a chair assembled wrongly is a chair that fails early — so this is not an upsell we withhold.",
+          "Assembly at your address is included on tables, at no charge. A desk is the item where a bad job shows up months later as a work surface that will not sit still, so we would rather do it ourselves.",
+          "Chairs and accessories arrive flat-packed for self-assembly, with the tools and instructions in the carton. Most chairs take about half an hour. If you would rather not, ask us and we will quote it.",
         ],
       },
       {
@@ -89,20 +94,23 @@ export const POLICIES: Policy[] = [
     slug: "returns",
     title: "Returns & refunds",
     summary:
-      "When a product can be returned, how to start a return, and how refunds are paid.",
+      "What we take back, what we do not, and how refunds are paid.",
     sections: [
       {
         heading: "What can be returned",
         body: [
-          `You have ${TERMS.returnDays} days from delivery to return a product. Anything that arrives damaged, faulty, or is not what you ordered can be returned within that window, and so can a change of mind.`,
-          "We pay the return freight. Return shipping on furniture is expensive, and making the customer carry it is how a returns policy becomes one nobody can actually use.",
+          `If a product arrives damaged, faulty, or is not what you ordered, tell us within ${TERMS.faultReportHours} hours of delivery and we will collect it and either replace it or refund you in full. We pay the freight both ways — a fault at our end is not something you should be out of pocket for.`,
+          `A fault that shows up later is a warranty matter rather than a return, and every product is covered for ${TERMS.warrantyMonths / 12} years. See the warranty policy.`,
         ],
       },
       {
         heading: "What cannot be returned",
         body: [
-          "Items that have been modified, or used beyond what is needed to check fit and function. Assembly by our own team does not count against you.",
+          "We do not accept change-of-mind returns. Return freight on furniture runs to a large share of what the item cost, and a policy we could not afford to honour is worse than one we never advertised.",
+          `That is why we would rather you sat in the chair first, and why we will go through fit, dimensions and the right size for you on WhatsApp before you order. The Hari Nagar showroom is open: ${SITE.hoursSummary}.`,
+          "Items that have been modified, or used beyond what is needed to check fit and function.",
           "Made-to-order and custom-specified items, which are built after the order is placed.",
+          "None of this affects your rights under Indian consumer law where goods are faulty or not as described.",
         ],
       },
       {

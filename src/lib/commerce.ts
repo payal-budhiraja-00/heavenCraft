@@ -199,11 +199,8 @@ export function variantIdForSku(sku: string): VariantId | undefined {
 
 /**
  * Whether this variant can be added to a cart at all. Requires both the build
- * flag and a real variant ID -- the flag alone is not enough.
- *
- * This is not the whole story at runtime: the preview gate in
- * `commerce-preview.ts` decides whether the cart is *visible* to a given
- * browser. Both must be true before an add-to-cart button renders.
+ * flag and a real variant ID -- the flag alone is not enough, because a
+ * product missing from Shopify has nothing for the Cart API to add.
  */
 export function isPurchasableSku(sku: string): boolean {
   return features.commerce && variantIdForSku(sku) !== undefined;

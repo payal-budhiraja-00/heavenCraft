@@ -3,8 +3,8 @@
 /**
  * The basket: a trigger for the header and the slide-over panel it opens.
  *
- * Both render `null` when the preview gate is closed, so an ordinary visitor
- * gets exactly the header and page they got before Phase 4 existed.
+ * Both render `null` when `features.commerce` is off, so a build without
+ * commerce gets exactly the header and page it had before Phase 4 existed.
  *
  * Thumbnails are plain `<img>` rather than `next/image`. This site runs a
  * custom image loader pointed at its own pre-built WebP derivatives, and
@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
 import { useCart } from "./cart-provider";
 import { formatPaise } from "@/lib/money";
-import { PREVIEW_PARAM } from "@/lib/commerce-preview";
+import { features } from "@/lib/features";
 
 /** Ask Shopify's CDN for a thumbnail instead of the full-size original. */
 function thumb(url: string, width: number): string {
@@ -26,8 +26,8 @@ function thumb(url: string, width: number): string {
 }
 
 export function CartButton() {
-  const { previewEnabled, cart, setOpen } = useCart();
-  if (!previewEnabled) return null;
+  const { cart, setOpen } = useCart();
+  if (!features.commerce) return null;
 
   const count = cart?.totalQuantity ?? 0;
 
@@ -51,7 +51,6 @@ export function CartButton() {
 
 export function CartDrawer() {
   const {
-    previewEnabled,
     cart,
     busy,
     error,
@@ -145,7 +144,7 @@ export function CartDrawer() {
     };
   }, [open, close]);
 
-  if (!previewEnabled || !open) return null;
+  if (!features.commerce || !open) return null;
 
   const lines = cart?.lines ?? [];
 
@@ -188,14 +187,6 @@ export function CartDrawer() {
           >
             <CloseIcon />
           </button>
-        </div>
-
-        <div className="border-b border-edge bg-gold-wash px-6 py-3">
-          <p className="text-xs leading-relaxed text-cream-muted">
-            <span className="label text-gold">Preview</span> — visible only in
-            this browser. Add <code className="text-cream">?{PREVIEW_PARAM}=off</code>{" "}
-            to any page to switch it back off.
-          </p>
         </div>
 
         {error ? (

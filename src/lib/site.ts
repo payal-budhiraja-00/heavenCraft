@@ -81,17 +81,52 @@ export const SITE = {
 export const TERMS = {
   /** Same cover across chairs, tables and accessories. */
   warrantyMonths: 24,
-  returnDays: 7,
-  /** We pay return shipping. Unusually generous, and worth saying plainly. */
+
+  /*
+   * Returns cover what arrived wrong -- damaged, faulty, or not the item
+   * ordered -- and not a change of mind.
+   *
+   * Return freight on furniture is a large fraction of the item's value, so a
+   * change-of-mind window is a promise this business would have to break or
+   * lose money honouring. An unadvertised return handled generously case by
+   * case is better than a published one that gets argued about.
+   *
+   * This does not touch the statutory position: nothing here limits a buyer's
+   * rights under Indian consumer law for goods that are faulty or misdescribed.
+   */
+  acceptsChangeOfMindReturns: false,
+  /** Hours from delivery to report damage, a fault, or a wrong item. */
+  faultReportHours: 48,
+  /** On a return that is our fault, the freight is ours too. */
   returnShippingPaidBy: "merchant",
+
   deliveryDaysMin: 3,
   deliveryDaysMax: 5,
   codAvailable: true,
   codFee: 0,
-  /** Assembly at the customer's address, included. */
-  installation: "free",
+
+  /*
+   * Assembly at the customer's address, included on tables only.
+   *
+   * A desk is the item where assembly is genuinely awkward and where a bad
+   * job shows up as a wobbling work surface months later. Chairs and
+   * accessories ship flat-packed with the tools in the carton.
+   *
+   * Scoped as a list rather than a boolean because the claim is made in five
+   * places, and five independently-edited strings is how a storefront ends up
+   * promising something on one page and denying it on another.
+   */
+  installationIncludedFor: ["tables"],
+
   bulkMinimumUnits: 10,
 } as const;
+
+/** Whether assembly at the customer's address is included for a category. */
+export function includesAssembly(groupSlug: string): boolean {
+  return (TERMS.installationIncludedFor as readonly string[]).includes(
+    groupSlug,
+  );
+}
 
 /** The digits-only WhatsApp link, with an optional opening message. */
 export function whatsappUrl(message?: string): string {

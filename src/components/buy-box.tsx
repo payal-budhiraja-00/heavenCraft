@@ -32,11 +32,11 @@ export type BuyBoxProps = {
 };
 
 export function BuyBox(props: BuyBoxProps) {
-  const { previewEnabled, open } = useCart();
+  const { open } = useCart();
   const { selected } = useVariant();
 
   const variantId = features.commerce ? variantIdForSku(selected.sku) : undefined;
-  const sellable = previewEnabled && variantId ? variantId : null;
+  const sellable = variantId ?? null;
 
   const region = useRef<HTMLDivElement>(null);
   const scrolledPast = useScrolledPast(region);

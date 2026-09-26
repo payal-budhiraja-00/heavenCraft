@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/product-card";
 import { Breadcrumbs, Container, Label } from "@/components/ui";
-import { getGroup, groups } from "@/lib/catalog";
+import { byPriceAscending, getGroup, groups } from "@/lib/catalog";
 import { priceRange } from "@/lib/catalog-types";
 import { encodeImagePath, featureImage, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
@@ -85,6 +85,7 @@ export default async function GroupPage({
   const range = priceRange(group.products);
   const lead = group.products.find((p) => featureImage(p));
   const heroSrc = lead ? featureImage(lead) : undefined;
+  const listed = [...group.products].sort(byPriceAscending);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -158,7 +159,7 @@ export default async function GroupPage({
         </ul>
 
         <div className="mt-14">
-          <ProductGrid products={group.products} priorityCount={4} />
+          <ProductGrid products={listed} priorityCount={4} />
         </div>
       </Container>
 
