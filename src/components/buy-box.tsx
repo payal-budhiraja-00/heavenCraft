@@ -15,12 +15,13 @@
  * list is already paid for once by the provider.
  */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "./ui";
 import { useCart } from "./cart-provider";
 import { useVariant } from "./variant-picker";
 import { enquiryMailto, variantIdForSku, type VariantId } from "@/lib/commerce";
 import { features } from "@/lib/features";
+import { formatPaise } from "@/lib/money";
 import { SITE, whatsappUrl } from "@/lib/site";
 
 export type BuyBoxProps = {
@@ -31,16 +32,143 @@ export type BuyBoxProps = {
 };
 
 export function BuyBox(props: BuyBoxProps) {
-  const { previewEnabled } = useCart();
+  const { previewEnabled, open } = useCart();
   const { selected } = useVariant();
 
   const variantId = features.commerce ? variantIdForSku(selected.sku) : undefined;
+  const sellable = previewEnabled && variantId ? variantId : null;
 
-  if (previewEnabled && variantId) {
-    return <AddToBasket {...props} variantId={variantId} />;
-  }
+  const region = useRef<HTMLDivElement>(null);
+  const scrolledPast = useScrolledPast(region);
 
-  return <Enquiry {...props} />;
+  return (
+    <>
+      <div ref={region}>
+        {sellable ? (
+          <AddToBasket {...props} variantId={sellable} />
+        ) : (
+          <Enquiry {...props} />
+        )}
+      </div>
+
+      {/*
+        The bar is rendered from here, and takes the same branch as the box
+        above it, so the two can never offer different things. Suppressed
+        while the basket drawer is open, where it would sit under the overlay
+        competing with the drawer's own checkout button.
+      */}
+      <StickyBuyBar
+        productName={props.productName}
+        pageUrl={props.pageUrl}
+        show={scrolledPast && !open}
+        variantId={sellable}
+      />
+    </>
+  );
+}
+
+/**
+ * Whether an element has been scrolled up out of the viewport.
+ *
+ * Deliberately not "is off screen": an element still below the fold has also
+ * never been seen, and showing the bar then would put a second, identical
+ * call to action directly under the real one.
+ */
+function useScrolledPast(ref: React.RefObject<HTMLElement | null>) {
+  const [past, setPast] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        setPast(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref]);
+
+  return past;
+}
+
+/**
+ * Price and one action, pinned to the bottom of a phone screen.
+ *
+ * A product page here is about seven screens tall and opens on a large
+ * photograph, so the name, the price and the way to buy all start below the
+ * fold -- a visitor reading the specifications has to scroll back up to find
+ * out what it costs or how to ask. Phone only: from `lg` the buy box sits
+ * beside the gallery and is never out of sight.
+ */
+function StickyBuyBar({
+  productName,
+  pageUrl,
+  show,
+  variantId,
+}: Omit<BuyBoxProps, "email"> & {
+  show: boolean;
+  variantId: VariantId | null;
+}) {
+  const { add, busy } = useCart();
+  const { selected, hasChoice } = useVariant();
+
+  const enquiry = `Hi ${SITE.name}, I'd like a price for the ${productName}${
+    hasChoice ? ` in ${selected.colour}` : ""
+  } (${selected.sku}). ${pageUrl}`;
+
+  return (
+    <div
+      /*
+        Kept mounted and moved out of the way rather than unmounted, so it
+        slides instead of appearing abruptly. `inert` because a translated
+        element is still focusable, and tabbing into an invisible button is
+        worse than not having one.
+      */
+      inert={!show}
+      aria-hidden={!show}
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-edge bg-base/95 backdrop-blur-sm transition-transform duration-300 lg:hidden ${
+        show ? "translate-y-0" : "translate-y-full"
+      }`}
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
+      <div className="flex items-center gap-3 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-xs text-cream-faint">
+            {productName}
+            {hasChoice ? ` · ${selected.colour}` : ""}
+          </p>
+          <p className="tnum text-base font-semibold text-cream">
+            {formatPaise(selected.pricePaise)}
+          </p>
+        </div>
+
+        {variantId ? (
+          <button
+            type="button"
+            onClick={() => add(variantId, 1)}
+            disabled={busy}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-plate bg-gold px-5 text-sm font-semibold text-base transition-colors hover:bg-gold-bright disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {busy ? "Adding…" : "Add to basket"}
+          </button>
+        ) : (
+          <a
+            href={whatsappUrl(enquiry)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-plate bg-gold px-5 text-sm font-semibold text-base transition-colors hover:bg-gold-bright"
+          >
+            Enquire
+          </a>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function AddToBasket({
