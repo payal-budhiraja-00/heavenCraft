@@ -76,6 +76,21 @@ Options -Indexes
 </FilesMatch>
 
 # ---------------------------------------------------------------------------
+# Deploy bookkeeping
+# ---------------------------------------------------------------------------
+# The FTP deploy action leaves .ftp-deploy-sync-state.json in the document
+# root and it was being served, 200, to anyone who asked. It is a complete
+# inventory of the server: every file and directory, with a SHA-256 of each.
+# That hands over the layout of the host, names paths that are not linked
+# from anywhere, and lets an outsider diff two fetches to see exactly what
+# changed in a release. The file has to stay where it is -- the action reads
+# it back over FTP on the next run to work out the delta, and deleting it
+# forces a full resync -- so it is denied over HTTP instead.
+<FilesMatch "^\.ftp-deploy-sync-state\.json$">
+  Require all denied
+</FilesMatch>
+
+# ---------------------------------------------------------------------------
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
 <IfModule mod_rewrite.c>
@@ -274,6 +289,50 @@ Options -Indexes
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# One-time cache purge
+# ---------------------------------------------------------------------------
+# Correcting the cache headers above stopped the damage but could not undo it.
+# Until that fix shipped, the .txt navigation payloads went out with a 30-day
+# max-age, so every browser that visited in the preceding month is still
+# holding payloads it considers fresh -- and a fresh entry is served without
+# asking the server anything, so those visitors never see the corrected
+# headers at all. They keep navigating with a month-old payload that points at
+# chunk files the next deploy deleted, and the page dies asking to be
+# reloaded. Reloading does not help either: the stale entry is still fresh, so
+# the next client-side navigation breaks again.
+#
+# Clear-Site-Data evicts it. "cache" only -- deliberately not "storage", which
+# would take localStorage with it and throw away the visitor's Shopify cart
+# id, and not "cookies", which would take the very cookie that stops this
+# repeating. The cost is one slower page load while the images and fonts come
+# back down.
+#
+# Gated on a cookie so it happens once per browser rather than on every page:
+# the same response that clears the cache sets the marker, and every later
+# request carries it. Cloudflare answers HTML with cf-cache-status DYNAMIC, so
+# these per-visitor headers are never shared between two people.
+#
+# The counter in the cookie name is the lever: bumping it re-purges everyone.
+# Safe to delete this whole block once the last 30-day payload has expired --
+# after that it is pure cost, and the corrected headers hold on their own.
+#
+# Both halves sit inside the mod_setenvif test on purpose. Were the module
+# missing, the gate could never close: "env=!hc_cache_purged" would hold for
+# every request forever, and the site would throw its own cache away on every
+# single page load. Nested, an absent module means the feature is simply not
+# there, which is the safe way for it to fail.
+<IfModule mod_setenvif.c>
+  SetEnvIf Cookie "hc_cache_purge=1" hc_cache_purged
+
+  <IfModule mod_headers.c>
+    <FilesMatch "\.html$">
+      Header always set Clear-Site-Data "\"cache\"" env=!hc_cache_purged
+      Header always set Set-Cookie "hc_cache_purge=1; Path=/; Max-Age=31536000; SameSite=Lax; Secure" env=!hc_cache_purged
+    </FilesMatch>
+  </IfModule>
 </IfModule>
 
 # ---------------------------------------------------------------------------
