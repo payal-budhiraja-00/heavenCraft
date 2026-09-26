@@ -12,6 +12,7 @@ import { encodeImagePath, imageAlt } from "../../src/lib/images";
 import { paiseToPriceString } from "../../src/lib/money";
 import { SITE, absoluteUrl } from "../../src/lib/site";
 import { RENAMED } from "../legacy-redirects";
+import { compareAtFor } from "./pricing";
 
 export type ShopifyImage = {
   src: string;
@@ -33,6 +34,12 @@ export type ShopifyVariant = {
   sku: string;
   colour: string;
   price: string;
+  /**
+   * The printed MRP, shown struck through beside the price. Seeded by
+   * `scripts/shopify/pricing.ts` rather than stored per product, so no one
+   * has to maintain a second price column by hand.
+   */
+  compareAtPrice: string;
   /** This colourway's own photographs, in gallery order. */
   images: ShopifyImage[];
 };
@@ -219,6 +226,10 @@ export function toShopifyProduct(product: Product): ShopifyProduct {
       sku: variant.id,
       colour: variant.colour,
       price: paiseToPriceString(variant.pricePaise),
+      compareAtPrice: paiseToPriceString(
+        compareAtFor(product.id, product.groupSlug, variant.id, variant.pricePaise)
+          .comparePaise,
+      ),
       images: own,
     };
   });

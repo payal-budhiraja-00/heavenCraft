@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { CartProvider } from "@/components/cart-provider";
 import { CartDrawer } from "@/components/cart-drawer";
+import { PromoBanner } from "@/components/promo-banner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { footerGroups, navGroups } from "@/lib/nav";
+import { promoMessages } from "@/lib/promo";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
@@ -154,6 +156,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-IN" className={archivo.variable}>
+      <head>
+        {/*
+          Runs before first paint so a strip dismissed earlier in this session
+          is hidden by CSS rather than removed by React a moment later, which
+          would shove the whole page up as it went. Tiny, synchronous and
+          wrapped because Safari throws on storage access in private mode.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("hc-promo")==="off")document.documentElement.dataset.promo="off"}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-dvh bg-base antialiased">
         <a
           href="#main"
@@ -169,6 +184,7 @@ export default function RootLayout({
           -- no storage, no Shopify calls.
         */}
         <CartProvider>
+          <PromoBanner messages={promoMessages()} />
           <SiteHeader groups={navGroups()} />
           <main id="main">{children}</main>
           <SiteFooter groups={footerGroups()} />

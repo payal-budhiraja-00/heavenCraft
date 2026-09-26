@@ -19,9 +19,9 @@ import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "./ui";
 import { useCart } from "./cart-provider";
 import { useVariant } from "./variant-picker";
+import { Price } from "./price";
 import { enquiryMailto, variantIdForSku, type VariantId } from "@/lib/commerce";
 import { features } from "@/lib/features";
-import { formatPaise } from "@/lib/money";
 import { SITE, whatsappUrl } from "@/lib/site";
 
 export type BuyBoxProps = {
@@ -143,7 +143,11 @@ function StickyBuyBar({
             {hasChoice ? ` · ${selected.colour}` : ""}
           </p>
           <p className="tnum text-base font-semibold text-cream">
-            {formatPaise(selected.pricePaise)}
+            <Price
+              sku={selected.sku}
+              pricePaise={selected.pricePaise}
+              size="bar"
+            />
           </p>
         </div>
 

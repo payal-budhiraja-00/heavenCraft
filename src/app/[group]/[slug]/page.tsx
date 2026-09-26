@@ -23,6 +23,7 @@ import {
   type Crumb,
 } from "@/components/ui";
 import { getGroup, getProduct, getSubCategory, groups } from "@/lib/catalog";
+import { offerForSku } from "@/lib/commerce";
 import type { Group, Product, SubCategory } from "@/lib/catalog-types";
 import { priceRange } from "@/lib/catalog-types";
 import { features } from "@/lib/features";
@@ -341,29 +342,48 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     returnFees: "https://schema.org/FreeReturn",
   };
 
-  const offers = product.variants.map((variant) => ({
-    "@type": "Offer",
-    url: absoluteUrl(product.href),
-    sku: variant.id,
-    ...(product.variants.length > 1 ? { name: variant.colour } : {}),
-    priceCurrency: "INR",
-    price: paiseToPriceString(variant.pricePaise),
-    availability: variant.inStock
-      ? "https://schema.org/InStock"
-      : "https://schema.org/PreOrder",
-    itemCondition: "https://schema.org/NewCondition",
-    seller: { "@type": "Organization", name: SITE.legalName },
-    shippingDetails,
-    hasMerchantReturnPolicy: returnPolicy,
-    warranty: {
-      "@type": "WarrantyPromise",
-      durationOfWarranty: {
-        "@type": "QuantitativeValue",
-        value: TERMS.warrantyMonths,
-        unitCode: "MON",
+  const offers = product.variants.map((variant) => {
+    const offer = offerForSku(variant.id, variant.pricePaise);
+
+    return {
+      "@type": "Offer",
+      url: absoluteUrl(product.href),
+      sku: variant.id,
+      ...(product.variants.length > 1 ? { name: variant.colour } : {}),
+      priceCurrency: "INR",
+      price: paiseToPriceString(variant.pricePaise),
+      /* Declaring the MRP as a ListPrice is what lets a rich result show the
+       * strike-through we show. It is stated only when the page states it, so
+       * the markup can never claim a saving the page does not. */
+      ...(offer
+        ? {
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                priceType: "https://schema.org/ListPrice",
+                priceCurrency: "INR",
+                price: paiseToPriceString(offer.comparePaise),
+              },
+            ],
+          }
+        : {}),
+      availability: variant.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/PreOrder",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: { "@type": "Organization", name: SITE.legalName },
+      shippingDetails,
+      hasMerchantReturnPolicy: returnPolicy,
+      warranty: {
+        "@type": "WarrantyPromise",
+        durationOfWarranty: {
+          "@type": "QuantitativeValue",
+          value: TERMS.warrantyMonths,
+          unitCode: "MON",
+        },
       },
-    },
-  }));
+    };
+  });
 
   /*
     The specifications table, restated for machines. Until the chair sheets

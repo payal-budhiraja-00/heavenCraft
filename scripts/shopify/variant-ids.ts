@@ -30,7 +30,14 @@ const OUT = join(process.cwd(), "src", "lib", "variant-ids.generated.ts");
 type Node = {
   handle: string;
   title: string;
-  variants: { nodes: { id: string; sku: string | null }[] };
+  variants: {
+    nodes: {
+      id: string;
+      sku: string | null;
+      price: { amount: string } | null;
+      compareAtPrice: { amount: string } | null;
+    }[];
+  };
 };
 
 type Page = {
@@ -48,7 +55,12 @@ const QUERY = `
         handle
         title
         variants(first: 50) {
-          nodes { id sku }
+          nodes {
+            id
+            sku
+            price { amount }
+            compareAtPrice { amount }
+          }
         }
       }
     }
@@ -69,13 +81,27 @@ async function fetchAll(): Promise<Node[]> {
   return all;
 }
 
-function render(entries: [string, string, string][]): string {
+type Entry = {
+  sku: string;
+  variantId: string;
+  href: string;
+  /**
+   * The printed MRP as Shopify holds it, in paise. Absent when no compare-at
+   * price is set on the variant, which is the correct state for anything not
+   * on offer -- the site then shows a plain price with no saving claimed.
+   */
+  comparePaise?: number;
+};
+
+function render(entries: Entry[]): string {
   const rows = entries
     .map(
-      ([sku, id, href]) =>
-        `  ${JSON.stringify(sku)}: { variantId: ${JSON.stringify(
-          id,
-        )}, href: ${JSON.stringify(href)} },`,
+      (e) =>
+        `  ${JSON.stringify(e.sku)}: { variantId: ${JSON.stringify(
+          e.variantId,
+        )}, href: ${JSON.stringify(e.href)}${
+          e.comparePaise ? `, comparePaise: ${e.comparePaise}` : ""
+        } },`,
     )
     .join("\n");
 
@@ -95,6 +121,12 @@ function render(entries: [string, string, string][]): string {
  * in products.json to resolve these URLs would ship every description, feature
  * list and review to the browser to render a list of links.
  *
+ * \`comparePaise\` is the printed MRP, read back from Shopify rather than
+ * stored in this repo. Shopify is the source of truth for it: change a
+ * compare-at price in the admin, re-run this script, and the site follows. A
+ * variant with no compare-at price simply has no key here and renders a plain
+ * price, so removing an offer needs no code change.
+ *
  * Deliberately carries no timestamp: a generated-at line would make this file
  * churn on every run and bury the one thing worth reading in a diff, which is
  * whether an ID changed.
@@ -103,6 +135,7 @@ function render(entries: [string, string, string][]): string {
 export type GeneratedVariant = {
   variantId: string;
   href: string;
+  comparePaise?: number;
 };
 
 export const GENERATED_VARIANTS: Readonly<Record<string, GeneratedVariant>> = {
@@ -115,8 +148,22 @@ async function main() {
   const local = allProducts;
   const remote = await fetchAll();
 
-  const bySku = new Map<string, string>();
+  const bySku = new Map<
+    string,
+    { id: string; pricePaise: number | null; comparePaise: number | null }
+  >();
   const problems: string[] = [];
+
+  /**
+   * Shopify returns money as a decimal string ("18999.00"). Parsing to paise
+   * via a float multiply is the usual way to lose a rupee to binary rounding,
+   * so round after scaling rather than trusting the product.
+   */
+  const toPaise = (amount: string | null | undefined): number | null => {
+    if (!amount) return null;
+    const value = Math.round(Number(amount) * 100);
+    return Number.isFinite(value) && value > 0 ? value : null;
+  };
 
   for (const node of remote) {
     const variants = node.variants.nodes;
@@ -143,12 +190,16 @@ async function main() {
       }
 
       const clash = bySku.get(variant.sku);
-      if (clash && clash !== variant.id) {
+      if (clash && clash.id !== variant.id) {
         problems.push(`SKU ${variant.sku} is on two variants`);
         continue;
       }
 
-      bySku.set(variant.sku, variant.id);
+      bySku.set(variant.sku, {
+        id: variant.id,
+        pricePaise: toPaise(variant.price?.amount),
+        comparePaise: toPaise(variant.compareAtPrice?.amount),
+      });
     }
   }
 
@@ -158,14 +209,52 @@ async function main() {
    * colourway of a product shares one product page: the picker is client-side
    * state, not a URL parameter, so `href` is the product href for all of them.
    */
-  const entries: [string, string, string][] = [];
+  const entries: Entry[] = [];
   const missing: string[] = [];
+  const priceDrift: string[] = [];
+  const noCompareAt: string[] = [];
 
   for (const product of local) {
     for (const variant of product.variants) {
-      const id = bySku.get(variant.id);
-      if (id) entries.push([variant.id, id, product.href]);
-      else missing.push(`${variant.id} (${product.slug})`);
+      const remoteVariant = bySku.get(variant.id);
+      if (!remoteVariant) {
+        missing.push(`${variant.id} (${product.slug})`);
+        continue;
+      }
+
+      /*
+       * The site prints the price from products.json but Shopify is what
+       * actually charges the customer. A silent divergence between the two is
+       * the one pricing bug nobody notices until an order arrives at the
+       * wrong total, so it is worth a line of arithmetic to catch.
+       */
+      if (
+        remoteVariant.pricePaise !== null &&
+        remoteVariant.pricePaise !== variant.pricePaise
+      ) {
+        priceDrift.push(
+          `${variant.id}: site ${variant.pricePaise / 100}, Shopify ${
+            remoteVariant.pricePaise / 100
+          }`,
+        );
+      }
+
+      // A compare-at price at or below the selling price claims a saving that
+      // does not exist. Shopify permits it; the site must not repeat it.
+      const compare =
+        remoteVariant.comparePaise !== null &&
+        remoteVariant.comparePaise > variant.pricePaise
+          ? remoteVariant.comparePaise
+          : undefined;
+
+      if (compare === undefined) noCompareAt.push(variant.id);
+
+      entries.push({
+        sku: variant.id,
+        variantId: remoteVariant.id,
+        href: product.href,
+        ...(compare ? { comparePaise: compare } : {}),
+      });
     }
   }
 
@@ -179,7 +268,20 @@ async function main() {
     )} variant(s)`,
   );
   console.log(`variant IDs written : ${entries.length}`);
+  console.log(
+    `with an MRP         : ${entries.filter((e) => e.comparePaise).length}`,
+  );
   console.log(`-> ${OUT}`);
+
+  if (noCompareAt.length) {
+    console.log(`\nno MRP in Shopify (${noCompareAt.length}), will show a plain price:`);
+    for (const sku of noCompareAt) console.log(`  ${sku}`);
+  }
+
+  if (priceDrift.length) {
+    console.log(`\nPRICE DRIFT (${priceDrift.length}) -- site and Shopify disagree:`);
+    for (const line of priceDrift) console.log(`  ${line}`);
+  }
 
   if (missing.length) {
     console.log(`\nnot purchasable (${missing.length}):`);
@@ -193,8 +295,11 @@ async function main() {
 
   // A partial map is a valid state -- the site degrades per product, showing
   // an enquiry form for anything without an ID. It is not a valid state to
-  // discover silently, so say so loudly and let the caller decide.
-  if (missing.length || problems.length) process.exitCode = 1;
+  // discover silently, so say so loudly and let the caller decide. Price drift
+  // is never acceptable and fails on its own.
+  if (missing.length || problems.length || priceDrift.length) {
+    process.exitCode = 1;
+  }
 }
 
 main().catch((error: unknown) => {

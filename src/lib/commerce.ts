@@ -61,6 +61,12 @@ export type CartLine = {
   /** Shopify's price for one unit. */
   unitPaise: number;
   /**
+   * The MRP for one unit, when Shopify carries one above the selling price.
+   * Taken from Shopify's own line cost rather than looked up by SKU so that
+   * every figure in the drawer comes from the same place as the subtotal.
+   */
+  compareUnitPaise: number | null;
+  /**
    * Shopify's price for the whole line. Deliberately not `unitPaise *
    * quantity`: line-level discounts make those two diverge, and the moment
    * they do, the arithmetic version is the wrong one.
@@ -124,6 +130,69 @@ const HREF_BY_SKU: Readonly<Record<string, string>> = Object.fromEntries(
   Object.entries(GENERATED_VARIANTS).map(([sku, variant]) => [sku, variant.href]),
 );
 
+/**
+ * The printed MRP for a SKU, in paise, as Shopify holds it.
+ *
+ * Deliberately not stored in products.json. The compare-at price lives in the
+ * Shopify admin, is read back by `scripts/shopify/variant-ids.ts`, and arrives
+ * here through the generated file -- so correcting a price is an admin edit
+ * and a rebuild, not a code change. A SKU absent from this map is simply not
+ * on offer and renders a plain price.
+ */
+const COMPARE_BY_SKU: Readonly<Record<string, number>> = Object.fromEntries(
+  Object.entries(GENERATED_VARIANTS)
+    .filter(([, variant]) => variant.comparePaise)
+    .map(([sku, variant]) => [sku, variant.comparePaise as number]),
+);
+
+export type Offer = {
+  /** The printed MRP, shown struck through. */
+  comparePaise: number;
+  /** Money saved, for the "You save ..." line. */
+  savingPaise: number;
+  /** Whole percent, as shown on the badge. */
+  percentOff: number;
+};
+
+/**
+ * The saving to advertise for a variant, or null when there is nothing honest
+ * to claim.
+ *
+ * The percentage is computed here rather than read from Shopify because
+ * Shopify does not expose one -- and computing it from the same two numbers
+ * the page displays is what stops the badge disagreeing with the prices
+ * beside it.
+ *
+ * Returns null when the MRP is missing, not above the selling price, or so
+ * close to it that the rounded percentage would be zero. A "0% off" badge is
+ * worse than no badge.
+ */
+export function offerForSku(sku: string, pricePaise: number): Offer | null {
+  const comparePaise = COMPARE_BY_SKU[sku];
+  if (!comparePaise || comparePaise <= pricePaise) return null;
+
+  const savingPaise = comparePaise - pricePaise;
+  const percentOff = Math.round((savingPaise / comparePaise) * 100);
+  if (percentOff < 1) return null;
+
+  return { comparePaise, savingPaise, percentOff };
+}
+
+/**
+ * The SKU a product card should quote.
+ *
+ * A card shows `product.pricePaise`, which is the *lowest* price across
+ * colourways, not the default one -- the black footrest costs Rs 1,599 while
+ * the other two are Rs 999. Quoting the default variant's MRP against the
+ * cheapest variant's price would overstate the saving on exactly those
+ * products, so the card has to ask about the variant the price came from.
+ */
+export function cheapestSku(product: Product): string {
+  return product.variants.reduce((cheapest, variant) =>
+    variant.pricePaise < cheapest.pricePaise ? variant : cheapest,
+  ).id;
+}
+
 export function variantIdForSku(sku: string): VariantId | undefined {
   return VARIANT_IDS[sku];
 }
@@ -159,7 +228,7 @@ const CART_FIELDS = `
       nodes {
         id
         quantity
-        cost { totalAmount { amount } }
+        cost { totalAmount { amount } compareAtAmountPerQuantity { amount } }
         merchandise {
           ... on ProductVariant {
             id
@@ -183,7 +252,10 @@ type RawCart = {
     nodes: {
       id: string;
       quantity: number;
-      cost: { totalAmount: { amount: string } };
+      cost: {
+        totalAmount: { amount: string };
+        compareAtAmountPerQuantity: { amount: string } | null;
+      };
       merchandise: {
         id: string;
         sku: string | null;
@@ -196,6 +268,22 @@ type RawCart = {
 };
 
 type UserError = { field: string[] | null; message: string };
+
+/**
+ * The MRP for one unit of a cart line, or null when there is nothing to show.
+ *
+ * Shopify leaves `compareAtAmountPerQuantity` null on a variant with no
+ * compare-at price, and there is no reason to trust it is above the selling
+ * price, so both cases are filtered out here rather than in the view.
+ */
+function compareUnitFor(line: RawCart["lines"]["nodes"][number]): number | null {
+  const raw = line.cost.compareAtAmountPerQuantity?.amount;
+  if (!raw) return null;
+
+  const comparePaise = priceStringToPaise(raw);
+  const unitPaise = priceStringToPaise(line.merchandise.price.amount);
+  return comparePaise > unitPaise ? comparePaise : null;
+}
 
 function toCart(raw: RawCart): Cart {
   return {
@@ -221,6 +309,7 @@ function toCart(raw: RawCart): Cart {
          */
         imageAlt: variant.image?.altText ?? title,
         unitPaise: priceStringToPaise(variant.price.amount),
+        compareUnitPaise: compareUnitFor(line),
         linePaise: priceStringToPaise(line.cost.totalAmount.amount),
         href: variant.sku ? (HREF_BY_SKU[variant.sku] ?? null) : null,
       };

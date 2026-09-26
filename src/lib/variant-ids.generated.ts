@@ -14,6 +14,12 @@
  * in products.json to resolve these URLs would ship every description, feature
  * list and review to the browser to render a list of links.
  *
+ * `comparePaise` is the printed MRP, read back from Shopify rather than
+ * stored in this repo. Shopify is the source of truth for it: change a
+ * compare-at price in the admin, re-run this script, and the site follows. A
+ * variant with no compare-at price simply has no key here and renders a plain
+ * price, so removing an offer needs no code change.
+ *
  * Deliberately carries no timestamp: a generated-at line would make this file
  * churn on every run and bury the one thing worth reading in a diff, which is
  * whether an ID changed.
@@ -22,42 +28,43 @@
 export type GeneratedVariant = {
   variantId: string;
   href: string;
+  comparePaise?: number;
 };
 
 export const GENERATED_VARIANTS: Readonly<Record<string, GeneratedVariant>> = {
-  "accessories-cable-tray-001--black": { variantId: "gid://shopify/ProductVariant/50531072114923", href: "/accessories/cable-management-tray/" },
-  "accessories-cup-holder-001--black": { variantId: "gid://shopify/ProductVariant/50531077751019", href: "/accessories/cup-holder/" },
-  "desk-shelf-tray--black": { variantId: "gid://shopify/ProductVariant/50531078766827", href: "/accessories/desk-shelf-tray/" },
-  "desk-side-organiser--black": { variantId: "gid://shopify/ProductVariant/50531078799595", href: "/accessories/desk-side-organiser/" },
-  "accessories-footrest-001--black": { variantId: "gid://shopify/ProductVariant/50531079815403", href: "/accessories/footrest/" },
-  "accessories-footrest-001--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531079848171", href: "/accessories/footrest/" },
-  "accessories-footrest-001--black-marble": { variantId: "gid://shopify/ProductVariant/50531079880939", href: "/accessories/footrest/" },
-  "keyboard-tray--black": { variantId: "gid://shopify/ProductVariant/50531080896747", href: "/accessories/keyboard-tray/" },
-  "peg-board--black": { variantId: "gid://shopify/ProductVariant/50531081945323", href: "/accessories/peg-board/" },
-  "chair-mesh-004--grey": { variantId: "gid://shopify/ProductVariant/50531081978091", href: "/chairs/neuro-mesh-chair/" },
-  "chair-mesh-006--black": { variantId: "gid://shopify/ProductVariant/50531082993899", href: "/chairs/xyron-mesh-chair/" },
-  "chair-mesh-006--white": { variantId: "gid://shopify/ProductVariant/50531083026667", href: "/chairs/xyron-mesh-chair/" },
-  "chair-mesh-005--grey": { variantId: "gid://shopify/ProductVariant/50531083092203", href: "/chairs/zynx-mesh-chair/" },
-  "chair-fabric-003--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531084108011", href: "/chairs/casca-performance-mesh-chair/" },
-  "chair-fabric-003--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531084140779", href: "/chairs/casca-performance-mesh-chair/" },
-  "luxor-performance-mesh-chair--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531085156587", href: "/chairs/luxor-performance-mesh-chair/" },
-  "luxor-performance-mesh-chair--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531085189355", href: "/chairs/luxor-performance-mesh-chair/" },
-  "pointer-performance-mesh-chair--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531086270699", href: "/chairs/pointer-performance-mesh-chair/" },
-  "pointer-performance-mesh-chair--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531086303467", href: "/chairs/pointer-performance-mesh-chair/" },
-  "flex-apex-bed-table--black-marble": { variantId: "gid://shopify/ProductVariant/50531087352043", href: "/tables/flex-apex-bed-table/" },
-  "flex-apex-bed-table--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531087384811", href: "/tables/flex-apex-bed-table/" },
-  "table-executive-003--beige-wooden-teak": { variantId: "gid://shopify/ProductVariant/50531088400619", href: "/tables/imperium-executive-table/" },
-  "table-executive-003--dark-grey-black-marble": { variantId: "gid://shopify/ProductVariant/50531088433387", href: "/tables/imperium-executive-table/" },
-  "table-executive-004--dark-grey-black-marble": { variantId: "gid://shopify/ProductVariant/50531088466155", href: "/tables/signature-executive-table/" },
-  "table-folding-002--black-marble": { variantId: "gid://shopify/ProductVariant/50531089481963", href: "/tables/exquisite-folding-table/" },
-  "table-folding-002--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531089514731", href: "/tables/exquisite-folding-table/" },
-  "table-folding-004--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531089580267", href: "/tables/nextable-folding-table/" },
-  "phantom-gaming-desk--black": { variantId: "gid://shopify/ProductVariant/50531090596075", href: "/tables/phantom-gaming-desk/" },
-  "table-gaming-desk-001--black": { variantId: "gid://shopify/ProductVariant/50531091742955", href: "/tables/quantum-gaming-desk/" },
-  "modexa-height-adjustable-table--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531091775723", href: "/tables/modexa-height-adjustable-table/" },
-  "table-height-adjustable-005--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531092791531", href: "/tables/modulus-height-adjustable-table/" },
-  "table-height-adjustable-002--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531093807339", href: "/tables/modura-height-adjustable-table/" },
-  "table-height-adjustable-006--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531093840107", href: "/tables/movix-height-adjustable-table/" },
-  "table-study-003--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531094855915", href: "/tables/zenith-study-table/" },
-  "table-study-006--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531094888683", href: "/tables/zenvy-study-table/" },
+  "accessories-cable-tray-001--black": { variantId: "gid://shopify/ProductVariant/50531072114923", href: "/accessories/cable-management-tray/", comparePaise: 289900 },
+  "accessories-cup-holder-001--black": { variantId: "gid://shopify/ProductVariant/50531077751019", href: "/accessories/cup-holder/", comparePaise: 139900 },
+  "desk-shelf-tray--black": { variantId: "gid://shopify/ProductVariant/50531078766827", href: "/accessories/desk-shelf-tray/", comparePaise: 599900 },
+  "desk-side-organiser--black": { variantId: "gid://shopify/ProductVariant/50531078799595", href: "/accessories/desk-side-organiser/", comparePaise: 299900 },
+  "accessories-footrest-001--black": { variantId: "gid://shopify/ProductVariant/50531079815403", href: "/accessories/footrest/", comparePaise: 219900 },
+  "accessories-footrest-001--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531079848171", href: "/accessories/footrest/", comparePaise: 139900 },
+  "accessories-footrest-001--black-marble": { variantId: "gid://shopify/ProductVariant/50531079880939", href: "/accessories/footrest/", comparePaise: 139900 },
+  "keyboard-tray--black": { variantId: "gid://shopify/ProductVariant/50531080896747", href: "/accessories/keyboard-tray/", comparePaise: 549900 },
+  "peg-board--black": { variantId: "gid://shopify/ProductVariant/50531081945323", href: "/accessories/peg-board/", comparePaise: 549900 },
+  "chair-mesh-004--grey": { variantId: "gid://shopify/ProductVariant/50531081978091", href: "/chairs/neuro-mesh-chair/", comparePaise: 2349900 },
+  "chair-mesh-006--black": { variantId: "gid://shopify/ProductVariant/50531082993899", href: "/chairs/xyron-mesh-chair/", comparePaise: 2949900 },
+  "chair-mesh-006--white": { variantId: "gid://shopify/ProductVariant/50531083026667", href: "/chairs/xyron-mesh-chair/", comparePaise: 2949900 },
+  "chair-mesh-005--grey": { variantId: "gid://shopify/ProductVariant/50531083092203", href: "/chairs/zynx-mesh-chair/", comparePaise: 2649900 },
+  "chair-fabric-003--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531084108011", href: "/chairs/casca-performance-mesh-chair/", comparePaise: 2149900 },
+  "chair-fabric-003--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531084140779", href: "/chairs/casca-performance-mesh-chair/", comparePaise: 2149900 },
+  "luxor-performance-mesh-chair--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531085156587", href: "/chairs/luxor-performance-mesh-chair/", comparePaise: 1899900 },
+  "luxor-performance-mesh-chair--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531085189355", href: "/chairs/luxor-performance-mesh-chair/", comparePaise: 1899900 },
+  "pointer-performance-mesh-chair--black-dark-grey": { variantId: "gid://shopify/ProductVariant/50531086270699", href: "/chairs/pointer-performance-mesh-chair/", comparePaise: 1849900 },
+  "pointer-performance-mesh-chair--white-light-grey": { variantId: "gid://shopify/ProductVariant/50531086303467", href: "/chairs/pointer-performance-mesh-chair/", comparePaise: 1849900 },
+  "flex-apex-bed-table--black-marble": { variantId: "gid://shopify/ProductVariant/50531087352043", href: "/tables/flex-apex-bed-table/", comparePaise: 199900 },
+  "flex-apex-bed-table--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531087384811", href: "/tables/flex-apex-bed-table/", comparePaise: 199900 },
+  "table-executive-003--beige-wooden-teak": { variantId: "gid://shopify/ProductVariant/50531088400619", href: "/tables/imperium-executive-table/", comparePaise: 2149900 },
+  "table-executive-003--dark-grey-black-marble": { variantId: "gid://shopify/ProductVariant/50531088433387", href: "/tables/imperium-executive-table/", comparePaise: 2149900 },
+  "table-executive-004--dark-grey-black-marble": { variantId: "gid://shopify/ProductVariant/50531088466155", href: "/tables/signature-executive-table/", comparePaise: 2299900 },
+  "table-folding-002--black-marble": { variantId: "gid://shopify/ProductVariant/50531089481963", href: "/tables/exquisite-folding-table/", comparePaise: 1099900 },
+  "table-folding-002--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531089514731", href: "/tables/exquisite-folding-table/", comparePaise: 1099900 },
+  "table-folding-004--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531089580267", href: "/tables/nextable-folding-table/", comparePaise: 1699900 },
+  "phantom-gaming-desk--black": { variantId: "gid://shopify/ProductVariant/50531090596075", href: "/tables/phantom-gaming-desk/", comparePaise: 1899900 },
+  "table-gaming-desk-001--black": { variantId: "gid://shopify/ProductVariant/50531091742955", href: "/tables/quantum-gaming-desk/", comparePaise: 2199900 },
+  "modexa-height-adjustable-table--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531091775723", href: "/tables/modexa-height-adjustable-table/", comparePaise: 1799900 },
+  "table-height-adjustable-005--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531092791531", href: "/tables/modulus-height-adjustable-table/", comparePaise: 2449900 },
+  "table-height-adjustable-002--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531093807339", href: "/tables/modura-height-adjustable-table/", comparePaise: 1199900 },
+  "table-height-adjustable-006--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531093840107", href: "/tables/movix-height-adjustable-table/", comparePaise: 3099900 },
+  "table-study-003--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531094855915", href: "/tables/zenith-study-table/", comparePaise: 1399900 },
+  "table-study-006--wooden-teak": { variantId: "gid://shopify/ProductVariant/50531094888683", href: "/tables/zenvy-study-table/", comparePaise: 1399900 },
 };

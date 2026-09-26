@@ -21,6 +21,8 @@
     "shopify:redirect-apply": "tsx scripts/shopify/apply-redirect-snippet.ts",
     "shopify:redirect-verify": "tsx scripts/shopify/verify-redirect-roundtrip.ts",
     "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts",
+    "shopify:mrp-preview": "tsx scripts/shopify/preview-compare-at.ts",
+    "shopify:mrp-set": "tsx scripts/shopify/set-compare-at.ts",
     "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts",
     "og": "tsx scripts/generate-og.ts"
   },

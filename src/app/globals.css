@@ -191,8 +191,9 @@
   }
 
   /*
-   * The one authored motion moment on the site: the hero settles into place
-   * as if a light came up on it. Everything else is a hover or a page change.
+   * Authored motion, kept to two moments: the hero settling into place as if
+   * a light came up on it, and the offers strip changing message. Everything
+   * else on the site is a hover or a page change.
    */
   @keyframes rise {
     from {
@@ -214,4 +215,47 @@
       animation: none;
     }
   }
+
+  /*
+   * A message in the offers strip arriving. Deliberately smaller and quicker
+   * than `rise`: this repeats every few seconds beside the header, where the
+   * hero's travel would read as a twitch rather than as poise.
+   */
+  @keyframes promo-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 0.5rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .promo-message {
+    animation: promo-in 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .promo-message {
+      animation: none;
+    }
+  }
+}
+
+/*
+ * Deliberately outside every `@layer`.
+ *
+ * The strip carries Tailwind's `flex` utility, and utilities are a later
+ * cascade layer than components, so a `display: none` written inside
+ * `@layer components` loses to it no matter how specific it is. Unlayered
+ * declarations outrank every layer, which is the mechanism that makes this
+ * rule win without resorting to `!important`.
+ *
+ * Set by the pre-paint script in the document head when this session already
+ * dismissed the strip. Hiding it before first paint is what stops a dismissed
+ * strip flashing in and shoving the page down while React hydrates.
+ */
+[data-promo="off"] [data-promo-strip] {
+  display: none;
 }

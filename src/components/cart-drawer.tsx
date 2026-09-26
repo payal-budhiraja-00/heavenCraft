@@ -149,6 +149,20 @@ export function CartDrawer() {
 
   const lines = cart?.lines ?? [];
 
+  /*
+    Summed from the per-line difference rather than by subtracting the
+    subtotal from a reconstructed total MRP. A cart-level discount would make
+    the second version overstate the saving against MRP; this version can
+    only ever understate it, which is the safe direction to be wrong in.
+  */
+  const savingPaise = lines.reduce(
+    (total, line) =>
+      line.compareUnitPaise
+        ? total + (line.compareUnitPaise - line.unitPaise) * line.quantity
+        : total,
+    0,
+  );
+
   return (
     <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="Basket">
       <button
@@ -259,6 +273,17 @@ export function CartDrawer() {
 
                   <p className="tnum text-xs text-cream-faint">
                     {formatPaise(line.unitPaise)} each
+                    {line.compareUnitPaise ? (
+                      <>
+                        {" "}
+                        <span className="sr-only">
+                          , reduced from a maximum retail price of
+                        </span>
+                        <s className="text-cream-faint/70">
+                          {formatPaise(line.compareUnitPaise)}
+                        </s>
+                      </>
+                    ) : null}
                   </p>
 
                   <div className="mt-3 flex items-center justify-between gap-3">
@@ -309,6 +334,12 @@ export function CartDrawer() {
                 {formatPaise(cart.subtotalPaise)}
               </span>
             </div>
+            {savingPaise > 0 ? (
+              <p className="tnum mt-2 text-sm font-semibold text-gold">
+                You save {formatPaise(savingPaise)}
+              </p>
+            ) : null}
+
             <p className="mt-1.5 text-xs leading-relaxed text-cream-faint">
               Inclusive of all taxes. Delivery calculated at checkout.
             </p>

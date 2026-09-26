@@ -31,9 +31,9 @@ import {
   useState,
 } from "react";
 import { ProductGallery } from "./product-gallery";
+import { Price } from "./price";
 import { FeatureList, Label, SpecRow, StockPill } from "./ui";
 import type { Feature, Specification } from "@/lib/catalog-types";
-import { formatPaise } from "@/lib/money";
 import { useBrowserValue } from "@/lib/use-browser-value";
 
 /** A variant flattened to exactly what the page needs. */
@@ -171,10 +171,8 @@ export function VariantPrice() {
   const { selected } = useVariant();
 
   return (
-    <div className="mt-6 flex items-center gap-4">
-      <span className="tnum text-3xl font-bold text-cream">
-        {formatPaise(selected.pricePaise)}
-      </span>
+    <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <Price sku={selected.sku} pricePaise={selected.pricePaise} size="page" />
       <StockPill inStock={selected.inStock} />
     </div>
   );

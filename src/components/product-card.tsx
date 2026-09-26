@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Product } from "@/lib/catalog-types";
+import { cheapestSku } from "@/lib/commerce";
 import { cardImage, gridAspect, imageAlt } from "@/lib/images";
-import { formatPaise } from "@/lib/money";
+import { Price } from "./price";
 import { ProductImage } from "./product-image";
 
 /**
@@ -62,9 +63,7 @@ export function ProductCard({
         </p>
 
         <div className="mt-5 flex items-end justify-between gap-3 pt-1">
-          <span className="tnum text-lg font-bold text-cream">
-            {formatPaise(product.pricePaise)}
-          </span>
+          <Price sku={cheapestSku(product)} pricePaise={product.pricePaise} />
           {/*
             There is no hover on a touch screen, so this would never appear on
             the devices most of these visitors use. Show it outright there.

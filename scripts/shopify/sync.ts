@@ -165,6 +165,10 @@ function productSetInput(
     ],
     variants: product.variants.map((variant) => ({
       price: variant.price,
+      // Shopify shows its own "Sale" badge and struck-through price from this
+      // field, so setting it here means the storefront, the cart and the
+      // checkout all agree with the website without any further wiring.
+      compareAtPrice: variant.compareAtPrice,
       optionValues: [{ optionName: COLOUR_OPTION, name: variant.colour }],
       sku: variant.sku,
       inventoryItem: { tracked: false },
