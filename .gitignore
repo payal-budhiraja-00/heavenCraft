@@ -28,3 +28,6 @@ yarn-error.log*
 *.iml
 .idea/
 *.tsbuildinfo
+
+# Live theme backups taken before each redirect-snippet write.
+shopify-theme/backup/

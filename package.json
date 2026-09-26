@@ -16,6 +16,9 @@
     "shopify:preflight": "tsx scripts/shopify/preflight.ts",
     "shopify:sync": "tsx scripts/shopify/sync.ts",
     "shopify:audit": "tsx scripts/shopify/audit.ts",
+    "shopify:redirect-snippet": "tsx scripts/shopify/generate-redirect-snippet.ts",
+    "shopify:redirect-apply": "tsx scripts/shopify/apply-redirect-snippet.ts",
+    "shopify:redirect-verify": "tsx scripts/shopify/verify-redirect-roundtrip.ts",
     "shopify:variant-ids": "tsx scripts/shopify/variant-ids.ts",
     "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts"
   },

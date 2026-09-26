@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/catalog-types";
-import { cardImage, encodeImagePath, imageAlt } from "@/lib/images";
+import { cardImage, imageAlt } from "@/lib/images";
 import { formatPaise } from "@/lib/money";
+import { ProductImage } from "./product-image";
 
 /**
  * The product card.
@@ -27,13 +27,13 @@ export function ProductCard({
     >
       <div className="relative aspect-4/5 overflow-hidden bg-raised">
         {src ? (
-          <Image
-            src={encodeImagePath(src)}
+          <ProductImage
+            src={src}
             alt={imageAlt(product)}
-            fill
             priority={priority}
             sizes="(min-width: 1280px) 22rem, (min-width: 768px) 33vw, 85vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            inset="p-4"
+            className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         ) : null}
 

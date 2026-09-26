@@ -1,0 +1,81 @@
+{%- comment -%}
+  HeavenCraft -- send this store to theheavencraft.in.
+
+  GENERATED FILE. Do not hand-edit.
+  Regenerate with: npm run shopify:redirect-snippet
+
+  Paste the whole of this file immediately after the opening <head> tag in
+  layout/theme.liquid. Checkout and the order status page do not render this
+  layout, so a checkout in progress is never affected by it.
+{%- endcomment -%}
+
+{%- liquid
+  assign site = 'https://theheavencraft.in'
+  assign target = site
+-%}
+
+{%- if request.page_type == 'product' -%}
+  {%- case product.handle -%}
+      {%- when 'cable-management-tray' -%}{%- assign target = site | append: '/accessories/cable-management-tray/' -%}
+      {%- when 'cup-holder' -%}{%- assign target = site | append: '/accessories/cup-holder/' -%}
+      {%- when 'desk-shelf-tray' -%}{%- assign target = site | append: '/accessories/desk-shelf-tray/' -%}
+      {%- when 'desk-side-organiser' -%}{%- assign target = site | append: '/accessories/desk-side-organiser/' -%}
+      {%- when 'footrest' -%}{%- assign target = site | append: '/accessories/footrest/' -%}
+      {%- when 'keyboard-tray' -%}{%- assign target = site | append: '/accessories/keyboard-tray/' -%}
+      {%- when 'peg-board' -%}{%- assign target = site | append: '/accessories/peg-board/' -%}
+      {%- when 'neuro-mesh-chair' -%}{%- assign target = site | append: '/chairs/neuro-mesh-chair/' -%}
+      {%- when 'xyron-mesh-chair' -%}{%- assign target = site | append: '/chairs/xyron-mesh-chair/' -%}
+      {%- when 'zynx-mesh-chair' -%}{%- assign target = site | append: '/chairs/zynx-mesh-chair/' -%}
+      {%- when 'casca-performance-mesh-chair' -%}{%- assign target = site | append: '/chairs/casca-performance-mesh-chair/' -%}
+      {%- when 'luxor-performance-mesh-chair' -%}{%- assign target = site | append: '/chairs/luxor-performance-mesh-chair/' -%}
+      {%- when 'pointer-performance-mesh-chair' -%}{%- assign target = site | append: '/chairs/pointer-performance-mesh-chair/' -%}
+      {%- when 'flex-apex-bed-table' -%}{%- assign target = site | append: '/tables/flex-apex-bed-table/' -%}
+      {%- when 'imperium-executive-table' -%}{%- assign target = site | append: '/tables/imperium-executive-table/' -%}
+      {%- when 'signature-executive-table' -%}{%- assign target = site | append: '/tables/signature-executive-table/' -%}
+      {%- when 'exquisite-folding-table' -%}{%- assign target = site | append: '/tables/exquisite-folding-table/' -%}
+      {%- when 'nextable-folding-table' -%}{%- assign target = site | append: '/tables/nextable-folding-table/' -%}
+      {%- when 'phantom-gaming-desk' -%}{%- assign target = site | append: '/tables/phantom-gaming-desk/' -%}
+      {%- when 'quantum-gaming-desk' -%}{%- assign target = site | append: '/tables/quantum-gaming-desk/' -%}
+      {%- when 'modexa-height-adjustable-table' -%}{%- assign target = site | append: '/tables/modexa-height-adjustable-table/' -%}
+      {%- when 'modulus-height-adjustable-table' -%}{%- assign target = site | append: '/tables/modulus-height-adjustable-table/' -%}
+      {%- when 'modura-height-adjustable-table' -%}{%- assign target = site | append: '/tables/modura-height-adjustable-table/' -%}
+      {%- when 'movix-height-adjustable-table' -%}{%- assign target = site | append: '/tables/movix-height-adjustable-table/' -%}
+      {%- when 'zenith-study-table' -%}{%- assign target = site | append: '/tables/zenith-study-table/' -%}
+      {%- when 'zenvy-study-table' -%}{%- assign target = site | append: '/tables/zenvy-study-table/' -%}
+  {%- endcase -%}
+{%- endif -%}
+
+{%- if request.page_type == 'collection' -%}
+  {%- case collection.handle -%}
+      {%- when 'accessories' -%}{%- assign target = site | append: '/accessories/' -%}
+      {%- when 'chairs' -%}{%- assign target = site | append: '/chairs/' -%}
+      {%- when 'tables' -%}{%- assign target = site | append: '/tables/' -%}
+  {%- endcase -%}
+{%- endif -%}
+
+{%- comment -%}
+  This pair is what actually removes the duplicate from search results. The
+  script below only moves people; a crawler obeys these two.
+{%- endcomment -%}
+<link rel="canonical" href="{{ target }}">
+<meta name="robots" content="noindex, follow">
+
+<script>
+  (function () {
+    var path = window.location.pathname;
+    /* Checkout does not render this layout today -- /cart/c/<token> answers
+       with a bare 302 straight to /checkouts/cn/, so no markup of ours ever
+       reaches a buyer mid-payment. That is Shopify's behaviour, not a promise,
+       and bouncing someone out of a half-finished payment would be
+       unforgivable, so the cart paths are guarded too. Nothing is lost by it:
+       our own cart is a drawer served from the Storefront API, so a shopper
+       has no reason to be on this store's /cart in the first place. */
+    if (/^\/(cart|checkouts?|account|orders|tools|services|apps|wpm)\b/.test(path)) return;
+    /* replace(), not assign(), so Back does not bounce the visitor again. */
+    window.location.replace({{ target | json }});
+  })();
+</script>
+
+<noscript>
+  <meta http-equiv="refresh" content="0; url={{ target }}">
+</noscript>

@@ -1,0 +1,6 @@
+# These two files are byte-exact copies of what lives in the Shopify theme,
+# and `npm run shopify:redirect-verify` asserts an install/uninstall round trip
+# returns the layout unchanged. Letting Git rewrite their line endings on
+# checkout would break that contract on Windows, so they stay LF.
+shopify-theme/*.liquid text eol=lf
+shopify-theme/*.bak    text eol=lf
