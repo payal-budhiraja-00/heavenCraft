@@ -11,21 +11,19 @@
 # ---------------------------------------------------------------------------
 # Error document
 # ---------------------------------------------------------------------------
-# Declared first, before mod_rewrite is touched.
+# Kept, but it is not what serves the 404 -- the catch-all at the foot of the
+# rewrite rules is. This host swallows Apache's error handling whatever it is
+# pointed at: with "ErrorDocument 404 /404.html" a dead URL returned GoDaddy's
+# own grey "File not found" page, and pointing it at a PHP shim instead
+# changed nothing, even though every other directive in this file demonstrably
+# applies in production and /404.php requested directly returns the branded
+# page with a 404. So the interception is of Apache's error machinery itself,
+# and no target will satisfy it.
 #
-# This points at a PHP shim rather than straight at the branded 404.html, and
-# the reason is the host. Unmatched paths were being answered with GoDaddy's
-# own grey "File not found" page even though every other directive in this
-# file was live in production -- mod_rewrite, mod_alias and mod_headers rules
-# all apply, and they need the same AllowOverride level ErrorDocument does. So
-# the platform is intercepting Apache's error handling specifically, and
-# naming a different static file would change nothing.
-#
-# What the platform demonstrably does not intercept is a status set by PHP:
-# /enquiry.php answers a GET with its own 405 and JSON body, and that reaches
-# the client intact. 404.php sets the status itself and prints the same
-# branded page, so Apache's error machinery is never entered and there is
-# nothing left to intercept.
+# It stays because it costs nothing, it is the correct declaration for any
+# host that honours it, and it covers the cases the catch-all deliberately
+# does not -- a 403 from "Options -Indexes", for instance, where the path does
+# exist as a directory.
 ErrorDocument 404 /404.php
 
 <IfModule mod_rewrite.c>
@@ -80,36 +78,36 @@ Options -Indexes
 # ---------------------------------------------------------------------------
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
-<IfModule mod_alias.c>
-  RedirectMatch 301 ^/product/accessories-cable-tray-001/?$ /accessories/cable-management-tray/
-  RedirectMatch 301 ^/product/accessories-cup-holder-001/?$ /accessories/cup-holder/
-  RedirectMatch 301 ^/product/desk-shelf-tray/?$ /accessories/desk-shelf-tray/
-  RedirectMatch 301 ^/product/desk-side-organiser/?$ /accessories/desk-side-organiser/
-  RedirectMatch 301 ^/product/accessories-footrest-001/?$ /accessories/footrest/
-  RedirectMatch 301 ^/product/keyboard-tray/?$ /accessories/keyboard-tray/
-  RedirectMatch 301 ^/product/peg-board/?$ /accessories/peg-board/
-  RedirectMatch 301 ^/product/chair-mesh-004/?$ /chairs/neuro-mesh-chair/
-  RedirectMatch 301 ^/product/chair-mesh-006/?$ /chairs/xyron-mesh-chair/
-  RedirectMatch 301 ^/product/chair-mesh-005/?$ /chairs/zynx-mesh-chair/
-  RedirectMatch 301 ^/product/chair-fabric-003/?$ /chairs/casca-performance-mesh-chair/
-  RedirectMatch 301 ^/product/luxor-performance-mesh-chair/?$ /chairs/luxor-performance-mesh-chair/
-  RedirectMatch 301 ^/product/pointer-performance-mesh-chair/?$ /chairs/pointer-performance-mesh-chair/
-  RedirectMatch 301 ^/product/flex-apex-bed-table/?$ /tables/flex-apex-bed-table/
-  RedirectMatch 301 ^/product/table-executive-003/?$ /tables/imperium-executive-table/
-  RedirectMatch 301 ^/product/table-executive-004/?$ /tables/signature-executive-table/
-  RedirectMatch 301 ^/product/table-folding-002/?$ /tables/exquisite-folding-table/
-  RedirectMatch 301 ^/product/table-folding-004/?$ /tables/nextable-folding-table/
-  RedirectMatch 301 ^/product/phantom-gaming-desk/?$ /tables/phantom-gaming-desk/
-  RedirectMatch 301 ^/product/table-gaming-desk-001/?$ /tables/quantum-gaming-desk/
-  RedirectMatch 301 ^/product/modexa-height-adjustable-table/?$ /tables/modexa-height-adjustable-table/
-  RedirectMatch 301 ^/product/table-height-adjustable-005/?$ /tables/modulus-height-adjustable-table/
-  RedirectMatch 301 ^/product/table-height-adjustable-002/?$ /tables/modura-height-adjustable-table/
-  RedirectMatch 301 ^/product/table-height-adjustable-006/?$ /tables/movix-height-adjustable-table/
-  RedirectMatch 301 ^/product/table-study-003/?$ /tables/zenith-study-table/
-  RedirectMatch 301 ^/product/table-study-006/?$ /tables/zenvy-study-table/
+<IfModule mod_rewrite.c>
+  RewriteRule ^product/accessories-cable-tray-001/?$ /accessories/cable-management-tray/ [R=301,L]
+  RewriteRule ^product/accessories-cup-holder-001/?$ /accessories/cup-holder/ [R=301,L]
+  RewriteRule ^product/desk-shelf-tray/?$ /accessories/desk-shelf-tray/ [R=301,L]
+  RewriteRule ^product/desk-side-organiser/?$ /accessories/desk-side-organiser/ [R=301,L]
+  RewriteRule ^product/accessories-footrest-001/?$ /accessories/footrest/ [R=301,L]
+  RewriteRule ^product/keyboard-tray/?$ /accessories/keyboard-tray/ [R=301,L]
+  RewriteRule ^product/peg-board/?$ /accessories/peg-board/ [R=301,L]
+  RewriteRule ^product/chair-mesh-004/?$ /chairs/neuro-mesh-chair/ [R=301,L]
+  RewriteRule ^product/chair-mesh-006/?$ /chairs/xyron-mesh-chair/ [R=301,L]
+  RewriteRule ^product/chair-mesh-005/?$ /chairs/zynx-mesh-chair/ [R=301,L]
+  RewriteRule ^product/chair-fabric-003/?$ /chairs/casca-performance-mesh-chair/ [R=301,L]
+  RewriteRule ^product/luxor-performance-mesh-chair/?$ /chairs/luxor-performance-mesh-chair/ [R=301,L]
+  RewriteRule ^product/pointer-performance-mesh-chair/?$ /chairs/pointer-performance-mesh-chair/ [R=301,L]
+  RewriteRule ^product/flex-apex-bed-table/?$ /tables/flex-apex-bed-table/ [R=301,L]
+  RewriteRule ^product/table-executive-003/?$ /tables/imperium-executive-table/ [R=301,L]
+  RewriteRule ^product/table-executive-004/?$ /tables/signature-executive-table/ [R=301,L]
+  RewriteRule ^product/table-folding-002/?$ /tables/exquisite-folding-table/ [R=301,L]
+  RewriteRule ^product/table-folding-004/?$ /tables/nextable-folding-table/ [R=301,L]
+  RewriteRule ^product/phantom-gaming-desk/?$ /tables/phantom-gaming-desk/ [R=301,L]
+  RewriteRule ^product/table-gaming-desk-001/?$ /tables/quantum-gaming-desk/ [R=301,L]
+  RewriteRule ^product/modexa-height-adjustable-table/?$ /tables/modexa-height-adjustable-table/ [R=301,L]
+  RewriteRule ^product/table-height-adjustable-005/?$ /tables/modulus-height-adjustable-table/ [R=301,L]
+  RewriteRule ^product/table-height-adjustable-002/?$ /tables/modura-height-adjustable-table/ [R=301,L]
+  RewriteRule ^product/table-height-adjustable-006/?$ /tables/movix-height-adjustable-table/ [R=301,L]
+  RewriteRule ^product/table-study-003/?$ /tables/zenith-study-table/ [R=301,L]
+  RewriteRule ^product/table-study-006/?$ /tables/zenvy-study-table/ [R=301,L]
 
   # Search was a client-side route with no server-rendered equivalent.
-  RedirectMatch 301 ^/search/?$ /
+  RewriteRule ^search/?$ / [R=301,L]
 </IfModule>
 
 # ---------------------------------------------------------------------------
@@ -118,74 +116,97 @@ Options -Indexes
 # Products that were dropped, ranges that emptied, and products that survived
 # under a new name -- a rename moves the URL, because the slug comes from the
 # name. All of these were served with a 200 by this site and are in the index.
-<IfModule mod_alias.c>
+<IfModule mod_rewrite.c>
   # The leather line was withdrawn entirely; there is no equivalent chair.
-  RedirectMatch 301 ^/product/chair-leather-002/?$ /chairs/
+  RewriteRule ^product/chair-leather-002/?$ /chairs/ [R=301,L]
   # The leather line was withdrawn entirely; there is no equivalent chair.
-  RedirectMatch 301 ^/product/chair-leather-003/?$ /chairs/
+  RewriteRule ^product/chair-leather-003/?$ /chairs/ [R=301,L]
   # The leather line was withdrawn entirely; there is no equivalent chair.
-  RedirectMatch 301 ^/product/chair-leather-005/?$ /chairs/
+  RewriteRule ^product/chair-leather-005/?$ /chairs/ [R=301,L]
   # The fabric range became the performance mesh range -- Casca moved across under the same id.
-  RedirectMatch 301 ^/product/chair-fabric-001/?$ /chairs/performance-mesh-chair/
+  RewriteRule ^product/chair-fabric-001/?$ /chairs/performance-mesh-chair/ [R=301,L]
   # The fabric range became the performance mesh range -- Casca moved across under the same id.
-  RedirectMatch 301 ^/product/chair-fabric-005/?$ /chairs/performance-mesh-chair/
+  RewriteRule ^product/chair-fabric-005/?$ /chairs/performance-mesh-chair/ [R=301,L]
   # Replaced within the same range by the Flex Apex.
-  RedirectMatch 301 ^/product/table-bed-003/?$ /tables/bed-table/
+  RewriteRule ^product/table-bed-003/?$ /tables/bed-table/ [R=301,L]
   # The Primex variant was dropped; the standard Modura is the same table.
-  RedirectMatch 301 ^/product/table-height-adjustable-003/?$ /tables/modura-height-adjustable-table/
+  RewriteRule ^product/table-height-adjustable-003/?$ /tables/modura-height-adjustable-table/ [R=301,L]
   # The Primex variant was dropped; the standard Quantum is the same desk.
-  RedirectMatch 301 ^/product/table-gaming-desk-002/?$ /tables/quantum-gaming-desk/
+  RewriteRule ^product/table-gaming-desk-002/?$ /tables/quantum-gaming-desk/ [R=301,L]
   # Storage boxes were withdrawn; nothing in the range replaces them.
-  RedirectMatch 301 ^/product/accessories-storage-box-002/?$ /accessories/
+  RewriteRule ^product/accessories-storage-box-002/?$ /accessories/ [R=301,L]
   # Storage boxes were withdrawn; nothing in the range replaces them.
-  RedirectMatch 301 ^/product/accessories-storage-box-004/?$ /accessories/
+  RewriteRule ^product/accessories-storage-box-004/?$ /accessories/ [R=301,L]
   # Basic and Plus merged into one footrest sold in three finishes, so the tiers are now colourways of a single product.
-  RedirectMatch 301 ^/product/accessories-footrest-002/?$ /accessories/footrest/
+  RewriteRule ^product/accessories-footrest-002/?$ /accessories/footrest/ [R=301,L]
   # CPU stands were withdrawn; nothing in the range replaces them.
-  RedirectMatch 301 ^/product/accessories-Cpu-Stand-002/?$ /accessories/
+  RewriteRule ^product/accessories-Cpu-Stand-002/?$ /accessories/ [R=301,L]
   # CPU stands were withdrawn; nothing in the range replaces them.
-  RedirectMatch 301 ^/product/accessories-Cpu-Stand-003/?$ /accessories/
+  RewriteRule ^product/accessories-Cpu-Stand-003/?$ /accessories/ [R=301,L]
   # The desk shelf tray is what now lifts a monitor off the desk, so it is the nearest thing to what this visitor came for.
-  RedirectMatch 301 ^/product/accessories-monitor-stand-001/?$ /accessories/desk-shelf-tray/
+  RewriteRule ^product/accessories-monitor-stand-001/?$ /accessories/desk-shelf-tray/ [R=301,L]
   # The desk shelf tray is what now lifts a monitor off the desk, so it is the nearest thing to what this visitor came for.
-  RedirectMatch 301 ^/product/accessories-monitor-stand-004/?$ /accessories/desk-shelf-tray/
+  RewriteRule ^product/accessories-monitor-stand-004/?$ /accessories/desk-shelf-tray/ [R=301,L]
   # Desk hooks were withdrawn; the peg-board ships with hooks but is not a substitute for one.
-  RedirectMatch 301 ^/product/accessories-desk-hook-001/?$ /accessories/
+  RewriteRule ^product/accessories-desk-hook-001/?$ /accessories/ [R=301,L]
   # Desk hooks were withdrawn; the peg-board ships with hooks but is not a substitute for one.
-  RedirectMatch 301 ^/product/accessories-desk-hook-002/?$ /accessories/
-  RedirectMatch 301 ^/chairs/rider-leather-chair/?$ /chairs/
-  RedirectMatch 301 ^/chairs/nexor-leather-chair/?$ /chairs/
-  RedirectMatch 301 ^/chairs/valerio-leather-chair/?$ /chairs/
-  RedirectMatch 301 ^/chairs/fabio-fabric-chair/?$ /chairs/performance-mesh-chair/
-  RedirectMatch 301 ^/chairs/niyo-fabric-chair/?$ /chairs/performance-mesh-chair/
-  RedirectMatch 301 ^/tables/flexon-bed-table/?$ /tables/bed-table/
-  RedirectMatch 301 ^/tables/modura-primex-height-adjustable-table/?$ /tables/modura-height-adjustable-table/
-  RedirectMatch 301 ^/tables/quantum-primex-gaming-desk/?$ /tables/quantum-gaming-desk/
-  RedirectMatch 301 ^/accessories/storage-box-plus/?$ /accessories/
-  RedirectMatch 301 ^/accessories/storage-box-pro-max/?$ /accessories/
-  RedirectMatch 301 ^/accessories/footrest-plus/?$ /accessories/footrest/
-  RedirectMatch 301 ^/accessories/cpu-stand-plus/?$ /accessories/
-  RedirectMatch 301 ^/accessories/cpu-stand-pro/?$ /accessories/
-  RedirectMatch 301 ^/accessories/monitor-stand-basic/?$ /accessories/desk-shelf-tray/
-  RedirectMatch 301 ^/accessories/monitor-stand-pro-max/?$ /accessories/desk-shelf-tray/
-  RedirectMatch 301 ^/accessories/desk-hook-basic/?$ /accessories/
-  RedirectMatch 301 ^/accessories/desk-hook-plus/?$ /accessories/
-  RedirectMatch 301 ^/chairs/casca-fabric-chair/?$ /chairs/casca-performance-mesh-chair/
-  RedirectMatch 301 ^/tables/exquisite-primex-folding-table/?$ /tables/exquisite-folding-table/
-  RedirectMatch 301 ^/tables/modulus-primex-height-adjustable-table/?$ /tables/modulus-height-adjustable-table/
-  RedirectMatch 301 ^/tables/zenvy-primex-study-table/?$ /tables/zenvy-study-table/
-  RedirectMatch 301 ^/accessories/footrest-basic/?$ /accessories/footrest/
-  RedirectMatch 301 ^/accessories/cable-tray-basic/?$ /accessories/cable-management-tray/
-  RedirectMatch 301 ^/accessories/cup-holder-basic/?$ /accessories/cup-holder/
+  RewriteRule ^product/accessories-desk-hook-002/?$ /accessories/ [R=301,L]
+  RewriteRule ^chairs/rider-leather-chair/?$ /chairs/ [R=301,L]
+  RewriteRule ^chairs/nexor-leather-chair/?$ /chairs/ [R=301,L]
+  RewriteRule ^chairs/valerio-leather-chair/?$ /chairs/ [R=301,L]
+  RewriteRule ^chairs/fabio-fabric-chair/?$ /chairs/performance-mesh-chair/ [R=301,L]
+  RewriteRule ^chairs/niyo-fabric-chair/?$ /chairs/performance-mesh-chair/ [R=301,L]
+  RewriteRule ^tables/flexon-bed-table/?$ /tables/bed-table/ [R=301,L]
+  RewriteRule ^tables/modura-primex-height-adjustable-table/?$ /tables/modura-height-adjustable-table/ [R=301,L]
+  RewriteRule ^tables/quantum-primex-gaming-desk/?$ /tables/quantum-gaming-desk/ [R=301,L]
+  RewriteRule ^accessories/storage-box-plus/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/storage-box-pro-max/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/footrest-plus/?$ /accessories/footrest/ [R=301,L]
+  RewriteRule ^accessories/cpu-stand-plus/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/cpu-stand-pro/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/monitor-stand-basic/?$ /accessories/desk-shelf-tray/ [R=301,L]
+  RewriteRule ^accessories/monitor-stand-pro-max/?$ /accessories/desk-shelf-tray/ [R=301,L]
+  RewriteRule ^accessories/desk-hook-basic/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/desk-hook-plus/?$ /accessories/ [R=301,L]
+  RewriteRule ^chairs/casca-fabric-chair/?$ /chairs/casca-performance-mesh-chair/ [R=301,L]
+  RewriteRule ^tables/exquisite-primex-folding-table/?$ /tables/exquisite-folding-table/ [R=301,L]
+  RewriteRule ^tables/modulus-primex-height-adjustable-table/?$ /tables/modulus-height-adjustable-table/ [R=301,L]
+  RewriteRule ^tables/zenvy-primex-study-table/?$ /tables/zenvy-study-table/ [R=301,L]
+  RewriteRule ^accessories/footrest-basic/?$ /accessories/footrest/ [R=301,L]
+  RewriteRule ^accessories/cable-tray-basic/?$ /accessories/cable-management-tray/ [R=301,L]
+  RewriteRule ^accessories/cup-holder-basic/?$ /accessories/cup-holder/ [R=301,L]
   # No leather chairs remain.
-  RedirectMatch 301 ^/chairs/leather-chair/?$ /chairs/
+  RewriteRule ^chairs/leather-chair/?$ /chairs/ [R=301,L]
   # The range was renamed and re-specified rather than dropped.
-  RedirectMatch 301 ^/chairs/fabric-chair/?$ /chairs/performance-mesh-chair/
-  RedirectMatch 301 ^/accessories/storage-box/?$ /accessories/
-  RedirectMatch 301 ^/accessories/cpu-stand/?$ /accessories/
+  RewriteRule ^chairs/fabric-chair/?$ /chairs/performance-mesh-chair/ [R=301,L]
+  RewriteRule ^accessories/storage-box/?$ /accessories/ [R=301,L]
+  RewriteRule ^accessories/cpu-stand/?$ /accessories/ [R=301,L]
   # Nearest surviving product, as above.
-  RedirectMatch 301 ^/accessories/monitor-stand/?$ /accessories/desk-shelf-tray/
-  RedirectMatch 301 ^/accessories/desk-hook/?$ /accessories/
+  RewriteRule ^accessories/monitor-stand/?$ /accessories/desk-shelf-tray/ [R=301,L]
+  RewriteRule ^accessories/desk-hook/?$ /accessories/ [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Branded 404
+# ---------------------------------------------------------------------------
+# Must stay last: mod_rewrite stops at the first matching rule with [L], so
+# every redirect above gets its chance before anything is treated as missing.
+#
+# This is an internal rewrite, not a redirect, so the browser keeps the dead
+# URL in the address bar and the PHP shim sets the 404 itself -- which is the
+# part this host does not intercept. Answering a missing page with a 200 would
+# be worse than the grey default: Google calls that a soft 404 and can start
+# distrusting URLs that do exist.
+#
+# The two conditions are what keep it from doing harm. A path that resolves to
+# a real file or a real directory is left alone, so /chairs/ still serves
+# its index, /enquiry.php still runs, and a hashed asset is still an asset.
+# They also terminate the rewrite: the substitution is itself a real file, so
+# the second pass matches nothing and the rule cannot loop.
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /404.php [L]
 </IfModule>
 
 # ---------------------------------------------------------------------------

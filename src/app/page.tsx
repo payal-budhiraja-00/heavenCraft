@@ -28,21 +28,32 @@ import { formatPaise } from "@/lib/money";
 const HERO_SRC = "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/3.jpeg";
 
 /**
- * Flagship first: the sit-stand desks are the reason to visit. Then a spread
- * across both chair ranges and down to an accessory, so the grid shows the
- * whole price ladder rather than eight variations on a desk.
+ * Two rows rather than one, split by orientation.
+ *
+ * A single grid of eight had to pick one box for a chair shot at 0.6:1 and a
+ * 2m desk shot at 1.6:1, and the compromise -- square -- took 40% off both.
+ * Every chair in the catalogue is photographed upright and every wide desk
+ * across the room, so the split is the photography's own and each row gets
+ * the shape its contents are actually in.
+ *
+ * Desks lead: the sit-stand range is the reason to visit. Each row spreads
+ * across its ranges rather than showing four variations on one model, so the
+ * price ladder is still visible.
  *
  * Quantum is deliberately absent -- see `NOT_FOR_FEATURE` in lib/images.ts.
  */
-const FEATURED_IDS = [
+const FEATURED_DESK_IDS = [
   "table-height-adjustable-006",
-  "chair-mesh-006",
   "table-executive-003",
-  "chair-mesh-004",
   "table-height-adjustable-005",
-  "chair-fabric-003",
   "table-study-003",
-  "accessories-footrest-001",
+];
+
+const FEATURED_CHAIR_IDS = [
+  "chair-mesh-006",
+  "chair-mesh-004",
+  "chair-fabric-003",
+  "pointer-performance-mesh-chair",
 ];
 
 export default function HomePage() {
@@ -53,16 +64,20 @@ export default function HomePage() {
    * the homepage showing four products instead of eight with nothing to say
    * it had happened.
    */
-  const featured = FEATURED_IDS.map((id) => {
-    const product = allProducts.find((p) => p.id === id);
-    if (!product) {
-      throw new Error(
-        `FEATURED_IDS names "${id}", which is not in the catalogue. ` +
-          `Pick a replacement in src/app/page.tsx.`,
-      );
-    }
-    return product;
-  });
+  const pick = (ids: string[]) =>
+    ids.map((id) => {
+      const product = allProducts.find((p) => p.id === id);
+      if (!product) {
+        throw new Error(
+          `A featured list names "${id}", which is not in the catalogue. ` +
+            `Pick a replacement in src/app/page.tsx.`,
+        );
+      }
+      return product;
+    });
+
+  const featuredDesks = pick(FEATURED_DESK_IDS);
+  const featuredChairs = pick(FEATURED_CHAIR_IDS);
 
   const range = priceRange(allProducts);
   const subCount = groups.reduce((n, g) => n + g.subCategories.length, 0);
@@ -109,8 +124,14 @@ export default function HomePage() {
             supplier's chair frames are upright at about 0.67:1, and a short
             landscape band cropped 55% of the frame away -- on a phone the
             hero showed a strip of seat with the base and headrest gone.
+
+            2:3 on a phone is the frame's own shape, so nothing is cut at the
+            width where the hero is the whole screen. From lg it shares the
+            row with the copy and takes the column's height instead, which is
+            the one place a crop is acceptable: the chairs are centred and it
+            is the sweep above and below them that goes.
           */}
-          <div className="relative aspect-4/5 sm:aspect-square lg:aspect-auto lg:min-h-[44rem]">
+          <div className="relative aspect-2/3 sm:aspect-4/5 lg:aspect-auto lg:min-h-[44rem]">
             <Image
               src={encodeImagePath(HERO_SRC)}
               alt="Two dark grey mesh task chairs with adjustable headrests in a high-rise office overlooking a city skyline"
@@ -197,7 +218,23 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12">
-            <ProductGrid products={featured} priorityCount={4} />
+            <ProductGrid products={featuredDesks} priorityCount={4} />
+          </div>
+
+          <div className="mt-16 flex flex-wrap items-end justify-between gap-6">
+            <h3 className="font-display text-2xl text-ink lg:text-3xl">
+              And to sit at them
+            </h3>
+            <Link
+              href="/chairs/"
+              className="label text-gold transition-colors hover:text-gold-bright"
+            >
+              All chairs →
+            </Link>
+          </div>
+
+          <div className="mt-8">
+            <ProductGrid products={featuredChairs} />
           </div>
         </Container>
       </section>

@@ -25,20 +25,33 @@ function escapeRegex(value: string): string {
 /**
  * One redirect, anchored to the exact path.
  *
- * `Redirect` is a *prefix* match and appends whatever follows the matched
- * portion to the target, so `Redirect 301 /chairs/rider-leather-chair /chairs/`
- * sent `/chairs/rider-leather-chair/` -- the trailing-slash form every internal
+ * Anchoring matters. `Redirect` is a *prefix* match and appends whatever
+ * follows the matched portion to the target, so
+ * `Redirect 301 /chairs/rider-leather-chair /chairs/` sent
+ * `/chairs/rider-leather-chair/` -- the trailing-slash form every internal
  * link used and the form Google indexed -- to `/chairs//`. Apache still served
  * that with a 200, which is why it went unnoticed, but a doubled slash is a
  * distinct URL to a crawler and splits exactly the signal a 301 exists to
  * consolidate. The prefix is loose in the other direction too: `/search` would
  * also have caught a hypothetical `/search-results`.
  *
- * `RedirectMatch` with `^...$` matches the one path, with or without its
- * trailing slash, and appends nothing.
+ * These were `RedirectMatch` until the branded 404 needed a mod_rewrite
+ * catch-all to reach the browser at all. The two modules cannot be mixed for
+ * this, because mod_rewrite registers its fixup hook `APR_HOOK_FIRST` and
+ * mod_alias registers `fixup_redir` `APR_HOOK_MIDDLE`: within one .htaccess,
+ * every RewriteRule is therefore evaluated before any Redirect, whatever the
+ * order they are written in. A catch-all for "no file here" would have
+ * swallowed all 75 of these before mod_alias ever saw them, turning live 301s
+ * into 404s invisibly -- the redirect targets still exist, so nothing in the
+ * build would have failed. Expressed as RewriteRules they sit in one ordered
+ * list with the catch-all last, and the ordering is the file's own.
+ *
+ * `^...$` matches the one path, with or without its trailing slash, and
+ * appends nothing. The leading slash is dropped because per-directory
+ * mod_rewrite matches the path relative to `RewriteBase`.
  */
 function redirectLine(from: string, to: string): string {
-  return `  RedirectMatch 301 ^${escapeRegex(from)}/?$ ${to}`;
+  return `  RewriteRule ^${escapeRegex(from).replace(/^\\?\//, "")}/?$ ${to} [R=301,L]`;
 }
 
 function redirects(): string {
@@ -77,21 +90,19 @@ const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
 # ---------------------------------------------------------------------------
 # Error document
 # ---------------------------------------------------------------------------
-# Declared first, before mod_rewrite is touched.
+# Kept, but it is not what serves the 404 -- the catch-all at the foot of the
+# rewrite rules is. This host swallows Apache's error handling whatever it is
+# pointed at: with "ErrorDocument 404 /404.html" a dead URL returned GoDaddy's
+# own grey "File not found" page, and pointing it at a PHP shim instead
+# changed nothing, even though every other directive in this file demonstrably
+# applies in production and /404.php requested directly returns the branded
+# page with a 404. So the interception is of Apache's error machinery itself,
+# and no target will satisfy it.
 #
-# This points at a PHP shim rather than straight at the branded 404.html, and
-# the reason is the host. Unmatched paths were being answered with GoDaddy's
-# own grey "File not found" page even though every other directive in this
-# file was live in production -- mod_rewrite, mod_alias and mod_headers rules
-# all apply, and they need the same AllowOverride level ErrorDocument does. So
-# the platform is intercepting Apache's error handling specifically, and
-# naming a different static file would change nothing.
-#
-# What the platform demonstrably does not intercept is a status set by PHP:
-# /enquiry.php answers a GET with its own 405 and JSON body, and that reaches
-# the client intact. 404.php sets the status itself and prints the same
-# branded page, so Apache's error machinery is never entered and there is
-# nothing left to intercept.
+# It stays because it costs nothing, it is the correct declaration for any
+# host that honours it, and it covers the cases the catch-all deliberately
+# does not -- a 403 from "Options -Indexes", for instance, where the path does
+# exist as a directory.
 ErrorDocument 404 /404.php
 
 <IfModule mod_rewrite.c>
@@ -146,7 +157,7 @@ Options -Indexes
 # ---------------------------------------------------------------------------
 # Legacy URLs from the React Router site
 # ---------------------------------------------------------------------------
-<IfModule mod_alias.c>
+<IfModule mod_rewrite.c>
 ${redirects()}
 
   # Search was a client-side route with no server-rendered equivalent.
@@ -159,8 +170,31 @@ ${redirectLine("/search", "/")}
 # Products that were dropped, ranges that emptied, and products that survived
 # under a new name -- a rename moves the URL, because the slug comes from the
 # name. All of these were served with a 200 by this site and are in the index.
-<IfModule mod_alias.c>
+<IfModule mod_rewrite.c>
 ${legacyRedirects()}
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Branded 404
+# ---------------------------------------------------------------------------
+# Must stay last: mod_rewrite stops at the first matching rule with [L], so
+# every redirect above gets its chance before anything is treated as missing.
+#
+# This is an internal rewrite, not a redirect, so the browser keeps the dead
+# URL in the address bar and the PHP shim sets the 404 itself -- which is the
+# part this host does not intercept. Answering a missing page with a 200 would
+# be worse than the grey default: Google calls that a soft 404 and can start
+# distrusting URLs that do exist.
+#
+# The two conditions are what keep it from doing harm. A path that resolves to
+# a real file or a real directory is left alone, so /chairs/ still serves
+# its index, /enquiry.php still runs, and a hashed asset is still an asset.
+# They also terminate the rewrite: the substitution is itself a real file, so
+# the second pass matches nothing and the rule cannot loop.
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /404.php [L]
 </IfModule>
 
 # ---------------------------------------------------------------------------
