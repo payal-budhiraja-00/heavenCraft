@@ -210,11 +210,24 @@ ${legacyRedirects()}
 # ---------------------------------------------------------------------------
 # Caching
 # ---------------------------------------------------------------------------
-# Hashed build assets are immutable and cached for a year. HTML is revalidated
-# every time, because a deploy changes it in place under the same URL.
+# Hashed build assets are immutable and cached for a year. Everything else is
+# revalidated, because a deploy changes it in place under the same URL.
+#
+# The default is deliberately "revalidate", not "a month". It used to be the
+# other way round -- long-lived by default, with exceptions listed -- and that
+# silently caught Next's client-navigation payloads. The App Router fetches
+# those as .txt beside each page, they hold the rendered page, and they change
+# on every build; Next appends ?_rsc=<hash> to them, but that hash is derived
+# from the route pattern rather than the build, so it is identical across
+# builds and busts nothing. The result was a stable URL, changing content, and
+# a 30-day cache: a returning visitor navigating between pages was served a
+# month-old rendering, and once a deploy moved the chunk graph the payload
+# referenced files that had been deleted, so the page failed to hydrate and
+# only a reload fixed it. An opt-in list cannot have that failure mode -- a
+# file type nobody thought about gets revalidated instead of frozen.
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresDefault "access plus 1 month"
+  ExpiresDefault "access plus 0 seconds"
   ExpiresByType text/html "access plus 0 seconds"
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
@@ -226,7 +239,11 @@ ${legacyRedirects()}
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\\.(html)$">
+  # Documents: same URL, new bytes on every deploy. This must cover the
+  # .txt navigation payloads as well as the pages themselves -- they are the
+  # same content reached a different way, and caching one but not the other is
+  # what lets a visitor see two different versions of the site at once.
+  <FilesMatch "\\.(html|txt|xml|json)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 

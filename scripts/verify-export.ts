@@ -409,6 +409,58 @@ if (/RewriteCond\s+%\{HTTPS\}/.test(htaccess)) {
 }
 
 /*
+ * The client-navigation payloads must be revalidated like the pages they
+ * duplicate.
+ *
+ * The App Router fetches a .txt beside each page holding that page's rendered
+ * output. Next appends ?_rsc=<hash>, which looks like a cache buster but is
+ * derived from the route pattern, not the build: it is byte-identical across
+ * builds, so the URL is stable while the bytes change on every deploy. Cached
+ * long, it serves a visitor a stale rendering of a page whose HTML is current
+ * -- and once a deploy has moved the chunk graph, the payload references files
+ * that were deleted, the page fails to hydrate, and only a reload recovers it.
+ *
+ * Checked here rather than trusted to review because nothing about it is
+ * visible: the build is correct, the deploy succeeds, every page loads, and
+ * the damage appears only for someone who visited before the last deploy.
+ */
+const payloads = files.filter((f) => f.endsWith(".txt")).map(toUrl);
+if (payloads.length === 0) {
+  fail("no .txt navigation payloads in the export — has the router changed?");
+}
+
+const documentCache = htaccess.match(
+  /<FilesMatch "\\\.\(([^)]*)\)\$">\s*\n\s*Header set Cache-Control "([^"]*)"/,
+);
+if (!documentCache) {
+  fail(".htaccess has no Cache-Control rule for documents");
+} else {
+  const extensions = documentCache[1] ?? "";
+  const value = documentCache[2] ?? "";
+  for (const needed of ["html", "txt"]) {
+    if (!extensions.split("|").includes(needed)) {
+      fail(
+        `.${needed} is not covered by the document Cache-Control rule ` +
+          `(matches ${extensions}) — it would fall through to ExpiresDefault`,
+      );
+    }
+  }
+  if (!/must-revalidate/.test(value)) {
+    fail(`documents are cached as "${value}" without must-revalidate`);
+  }
+}
+
+// An opt-in default is what keeps a file type nobody considered from being
+// frozen for a month. This is the rule that failed before.
+const expiresDefault = htaccess.match(/ExpiresDefault "access plus ([^"]*)"/)?.[1];
+if (expiresDefault && !/^0 /.test(expiresDefault)) {
+  fail(
+    `ExpiresDefault is "${expiresDefault}" — anything not listed by type is ` +
+      `cached that long, including files a future Next version adds`,
+  );
+}
+
+/*
  * Sources and targets are read as pairs from the same anchored shape --
  * `RewriteRule ^chairs/rider-leather-chair/?$ /chairs/ [R=301,L]` -- which
  * also excludes the canonical-host rule, whose target is an absolute URL on
