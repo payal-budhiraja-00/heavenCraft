@@ -300,13 +300,18 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
   ];
 
   /*
-   * Product + Offer only.
+   * Product, Offer, and -- once there are real reviews -- AggregateRating.
    *
-   * No `aggregateRating`, and no `review`. Every rating in products.json is
-   * seeded demo content -- not one product below four stars -- and feeding an
-   * invented score into Google's index is a structured-data policy breach,
-   * not an exaggeration. It gets rich results revoked for the whole domain.
-   * The stars go in when there are real orders behind them.
+   * The stars are emitted only when all three of these hold: the section is
+   * rendered, the reviews are the order-verified ones from Judge.me, and this
+   * product actually has some. Google requires a rating in markup to be
+   * visible on the page, so a rating emitted while the section is switched
+   * off would be a violation even though every number in it was true.
+   *
+   * The bar is deliberately this high because the penalty is not proportional
+   * to the offence: an invented score is a structured-data policy breach that
+   * gets rich results revoked for the whole domain, not a number Google
+   * quietly discounts.
    *
    * One Offer per colourway. A product whose finishes differ in price would
    * otherwise advertise a single figure that its other variants do not
@@ -318,8 +323,9 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
 
     Google renders both directly in Shopping and in the product snippet, and
     an absent return policy is treated as a worse one -- "vague" scores below
-    "30 days, buyer pays". Ours is unusually good and was invisible: seven
-    days, with return shipping on us. It is worth the markup on its own.
+    "30 days, buyer pays". Stating ours plainly is still better than saying
+    nothing, even though ours is not a selling point: see the return policy
+    below, which declares no change-of-mind window because we do not offer one.
 
     `shippingRate` is omitted rather than guessed. The free-shipping threshold
     and the rate below it are the two answers still outstanding, and a wrong
@@ -425,6 +431,56 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     value: spec.value,
   }));
 
+  /*
+   * Only reviews the page itself is showing may appear in the markup, which
+   * is why this reads the same two flags the section does rather than the
+   * data directly.
+   */
+  const shownReviews =
+    features.reviews && features.reviewsAreReal ? product.reviews : [];
+
+  const rating = shownReviews.length
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          /* One decimal place. Reporting more would imply a precision that
+           * a handful of whole-star ratings does not have. */
+          ratingValue: (
+            shownReviews.reduce((sum, r) => sum + r.rating, 0) /
+            shownReviews.length
+          ).toFixed(1),
+          reviewCount: shownReviews.length,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        review: shownReviews.map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.author },
+          ...(r.date ? { datePublished: r.date } : {}),
+          ...(r.title ? { name: r.title } : {}),
+          reviewBody: r.comment,
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        })),
+      }
+    : {};
+
+  /*
+   * Whether there are reviews to list. The block itself always renders,
+   * because the invitation to write one is deliberately not behind
+   * `features.reviews`.
+   *
+   * That flag governs display, and display cannot come first: a storefront
+   * with no reviews yet is exactly the one that needs to be asking for them,
+   * so gating the ask on it would be a deadlock where reviews are never
+   * collected because none exist to show.
+   */
+  const hasReviewList = features.reviews && product.reviews.length > 0;
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -448,6 +504,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
     */
     countryOfOrigin: { "@type": "Country", name: "India" },
     ...(additionalProperty.length ? { additionalProperty } : {}),
+    ...rating,
     offers: offers.length === 1 ? offers[0] : offers,
   };
 
@@ -668,43 +725,76 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
         </VariantProvider>
       </Container>
 
-      {features.reviews && product.reviews.length ? (
-        <Container className="border-t border-edge py-16">
+      <Container className="border-t border-edge py-16">
+        {hasReviewList ? (
+          <>
+            <SectionHeading
+              eyebrow={
+                features.reviewsAreReal ? "Customer reviews" : "Sample content"
+              }
+              title="What people say"
+            />
+            {!features.reviewsAreReal ? (
+              <p className="mt-4 max-w-xl rounded-panel border border-edge bg-gold-wash p-4 text-sm text-cream-muted">
+                Placeholder copy shown while the review system is being set up.
+                Not from verified buyers.
+              </p>
+            ) : null}
+            <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {product.reviews.map((review) => (
+                <li
+                  key={review.id}
+                  className="rounded-panel border border-edge bg-surface p-6"
+                >
+                  <p className="text-sm font-semibold text-cream">
+                    {review.title}
+                  </p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-cream-muted">
+                    {review.comment}
+                  </p>
+                  <p className="mt-4 text-xs text-cream-faint">
+                    {review.author}
+                    {/* Judge.me matched this reviewer to an order. The flag
+                        stays behind reviewsAreReal so a half-finished switch
+                        can never print the badge over placeholder data. */}
+                    {features.reviewsAreReal && review.verifiedBuyer
+                      ? " · Verified purchase"
+                      : null}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
           <SectionHeading
-            eyebrow={features.reviewsAreReal ? "Customer reviews" : "Sample content"}
-            title="What people say"
+            eyebrow="Customer reviews"
+            title="Be the first to review this"
           />
-          {!features.reviewsAreReal ? (
-            <p className="mt-4 max-w-xl rounded-panel border border-edge bg-gold-wash p-4 text-sm text-cream-muted">
-              Placeholder copy shown while the review system is being set up.
-              Not from verified buyers.
-            </p>
-          ) : null}
-          <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {product.reviews.map((review) => (
-              <li
-                key={review.id}
-                className="rounded-panel border border-edge bg-surface p-6"
-              >
-                <p className="text-sm font-semibold text-cream">
-                  {review.title}
-                </p>
-                <p className="mt-2.5 text-sm leading-relaxed text-cream-muted">
-                  {review.comment}
-                </p>
-                <p className="mt-4 text-xs text-cream-faint">
-                  {review.author}
-                  {/* The "verified" flag in the source data is seeded, so the
-                      badge only appears once the reviews are genuinely real. */}
-                  {features.reviewsAreReal && review.claimedVerified
-                    ? " · Verified purchase"
-                    : null}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      ) : null}
+        )}
+
+        {/*
+          Shown to everyone rather than to buyers only, because there is no
+          way to tell them apart here: the showroom sale this is largely for
+          never touched the site at all.
+        */}
+        <div
+          className={
+            hasReviewList
+              ? "mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-edge pt-8"
+              : "mt-6 flex flex-wrap items-center gap-x-5 gap-y-3"
+          }
+        >
+          <p className="text-sm text-cream-muted">
+            Bought this one — here or at the showroom?
+          </p>
+          <Link
+            href="/write-a-review/"
+            className="label inline-flex min-h-11 items-center gap-2 py-2 text-gold transition-colors hover:text-gold-bright"
+          >
+            Write a review
+          </Link>
+        </div>
+      </Container>
 
       {related.length ? (
         <Container className="border-t border-edge py-16">

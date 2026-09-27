@@ -249,9 +249,32 @@ for (const file of pages) {
     fail(`og:image has no declared width on ${url}`);
   }
 
-  // Reviews on this site are seeded demo content. Emitting them as ratings
-  // would be a search-policy breach, so the build must never produce one.
-  if (html.includes("aggregateRating")) fail(`aggregateRating on ${url}`);
+  /*
+   * A star rating is a claim Google repeats, and the penalty for getting it
+   * wrong is revocation of rich results across the whole domain rather than a
+   * discounted score on the offending page. So the export is checked instead
+   * of the flags that produced it: a flag can be right while the wiring
+   * between it and the page is wrong, and it is the page Google reads.
+   *
+   * This used to forbid aggregateRating outright, because every review was
+   * seeded. Now that they come from Judge.me, which mails the address on the
+   * order, a rating is allowed -- but only on a page that shows the reviews
+   * it was computed from.
+   */
+  if (html.includes('"aggregateRating"')) {
+    // Google requires a rating in markup to be visible to a visitor on the
+    // same page. One emitted from a section that did not render is invisible
+    // to us and reads as fabricated to them.
+    if (!html.includes("What people say")) {
+      fail(`aggregateRating with no visible reviews section on ${url}`);
+    }
+    // The placeholder banner only appears when the reviews are not the
+    // order-verified ones, so finding it beside a rating means we are about
+    // to publish a score derived from sample copy.
+    if (html.includes("Placeholder copy shown while the review system")) {
+      fail(`aggregateRating computed from placeholder reviews on ${url}`);
+    }
+  }
 
   // Anything left over from the Create React App site.
   for (const leftover of ["logo192", "logo512", "Create React App"]) {

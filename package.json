@@ -14,6 +14,7 @@
     "check": "npm run typecheck && npm run lint",
     "verify": "tsx scripts/verify-export.ts",
     "retain-assets": "tsx scripts/retain-assets.ts",
+    "reviews:fetch": "tsx scripts/reviews/fetch.ts",
     "shopify:csv": "tsx scripts/shopify/export-csv.ts",
     "shopify:preflight": "tsx scripts/shopify/preflight.ts",
     "shopify:sync": "tsx scripts/shopify/sync.ts",

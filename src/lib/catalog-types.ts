@@ -6,18 +6,24 @@
  */
 
 export type Review = {
+  /** Judge.me's review id, so an edit upstream updates rather than duplicates. */
   id: number;
   author: string;
   rating: number;
+  /** ISO date, the day it was left. */
   date: string;
   title: string;
   comment: string;
   /**
-   * Whether the source data claimed this was a verified purchase. Deliberately
-   * NOT rendered as a badge unless `features.reviewsAreReal` is set -- the flag
-   * in the data is seeded demo content, not a checked fact.
+   * Judge.me matched this reviewer against a real order.
+   *
+   * It is their check, not ours and not the reviewer's: the review request
+   * goes out to the address on the order, so the badge means the person was
+   * actually sold the thing. That is the whole reason reviews are collected
+   * through it rather than typed in by hand -- "verified" has to be a fact
+   * somebody can stand behind, and a boolean we set ourselves is not one.
    */
-  claimedVerified: boolean;
+  verifiedBuyer: boolean;
 };
 
 export type Variant = {

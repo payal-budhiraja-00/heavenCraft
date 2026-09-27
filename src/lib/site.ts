@@ -73,6 +73,33 @@ export const SITE = {
 } as const;
 
 /**
+ * The public link a customer follows to write a review.
+ *
+ * Judge.me issues one per shop, under Collect reviews -> Review link, and it
+ * carries an unguessable token: it cannot be derived from the shop domain, so
+ * it has to be pasted here once.
+ *
+ * It is public on purpose. Anyone holding it can leave a review without an
+ * order behind them, which is exactly what makes it work for someone who
+ * bought in the showroom -- there is no Shopify order for Judge.me to email,
+ * so the automatic request that online buyers get never fires for them.
+ *
+ * The trade is that these reviews are not order-verified, and the page must
+ * not imply otherwise. Judge.me confirms the reviewer's email address but not
+ * that they bought anything, so it returns them unverified and the
+ * "Verified purchase" badge stays off. That is handled where the badge is
+ * rendered, off `review.verifiedBuyer`, not here.
+ *
+ * Not a secret and not an environment variable: it gets printed on a card and
+ * encoded into a QR code, so the repo is the honest place for it.
+ *
+ * Typed as `string` rather than inferred, so that an empty default is not
+ * narrowed to the literal `""` and every check against it compiled away.
+ */
+export const REVIEW_LINK: string =
+  "https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link";
+
+/**
  * Commercial terms, in one place because they are asserted in three: policy
  * pages a customer reads, Offer schema a search engine reads, and the buy box.
  * When they drift apart the policy page is the one that is legally binding, so

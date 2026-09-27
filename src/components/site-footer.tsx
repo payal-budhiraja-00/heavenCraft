@@ -108,6 +108,18 @@ export function SiteFooter({ groups }: { groups: FooterGroup[] }) {
             © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
           </p>
           <ul className="flex flex-wrap gap-x-6">
+            {/* Sits with the policy links rather than in a column of its own:
+                it is a standing invitation, not a piece of navigation anyone
+                arrives looking for. The QR code and the product pages are
+                what actually carry people here. */}
+            <li>
+              <Link
+                href="/write-a-review/"
+                className="inline-block py-1.5 text-xs text-cream-faint transition-colors hover:text-gold"
+              >
+                Write a review
+              </Link>
+            </li>
             {policies.map((policy) => (
               <li key={policy.href}>
                 <Link

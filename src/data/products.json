@@ -53,26 +53,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Anil Kumar",
-        "rating": 4,
-        "date": "2026-02-07",
-        "title": "Clean workspace achieved!",
-        "comment": "Under-desk mount keeps cables organized! Easy installation. Durable material. My desk looks much cleaner now. Good purchase!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Pooja Singh",
-        "rating": 4,
-        "date": "2026-01-17",
-        "title": "Simple cable management",
-        "comment": "Wire organization made easy. Cables off the floor. Good value for keeping workspace tidy!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Length",
@@ -174,26 +154,6 @@
           "/images/products/accessories/cup-holder/cup-holder-basic/black/5.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Rahul Saxena",
-        "rating": 4,
-        "date": "2026-02-09",
-        "title": "Simple and effective!",
-        "comment": "Clips easily to my desk. Saves space and keeps my coffee safe. Good quality for the price!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Priya Nair",
-        "rating": 4,
-        "date": "2026-01-18",
-        "title": "Handy desk accessory",
-        "comment": "Works well for cups and bottles. Installation is super easy. Useful addition to my workspace!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -303,7 +263,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Width",
@@ -398,7 +357,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Width",
@@ -482,17 +440,6 @@
           "/images/products/accessories/footrest/footrest-basic/black/4.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Sanjay Desai",
-        "rating": 4,
-        "date": "2026-02-08",
-        "title": "Good ergonomic addition",
-        "comment": "Non-slip surface works well. Improves my posture during long work hours. Compact size fits under desk perfectly. Good value!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -678,17 +625,6 @@
         ]
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Lakshmi Iyer",
-        "rating": 4,
-        "date": "2026-01-19",
-        "title": "Reduces leg fatigue",
-        "comment": "Ergonomic angle is comfortable. Durable construction. Simple but effective. Recommended for desk workers!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Width",
@@ -798,7 +734,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Total Length",
@@ -908,7 +843,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Width",
@@ -1012,35 +946,6 @@
           "/images/products/chairs/mesh-chair/neuro-mesh-chair/grey/6.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Deepak Srivastava",
-        "rating": 5,
-        "date": "2026-02-18",
-        "title": "Neuro chair is a powerhouse!",
-        "comment": "The Neuro mesh chair handles long hours effortlessly. The high-load capacity frame gives me great confidence and the anti-fatigue lumbar curve is a real back-saver!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Pooja Bhattacharya",
-        "rating": 5,
-        "date": "2026-02-03",
-        "title": "Best ergonomic chair under 15k!",
-        "comment": "I've tried many chairs at this price range but Neuro stands out. The synchro-tilt mechanism is incredibly smooth and the mesh keeps me cool all day.",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Suraj Pillai",
-        "rating": 4,
-        "date": "2026-01-14",
-        "title": "Solid build, great for tall users",
-        "comment": "As someone 6 feet tall, the adjustable headrest and 3D armrests finally fit me perfectly. Very comfortable after minor adjustments. Highly satisfied!",
-        "verified": false
       }
     ],
     "specifications": [
@@ -1177,44 +1082,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Aakash Menon",
-        "rating": 5,
-        "date": "2026-04-10",
-        "title": "Zynx is on another level!",
-        "comment": "The dual-layer mesh is unlike anything I've sat on before — incredibly breathable and supportive at the same time. The self-adjusting lumbar just finds the right spot. Best chair I've ever owned!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Neha Kulkarni",
-        "rating": 5,
-        "date": "2026-03-28",
-        "title": "Worth every rupee and more!",
-        "comment": "As someone with chronic lower back issues, the Zynx has been a revelation. The lumbar system adapts as I shift position. 10-hour work days are now completely comfortable. Highly recommend!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Saurabh Tiwari",
-        "rating": 5,
-        "date": "2026-03-15",
-        "title": "Premium build, premium comfort",
-        "comment": "The aluminium base feels rock solid and the 4D armrests are incredibly precise. The mesh quality is clearly a step above other chairs in this range. A true flagship mesh chair!",
-        "verified": true
-      },
-      {
-        "id": 4,
-        "author": "Divya Iyer",
-        "rating": 4,
-        "date": "2026-02-27",
-        "title": "Excellent chair, takes time to set up",
-        "comment": "Assembly took about an hour but the result is worth it. The recline lock is smooth and the neck cushion on the headrest is a thoughtful touch. Very comfortable for long hours!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Recline range",
@@ -1335,35 +1202,6 @@
           "/images/products/chairs/mesh-chair/zynx-mesh-chair/grey/5.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Manpreet Gill",
-        "rating": 5,
-        "date": "2026-02-20",
-        "title": "Hujing - the ultimate mesh chair!",
-        "comment": "This is my third mesh chair and by far the best. The Hujing's lumbar support is exceptionally well-positioned and the premium mesh fabric feels luxurious. No more back aches!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Sunanda Krishnaswamy",
-        "rating": 5,
-        "date": "2026-02-07",
-        "title": "Worth every single rupee at this price!",
-        "comment": "As a data analyst working 14-hour shifts, the Hujing chair has been a game changer. The gas lift adjustment is silky smooth and the synchro-tilt is perfect for thinking breaks.",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Farhan Qureshi",
-        "rating": 4,
-        "date": "2025-12-10",
-        "title": "Premium feel, slight assembly learning curve",
-        "comment": "The chair quality is top-tier. 3D armrests are unique and very useful. Assembly took about 45 minutes but the result is incredible. Highly recommend for serious users.",
-        "verified": true
       }
     ],
     "specifications": [
@@ -1500,35 +1338,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Ishaan Khanna",
-        "rating": 5,
-        "date": "2026-02-13",
-        "title": "Premium fabric chair - worth it!",
-        "comment": "The luxury fabric upholstery is outstanding! Enhanced lumbar support really helps during long work sessions. Best fabric chair I've used!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Kavya Reddy",
-        "rating": 5,
-        "date": "2026-01-20",
-        "title": "Superior comfort all day",
-        "comment": "Amazing chair! The adjustable components let me find the perfect position. Durable construction and beautiful design. Love it!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Rohan Joshi",
-        "rating": 4,
-        "date": "2025-12-15",
-        "title": "Great quality fabric chair",
-        "comment": "Very comfortable and well-made. The fabric feels premium. Assembly was easy. Slightly expensive but quality justifies the price.",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Recline lock",
@@ -1646,7 +1455,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Recline lock",
@@ -1760,7 +1568,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Recline positions",
@@ -1872,7 +1679,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Length",
@@ -2035,26 +1841,6 @@
         ]
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Rahul Khanna",
-        "rating": 5,
-        "date": "2026-02-17",
-        "title": "Luxury desk worth every penny!",
-        "comment": "Built-in filing system is incredibly convenient! Integrated lighting is perfect for evening work. Expansive surface handles everything. Premium craftsmanship!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Anjali Menon",
-        "rating": 5,
-        "date": "2026-02-06",
-        "title": "Ultimate executive desk!",
-        "comment": "Luxury finish transforms my office! All features work perfectly. Executive-grade quality throughout. Best investment for my home office!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Length",
@@ -2142,26 +1928,6 @@
           "/images/products/tables/executive-table/signature-executive-table/dark-grey-black-marble/5.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Rahul Khanna",
-        "rating": 5,
-        "date": "2026-02-17",
-        "title": "Luxury desk worth every penny!",
-        "comment": "Built-in filing system is incredibly convenient! Integrated lighting is perfect for evening work. Expansive surface handles everything. Premium craftsmanship!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Anjali Menon",
-        "rating": 5,
-        "date": "2026-02-06",
-        "title": "Ultimate executive desk!",
-        "comment": "Luxury finish transforms my office! All features work perfectly. Executive-grade quality throughout. Best investment for my home office!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -2253,26 +2019,6 @@
           "/images/products/tables/folding-table/exquisite-primex-folding-table/wooden-teak/4.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Deepa Kulkarni",
-        "rating": 5,
-        "date": "2026-02-13",
-        "title": "Perfect for family gatherings!",
-        "comment": "Larger surface area is great for 6 people. Reinforced frame is very stable. Quick setup makes it ideal for parties. Excellent purchase!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Sandeep Yadav",
-        "rating": 4,
-        "date": "2026-01-27",
-        "title": "Good mid-size folding table",
-        "comment": "Durable finish and sturdy build. Use it for work and dining. Easy to store when not in use. Good value!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -2377,35 +2123,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Sunil Mathur",
-        "rating": 5,
-        "date": "2026-04-18",
-        "title": "One-click fold is a revelation!",
-        "comment": "Set up and packed away in seconds. The carry handle makes it easy to move between rooms. Waterproof surface survived a spilled glass of juice with zero damage. Brilliant product!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Ananya Bhat",
-        "rating": 5,
-        "date": "2026-04-05",
-        "title": "Perfect for big family gatherings",
-        "comment": "Easily seats 8 people and the reinforced legs don't flex at all. The anti-scratch surface still looks brand new after several uses. Best folding table we've ever bought!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Rohan Saxena",
-        "rating": 4,
-        "date": "2026-03-22",
-        "title": "Sturdy, portable and practical",
-        "comment": "The non-slip rubber feet keep the table perfectly stable on tiled floors. One-click mechanism is smooth. Great value upgrade over the standard models!",
-        "verified": false
-      }
-    ],
     "specifications": [
       {
         "label": "Length",
@@ -2497,7 +2214,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Length",
@@ -2594,35 +2310,6 @@
           "/images/products/tables/gaming-desk/quantum-gaming-desk/black/6.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Arjun Kapoor",
-        "rating": 5,
-        "date": "2026-04-20",
-        "title": "Best gaming desk I've ever used!",
-        "comment": "The RGB strip looks incredible at night and the carbon-fibre texture feels premium. Cable management cutouts are perfectly placed for my dual-monitor setup. This desk is a game changer — literally!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Sneha Pillai",
-        "rating": 5,
-        "date": "2026-04-08",
-        "title": "Huge surface, perfect for everything",
-        "comment": "Fits two 27-inch monitors, keyboard, mouse pad, and still has room to spare. The headphone hook and cup holder are super convenient. Heavy-duty frame feels rock solid!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Vivek Anand",
-        "rating": 4,
-        "date": "2026-03-25",
-        "title": "Great desk, assembly takes time",
-        "comment": "The quality is excellent and the RGB adds great ambiance. Assembly took about 90 minutes but the result is worth every minute. My gaming room looks completely transformed!",
-        "verified": false
       }
     ],
     "specifications": [
@@ -2726,7 +2413,6 @@
         "inStock": true
       }
     ],
-    "reviews": [],
     "specifications": [
       {
         "label": "Length",
@@ -2813,44 +2499,6 @@
           "/images/products/tables/height-adjustable-table/modulus-primex-height-adjustable-table/wooden-teak/5.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Aditya Krishnan",
-        "rating": 5,
-        "date": "2026-04-21",
-        "title": "The smartest desk I've ever used!",
-        "comment": "The AI posture reminder actually helped me fix my slouching habit within a week! 6 memory presets mean every family member has their own height saved. The XL surface handles 3 monitors effortlessly. This is the future of desks!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Preethi Nambiar",
-        "rating": 5,
-        "date": "2026-04-09",
-        "title": "Wireless charging + standing desk = perfect",
-        "comment": "I always forget to charge my phone. The built-in wireless pad means it charges just by sitting on the desk. The dual motor is rock solid and whisper-quiet. Absolutely premium product!",
-        "verified": true
-      },
-      {
-        "id": 3,
-        "author": "Gaurav Kapoor",
-        "rating": 5,
-        "date": "2026-03-28",
-        "title": "Best home office investment ever",
-        "comment": "The cable spine management finally solved my cable chaos. XL surface is huge — there's room for everything. Dual motor provides incredible stability even at full height. Zero regrets!",
-        "verified": true
-      },
-      {
-        "id": 4,
-        "author": "Meena Patel",
-        "rating": 4,
-        "date": "2026-03-14",
-        "title": "Premium in every way",
-        "comment": "The AI reminder feature takes a day or two to calibrate but once set it works brilliantly. The desk itself is stunning — solid, smooth and incredibly functional. Worth every rupee!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -2948,26 +2596,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Arjun Bhatia",
-        "rating": 5,
-        "date": "2026-02-14",
-        "title": "Dual motor is amazing!",
-        "comment": "The dual motor system provides incredible stability! 4 memory presets are perfect for my family. Whisper-quiet operation. Premium quality!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Pooja Narayan",
-        "rating": 5,
-        "date": "2026-02-01",
-        "title": "Professional grade desk!",
-        "comment": "Anti-collision feature gives peace of mind. Smooth and quiet operation. Enhanced stability is noticeable. Best standing desk purchase!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Length",
@@ -3054,26 +2682,6 @@
           "/images/products/tables/height-adjustable-table/movix-height-adjustable-table/wooden-teak/5.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Vikram Mehta",
-        "rating": 5,
-        "date": "2026-02-17",
-        "title": "Triple motor is incredible!",
-        "comment": "The stability and load capacity are unmatched! Smart controls make it so easy to use. Premium materials throughout. Worth the premium price!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Divya Sharma",
-        "rating": 5,
-        "date": "2026-02-06",
-        "title": "Ultimate standing desk!",
-        "comment": "Professional-grade quality is evident. Can handle multiple monitors with ease. Smart features are intuitive. Best desk I've ever owned!",
-        "verified": true
       }
     ],
     "specifications": [
@@ -3181,26 +2789,6 @@
         "inStock": true
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Akash Verma (College Student)",
-        "rating": 5,
-        "date": "2026-02-12",
-        "title": "Complete study setup!",
-        "comment": "Multi-level storage is amazing! Keyboard tray perfect for my laptop. CPU stand holds my desktop securely. Best study desk for tech students!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Mrs. Gupta",
-        "rating": 5,
-        "date": "2026-01-28",
-        "title": "Excellent for online learning!",
-        "comment": "Son loves the ergonomic design! Adjustable shelves grow with his needs. Comprehensive setup in one desk. Highly recommend!",
-        "verified": true
-      }
-    ],
     "specifications": [
       {
         "label": "Length",
@@ -3302,26 +2890,6 @@
           "/images/products/tables/study-table/zenvy-primex-study-table/wooden-teak/4.jpeg"
         ],
         "inStock": true
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "author": "Prateek Singh (Engineering Student)",
-        "rating": 5,
-        "date": "2026-02-15",
-        "title": "Premium study workstation!",
-        "comment": "LED lighting is perfect for late-night study sessions! Hutch design provides tons of storage. Cable management keeps everything tidy. Worth the investment!",
-        "verified": true
-      },
-      {
-        "id": 2,
-        "author": "Dr. Nair",
-        "rating": 5,
-        "date": "2026-02-03",
-        "title": "Best desk for serious students!",
-        "comment": "Daughter preparing for medical entrance loves it! Complete organization system is excellent. Extensive storage handles all her materials. Premium quality!",
-        "verified": true
       }
     ],
     "specifications": [

@@ -32,9 +32,15 @@ export const features = {
    * Customer reviews, and the aggregateRating they would feed into structured
    * data.
    *
-   * Every one of the 34 products carries reviews in products.json and not one
-   * sits below four stars, which is what seeded demo content looks like rather
-   * than what a real review distribution looks like.
+   * Reviews now come from Judge.me -- written either by someone it emailed
+   * off a real Shopify order, or by someone who followed the public review
+   * link after buying in the showroom -- and are pulled into
+   * src/data/reviews.generated.json by `npm run reviews:fetch`. The seeded set
+   * that used to live in products.json, where all 34 products were rated and
+   * not one sat below four stars, has been deleted.
+   *
+   * Both flags are off until there are reviews to show. The invitation to
+   * write one is not gated on them, because it has to come first.
    *
    * `reviews` decides whether the section renders at all. `reviewsAreReal`
    * decides how much it may claim, and the two are separate on purpose:

@@ -12,6 +12,7 @@
  */
 
 import raw from "@/data/products.json";
+import generatedReviews from "@/data/reviews.generated.json";
 import type {
   Feature,
   Group,
@@ -23,16 +24,6 @@ import type {
   Variant,
 } from "./catalog-types";
 import { rupeesToPaise } from "./money";
-
-type RawReview = {
-  id: number;
-  author: string;
-  rating: number;
-  date: string;
-  title: string;
-  comment: string;
-  verified?: boolean;
-};
 
 type RawVariant = {
   id: string;
@@ -64,8 +55,25 @@ type RawProduct = {
   images?: string[];
   inStock?: boolean;
   variants?: RawVariant[];
-  reviews?: RawReview[];
 };
+
+/**
+ * Reviews come from Judge.me, pulled at build time by `npm run reviews:fetch`.
+ *
+ * They are deliberately not kept in products.json. That file is hand-edited,
+ * and a review typed in by the people selling the chair is not a review -- it
+ * is a testimonial wearing a review's clothes. Judge.me mails the address on
+ * the order, so every row here traces back to something somebody actually
+ * bought, and `verifiedBuyer` is a fact rather than a flattering default.
+ */
+const REVIEWS_BY_SLUG = (generatedReviews.byProduct ?? {}) as Record<
+  string,
+  unknown[]
+>;
+
+function reviewsFor(slug: string): Review[] {
+  return (REVIEWS_BY_SLUG[slug] ?? []).map(toReview);
+}
 
 /** `category` in the data is singular; the URL and the page title are not. */
 const GROUP_OF: Record<string, GroupSlug> = {
@@ -194,15 +202,16 @@ function titleCasePlural(slug: string): string {
   return words.endsWith("s") ? words : `${words}s`;
 }
 
-function toReview(r: RawReview): Review {
+function toReview(r: unknown): Review {
+  const row = r as Record<string, unknown>;
   return {
-    id: r.id,
-    author: r.author,
-    rating: r.rating,
-    date: r.date,
-    title: r.title,
-    comment: r.comment,
-    claimedVerified: r.verified === true,
+    id: Number(row.id),
+    author: String(row.author ?? ""),
+    rating: Number(row.rating),
+    date: String(row.date ?? ""),
+    title: String(row.title ?? ""),
+    comment: String(row.comment ?? ""),
+    verifiedBuyer: row.verifiedBuyer === true,
   };
 }
 
@@ -329,7 +338,7 @@ function build(): { groups: Group[]; products: Product[] } {
       inStock: variants.some((v) => v.inStock),
       images: row.images ?? defaultVariant.images,
       variants,
-      reviews: (row.reviews ?? []).map(toReview),
+      reviews: reviewsFor(slug),
       href: `/${groupSlug}/${slug}/`,
     });
   }

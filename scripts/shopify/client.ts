@@ -40,7 +40,7 @@ export type ShopifyEnv = {
  * that actually appear in a hand-written env file: comments, `export` prefixes
  * and quoted values.
  */
-function readEnvFile(path: string): Record<string, string> {
+export function readEnvFile(path: string): Record<string, string> {
   let raw: string;
   try {
     raw = readFileSync(path, "utf8");
