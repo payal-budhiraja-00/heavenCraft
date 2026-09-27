@@ -103,12 +103,12 @@ export default function WriteAReviewPage() {
             someone&rsquo;s personal details.
           </p>
           <p>
-            Reviews left by customers who ordered online are marked{" "}
-            <span className="text-cream">verified purchase</span>, because
-            Judge.me can match them to the order. A review left from this page
-            after buying in the showroom carries no such order, so it is
-            published without that mark. The review counts the same; the label
-            is only there to say which ones the system could check.
+            After you submit, Judge.me emails you a confirmation link. Opening
+            it is what marks the review{" "}
+            <span className="text-cream">verified</span> — the same mark a
+            customer who ordered online gets, so buying in the showroom costs
+            you nothing here. A review left unconfirmed is still published,
+            just without the label.
           </p>
           <p>
             The site is rebuilt when reviews come in rather than loading them

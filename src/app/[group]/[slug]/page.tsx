@@ -754,11 +754,13 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                   </p>
                   <p className="mt-4 text-xs text-cream-faint">
                     {review.author}
-                    {/* Judge.me matched this reviewer to an order. The flag
-                        stays behind reviewsAreReal so a half-finished switch
-                        can never print the badge over placeholder data. */}
-                    {features.reviewsAreReal && review.verifiedBuyer
-                      ? " · Verified purchase"
+                    {/* Judge.me verified this reviewer, either against the
+                        order or by the reviewer confirming from their inbox.
+                        The flag stays behind reviewsAreReal so a half-finished
+                        switch can never print the badge over placeholder
+                        data. */}
+                    {features.reviewsAreReal && review.verified
+                      ? " · Verified"
                       : null}
                   </p>
                 </li>

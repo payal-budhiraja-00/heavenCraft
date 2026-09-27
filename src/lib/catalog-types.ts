@@ -15,15 +15,22 @@ export type Review = {
   title: string;
   comment: string;
   /**
-   * Judge.me matched this reviewer against a real order.
+   * Judge.me verified this review. The badge is their determination, not ours
+   * and not the reviewer's, which is the entire reason reviews are collected
+   * through them rather than typed in by hand.
    *
-   * It is their check, not ours and not the reviewer's: the review request
-   * goes out to the address on the order, so the badge means the person was
-   * actually sold the thing. That is the whole reason reviews are collected
-   * through it rather than typed in by hand -- "verified" has to be a fact
-   * somebody can stand behind, and a boolean we set ourselves is not one.
+   * They grant it two ways. A review answered from the request email sent to
+   * the address on an order is matched to that order. A review left through
+   * the public review link is verified once the reviewer confirms it from
+   * their own inbox -- which is how a showroom sale, with no Shopify order
+   * behind it, still earns the mark.
+   *
+   * The second is a weaker check than the first: it establishes a real person
+   * rather than a purchase. One label covers both, so it has to be true of
+   * the weaker one -- which is why it reads "Verified" and not "Verified
+   * purchase".
    */
-  verifiedBuyer: boolean;
+  verified: boolean;
 };
 
 export type Variant = {

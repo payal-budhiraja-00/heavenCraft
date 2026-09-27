@@ -62,9 +62,10 @@ type RawProduct = {
  *
  * They are deliberately not kept in products.json. That file is hand-edited,
  * and a review typed in by the people selling the chair is not a review -- it
- * is a testimonial wearing a review's clothes. Judge.me mails the address on
- * the order, so every row here traces back to something somebody actually
- * bought, and `verifiedBuyer` is a fact rather than a flattering default.
+ * is a testimonial wearing a review's clothes. Every row here was written by
+ * someone Judge.me either mailed at the address on an order or who confirmed
+ * the review from their own inbox, so `verified` is a fact rather than a
+ * flattering default.
  */
 const REVIEWS_BY_SLUG = (generatedReviews.byProduct ?? {}) as Record<
   string,
@@ -211,7 +212,7 @@ function toReview(r: unknown): Review {
     date: String(row.date ?? ""),
     title: String(row.title ?? ""),
     comment: String(row.comment ?? ""),
-    verifiedBuyer: row.verifiedBuyer === true,
+    verified: row.verified === true,
   };
 }
 

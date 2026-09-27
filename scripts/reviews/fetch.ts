@@ -175,7 +175,35 @@ function toDay(value: unknown): string {
 function toAuthor(row: Record<string, unknown>): string {
   const reviewer = (row.reviewer ?? {}) as Record<string, unknown>;
   const name = String(reviewer.name ?? row.reviewer_name ?? "").trim();
-  return name || "Verified customer";
+  /* Not "Verified customer": whether Judge.me verified them is a separate
+   * field, and a missing name says nothing about it either way. */
+  return name || "Customer";
+}
+
+/* Judge.me publishes an example value of "buyer" for this field but does not
+ * document the full set, and we cannot read the rest off our own data because
+ * there are no reviews yet. So both ends are listed explicitly and anything
+ * unrecognised is reported rather than guessed at.
+ *
+ * Unknown means unverified. Getting that wrong in the generous direction
+ * prints a badge Judge.me never granted, which is the failure that costs a
+ * reader their trust; getting it wrong in this direction only withholds a
+ * badge, and the warning below says so out loud so it gets fixed the first
+ * time a real review lands. */
+const VERIFIED_VALUES = new Set(["buyer", "verified", "true"]);
+const UNVERIFIED_VALUES = new Set(["", "web", "unverified", "false", "none"]);
+const unknownVerified = new Set<string>();
+
+function toVerified(raw: unknown): boolean {
+  if (typeof raw === "boolean") return raw;
+  if (raw == null) return false;
+
+  const value = String(raw).trim().toLowerCase();
+  if (VERIFIED_VALUES.has(value)) return true;
+  if (UNVERIFIED_VALUES.has(value)) return false;
+
+  unknownVerified.add(value);
+  return false;
 }
 
 async function main(): Promise<void> {
@@ -244,7 +272,7 @@ async function main(): Promise<void> {
       date: toDay(row.created_at),
       title: String(row.title ?? "").trim(),
       comment: body,
-      verifiedBuyer: row.verified === "buyer" || row.verified === true,
+      verified: toVerified(row.verified),
     });
   }
 
@@ -290,6 +318,15 @@ async function main(): Promise<void> {
      * not a fault. */
     console.log(`  no longer in the catalogue: ${[...unmapped].join(", ")}`);
   }
+  if (unknownVerified.size > 0) {
+    console.warn(
+      `  WARNING: unrecognised "verified" value(s) from Judge.me: ` +
+        `${[...unknownVerified].join(", ")}\n` +
+        `  Treated as unverified, so those reviews publish without the badge.\n` +
+        `  If Judge.me shows them as verified, add the value to ` +
+        `VERIFIED_VALUES in scripts/reviews/fetch.ts.`,
+    );
+  }
   console.log(`Wrote ${OUT}`);
 }
 
@@ -300,7 +337,7 @@ type ReviewRow = {
   date: string;
   title: string;
   comment: string;
-  verifiedBuyer: boolean;
+  verified: boolean;
 };
 
 main().catch((error: unknown) => {

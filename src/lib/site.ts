@@ -84,11 +84,11 @@ export const SITE = {
  * bought in the showroom -- there is no Shopify order for Judge.me to email,
  * so the automatic request that online buyers get never fires for them.
  *
- * The trade is that these reviews are not order-verified, and the page must
- * not imply otherwise. Judge.me confirms the reviewer's email address but not
- * that they bought anything, so it returns them unverified and the
- * "Verified purchase" badge stays off. That is handled where the badge is
- * rendered, off `review.verifiedBuyer`, not here.
+ * A review left this way still earns the verified mark: Judge.me mails the
+ * reviewer a confirmation, and clicking it is what counts. What it verifies
+ * is a real person rather than a specific order, which is why the badge on
+ * the product page reads "Verified" and not "Verified purchase". That is
+ * handled where the badge is rendered, off `review.verified`, not here.
  *
  * Not a secret and not an environment variable: it gets printed on a card and
  * encoded into a QR code, so the repo is the honest place for it.
