@@ -12,6 +12,7 @@ import {
   VariantProvider,
 } from "@/components/variant-picker";
 import { ProductGrid } from "@/components/product-card";
+import { QrPlate } from "@/components/qr-code";
 import { ShareProduct } from "@/components/share-product";
 import {
   Breadcrumbs,
@@ -812,6 +813,22 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               Write a review
             </Link>
           )}
+          {/* Shown at every width, including phones. The scanning device is
+              never the displaying one: in the showroom this is held up on our
+              phone and read from the customer's, which is the whole point of
+              a code rather than a link. */}
+          {productReviewLink ? (
+            <figure className="flex items-center gap-3">
+              <QrPlate
+                value={productReviewLink}
+                label={`QR code linking to the review form for ${product.name}`}
+                className="h-20 w-20"
+              />
+              <figcaption className="max-w-28 text-xs leading-relaxed text-cream-faint">
+                Or scan this from another phone
+              </figcaption>
+            </figure>
+          ) : null}
         </div>
       </Container>
 

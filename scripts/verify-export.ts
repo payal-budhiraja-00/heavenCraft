@@ -9,7 +9,7 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { allProducts, groups } from "../src/lib/catalog";
-import { SITE } from "../src/lib/site";
+import { REVIEW_LINK, SITE } from "../src/lib/site";
 import { LEGACY_REDIRECTS } from "./legacy-redirects";
 
 const OUT = join(process.cwd(), "out");
@@ -510,6 +510,10 @@ if (expiresDefault && !/^0 /.test(expiresDefault)) {
  * also excludes the canonical-host rule, whose target is an absolute URL on
  * this same site and would not resolve as a path.
  *
+ * Some targets are absolute by design: the per-product review redirects hand
+ * the visitor to Judge.me. Those are checked for shape below rather than
+ * against the export, which cannot contain them.
+ *
  * Strip the optional trailing slash back off to recover the plain path, drop
  * the backslashes the generator added to escape regex metacharacters, and put
  * back the leading slash that per-directory mod_rewrite matches without.
@@ -543,7 +547,35 @@ for (const { from } of LEGACY_REDIRECTS) {
   }
 }
 for (const target of redirectTargets) {
+  /*
+   * A target that leaves this site cannot be checked against the export.
+   * The per-product review redirects point at Judge.me, so what is asserted
+   * is the shape we meant rather than the existence of the page: absolute
+   * and https, because a printed QR code that 301s to plain http would be
+   * handing the scan to whatever is on the café wifi.
+   */
+  if (/^[a-z]+:\/\//i.test(target)) {
+    if (!target.startsWith("https://")) {
+      fail(`redirect target ${target} is not https`);
+    }
+    continue;
+  }
   if (!resolves(target)) fail(`redirect target ${target} does not exist`);
+}
+
+/*
+ * Every product needs its review redirect, for the same reason the dead URLs
+ * above need theirs: the QR codes from `npm run review:qr` are printed onto
+ * cards that cannot be reissued, so a missing rule here is a card that scans
+ * to a 404 in somebody's carton. Skipped entirely when no review link is
+ * configured, since then there is nothing to redirect to.
+ */
+if (REVIEW_LINK) {
+  for (const product of allProducts) {
+    if (!redirectSources.has(`/review/${product.slug}`)) {
+      fail(`no /review/${product.slug} redirect for ${product.name}`);
+    }
+  }
 }
 
 // A redirect whose source still resolves is dead config at best and shadows a

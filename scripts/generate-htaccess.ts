@@ -12,7 +12,7 @@
 
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { allProducts } from "../src/lib/catalog";
+import { allProducts, reviewLinkFor } from "../src/lib/catalog";
 import { LEGACY_REDIRECTS } from "./legacy-redirects";
 
 const OUT = path.join(process.cwd(), "public/.htaccess");
@@ -75,6 +75,31 @@ function legacyRedirects(): string {
       ? `  # ${note}\n${redirectLine(from, to)}`
       : redirectLine(from, to),
   ).join("\n");
+}
+
+/**
+ * A durable review URL per product, pointing at that product's Judge.me form.
+ *
+ * These exist for print. A QR code on a warranty card or a box insert cannot
+ * be recalled once it is in a customer's hands, so encoding judge.me directly
+ * would make leaving Judge.me mean every card already in the field scans to a
+ * dead page. Encoding our own URL keeps the provider a decision that can
+ * still be reversed with one deploy.
+ *
+ * Products with no Judge.me id fall back to the generic form, which asks
+ * which product was bought, rather than emitting nothing and leaving the
+ * printed code to 404.
+ */
+function reviewRedirects(): string {
+  return allProducts
+    .map((product) => {
+      const target = reviewLinkFor(product.slug);
+      return target
+        ? `  # ${product.name}\n${redirectLine(`/review/${product.slug}`, target)}`
+        : "";
+    })
+    .filter(Boolean)
+    .join("\n");
 }
 
 const body = `# GENERATED FILE -- edit scripts/generate-htaccess.ts, not this.
@@ -187,6 +212,22 @@ ${redirectLine("/search", "/")}
 # name. All of these were served with a 200 by this site and are in the index.
 <IfModule mod_rewrite.c>
 ${legacyRedirects()}
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Short links
+# ---------------------------------------------------------------------------
+# /review is the form printed on invoices, warranty cards and the slip in the
+# carton. Print cannot be recalled: whatever is on the card is the URL we are
+# committed to for as long as that card exists, so the short form is handed
+# out and the page behind it stays free to move.
+<IfModule mod_rewrite.c>
+${redirectLine("/review", "/write-a-review/")}
+
+  # Per-product review forms, for the QR codes written by npm run review:qr.
+  # These leave the site: they 301 to Judge.me, so a scan opens the form for
+  # the right product without a stop on the way.
+${reviewRedirects()}
 </IfModule>
 
 # ---------------------------------------------------------------------------

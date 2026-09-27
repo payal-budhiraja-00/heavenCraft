@@ -28,16 +28,19 @@
     "shopify:policies": "tsx scripts/shopify/store-policies.ts",
     "shopify:policies-apply": "tsx scripts/shopify/store-policies.ts --apply",
     "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts",
-    "og": "tsx scripts/generate-og.ts"
+    "og": "tsx scripts/generate-og.ts",
+    "review:qr": "tsx scripts/review-qr.ts"
   },
   "dependencies": {
     "next": "16.3.5",
+    "qrcode": "^1.5.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

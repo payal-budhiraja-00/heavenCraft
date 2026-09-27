@@ -203,6 +203,75 @@ Options -Indexes
 </IfModule>
 
 # ---------------------------------------------------------------------------
+# Short links
+# ---------------------------------------------------------------------------
+# /review is the form printed on invoices, warranty cards and the slip in the
+# carton. Print cannot be recalled: whatever is on the card is the URL we are
+# committed to for as long as that card exists, so the short form is handed
+# out and the page behind it stays free to move.
+<IfModule mod_rewrite.c>
+  RewriteRule ^review/?$ /write-a-review/ [R=301,L]
+
+  # Per-product review forms, for the QR codes written by npm run review:qr.
+  # These leave the site: they 301 to Judge.me, so a scan opens the form for
+  # the right product without a stop on the way.
+  # Cable Management Tray
+  RewriteRule ^review/cable-management-tray/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121652459 [R=301,L]
+  # Cup Holder
+  RewriteRule ^review/cup-holder/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310122373355 [R=301,L]
+  # Desk Shelf Tray
+  RewriteRule ^review/desk-shelf-tray/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056414955 [R=301,L]
+  # Desk Side Organiser
+  RewriteRule ^review/desk-side-organiser/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056447723 [R=301,L]
+  # Ergonomic Footrest
+  RewriteRule ^review/ergonomic-footrest/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121586923 [R=301,L]
+  # Wooden Footrest
+  RewriteRule ^review/wooden-footrest/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=15376021586155 [R=301,L]
+  # Keyboard Tray
+  RewriteRule ^review/keyboard-tray/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056546027 [R=301,L]
+  # Peg-Board
+  RewriteRule ^review/peg-board/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056611563 [R=301,L]
+  # Neuro Mesh Chair
+  RewriteRule ^review/neuro-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310115459307 [R=301,L]
+  # Xyron Mesh Chair
+  RewriteRule ^review/xyron-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310120177899 [R=301,L]
+  # Zynx Mesh Chair
+  RewriteRule ^review/zynx-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310119981291 [R=301,L]
+  # Casca Performance Mesh Chair
+  RewriteRule ^review/casca-performance-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310120767723 [R=301,L]
+  # Luxor Performance Mesh Chair
+  RewriteRule ^review/luxor-performance-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056775403 [R=301,L]
+  # Pointer Performance Mesh Chair
+  RewriteRule ^review/pointer-performance-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056873707 [R=301,L]
+  # Flex Apex Bed Table
+  RewriteRule ^review/flex-apex-bed-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315056972011 [R=301,L]
+  # Imperium Executive Table
+  RewriteRule ^review/imperium-executive-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121259243 [R=301,L]
+  # Signature Executive Table
+  RewriteRule ^review/signature-executive-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121324779 [R=301,L]
+  # Exquisite Folding Table
+  RewriteRule ^review/exquisite-folding-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310120964331 [R=301,L]
+  # Nextable Folding Table
+  RewriteRule ^review/nextable-folding-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121029867 [R=301,L]
+  # Phantom Gaming Desk
+  RewriteRule ^review/phantom-gaming-desk/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315057103083 [R=301,L]
+  # Quantum Gaming Desk
+  RewriteRule ^review/quantum-gaming-desk/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121423083 [R=301,L]
+  # Modexa Height Adjustable Table
+  RewriteRule ^review/modexa-height-adjustable-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10315057201387 [R=301,L]
+  # Modulus Height Adjustable Table
+  RewriteRule ^review/modulus-height-adjustable-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121160939 [R=301,L]
+  # Modura Height Adjustable Table
+  RewriteRule ^review/modura-height-adjustable-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121062635 [R=301,L]
+  # Movix Height Adjustable Table
+  RewriteRule ^review/movix-height-adjustable-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121193707 [R=301,L]
+  # Zenith Study Table
+  RewriteRule ^review/zenith-study-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121357547 [R=301,L]
+  # Zenvy Study Table
+  RewriteRule ^review/zenvy-study-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121390315 [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
 # Branded 404
 # ---------------------------------------------------------------------------
 # Must stay last: mod_rewrite stops at the first matching rule with [L], so
