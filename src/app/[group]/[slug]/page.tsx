@@ -28,6 +28,7 @@ import {
   getProduct,
   getSubCategory,
   groups,
+  reviewLinkFor,
 } from "@/lib/catalog";
 import { offerForSku } from "@/lib/commerce";
 import type { Group, Product, SubCategory } from "@/lib/catalog-types";
@@ -480,6 +481,7 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
    * collected because none exist to show.
    */
   const hasReviewList = features.reviews && product.reviews.length > 0;
+  const productReviewLink = reviewLinkFor(product.slug);
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -789,12 +791,27 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
           <p className="text-sm text-cream-muted">
             Bought this one — here or at the showroom?
           </p>
-          <Link
-            href="/write-a-review/"
-            className="label inline-flex min-h-11 items-center gap-2 py-2 text-gold transition-colors hover:text-gold-bright"
-          >
-            Write a review
-          </Link>
+          {/* Straight to this product's own form when we know its Shopify id,
+              rather than via /write-a-review/ and its product picker. The
+              landing page still exists for the printed QR card, which cannot
+              know which chair it was handed out with. */}
+          {productReviewLink ? (
+            <a
+              href={productReviewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label inline-flex min-h-11 items-center gap-2 py-2 text-gold transition-colors hover:text-gold-bright"
+            >
+              Write a review
+            </a>
+          ) : (
+            <Link
+              href="/write-a-review/"
+              className="label inline-flex min-h-11 items-center gap-2 py-2 text-gold transition-colors hover:text-gold-bright"
+            >
+              Write a review
+            </Link>
+          )}
         </div>
       </Container>
 

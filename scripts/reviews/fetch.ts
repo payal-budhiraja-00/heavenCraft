@@ -227,6 +227,18 @@ async function main(): Promise<void> {
 
   const known = new Set(allProducts.map((p) => p.slug));
 
+  /* Judge.me's public review form takes a Shopify product id as `?id=` and
+   * opens straight on that product, skipping the "type the product name"
+   * step. The id is the same external_id it keys reviews by, so the map falls
+   * out of the lookup above for free.
+   *
+   * Only products we still sell go in: a link to something withdrawn would
+   * open a form for a chair the catalogue no longer has a page for. */
+  const productIds: Record<string, string> = {};
+  for (const [externalId, handle] of handleOf) {
+    if (known.has(handle)) productIds[handle] = externalId;
+  }
+
   const byProduct: Record<string, ReviewRow[]> = {};
   let skipped = 0;
   const unmapped = new Set<string>();
@@ -302,6 +314,11 @@ async function main(): Promise<void> {
   const payload = {
     fetchedAt: new Date().toISOString(),
     source: "judge.me",
+    productIds: Object.fromEntries(
+      Object.keys(productIds)
+        .sort()
+        .map((slug) => [slug, productIds[slug]]),
+    ),
     byProduct: sorted,
   };
   writeFileSync(OUT, `${JSON.stringify(payload, null, 2)}\n`, "utf8");

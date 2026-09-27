@@ -24,6 +24,7 @@ import type {
   Variant,
 } from "./catalog-types";
 import { rupeesToPaise } from "./money";
+import { REVIEW_LINK } from "./site";
 
 type RawVariant = {
   id: string;
@@ -74,6 +75,36 @@ const REVIEWS_BY_SLUG = (generatedReviews.byProduct ?? {}) as Record<
 
 function reviewsFor(slug: string): Review[] {
   return (REVIEWS_BY_SLUG[slug] ?? []).map(toReview);
+}
+
+/* Shopify product ids, written by the same fetch that pulls the reviews.
+ * Read through a cast because the key is absent from the file until that
+ * script has run once, and a missing map has to degrade rather than fail. */
+const REVIEW_PRODUCT_IDS = ((generatedReviews as { productIds?: unknown })
+  .productIds ?? {}) as Record<string, string>;
+
+/**
+ * Where "write a review" should point for one product.
+ *
+ * Judge.me's form opens on a named product when given its Shopify id, so the
+ * customer rates the chair they bought instead of first picking it out of a
+ * list of the whole catalogue. Asking someone to identify the product they
+ * just bought is the step most likely to lose them, and it is the one step we
+ * can answer for them.
+ *
+ * Falls back to the plain form -- which asks for the product -- when the id
+ * is missing, and to nothing at all when no review link is configured, so a
+ * half-set-up store shows no dead link.
+ */
+export function reviewLinkFor(slug: string): string {
+  if (!REVIEW_LINK) return "";
+
+  const id = REVIEW_PRODUCT_IDS[slug];
+  if (!id) return REVIEW_LINK;
+
+  const url = new URL(REVIEW_LINK);
+  url.searchParams.set("id", id);
+  return url.toString();
 }
 
 /** `category` in the data is singular; the URL and the page title are not. */
