@@ -279,48 +279,32 @@ ${legacyRedirects()}
 </IfModule>
 
 # ---------------------------------------------------------------------------
-# One-time cache purge
+# One-time cache purge -- REMOVED, do not reinstate without reading this
 # ---------------------------------------------------------------------------
-# Correcting the cache headers above stopped the damage but could not undo it.
-# Until that fix shipped, the .txt navigation payloads went out with a 30-day
-# max-age, so every browser that visited in the preceding month is still
-# holding payloads it considers fresh -- and a fresh entry is served without
-# asking the server anything, so those visitors never see the corrected
-# headers at all. They keep navigating with a month-old payload that points at
-# chunk files the next deploy deleted, and the page dies asking to be
-# reloaded. Reloading does not help either: the stale entry is still fresh, so
-# the next client-side navigation breaks again.
+# There was a Clear-Site-Data: "cache" block here, cookie-gated so it fired
+# once per browser, meant to evict the month-old navigation payloads that the
+# earlier max-age bug had already handed out.
 #
-# Clear-Site-Data evicts it. "cache" only -- deliberately not "storage", which
-# would take localStorage with it and throw away the visitor's Shopify cart
-# id, and not "cookies", which would take the very cookie that stops this
-# repeating. The cost is one slower page load while the images and fonts come
-# back down.
+# It was pulled the day after it shipped because the site stopped working for
+# existing visitors while a fresh incognito window was fine -- the signature of
+# something held in the browser, and the only thing we had just changed about
+# what browsers hold.
 #
-# Gated on a cookie so it happens once per browser rather than on every page:
-# the same response that clears the cache sets the marker, and every later
-# request carries it. Cloudflare answers HTML with cf-cache-status DYNAMIC, so
-# these per-visitor headers are never shared between two people.
+# The gate itself was correct: with the cookie present the header is absent,
+# verified against the live site. The danger is what happens if any edge ever
+# answers an HTML request from its own cache. The purge response is
+# indistinguishable from an ordinary one to a cache, so a single stored copy
+# replays Clear-Site-Data to every visitor regardless of their cookie, each
+# reply wipes the cache that would have let them skip the request, and the
+# loop cannot end because the origin gate never runs again. Cloudflare serves
+# our HTML as DYNAMIC today, which is a setting, not a guarantee.
 #
-# The counter in the cookie name is the lever: bumping it re-purges everyone.
-# Safe to delete this whole block once the last 30-day payload has expired --
-# after that it is pure cost, and the corrected headers hold on their own.
+# The root cause is fixed properly elsewhere: scripts/retain-assets.ts keeps
+# old chunks on the server so a stale payload still resolves, which repairs
+# those visitors without asking their browser to destroy anything.
 #
-# Both halves sit inside the mod_setenvif test on purpose. Were the module
-# missing, the gate could never close: "env=!hc_cache_purged" would hold for
-# every request forever, and the site would throw its own cache away on every
-# single page load. Nested, an absent module means the feature is simply not
-# there, which is the safe way for it to fail.
-<IfModule mod_setenvif.c>
-  SetEnvIf Cookie "hc_cache_purge=1" hc_cache_purged
-
-  <IfModule mod_headers.c>
-    <FilesMatch "\\.html$">
-      Header always set Clear-Site-Data "\\"cache\\"" env=!hc_cache_purged
-      Header always set Set-Cookie "hc_cache_purge=1; Path=/; Max-Age=31536000; SameSite=Lax; Secure" env=!hc_cache_purged
-    </FilesMatch>
-  </IfModule>
-</IfModule>
+# If this ever comes back it needs Cache-Control: private, no-store on the
+# purge response so no shared cache can hold it.
 
 # ---------------------------------------------------------------------------
 # MIME types
