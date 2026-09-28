@@ -145,7 +145,7 @@ const businessSchema = {
   // Pan-India delivery from a single Delhi showroom.
   areaServed: { "@type": "Country", name: "India" },
   currenciesAccepted: "INR",
-  paymentAccepted: "Cash on Delivery, UPI, Credit Card, Debit Card, Net Banking",
+  paymentAccepted: "UPI, Credit Card, Debit Card, Net Banking",
   priceRange: "₹₹",
 };
 

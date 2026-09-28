@@ -609,10 +609,10 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
               {/*
                 The terms that answer the objections, in the one place the
                 decision is made — a two-year warranty, a free replacement if
-                it arrives broken, cash on delivery, and a showroom. Each was
-                true already and each was buried in a policy page nobody
-                opens. For a first purchase from an unknown brand these do
-                more work than another paragraph of description.
+                it arrives broken, and a showroom. Each was true already and
+                each was buried in a policy page nobody opens. For a first
+                purchase from an unknown brand these do more work than another
+                paragraph of description.
 
                 Assembly is listed only where it is offered. A trust row that
                 promises something this product does not come with damages
@@ -637,10 +637,6 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                     address
                   </li>
                 ) : null}
-                <li>
-                  <span className="text-cream">Cash on delivery</span>{" "}
-                  available, no extra fee
-                </li>
                 <li>
                   <span className="text-cream">
                     {TERMS.deliveryDaysMin}–{TERMS.deliveryDaysMax} working days

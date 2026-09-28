@@ -10,12 +10,13 @@ import { SITE, TERMS } from "./site";
  * are marked NEEDS-FACT and say "confirmed per order" rather than guessing.
  *
  * Confirmed: 3-5 working day delivery, a 24-month warranty across all three
- * categories, cash on delivery at no extra charge, returns for anything that
- * arrives damaged, faulty or wrong, and free assembly on tables.
+ * categories, returns for anything that arrives damaged, faulty or wrong,
+ * and free assembly on tables.
  *
  * Deliberately not claimed: change-of-mind returns, and free assembly on
  * chairs or accessories. Both were published here before the business
- * confirmed them and neither turned out to be the offer.
+ * confirmed them and neither turned out to be the offer. Cash on delivery
+ * was offered and is not any more; payment is taken at checkout.
  *
  * Still outstanding: GSTIN, courier partners, the free-shipping threshold and
  * the rate below it. Shopify requires refund, privacy, terms and shipping
@@ -63,7 +64,7 @@ export const POLICIES: Policy[] = [
       {
         heading: "Payment",
         body: [
-          "Cash on delivery is available, with no extra fee. Cards, UPI and net banking are accepted at checkout.",
+          "Cards, UPI and net banking are accepted at checkout. We do not offer cash on delivery.",
         ],
       },
       {

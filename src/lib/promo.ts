@@ -49,14 +49,6 @@ export function promoMessages(): string[] {
    * and stating it as a flat discount would be false for most of the range. */
   if (percent > 0) messages.push(`Up to ${percent}% off everything`);
 
-  if (TERMS.codAvailable) {
-    messages.push(
-      TERMS.codFee === 0
-        ? "Cash on delivery, no extra charge"
-        : "Cash on delivery available",
-    );
-  }
-
   messages.push(
     `${TERMS.warrantyMonths / 12}-year warranty on everything`,
   );

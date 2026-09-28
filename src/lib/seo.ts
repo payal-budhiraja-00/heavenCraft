@@ -35,9 +35,10 @@ export const DEFAULT_OG_IMAGE = "/og/default.jpg";
  * Both claims have to hold for every page this is appended to, which is all
  * of them. Free assembly used to sit here and no longer can: it is included
  * on tables only, and a site-wide suffix cannot state a category-scoped
- * offer without promising it on the chairs too.
+ * offer without promising it on the chairs too. Cash on delivery sat here
+ * too, until it stopped being offered.
  */
-export const TRUST_SUFFIX = "2-year warranty and cash on delivery.";
+export const TRUST_SUFFIX = "2-year warranty, delivered across India.";
 
 /**
  * Joins a page-specific description to a fixed tail without overrunning the

@@ -129,8 +129,6 @@ export const TERMS = {
 
   deliveryDaysMin: 3,
   deliveryDaysMax: 5,
-  codAvailable: true,
-  codFee: 0,
 
   /*
    * Assembly at the customer's address, included on tables only.
