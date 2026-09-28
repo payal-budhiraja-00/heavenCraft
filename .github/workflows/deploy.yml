@@ -40,15 +40,26 @@ jobs:
       # syntax error in the catalog used to fail the build and the workflow
       # would still be marked as having run.
       #
-      # Commerce is on at build time so the cart code ships, but that alone
-      # shows nothing: the preview gate in commerce-preview.ts decides who can
-      # see it, and it is closed for every visitor until they pass ?cart=on.
-      # There is no runtime here to branch on -- the export is byte-identical
-      # for everyone -- so this is a two-switch arrangement by necessity.
+      # Commerce is on at build time so the cart ships and is live for every
+      # visitor. There is no second client-side gate any more: Razorpay is
+      # connected, so the checkout this links to is one that can take money.
+      #
+      # Reviews are on because there are real ones to show. Both review flags
+      # move together on purpose -- `REVIEWS_ENABLED` renders the section,
+      # `REVIEWS_ARE_REAL` lets it emit aggregateRating into structured data,
+      # and the second must never be true of placeholder content, because a
+      # fabricated star rating in Google's index is a search-policy breach
+      # rather than an ordinary design compromise.
+      #
+      # The reviews themselves are baked in from src/data/reviews.generated.json,
+      # which is committed. A review written after the last `npm run reviews:fetch`
+      # will not appear until someone re-runs it and commits the result.
       - name: Build static export
         run: npm run build
         env:
           NEXT_PUBLIC_COMMERCE_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ARE_REAL: "true"
 
       # A successful build can still produce a broken site: dropped social
       # cards, duplicate canonicals, redirects pointing at pages that no

@@ -39,8 +39,10 @@ export const features = {
    * that used to live in products.json, where all 34 products were rated and
    * not one sat below four stars, has been deleted.
    *
-   * Both flags are off until there are reviews to show. The invitation to
-   * write one is not gated on them, because it has to come first.
+   * Both flags are on: there are real reviews to show. They were off until
+   * the first one arrived. The invitation to write one was never gated on
+   * them, because it had to come first -- gating the ask on the display
+   * switch is a deadlock.
    *
    * `reviews` decides whether the section renders at all. `reviewsAreReal`
    * decides how much it may claim, and the two are separate on purpose:

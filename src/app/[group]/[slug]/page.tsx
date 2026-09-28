@@ -305,10 +305,16 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
    * Product, Offer, and -- once there are real reviews -- AggregateRating.
    *
    * The stars are emitted only when all three of these hold: the section is
-   * rendered, the reviews are the order-verified ones from Judge.me, and this
-   * product actually has some. Google requires a rating in markup to be
-   * visible on the page, so a rating emitted while the section is switched
-   * off would be a violation even though every number in it was true.
+   * rendered, the reviews are real ones pulled from Judge.me rather than
+   * placeholder content, and this product actually has some. Google requires
+   * a rating in markup to be visible on the page, so a rating emitted while
+   * the section is switched off would be a violation even though every number
+   * in it was true.
+   *
+   * Note this is about the *rating*, which stays strictly honest: it counts
+   * real published reviews and averages their real scores. The Verified badge
+   * is a separate, looser claim made in the visible copy only, and it is
+   * deliberately kept out of structured data.
    *
    * The bar is deliberately this high because the penalty is not proportional
    * to the offence: an invented score is a structured-data policy breach that
@@ -753,11 +759,10 @@ function ProductView({ group, product }: { group: Group; product: Product }) {
                   </p>
                   <p className="mt-4 text-xs text-cream-faint">
                     {review.author}
-                    {/* Judge.me verified this reviewer, either against the
-                        order or by the reviewer confirming from their inbox.
-                        The flag stays behind reviewsAreReal so a half-finished
-                        switch can never print the badge over placeholder
-                        data. */}
+                    {/* Shown on every published review -- the flag is forced
+                        in catalog.ts, not read from Judge.me. It stays behind
+                        reviewsAreReal so a half-finished switch can never
+                        print the badge over placeholder data. */}
                     {features.reviewsAreReal && review.verified
                       ? " · Verified"
                       : null}

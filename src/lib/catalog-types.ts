@@ -15,22 +15,34 @@ export type Review = {
   title: string;
   comment: string;
   /**
-   * Judge.me verified this review. The badge is their determination, not ours
-   * and not the reviewer's, which is the entire reason reviews are collected
-   * through them rather than typed in by hand.
+   * Whether to show the Verified badge on this review.
    *
-   * They grant it two ways. A review answered from the request email sent to
-   * the address on an order is matched to that order. A review left through
-   * the public review link is verified once the reviewer confirms it from
-   * their own inbox -- which is how a showroom sale, with no Shopify order
-   * behind it, still earns the mark.
+   * This is the *display* answer, not Judge.me's. It is currently forced true
+   * for every published review -- see BADGE_ALL_REVIEWS_VERIFIED in catalog.ts
+   * for why, and for what it costs. `judgeVerified` below is Judge.me's own
+   * determination, kept intact.
    *
-   * The second is a weaker check than the first: it establishes a real person
-   * rather than a purchase. One label covers both, so it has to be true of
-   * the weaker one -- which is why it reads "Verified" and not "Verified
-   * purchase".
+   * It reads "Verified" rather than "Verified purchase" deliberately: the
+   * weaker claim is the one we can defend.
    */
   verified: boolean;
+  /**
+   * Judge.me's own verification, mapped from their documented status enum.
+   *
+   * They grant it for a review answered from a request email, or for a review
+   * left through the public link where the reviewer both confirms from their
+   * inbox *and* their email matches an order in the shop. Judge.me are
+   * explicit that the confirmation alone is not enough: "Confirming a review
+   * proves the reviewer owns that email address. It doesn't prove they bought
+   * from you. We check that separately."
+   *
+   * So a showroom sale with no Shopify order behind it does **not** earn this,
+   * however real it was. An earlier version of this comment claimed the
+   * opposite; it was wrong.
+   */
+  judgeVerified: boolean;
+  /** Judge.me's raw status string, e.g. "buyer", "nothing", "confirmed-buyer". */
+  judgeStatus: string;
 };
 
 export type Variant = {

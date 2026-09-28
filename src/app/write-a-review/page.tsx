@@ -103,12 +103,10 @@ export default function WriteAReviewPage() {
             someone&rsquo;s personal details.
           </p>
           <p>
-            After you submit, Judge.me emails you a confirmation link. Opening
-            it is what marks the review{" "}
-            <span className="text-cream">verified</span> — the same mark a
-            customer who ordered online gets, so buying in the showroom costs
-            you nothing here. A review left unconfirmed is still published,
-            just without the label.
+            Judge.me may email you a confirmation link after you submit.
+            Opening it confirms the review is genuinely yours, which helps us
+            keep this page trustworthy. Not everyone is sent one, and your
+            review is published either way.
           </p>
           <p>
             The site is rebuilt when reviews come in rather than loading them

@@ -180,18 +180,37 @@ function toAuthor(row: Record<string, unknown>): string {
   return name || "Customer";
 }
 
-/* Judge.me publishes an example value of "buyer" for this field but does not
- * document the full set, and we cannot read the rest off our own data because
- * there are no reviews yet. So both ends are listed explicitly and anything
- * unrecognised is reported rather than guessed at.
+/* Judge.me's documented `verified` enum, from their OpenAPI spec at
+ * https://judge.me/api/docs.yaml and the status reference at
+ * https://judge.me/help/en/articles/8403775-verified-status-of-judge-me-reviews
  *
- * Unknown means unverified. Getting that wrong in the generous direction
- * prints a badge Judge.me never granted, which is the failure that costs a
- * reader their trust; getting it wrong in this direction only withholds a
- * badge, and the warning below says so out loud so it gets fixed the first
- * time a real review lands. */
-const VERIFIED_VALUES = new Set(["buyer", "verified", "true"]);
-const UNVERIFIED_VALUES = new Set(["", "web", "unverified", "false", "none"]);
+ * These lists used to be guesses made before a single real review existed.
+ * They were wrong in both directions: they contained "verified" and "true",
+ * which Judge.me never returns, and omitted four values that genuinely are
+ * verified -- so an order-matched review would have rendered without its
+ * badge. The warning below is what caught it, on the first real review.
+ *
+ * The split is Judge.me's own, quoted: "Reviews with the following status are
+ * considered verified reviews: confirmed-buyer, buyer, verified-purchase,
+ * semi-verified-purchase, and admin. Reviews with other status are considered
+ * non-verified reviews."
+ *
+ * Unknown still means unverified, and still warns: a ninth value
+ * (`customer-account`) appears in their help centre with no description and
+ * is absent from the API spec, so this enum is authoritative but not closed. */
+const VERIFIED_VALUES = new Set([
+  "confirmed-buyer",
+  "buyer",
+  "verified-purchase",
+  "semi-verified-purchase",
+  "admin",
+]);
+const UNVERIFIED_VALUES = new Set([
+  "",
+  "nothing",
+  "not-yet",
+  "unconfirmed-buyer",
+]);
 const unknownVerified = new Set<string>();
 
 function toVerified(raw: unknown): boolean {
@@ -285,6 +304,7 @@ async function main(): Promise<void> {
       title: String(row.title ?? "").trim(),
       comment: body,
       verified: toVerified(row.verified),
+      judgeStatus: String(row.verified ?? "").trim().toLowerCase(),
     });
   }
 
@@ -339,9 +359,11 @@ async function main(): Promise<void> {
     console.warn(
       `  WARNING: unrecognised "verified" value(s) from Judge.me: ` +
         `${[...unknownVerified].join(", ")}\n` +
-        `  Treated as unverified, so those reviews publish without the badge.\n` +
-        `  If Judge.me shows them as verified, add the value to ` +
-        `VERIFIED_VALUES in scripts/reviews/fetch.ts.`,
+        `  Recorded as unverified in judgeStatus. That no longer changes what\n` +
+        `  the site shows -- see BADGE_ALL_REVIEWS_VERIFIED in src/lib/catalog.ts\n` +
+        `  -- but it does make this file a wrong record of Judge.me's answer.\n` +
+        `  Check the value against https://judge.me/api/docs.yaml and add it to\n` +
+        `  VERIFIED_VALUES or UNVERIFIED_VALUES in scripts/reviews/fetch.ts.`,
     );
   }
   console.log(`Wrote ${OUT}`);
@@ -354,7 +376,12 @@ type ReviewRow = {
   date: string;
   title: string;
   comment: string;
+  /** Judge.me's own answer, mapped through the documented enum above. */
   verified: boolean;
+  /** The raw status string, kept so this file stays a faithful record of what
+   * Judge.me said even when the site chooses to display something else. See
+   * BADGE_ALL_REVIEWS_VERIFIED in src/lib/catalog.ts. */
+  judgeStatus: string;
 };
 
 main().catch((error: unknown) => {

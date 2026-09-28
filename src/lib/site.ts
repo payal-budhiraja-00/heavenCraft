@@ -84,11 +84,15 @@ export const SITE = {
  * bought in the showroom -- there is no Shopify order for Judge.me to email,
  * so the automatic request that online buyers get never fires for them.
  *
- * A review left this way still earns the verified mark: Judge.me mails the
- * reviewer a confirmation, and clicking it is what counts. What it verifies
- * is a real person rather than a specific order, which is why the badge on
- * the product page reads "Verified" and not "Verified purchase". That is
- * handled where the badge is rendered, off `review.verified`, not here.
+ * A review left this way does **not** earn Judge.me's verified mark. Their
+ * rule, confirmed against their docs after the first real review came back as
+ * `nothing`: confirming the emailed link proves the reviewer owns that address
+ * but not that they bought anything, and the mark also requires the address to
+ * match an order in the shop. A showroom sale has no such order. An earlier
+ * version of this comment claimed the opposite and was wrong.
+ *
+ * The badge shown on the product page is therefore ours, not theirs -- see
+ * BADGE_ALL_REVIEWS_VERIFIED in catalog.ts.
  *
  * Not a secret and not an environment variable: it gets printed on a card and
  * encoded into a QR code, so the repo is the honest place for it.

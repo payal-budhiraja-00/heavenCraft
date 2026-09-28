@@ -64,14 +64,51 @@ type RawProduct = {
  * They are deliberately not kept in products.json. That file is hand-edited,
  * and a review typed in by the people selling the chair is not a review -- it
  * is a testimonial wearing a review's clothes. Every row here was written by
- * someone Judge.me either mailed at the address on an order or who confirmed
- * the review from their own inbox, so `verified` is a fact rather than a
- * flattering default.
+ * a real person through Judge.me's own form.
  */
 const REVIEWS_BY_SLUG = (generatedReviews.byProduct ?? {}) as Record<
   string,
   unknown[]
 >;
+
+/**
+ * Show the Verified badge on every published review, whatever Judge.me's own
+ * verification says.
+ *
+ * This is a business decision, not a technical one, and it is deliberately a
+ * single named constant rather than something smeared through the fetch
+ * script, so that what it costs stays legible and flipping it back is a
+ * one-line change.
+ *
+ * The reasoning for it: nearly all sales happen in the Delhi showroom and are
+ * never recorded as Shopify orders, so Judge.me has no order to match against
+ * and returns `nothing` for customers who demonstrably did buy. Its answer is
+ * therefore not "this person didn't buy" but "I can't tell", and the owner
+ * usually can.
+ *
+ * What it costs, stated plainly because the comment is the only place it is
+ * written down:
+ *
+ * - Judge.me's position, verbatim: "Confirming a review proves the reviewer
+ *   owns that email address. It doesn't prove they bought from you." An email
+ *   address is not a purchase, so this badge asserts more than we know.
+ * - The review form is reachable from a QR code on every public product page.
+ *   Anyone who opens the site can submit, and this badges them all.
+ *
+ * The mitigation that makes it defensible is outside this repo: turn OFF
+ * auto-publish in Judge.me (Settings -> Moderation) so a human approves each
+ * review before it can appear. Then the badge means "the shop vouches for
+ * this", which is a claim we are in a position to make. With auto-publish on,
+ * it means nothing and the first bad actor proves it.
+ *
+ * The honest alternative, if this is ever revisited: Judge.me's manual review
+ * requests (Settings -> Request reviews -> "Enter customer details") work with
+ * no Shopify order and produce genuine `buyer` status.
+ *
+ * `judgeStatus` on each row keeps Judge.me's real answer, so nothing here is
+ * destroyed -- only overridden at the point of display.
+ */
+export const BADGE_ALL_REVIEWS_VERIFIED = true;
 
 function reviewsFor(slug: string): Review[] {
   return (REVIEWS_BY_SLUG[slug] ?? []).map(toReview);
@@ -236,6 +273,7 @@ function titleCasePlural(slug: string): string {
 
 function toReview(r: unknown): Review {
   const row = r as Record<string, unknown>;
+  const judgeStatus = String(row.judgeStatus ?? "");
   return {
     id: Number(row.id),
     author: String(row.author ?? ""),
@@ -243,7 +281,9 @@ function toReview(r: unknown): Review {
     date: String(row.date ?? ""),
     title: String(row.title ?? ""),
     comment: String(row.comment ?? ""),
-    verified: row.verified === true,
+    verified: BADGE_ALL_REVIEWS_VERIFIED || row.verified === true,
+    judgeVerified: row.verified === true,
+    judgeStatus,
   };
 }
 
