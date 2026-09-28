@@ -24,7 +24,7 @@
  * treat it like a password: never paste it into chat or a commit.
  */
 
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadEnv, readEnvFile, shopifyGraphql } from "../shopify/client";
 import { allProducts } from "../../src/lib/catalog";
@@ -331,8 +331,17 @@ async function main(): Promise<void> {
     );
   }
 
-  const payload = {
-    fetchedAt: new Date().toISOString(),
+  /* Everything except the timestamp. This is what decides whether anything
+   * actually changed.
+   *
+   * A scheduled job runs this on a timer and commits the result. If the
+   * timestamp were rewritten on every run, every run would produce a diff,
+   * every diff would be committed, and every commit would trigger a deploy --
+   * so the site would redeploy several times a day to publish nothing, and the
+   * history would fill with noise that hides the commits where a review
+   * genuinely arrived. Comparing the body first is what makes "no new reviews"
+   * a no-op. */
+  const body = {
     source: "judge.me",
     productIds: Object.fromEntries(
       Object.keys(productIds)
@@ -341,6 +350,21 @@ async function main(): Promise<void> {
     ),
     byProduct: sorted,
   };
+
+  if (previousBody() === JSON.stringify(body)) {
+    console.log(
+      `Judge.me: ${reviews.length} fetched, ${kept} published across ` +
+        `${Object.keys(sorted).length} product(s).`,
+    );
+    console.log("Unchanged; left the file alone.");
+    warnUnknownVerified();
+    return;
+  }
+
+  /* Renamed from `fetchedAt`, which stopped being true the moment an
+   * unchanged fetch started leaving the file alone. It now means "when the
+   * reviews last changed", which is the more useful fact anyway. */
+  const payload = { updatedAt: new Date().toISOString(), ...body };
   writeFileSync(OUT, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 
   console.log(
@@ -355,18 +379,38 @@ async function main(): Promise<void> {
      * not a fault. */
     console.log(`  no longer in the catalogue: ${[...unmapped].join(", ")}`);
   }
-  if (unknownVerified.size > 0) {
-    console.warn(
-      `  WARNING: unrecognised "verified" value(s) from Judge.me: ` +
-        `${[...unknownVerified].join(", ")}\n` +
-        `  Recorded as unverified in judgeStatus. That no longer changes what\n` +
-        `  the site shows -- see BADGE_ALL_REVIEWS_VERIFIED in src/lib/catalog.ts\n` +
-        `  -- but it does make this file a wrong record of Judge.me's answer.\n` +
-        `  Check the value against https://judge.me/api/docs.yaml and add it to\n` +
-        `  VERIFIED_VALUES or UNVERIFIED_VALUES in scripts/reviews/fetch.ts.`,
-    );
-  }
+  warnUnknownVerified();
   console.log(`Wrote ${OUT}`);
+}
+
+/** The last written file minus its timestamp, or null if unreadable. */
+function previousBody(): string | null {
+  try {
+    const parsed = JSON.parse(readFileSync(OUT, "utf8")) as Record<
+      string,
+      unknown
+    >;
+    delete parsed.updatedAt;
+    delete parsed.fetchedAt;
+    return JSON.stringify(parsed);
+  } catch {
+    /* Absent, or hand-edited into something unparseable. Either way there is
+     * nothing to compare against, so write. */
+    return null;
+  }
+}
+
+function warnUnknownVerified(): void {
+  if (unknownVerified.size === 0) return;
+  console.warn(
+    `  WARNING: unrecognised "verified" value(s) from Judge.me: ` +
+      `${[...unknownVerified].join(", ")}\n` +
+      `  Recorded as unverified in judgeStatus. That no longer changes what\n` +
+      `  the site shows -- see BADGE_ALL_REVIEWS_VERIFIED in src/lib/catalog.ts\n` +
+      `  -- but it does make this file a wrong record of Judge.me's answer.\n` +
+      `  Check the value against https://judge.me/api/docs.yaml and add it to\n` +
+      `  VERIFIED_VALUES or UNVERIFIED_VALUES in scripts/reviews/fetch.ts.`,
+  );
 }
 
 type ReviewRow = {

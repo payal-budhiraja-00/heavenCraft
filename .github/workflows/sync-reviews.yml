@@ -1,0 +1,103 @@
+name: Sync reviews
+
+# Reviews arrive at Judge.me, but this site is a static export: a review is
+# only on the page if `reviews:fetch` has been run and its output committed.
+# That step was manual, so the first real review sat unpublished for a day
+# until someone noticed. This closes that gap.
+#
+# The job is deliberately a no-op when nothing changed. `reviews:fetch`
+# compares the fetched body against the committed file and leaves it alone if
+# they match, so an idle week costs four commits a day of nothing rather than
+# redeploying the site to publish no new content.
+on:
+  schedule:
+    # Every six hours. Reviews trickle in rather than flood, and a customer
+    # who scanned the QR in the showroom sees themselves on the site the same
+    # day. Cron here is UTC.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+# Pushing the refreshed data needs contents; dispatching Deploy needs actions.
+permissions:
+  contents: write
+  actions: write
+
+# Two syncs overlapping would race on the same file and push conflicting
+# commits.
+concurrency:
+  group: sync-reviews
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch reviews from Judge.me
+        env:
+          JUDGEME_API_TOKEN: ${{ secrets.JUDGEME_API_TOKEN }}
+          # Not a secret: Judge.me only answers for the shop's *permanent*
+          # myshopify domain, which is this random-looking one rather than the
+          # friendly alias. Set explicitly so the job never has to ask Shopify,
+          # and so it does not need Shopify credentials at all.
+          JUDGEME_SHOP_DOMAIN: 3wzikw-0t.myshopify.com
+        run: npm run reviews:fetch
+
+      - name: Check for new reviews
+        id: check
+        run: |
+          if git diff --quiet -- src/data/reviews.generated.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new reviews."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git --no-pager diff --stat -- src/data/reviews.generated.json
+          fi
+
+      # This job commits to main unattended, so it proves the commit builds
+      # before making it. Deploy would catch a failure anyway and refuse to
+      # upload, leaving the live site intact -- but main would be left broken
+      # for whoever pushes next, by a job nobody was watching.
+      - name: Build and verify
+        if: steps.check.outputs.changed == 'true'
+        env:
+          NEXT_PUBLIC_COMMERCE_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ARE_REAL: "true"
+        run: |
+          npm run build
+          npm run verify
+
+      - name: Commit and push
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/reviews.generated.json
+          git commit -m "Sync Judge.me reviews"
+          git push
+
+      # A push made with GITHUB_TOKEN deliberately does not trigger other
+      # workflows -- that is GitHub's loop guard, not a misconfiguration -- so
+      # Deploy has to be asked explicitly or the commit would sit on main
+      # without ever reaching the site. Deploy already accepts
+      # workflow_dispatch.
+      - name: Trigger deploy
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main
