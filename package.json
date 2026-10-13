@@ -29,7 +29,9 @@
     "shopify:policies-apply": "tsx scripts/shopify/store-policies.ts --apply",
     "shopify:smoke": "tsx scripts/shopify/smoke-cart.ts",
     "og": "tsx scripts/generate-og.ts",
-    "review:qr": "tsx scripts/review-qr.ts"
+    "review:qr": "tsx scripts/review-qr.ts",
+    "submissions:ingest": "tsx scripts/submissions/ingest.ts",
+    "submissions:done": "tsx scripts/submissions/done.ts"
   },
   "dependencies": {
     "next": "16.3.5",

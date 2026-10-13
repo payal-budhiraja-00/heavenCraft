@@ -171,13 +171,37 @@ Options -Indexes
 # Credentials
 # ---------------------------------------------------------------------------
 # The enquiry endpoint needs no secrets -- the local mail relay takes no
-# authentication -- but if delivery ever moves to a provider's HTTPS API, the
-# key belongs in a heavencraft-config.php created by hand in cPanel and never
-# committed. Deny it outright so that a future misconfiguration which stopped
-# PHP from executing could not serve that file as plain text.
-<FilesMatch "^heavencraft-config\\.php$">
+# authentication -- but the product submission endpoint reads its access code
+# from a heavencraft-config.php created by hand in cPanel and never committed.
+# Deny it outright so that a future misconfiguration which stopped PHP from
+# executing could not serve that file as plain text.
+#
+# The pattern is deliberately loose at both ends. A leading dot catches vim's
+# .heavencraft-config.php.swp, and leaving the end open catches whatever an
+# editor appends -- .bak, .save, ~, .orig. Those variants are the real danger:
+# they hold the same keys but no longer end in .php, so Apache would serve
+# them as plain text rather than hand them to PHP. The file belongs outside
+# the document root, where none of this can be reached; this rule is only here
+# for the day someone puts a copy inside it.
+<FilesMatch "^\\.?heavencraft-config\\.php">
   Require all denied
 </FilesMatch>
+
+# ---------------------------------------------------------------------------
+# Submitted product photographs
+# ---------------------------------------------------------------------------
+# submit-product.php parks uploads outside the document root wherever the host
+# allows it, and only falls back to a directory inside it when the account is
+# confined to public_html. That fallback writes its own deny rule on creation,
+# but it is written by the same PHP that would have to be working for it to
+# matter -- so the rule is stated here as well, where it is part of the
+# deployed configuration and cannot be deleted by anything short of a deploy.
+#
+# These are a client's unreleased product photographs. Nothing about them
+# should be fetchable by guessing a path.
+<IfModule mod_rewrite.c>
+  RewriteRule ^_submissions(/|$) - [F,L]
+</IfModule>
 
 # ---------------------------------------------------------------------------
 # Deploy bookkeeping
