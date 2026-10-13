@@ -1,0 +1,115 @@
+name: Ingest product submissions
+
+# Staff and suppliers file new products through /submit-product/ on the site,
+# which parks them on the GoDaddy host. This brings them into the repository.
+#
+# It opens a pull request and never pushes to main. That is the whole point of
+# the design: the form collects the facts, a person checks them. A supplier's
+# description arrives with their spelling, their capitalisation and whatever
+# they thought "seat height" meant, and none of that should reach the site
+# unread. Sync reviews commits to main unattended because Judge.me has already
+# verified the author; nothing has verified this.
+on:
+  schedule:
+    # Once a day, early morning IST. Submissions arrive in ones and twos
+    # rather than continuously, and nobody is waiting on the same hour.
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ingest-submissions
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect submissions from the host
+        env:
+          # Not a secret: this is the public URL of the endpoint, and knowing
+          # it buys nothing without a key. Stated here so the job does not
+          # depend on a secret being set correctly to find the right site.
+          SUBMIT_ENDPOINT: https://theheavencraft.in/submit-product.php
+          SUBMIT_COLLECT_KEY: ${{ secrets.SUBMIT_COLLECT_KEY }}
+        run: npm run submissions:ingest
+
+      - name: Check whether anything arrived
+        id: check
+        run: |
+          if git diff --quiet -- src/data/products.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new submissions."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git --no-pager diff --stat -- src/data/products.json
+          fi
+
+      # New photographs have no entry in image-focus.json, so every surface
+      # that crops them would fall back to a centre crop -- which is the one
+      # place the subject reliably is not.
+      - name: Work out image focus
+        if: steps.check.outputs.changed == 'true'
+        run: npm run focus
+
+      # Proves the submission actually builds before a human is asked to look
+      # at it. A draft that breaks the export should fail here, where it costs
+      # a red run, rather than in the reviewer's lap.
+      - name: Build and verify
+        if: steps.check.outputs.changed == 'true'
+        env:
+          NEXT_PUBLIC_COMMERCE_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ENABLED: "true"
+          NEXT_PUBLIC_REVIEWS_ARE_REAL: "true"
+        run: |
+          npm run build
+          npm run verify
+
+      - name: Open a pull request
+        if: steps.check.outputs.changed == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="submissions/$(date -u +%Y-%m-%d)-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/products.json src/data/image-focus.json public/images/products
+          git commit -m "Add products submitted through the site"
+          git push origin "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "New products from the submission form" \
+            --body-file submissions-pr-body.md
+
+      # Last, and only now. The ingest wrote into a checkout that is discarded
+      # if any step above fails, so releasing earlier would delete a client's
+      # photographs on the word of a job that had not yet proved it could
+      # build or push. Anything not released is simply offered again tomorrow.
+      - name: Release the collected drafts
+        if: steps.check.outputs.changed == 'true' && steps.pr.outcome == 'success'
+        env:
+          SUBMIT_ENDPOINT: https://theheavencraft.in/submit-product.php
+          SUBMIT_COLLECT_KEY: ${{ secrets.SUBMIT_COLLECT_KEY }}
+        run: npm run submissions:done

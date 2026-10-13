@@ -19,6 +19,15 @@ export type PageSeo = {
    */
   cardProductId?: string;
   imageAlt?: string;
+  /**
+   * Keeps the page out of search results.
+   *
+   * For pages that are reachable by anyone who knows the URL but are not for
+   * the public: the staff product submission form is the case this exists
+   * for. It is deliberately separate from the sitemap, which is an explicit
+   * list, so a page has to be left out of both to stay unlisted.
+   */
+  noindex?: boolean;
 };
 
 export const DEFAULT_OG_IMAGE = "/og/default.jpg";
@@ -105,6 +114,7 @@ export function pageMetadata({
   path,
   cardProductId,
   imageAlt,
+  noindex,
 }: PageSeo): Metadata {
   const url = absoluteUrl(path);
   const ogImage = absoluteUrl(
@@ -117,6 +127,9 @@ export function pageMetadata({
     title,
     description,
     alternates: { canonical: path },
+    // The layout sets index/follow for the whole site, and Next does not merge
+    // the two, so an unlisted page has to state the opposite here.
+    ...(noindex ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       /*
         Kept as "website" even on product pages. Facebook's "product" vertical

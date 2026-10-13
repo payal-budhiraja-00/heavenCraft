@@ -43,3 +43,22 @@ public/og/products/
 # a printer, not source: derived entirely from the catalogue and the Judge.me
 # link, and a few hundred kB of PNG that would be rewritten on every run.
 review-qr/
+
+# The PHP endpoints' settings file. It lives on the host, is created by hand in
+# cPanel and holds the submission access code, so it must never be committed.
+# Listed here because the path the scripts look in is the repository root when
+# public/ is served locally, and an accidental `git add -A` would publish it.
+heavencraft-config.php
+
+# Product submissions parked by public/submit-product.php. On the host these
+# sit outside the document root; locally they land here. They hold a client's
+# unreleased product photographs and belong in a pull request, not in git
+# history.
+heavencraft-submissions/
+public/_submissions/
+
+# Written by `submissions:ingest` so that `submissions:done` knows which
+# drafts to release once a branch exists. It is bookkeeping for a single CI
+# run, not state the repository should carry.
+submissions-ingested.json
+submissions-pr-body.md

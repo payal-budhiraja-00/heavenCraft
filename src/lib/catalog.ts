@@ -145,7 +145,7 @@ export function reviewLinkFor(slug: string): string {
 }
 
 /** `category` in the data is singular; the URL and the page title are not. */
-const GROUP_OF: Record<string, GroupSlug> = {
+export const GROUP_OF: Record<string, GroupSlug> = {
   chair: "chairs",
   table: "tables",
   accessories: "accessories",

@@ -67,13 +67,29 @@ Options -Indexes
 # Credentials
 # ---------------------------------------------------------------------------
 # The enquiry endpoint needs no secrets -- the local mail relay takes no
-# authentication -- but if delivery ever moves to a provider's HTTPS API, the
-# key belongs in a heavencraft-config.php created by hand in cPanel and never
-# committed. Deny it outright so that a future misconfiguration which stopped
-# PHP from executing could not serve that file as plain text.
+# authentication -- but the product submission endpoint reads its access code
+# from a heavencraft-config.php created by hand in cPanel and never committed.
+# Deny it outright so that a future misconfiguration which stopped PHP from
+# executing could not serve that file as plain text.
 <FilesMatch "^heavencraft-config\.php$">
   Require all denied
 </FilesMatch>
+
+# ---------------------------------------------------------------------------
+# Submitted product photographs
+# ---------------------------------------------------------------------------
+# submit-product.php parks uploads outside the document root wherever the host
+# allows it, and only falls back to a directory inside it when the account is
+# confined to public_html. That fallback writes its own deny rule on creation,
+# but it is written by the same PHP that would have to be working for it to
+# matter -- so the rule is stated here as well, where it is part of the
+# deployed configuration and cannot be deleted by anything short of a deploy.
+#
+# These are a client's unreleased product photographs. Nothing about them
+# should be fetchable by guessing a path.
+<IfModule mod_rewrite.c>
+  RewriteRule ^_submissions(/|$) - [F,L]
+</IfModule>
 
 # ---------------------------------------------------------------------------
 # Deploy bookkeeping
