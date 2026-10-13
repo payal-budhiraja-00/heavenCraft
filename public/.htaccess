@@ -71,7 +71,15 @@ Options -Indexes
 # from a heavencraft-config.php created by hand in cPanel and never committed.
 # Deny it outright so that a future misconfiguration which stopped PHP from
 # executing could not serve that file as plain text.
-<FilesMatch "^heavencraft-config\.php$">
+#
+# The pattern is deliberately loose at both ends. A leading dot catches vim's
+# .heavencraft-config.php.swp, and leaving the end open catches whatever an
+# editor appends -- .bak, .save, ~, .orig. Those variants are the real danger:
+# they hold the same keys but no longer end in .php, so Apache would serve
+# them as plain text rather than hand them to PHP. The file belongs outside
+# the document root, where none of this can be reached; this rule is only here
+# for the day someone puts a copy inside it.
+<FilesMatch "^\.?heavencraft-config\.php">
   Require all denied
 </FilesMatch>
 
