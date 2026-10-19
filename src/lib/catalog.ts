@@ -190,6 +190,11 @@ const SUB_META: Record<string, { name: string; description: string }> = {
     description:
       "Mesh chairs with a deeper range of adjustment, for desks that are worked at rather than sat at.",
   },
+  "fabric-mesh-chair": {
+    name: "Fabric Mesh Chairs",
+    description:
+      "Fabric-mesh chairs with a softer, upholstered feel and breathable support.",
+  },
   "bed-table": {
     name: "Bed Tables",
     description: "Portable laptop tables for working from a bed or a couch.",
