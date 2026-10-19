@@ -145,6 +145,8 @@ Options -Indexes
   RewriteRule ^product/table-height-adjustable-006/?$ /tables/movix-height-adjustable-table/ [R=301,L]
   RewriteRule ^product/table-study-003/?$ /tables/zenith-study-table/ [R=301,L]
   RewriteRule ^product/table-study-006/?$ /tables/zenvy-study-table/ [R=301,L]
+  RewriteRule ^product/chair-mesh-niyo/?$ /chairs/niyo-fabric-mesh-chair/ [R=301,L]
+  RewriteRule ^product/chair-performance-mesh-nexa/?$ /chairs/nexa-performance-mesh-chair/ [R=301,L]
 
   # Search was a client-side route with no server-rendered equivalent.
   RewriteRule ^search/?$ / [R=301,L]
@@ -293,6 +295,10 @@ Options -Indexes
   RewriteRule ^review/zenith-study-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121357547 [R=301,L]
   # Zenvy Study Table
   RewriteRule ^review/zenvy-study-table/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link&id=10310121390315 [R=301,L]
+  # Niyo Fabric Mesh Chair
+  RewriteRule ^review/niyo-fabric-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link [R=301,L]
+  # Nexa Performance Mesh Chair
+  RewriteRule ^review/nexa-performance-mesh-chair/?$ https://judge.me/product_reviews/5920f7e2-b4f4-4bb7-8273-882db53ba8b6/new?source=shareable-link [R=301,L]
 </IfModule>
 
 # ---------------------------------------------------------------------------
