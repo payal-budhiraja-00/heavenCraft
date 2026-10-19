@@ -2917,5 +2917,161 @@
       "Sturdy powder-coated steel frame with modern design for long-lasting durability",
       "High-quality board with powder-coated metal frame"
     ]
+  },
+  {
+    "id": "chair-mesh-niyo",
+    "name": "Niyo Fabric Mesh Chair",
+    "shortName": "Niyo",
+    "category": "chair",
+    "subCategory": "mesh-chair",
+    "subName": "Fabric Mesh Chairs",
+    "price": 14999,
+    "currency": "INR",
+    "description": "A fabric-mesh task chair built around a split-back breathable mesh backrest, with an adjustable headrest and height-adjustable lumbar support. Its 4D-adjustable armrests have soft PU pads, height adjustment, left-right swivel and front-back sliding. A thick high-density molded-foam seat, multi-function recline and tilt-lock mechanism, Class 3 gas lift, five-star base and smooth PU casters complete the chair.",
+    "features": [
+      {
+        "title": "Adjustable Headrest",
+        "detail": "Height-adjustable headrest for personalized neck support."
+      },
+      {
+        "title": "Breathable Mesh Backrest",
+        "detail": "Ergonomic split-back design for spine support and better posture."
+      },
+      {
+        "title": "Adjustable Lumbar Support",
+        "detail": "Height-adjustable support for lower-back comfort."
+      },
+      {
+        "title": "4D Adjustable Armrests",
+        "detail": "Soft PU pads with height adjustment, left-right swivel and front-back sliding for personalized support."
+      },
+      {
+        "title": "Thick Seat Cushion",
+        "detail": "Spacious high-density molded foam for long hours of comfort."
+      },
+      {
+        "title": "Multi-Function Mechanism",
+        "detail": "Recline, tilt lock and seat-height adjustment for dynamic sitting."
+      },
+      {
+        "title": "Class 3 Gas Lift",
+        "detail": "Smooth height adjustment with enhanced safety and durability."
+      },
+      {
+        "title": "Sturdy 5-Star Base",
+        "detail": "Strong and stable base for long-term use."
+      },
+      {
+        "title": "Smooth PU Casters",
+        "detail": "Silent, durable wheels for effortless movement on all floor types."
+      }
+    ],
+    "images": [
+      "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/1.jpeg",
+      "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/2.jpeg",
+      "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/3.jpeg",
+      "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/4.jpeg",
+      "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/5.jpeg"
+    ],
+    "inStock": true,
+    "variants": [
+      {
+        "id": "chair-mesh-niyo--black",
+        "colour": "Black",
+        "colourSlug": "black",
+        "price": 14999,
+        "images": [
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/1.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/2.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/3.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/4.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/black/5.jpeg"
+        ],
+        "inStock": true
+      },
+      {
+        "id": "chair-mesh-niyo--white",
+        "colour": "White",
+        "colourSlug": "white",
+        "price": 14999,
+        "images": [
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/white/1.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/white/2.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/white/3.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/white/4.jpeg",
+          "/images/products/chairs/mesh-chair/niyo-fabric-mesh-chair/white/5.jpeg"
+        ],
+        "inStock": true
+      }
+    ],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": []
+  },
+  {
+    "id": "chair-performance-mesh-nexa",
+    "name": "Nexa Performance Mesh Chair",
+    "shortName": "Nexa",
+    "category": "chair",
+    "subCategory": "performance-mesh-chair",
+    "subName": "Performance Mesh Chairs",
+    "price": 13999,
+    "currency": "INR",
+    "description": "A performance-mesh chair with an adjustable headrest and breathable, moisture-absorbing mesh upholstery. Built-in lumbar support and a thick high-density foam seat with breathable fabric are designed for lasting comfort. The 3D armrests adjust in height, forward-back and left-right swivel; the back reclines and locks in three positions: 90?, 105? and 120?. A strong five-star base and smooth-rolling casters complete the chair.",
+    "features": [
+      {
+        "title": "Adjustable Headrest",
+        "detail": "Ergonomic neck support to reduce strain."
+      },
+      {
+        "title": "Breathable + Absorbing Mesh",
+        "detail": "Premium breathable and moisture-absorbing upholstery keeps you cool and comfortable during long hours."
+      },
+      {
+        "title": "Lumbar Support",
+        "detail": "Built-in lumbar support provides better spine alignment and reduces back fatigue."
+      },
+      {
+        "title": "3D Armrest",
+        "detail": "Adjustable in height, forward-back and left-right swivel for personalized comfort."
+      },
+      {
+        "title": "Comfortable Seat",
+        "detail": "Thick high-density foam seat with breathable fabric for lasting comfort."
+      },
+      {
+        "title": "3 Recliner Lock",
+        "detail": "Recline and lock in 3 different positions (90? / 105? / 120?) for work, relax and recharge."
+      },
+      {
+        "title": "Strong & Stable Base",
+        "detail": "Heavy-duty 5-star base with smooth-rolling casters for stability and easy mobility."
+      }
+    ],
+    "images": [
+      "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/1.jpeg",
+      "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/2.jpeg",
+      "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/3.jpeg",
+      "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/4.jpeg"
+    ],
+    "inStock": true,
+    "variants": [
+      {
+        "id": "chair-performance-mesh-nexa--black-dark-grey",
+        "colour": "Black-Dark Grey",
+        "colourSlug": "black-dark-grey",
+        "price": 13999,
+        "images": [
+          "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/1.jpeg",
+          "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/2.jpeg",
+          "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/3.jpeg",
+          "/images/products/chairs/performance-mesh-chair/nexa-performance-mesh-chair/black-dark-grey/4.jpeg"
+        ],
+        "inStock": true
+      }
+    ],
+    "specifications": [],
+    "inTheBox": [],
+    "materials": []
   }
 ]
